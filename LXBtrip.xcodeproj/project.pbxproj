@@ -56,7 +56,6 @@
 		8E5C69C21AFB31A7004A0CC3 /* SupplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C69C11AFB31A7004A0CC3 /* SupplierViewController.m */; };
 		8E5C69C51AFB31ED004A0CC3 /* ToJoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C69C41AFB31ED004A0CC3 /* ToJoinViewController.m */; };
 		8E5C69C91AFB32F9004A0CC3 /* MyInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C69C81AFB32F9004A0CC3 /* MyInformationViewController.m */; };
-		8E5C69CF1AFB4DC5004A0CC3 /* SmailShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C69CE1AFB4DC5004A0CC3 /* SmailShopViewController.m */; };
 		8E5C69D61AFB8E54004A0CC3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C69D51AFB8E54004A0CC3 /* LoginViewController.m */; };
 		8E7974961AFBB351004A99A9 /* RegisterOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7974951AFBB351004A99A9 /* RegisterOneViewController.m */; };
 		8E7974991AFBB37B004A99A9 /* RegisterTowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7974981AFBB37B004A99A9 /* RegisterTowViewController.m */; };
@@ -71,11 +70,31 @@
 		8EEE84E61AFDD5F300C789F3 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE84E51AFDD5F300C789F3 /* ResetPasswordViewController.m */; };
 		97192EB51B0CC83000C02B9E /* MicroShopCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97192EB41B0CC83000C02B9E /* MicroShopCollectionView.m */; };
 		97192EB81B0CC88000C02B9E /* MicroShopFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 97192EB71B0CC88000C02B9E /* MicroShopFlowLayout.m */; };
-		97192EBC1B0CC89700C02B9E /* MicroShopCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell.m */; };
-		97192EBD1B0CC89700C02B9E /* MicroShopCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell.xib */; };
+		97192EBC1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m */; };
+		97192EBD1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib */; };
 		97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97192EC11B0CCC3800C02B9E /* used@2x.png */; };
 		97192EC41B0CCC3800C02B9E /* used@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97192EC21B0CCC3800C02B9E /* used@3x.png */; };
 		97192EC61B0CCC4D00C02B9E /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 97192EC51B0CCC4D00C02B9E /* test.png */; };
+		9793A5081B10276000182006 /* MicroShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9793A5071B10276000182006 /* MicroShopInfo.m */; };
+		9793A50B1B102AA300182006 /* MicroShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9793A50A1B102AA300182006 /* MicroShopViewController.xib */; };
+		9793A50E1B10369C00182006 /* location_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9793A50C1B10369C00182006 /* location_red@2x.png */; };
+		9793A50F1B10369C00182006 /* location_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9793A50D1B10369C00182006 /* location_red@3x.png */; };
+		9793A5121B10390400182006 /* MicroShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9793A5111B10390400182006 /* MicroShopViewController.m */; };
+		9793A5141B103D6500182006 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9793A5131B103D6500182006 /* CoreLocation.framework */; };
+		9793A5171B106CC700182006 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 9793A5161B106CC700182006 /* Global.m */; };
+		9793A51F1B10E33D00182006 /* section_header_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9793A51D1B10E33D00182006 /* section_header_indicator@2x.png */; };
+		9793A5201B10E33D00182006 /* section_header_indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9793A51E1B10E33D00182006 /* section_header_indicator@3x.png */; };
+		97ADF1C61B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ADF1C41B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m */; };
+		97ADF1C71B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1C51B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib */; };
+		97ADF1CB1B1200A7009DA8C3 /* ReusableHeaderView_myShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ADF1C91B1200A7009DA8C3 /* ReusableHeaderView_myShop.m */; };
+		97ADF1CC1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1CA1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib */; };
+		97ADF1CF1B120FAA009DA8C3 /* add_cell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1CD1B120FAA009DA8C3 /* add_cell@2x.png */; };
+		97ADF1D01B120FAA009DA8C3 /* add_cell@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1CE1B120FAA009DA8C3 /* add_cell@3x.png */; };
+		97ADF1D41B121001009DA8C3 /* AddShopCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ADF1D21B121001009DA8C3 /* AddShopCollectionViewCell.m */; };
+		97ADF1D51B121001009DA8C3 /* AddShopCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1D31B121001009DA8C3 /* AddShopCollectionViewCell.xib */; };
+		97ADF1D91B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */; };
+		97ADF1DA1B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */; };
+		C0B31FB90070488B83D0CD91 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5F4DEB1A0744219FAA866C /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,8 +204,6 @@
 		8E5C69C41AFB31ED004A0CC3 /* ToJoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToJoinViewController.m; sourceTree = "<group>"; };
 		8E5C69C71AFB32F9004A0CC3 /* MyInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyInformationViewController.h; path = ../Main/MyInformationViewController.h; sourceTree = "<group>"; };
 		8E5C69C81AFB32F9004A0CC3 /* MyInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyInformationViewController.m; path = ../Main/MyInformationViewController.m; sourceTree = "<group>"; };
-		8E5C69CD1AFB4DC5004A0CC3 /* SmailShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmailShopViewController.h; sourceTree = "<group>"; };
-		8E5C69CE1AFB4DC5004A0CC3 /* SmailShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmailShopViewController.m; sourceTree = "<group>"; };
 		8E5C69D41AFB8E54004A0CC3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../LoginViewController.h; sourceTree = "<group>"; };
 		8E5C69D51AFB8E54004A0CC3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../LoginViewController.m; sourceTree = "<group>"; };
 		8E7974941AFBB351004A99A9 /* RegisterOneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterOneViewController.h; sourceTree = "<group>"; };
@@ -210,12 +227,42 @@
 		97192EB41B0CC83000C02B9E /* MicroShopCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopCollectionView.m; sourceTree = "<group>"; };
 		97192EB61B0CC88000C02B9E /* MicroShopFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopFlowLayout.h; sourceTree = "<group>"; };
 		97192EB71B0CC88000C02B9E /* MicroShopFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopFlowLayout.m; sourceTree = "<group>"; };
-		97192EB91B0CC89700C02B9E /* MicroShopCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopCollectionViewCell.h; sourceTree = "<group>"; };
-		97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopCollectionViewCell.m; sourceTree = "<group>"; };
-		97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MicroShopCollectionViewCell.xib; sourceTree = "<group>"; };
+		97192EB91B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopCollectionViewCell_OnlineShop.h; sourceTree = "<group>"; };
+		97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopCollectionViewCell_OnlineShop.m; sourceTree = "<group>"; };
+		97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MicroShopCollectionViewCell_OnlineShop.xib; sourceTree = "<group>"; };
 		97192EC11B0CCC3800C02B9E /* used@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "used@2x.png"; sourceTree = "<group>"; };
 		97192EC21B0CCC3800C02B9E /* used@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "used@3x.png"; sourceTree = "<group>"; };
 		97192EC51B0CCC4D00C02B9E /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		9793A5001B100A9000182006 /* AppMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
+		9793A5011B100AF200182006 /* libPods-SDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SDWebImage.a"; path = "Pods/build/Debug-iphoneos/libPods-SDWebImage.a"; sourceTree = "<group>"; };
+		9793A5061B10276000182006 /* MicroShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MicroShopInfo.h; path = LXBtrip/Model/MicroShopInfo.h; sourceTree = SOURCE_ROOT; };
+		9793A5071B10276000182006 /* MicroShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MicroShopInfo.m; path = LXBtrip/Model/MicroShopInfo.m; sourceTree = SOURCE_ROOT; };
+		9793A50A1B102AA300182006 /* MicroShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MicroShopViewController.xib; sourceTree = "<group>"; };
+		9793A50C1B10369C00182006 /* location_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_red@2x.png"; sourceTree = "<group>"; };
+		9793A50D1B10369C00182006 /* location_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_red@3x.png"; sourceTree = "<group>"; };
+		9793A5101B10390400182006 /* MicroShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopViewController.h; sourceTree = "<group>"; };
+		9793A5111B10390400182006 /* MicroShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopViewController.m; sourceTree = "<group>"; };
+		9793A5131B103D6500182006 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9793A5151B106CC700182006 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = LXBtrip/Tool/Global.h; sourceTree = SOURCE_ROOT; };
+		9793A5161B106CC700182006 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Global.m; path = LXBtrip/Tool/Global.m; sourceTree = SOURCE_ROOT; };
+		9793A51D1B10E33D00182006 /* section_header_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "section_header_indicator@2x.png"; sourceTree = "<group>"; };
+		9793A51E1B10E33D00182006 /* section_header_indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "section_header_indicator@3x.png"; sourceTree = "<group>"; };
+		97ADF1C31B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReusableHeaderView_OnlineShop.h; sourceTree = "<group>"; };
+		97ADF1C41B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReusableHeaderView_OnlineShop.m; sourceTree = "<group>"; };
+		97ADF1C51B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReusableHeaderView_OnlineShop.xib; sourceTree = "<group>"; };
+		97ADF1C81B1200A7009DA8C3 /* ReusableHeaderView_myShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReusableHeaderView_myShop.h; sourceTree = "<group>"; };
+		97ADF1C91B1200A7009DA8C3 /* ReusableHeaderView_myShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReusableHeaderView_myShop.m; sourceTree = "<group>"; };
+		97ADF1CA1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReusableHeaderView_myShop.xib; sourceTree = "<group>"; };
+		97ADF1CD1B120FAA009DA8C3 /* add_cell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_cell@2x.png"; sourceTree = "<group>"; };
+		97ADF1CE1B120FAA009DA8C3 /* add_cell@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_cell@3x.png"; sourceTree = "<group>"; };
+		97ADF1D11B121000009DA8C3 /* AddShopCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopCollectionViewCell.h; sourceTree = "<group>"; };
+		97ADF1D21B121001009DA8C3 /* AddShopCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopCollectionViewCell.m; sourceTree = "<group>"; };
+		97ADF1D31B121001009DA8C3 /* AddShopCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddShopCollectionViewCell.xib; sourceTree = "<group>"; };
+		97ADF1D61B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopCollectionViewCell_MyShop.h; sourceTree = "<group>"; };
+		97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopCollectionViewCell_MyShop.m; sourceTree = "<group>"; };
+		97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MicroShopCollectionViewCell_MyShop.xib; sourceTree = "<group>"; };
+		CB5F4DEB1A0744219FAA866C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +270,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9793A5141B103D6500182006 /* CoreLocation.framework in Frameworks */,
+				C0B31FB90070488B83D0CD91 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +464,8 @@
 				8E5C698B1AFAFC5B004A0CC3 /* LXBtrip */,
 				8E5C69A51AFAFC5B004A0CC3 /* LXBtripTests */,
 				8E5C698A1AFAFC5B004A0CC3 /* Products */,
+				CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */,
+				A975CA1980B64C4D8494C542 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -432,13 +483,14 @@
 			children = (
 				8E4A1A301B01925A00C18C1E /* User */,
 				8E3F5D761B005A5000E911F5 /* 3rd */,
+				9793A5091B10276A00182006 /* Model */,
 				8EEE84E71AFE0A4E00C789F3 /* Tool */,
 				8E5C69CA1AFB4AE7004A0CC3 /* image */,
 				8E5C69D01AFB6D87004A0CC3 /* Login */,
 				8E5C69C61AFB32C5004A0CC3 /* My */,
 				8E5C69BF1AFB318F004A0CC3 /* Supplier */,
 				8E5C69BE1AFB3055004A0CC3 /* ToJoin */,
-				8E5C69B81AFB13E2004A0CC3 /* SmailShop */,
+				8E5C69B81AFB13E2004A0CC3 /* MicroShop */,
 				8E5C69B41AFB0888004A0CC3 /* Main */,
 				8E5C69901AFAFC5B004A0CC3 /* AppDelegate.h */,
 				8E5C69911AFAFC5B004A0CC3 /* AppDelegate.m */,
@@ -488,20 +540,33 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		8E5C69B81AFB13E2004A0CC3 /* SmailShop */ = {
+		8E5C69B81AFB13E2004A0CC3 /* MicroShop */ = {
 			isa = PBXGroup;
 			children = (
-				8E5C69CD1AFB4DC5004A0CC3 /* SmailShopViewController.h */,
-				8E5C69CE1AFB4DC5004A0CC3 /* SmailShopViewController.m */,
+				9793A5101B10390400182006 /* MicroShopViewController.h */,
+				9793A5111B10390400182006 /* MicroShopViewController.m */,
+				9793A50A1B102AA300182006 /* MicroShopViewController.xib */,
+				97ADF1C31B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.h */,
+				97ADF1C41B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m */,
+				97ADF1C51B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib */,
+				97ADF1C81B1200A7009DA8C3 /* ReusableHeaderView_myShop.h */,
+				97ADF1C91B1200A7009DA8C3 /* ReusableHeaderView_myShop.m */,
+				97ADF1CA1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib */,
 				97192EB31B0CC83000C02B9E /* MicroShopCollectionView.h */,
 				97192EB41B0CC83000C02B9E /* MicroShopCollectionView.m */,
 				97192EB61B0CC88000C02B9E /* MicroShopFlowLayout.h */,
 				97192EB71B0CC88000C02B9E /* MicroShopFlowLayout.m */,
-				97192EB91B0CC89700C02B9E /* MicroShopCollectionViewCell.h */,
-				97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell.m */,
-				97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell.xib */,
+				97192EB91B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.h */,
+				97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m */,
+				97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib */,
+				97ADF1D61B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.h */,
+				97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */,
+				97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */,
+				97ADF1D11B121000009DA8C3 /* AddShopCollectionViewCell.h */,
+				97ADF1D21B121001009DA8C3 /* AddShopCollectionViewCell.m */,
+				97ADF1D31B121001009DA8C3 /* AddShopCollectionViewCell.xib */,
 			);
-			path = SmailShop;
+			path = MicroShop;
 			sourceTree = "<group>";
 		};
 		8E5C69BE1AFB3055004A0CC3 /* ToJoin */ = {
@@ -600,12 +665,14 @@
 		8EEE84E71AFE0A4E00C789F3 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				9793A5001B100A9000182006 /* AppMacro.h */,
+				8E3F60A31B00B12500E911F5 /* Single.h */,
 				8E3F60851B00AC3700E911F5 /* HTTPTool.h */,
 				8E3F60861B00AC3700E911F5 /* HTTPTool.m */,
-				8E3F60A31B00B12500E911F5 /* Single.h */,
+				9793A5151B106CC700182006 /* Global.h */,
+				9793A5161B106CC700182006 /* Global.m */,
 			);
-			name = Tool;
-			path = Login/Tool;
+			path = Tool;
 			sourceTree = "<group>";
 		};
 		97192EC01B0CCC3800C02B9E /* MicroShop */ = {
@@ -614,8 +681,33 @@
 				97192EC51B0CCC4D00C02B9E /* test.png */,
 				97192EC11B0CCC3800C02B9E /* used@2x.png */,
 				97192EC21B0CCC3800C02B9E /* used@3x.png */,
+				9793A50C1B10369C00182006 /* location_red@2x.png */,
+				9793A50D1B10369C00182006 /* location_red@3x.png */,
+				9793A51D1B10E33D00182006 /* section_header_indicator@2x.png */,
+				9793A51E1B10E33D00182006 /* section_header_indicator@3x.png */,
+				97ADF1CD1B120FAA009DA8C3 /* add_cell@2x.png */,
+				97ADF1CE1B120FAA009DA8C3 /* add_cell@3x.png */,
 			);
 			path = MicroShop;
+			sourceTree = "<group>";
+		};
+		9793A5091B10276A00182006 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9793A5061B10276000182006 /* MicroShopInfo.h */,
+				9793A5071B10276000182006 /* MicroShopInfo.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A975CA1980B64C4D8494C542 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9793A5131B103D6500182006 /* CoreLocation.framework */,
+				9793A5011B100AF200182006 /* libPods-SDWebImage.a */,
+				CB5F4DEB1A0744219FAA866C /* libPods.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -625,9 +717,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E5C69AC1AFAFC5B004A0CC3 /* Build configuration list for PBXNativeTarget "LXBtrip" */;
 			buildPhases = (
+				667D67406EC240A5B0186490 /* Check Pods Manifest.lock */,
 				8E5C69851AFAFC5B004A0CC3 /* Sources */,
 				8E5C69861AFAFC5B004A0CC3 /* Frameworks */,
 				8E5C69871AFAFC5B004A0CC3 /* Resources */,
+				30030A9C333849D9B73773F4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -699,22 +793,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				97192EC41B0CCC3800C02B9E /* used@3x.png in Resources */,
+				97ADF1DA1B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib in Resources */,
 				8E93A0861AFC8FA4002CC19E /* 2.png in Resources */,
 				8E93A0891AFC9F72002CC19E /* 文字.png in Resources */,
 				8E3DE06C1B0111690035964A /* LICENSE in Resources */,
+				97ADF1CC1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib in Resources */,
 				8E5C69981AFAFC5B004A0CC3 /* Main.storyboard in Resources */,
 				8E5C699D1AFAFC5B004A0CC3 /* LaunchScreen.xib in Resources */,
+				97ADF1D01B120FAA009DA8C3 /* add_cell@3x.png in Resources */,
 				8E3F60831B009CDD00E911F5 /* 我的分销商.png in Resources */,
 				8E93A08B1AFCBA88002CC19E /* 4.png in Resources */,
 				8E5C699A1AFAFC5B004A0CC3 /* Images.xcassets in Resources */,
 				8E3F60841B009CDD00E911F5 /* 我的订单.png in Resources */,
+				9793A51F1B10E33D00182006 /* section_header_indicator@2x.png in Resources */,
+				97ADF1CF1B120FAA009DA8C3 /* add_cell@2x.png in Resources */,
+				9793A5201B10E33D00182006 /* section_header_indicator@3x.png in Resources */,
+				97ADF1C71B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib in Resources */,
+				97ADF1D51B121001009DA8C3 /* AddShopCollectionViewCell.xib in Resources */,
 				97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */,
 				97192EC61B0CCC4D00C02B9E /* test.png in Resources */,
+				9793A50F1B10369C00182006 /* location_red@3x.png in Resources */,
 				8E3F5D751B00404300E911F5 /* 5.png in Resources */,
 				8E93A0871AFC8FA4002CC19E /* 3.png in Resources */,
-				97192EBD1B0CC89700C02B9E /* MicroShopCollectionViewCell.xib in Resources */,
+				97192EBD1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib in Resources */,
 				8E3F60821B009CDD00E911F5 /* 我的供应商.png in Resources */,
 				8E93A0851AFC8FA4002CC19E /* 1.png in Resources */,
+				9793A50E1B10369C00182006 /* location_red@2x.png in Resources */,
+				9793A50B1B102AA300182006 /* MicroShopViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,6 +832,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		30030A9C333849D9B73773F4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		667D67406EC240A5B0186490 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8E5C69851AFAFC5B004A0CC3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -735,18 +873,19 @@
 				97192EB81B0CC88000C02B9E /* MicroShopFlowLayout.m in Sources */,
 				8E3DE0721B0111690035964A /* MMProgressHUD.m in Sources */,
 				8E7974961AFBB351004A99A9 /* RegisterOneViewController.m in Sources */,
+				97ADF1D91B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m in Sources */,
 				8E4A1A361B019E9B00C18C1E /* UserTool.m in Sources */,
 				8E3DE0771B0111690035964A /* MMVectorImage.m in Sources */,
 				8E3F609E1B00AD1100E911F5 /* UIImageView+AFNetworking.m in Sources */,
 				8E3F60A01B00AD1100E911F5 /* UIRefreshControl+AFNetworking.m in Sources */,
+				9793A5171B106CC700182006 /* Global.m in Sources */,
 				8EEE84E61AFDD5F300C789F3 /* ResetPasswordViewController.m in Sources */,
-				8E5C69CF1AFB4DC5004A0CC3 /* SmailShopViewController.m in Sources */,
 				8E3F60A11B00AD1100E911F5 /* UIWebView+AFNetworking.m in Sources */,
 				8E3DE0701B0111690035964A /* MMProgressHUD+Animations.m in Sources */,
 				8E3DE0751B0111690035964A /* MMProgressHUDWindow.m in Sources */,
 				8E3F60771B0093AD00E911F5 /* AFHTTPSessionManager.m in Sources */,
 				8E5C69951AFAFC5B004A0CC3 /* ViewController.m in Sources */,
-				97192EBC1B0CC89700C02B9E /* MicroShopCollectionViewCell.m in Sources */,
+				97192EBC1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m in Sources */,
 				8E3F60781B0093AD00E911F5 /* AFNetworkReachabilityManager.m in Sources */,
 				8E3DE06E1B0111690035964A /* MMHud.m in Sources */,
 				8E3DE0711B0111690035964A /* MMProgressHUD+Class.m in Sources */,
@@ -759,13 +898,16 @@
 				8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */,
 				8E3F609D1B00AD1100E911F5 /* UIButton+AFNetworking.m in Sources */,
 				8EEE84E01AFDBF9900C789F3 /* FindPasswordViewController.m in Sources */,
+				97ADF1CB1B1200A7009DA8C3 /* ReusableHeaderView_myShop.m in Sources */,
 				8E3DE06F1B0111690035964A /* MMLinearProgressView.m in Sources */,
 				97192EB51B0CC83000C02B9E /* MicroShopCollectionView.m in Sources */,
 				8E5C69921AFAFC5B004A0CC3 /* AppDelegate.m in Sources */,
 				8E7974991AFBB37B004A99A9 /* RegisterTowViewController.m in Sources */,
 				8E5C69C91AFB32F9004A0CC3 /* MyInformationViewController.m in Sources */,
+				9793A5121B10390400182006 /* MicroShopViewController.m in Sources */,
 				5C8195361B089A27004FFA96 /* FindPassWordRequestManger.m in Sources */,
 				8E3DE0741B0111690035964A /* MMProgressHUDViewController.m in Sources */,
+				97ADF1C61B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m in Sources */,
 				8E5C698F1AFAFC5B004A0CC3 /* main.m in Sources */,
 				8E3F609C1B00AD1100E911F5 /* UIAlertView+AFNetworking.m in Sources */,
 				8EEE84E31AFDBFD800C789F3 /* phoneCodeViewController.m in Sources */,
@@ -773,9 +915,11 @@
 				8E5C69D61AFB8E54004A0CC3 /* LoginViewController.m in Sources */,
 				8E79749C1AFBBC57004A99A9 /* RegisterThreeViewController.m in Sources */,
 				8E3DE0761B0111690035964A /* MMRadialProgressView.m in Sources */,
+				9793A5081B10276000182006 /* MicroShopInfo.m in Sources */,
 				8E5C69C51AFB31ED004A0CC3 /* ToJoinViewController.m in Sources */,
 				8E3F60791B0093AD00E911F5 /* AFSecurityPolicy.m in Sources */,
 				8E5C69C21AFB31A7004A0CC3 /* SupplierViewController.m in Sources */,
+				97ADF1D41B121001009DA8C3 /* AddShopCollectionViewCell.m in Sources */,
 				8E3DE06D1B0111690035964A /* README.md in Sources */,
 				8E3DE0731B0111690035964A /* MMProgressHUDOverlayView.m in Sources */,
 				8E3F609A1B00AD1100E911F5 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -902,6 +1046,7 @@
 		};
 		8E5C69AD1AFAFC5B004A0CC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -912,6 +1057,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/3rd/我要用的资料/博看通/博看通/XMPP/libidn",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -919,6 +1065,7 @@
 		};
 		8E5C69AE1AFAFC5B004A0CC3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -929,6 +1076,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/3rd/我要用的资料/博看通/博看通/XMPP/libidn",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -20,6 +20,11 @@
 @property (strong,nonatomic)NSString *provinceName;//所在省名称
 @property (strong,nonatomic)NSString *cityID;//所在市ID
 @property (strong,nonatomic)NSString *cityName;//所在市名称
+
+
+@property (copy,nonatomic) NSNumber *companyId;
+@property (copy,nonatomic) NSNumber *staffId;
+
 -(instancetype)initWithUserID:(NSString *)userID userName:(NSString *)userName userPasssword:(NSString *)userPassword userHead:(NSString *)userHead wdContacts:(NSString *)wdContacts wdName:(NSString *)wdName userPhone:(NSString *)userPhone provinceID:(NSString *)provinceID provinceName:(NSString *)provinceName ciytID:(NSString *)cityID cityName:(NSString *)cityName;
 -(instancetype)initWithDict:(NSDictionary *)dict;
 @end

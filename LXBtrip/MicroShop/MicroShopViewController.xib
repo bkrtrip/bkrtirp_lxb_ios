@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MicroShopViewController">
+            <connections>
+                <outlet property="MyShop" destination="R0S-Re-KwQ" id="IUr-RT-cZn"/>
+                <outlet property="OnLineShop" destination="ZWB-3D-PFB" id="4Dr-dn-tdj"/>
+                <outlet property="locationButton" destination="8Y9-Zp-yGw" id="OrG-7u-Chi"/>
+                <outlet property="myShopButton" destination="R0S-Re-KwQ" id="cIx-5b-gDd"/>
+                <outlet property="onlineShopButton" destination="ZWB-3D-PFB" id="TgX-wr-0tG"/>
+                <outlet property="view" destination="iN0-l3-epB" id="gmN-wE-3Na"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xIF-TC-d0n">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="152"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="152" id="4qK-iW-aoc"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Y9-Zp-yGw">
+                    <rect key="frame" x="308" y="29" width="41" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Uyg-2W-Fcw"/>
+                        <constraint firstAttribute="width" secondItem="8Y9-Zp-yGw" secondAttribute="height" multiplier="1:1" id="yRw-B3-Otv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title=" 西安" image="location_red.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="yRw-B3-Otv"/>
+                        </mask>
+                    </variation>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWB-3D-PFB">
+                    <rect key="frame" x="0.0" y="152" width="188" height="52"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="52" id="T9T-xx-wzK"/>
+                    </constraints>
+                    <state key="normal" title="在线微店">
+                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" red="1" green="0.0" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onlineShopButtonClicked:" destination="-1" eventType="touchUpInside" id="GWk-J8-UYE"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0S-Re-KwQ" userLabel="我的微店">
+                    <rect key="frame" x="188" y="152" width="187" height="52"/>
+                    <state key="normal" title="我的微店">
+                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="myShopButtonClicked:" destination="-1" eventType="touchUpInside" id="5WS-FR-NfH"/>
+                    </connections>
+                </button>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DjH-7z-YWD">
+                    <rect key="frame" x="0.0" y="204" width="375" height="463"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="8Y9-Zp-yGw" secondAttribute="trailing" constant="26" id="24O-bm-0Vs"/>
+                <constraint firstItem="8Y9-Zp-yGw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="29" id="6Ij-wu-lKs"/>
+                <constraint firstItem="R0S-Re-KwQ" firstAttribute="leading" secondItem="ZWB-3D-PFB" secondAttribute="trailing" id="6rj-4d-X0L"/>
+                <constraint firstItem="R0S-Re-KwQ" firstAttribute="width" secondItem="ZWB-3D-PFB" secondAttribute="width" id="ARU-tE-Wc7"/>
+                <constraint firstAttribute="trailing" secondItem="xIF-TC-d0n" secondAttribute="trailing" id="DWp-i7-yUd"/>
+                <constraint firstAttribute="trailing" secondItem="R0S-Re-KwQ" secondAttribute="trailing" id="ETg-lw-VLu"/>
+                <constraint firstAttribute="trailing" secondItem="DjH-7z-YWD" secondAttribute="trailing" id="IVX-UQ-I9O"/>
+                <constraint firstItem="xIF-TC-d0n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jxu-zG-270"/>
+                <constraint firstItem="ZWB-3D-PFB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="M5q-wG-t6V"/>
+                <constraint firstAttribute="bottom" secondItem="DjH-7z-YWD" secondAttribute="bottom" id="aCo-Xk-ARA"/>
+                <constraint firstItem="DjH-7z-YWD" firstAttribute="top" secondItem="ZWB-3D-PFB" secondAttribute="bottom" id="ab8-O9-YRN"/>
+                <constraint firstItem="R0S-Re-KwQ" firstAttribute="height" secondItem="ZWB-3D-PFB" secondAttribute="height" id="bXZ-44-yUM"/>
+                <constraint firstItem="ZWB-3D-PFB" firstAttribute="top" secondItem="xIF-TC-d0n" secondAttribute="bottom" id="hSq-f5-FDN"/>
+                <constraint firstItem="DjH-7z-YWD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="n7W-PB-Znr"/>
+                <constraint firstItem="xIF-TC-d0n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pQD-s5-lEU"/>
+                <constraint firstItem="R0S-Re-KwQ" firstAttribute="centerY" secondItem="ZWB-3D-PFB" secondAttribute="centerY" id="uyC-PI-aXR"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="398.5" y="392.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="location_red.png" width="13" height="17"/>
+    </resources>
+</document>

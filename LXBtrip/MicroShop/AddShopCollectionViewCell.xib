@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AddShopCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="209" height="176"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="209" height="176"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBr-l1-czg">
+                        <rect key="frame" x="0.0" y="0.0" width="209" height="176"/>
+                        <state key="normal" image="add_cell.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="hBr-l1-czg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4C6-kB-z4y"/>
+                <constraint firstAttribute="bottom" secondItem="hBr-l1-czg" secondAttribute="bottom" id="FWd-10-xXD"/>
+                <constraint firstAttribute="trailing" secondItem="hBr-l1-czg" secondAttribute="trailing" id="PeQ-pG-9LN"/>
+                <constraint firstItem="hBr-l1-czg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wpj-KW-4G3"/>
+            </constraints>
+            <size key="customSize" width="209" height="176"/>
+            <point key="canvasLocation" x="292.5" y="256"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="add_cell.png" width="37" height="37"/>
+    </resources>
+</document>

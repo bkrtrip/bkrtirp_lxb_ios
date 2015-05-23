@@ -9,7 +9,7 @@
 #import "User.h"
 
 @implementation User
--(instancetype)initWithUserID:(NSString *)userID userName:(NSString *)userName userPasssword:(NSString *)userPassword userHead:(NSString *)userHead wdContacts:(NSString *)wdContacts wdName:(NSString *)wdName userPhone:(NSString *)userPhone provinceID:(NSString *)provinceID provinceName:(NSString *)provinceName ciytID:(NSString *)cityID cityName:(NSString *)cityName{
+-(instancetype)initWithUserID:(NSNumber *)userID userName:(NSString *)userName userPasssword:(NSString *)userPassword userHead:(NSString *)userHead wdContacts:(NSString *)wdContacts wdName:(NSString *)wdName userPhone:(NSString *)userPhone provinceID:(NSString *)provinceID provinceName:(NSString *)provinceName ciytID:(NSString *)cityID cityName:(NSString *)cityName{
     if (self == [super init]) {
         self.userID = userID;//用户id
         self.userName = userName;//用户名

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vbV-6o-px9" customClass="MicroShopCollectionViewCell_MyShop">
+            <rect key="frame" x="0.0" y="0.0" width="262" height="426"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="262" height="426"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="国内游专卖店" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3j6-Mp-dGM">
+                        <rect key="frame" x="0.0" y="383" width="96" height="20"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="旅小宝提供" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tH0-cC-11D">
+                        <rect key="frame" x="0.0" y="406" width="60" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="MZH-xJ-SdA">
+                        <rect key="frame" x="0.0" y="0.0" width="262" height="373"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="MZH-xJ-SdA" secondAttribute="height" multiplier="534:760" id="Zfp-ab-WFG"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptt-nS-KtV">
+                        <rect key="frame" x="208" y="388" width="46" height="30"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteOrLockButtonClicked:" destination="vbV-6o-px9" eventType="touchUpInside" id="nrC-nX-ooA"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="3j6-Mp-dGM" firstAttribute="top" secondItem="MZH-xJ-SdA" secondAttribute="bottom" constant="8" id="DV5-Cw-Xd6"/>
+                <constraint firstItem="MZH-xJ-SdA" firstAttribute="top" secondItem="vbV-6o-px9" secondAttribute="top" id="Ekp-Rf-l8b"/>
+                <constraint firstAttribute="trailing" secondItem="Ptt-nS-KtV" secondAttribute="trailing" constant="8" id="Rru-Y1-sgG"/>
+                <constraint firstItem="tH0-cC-11D" firstAttribute="leading" secondItem="vbV-6o-px9" secondAttribute="leading" id="X0X-QA-qkj"/>
+                <constraint firstItem="MZH-xJ-SdA" firstAttribute="leading" secondItem="vbV-6o-px9" secondAttribute="leading" id="f5T-p3-mHP"/>
+                <constraint firstAttribute="bottom" secondItem="tH0-cC-11D" secondAttribute="bottom" constant="5" id="hQ2-wB-Cgb"/>
+                <constraint firstItem="tH0-cC-11D" firstAttribute="top" secondItem="3j6-Mp-dGM" secondAttribute="bottom" constant="3" id="jC1-54-tEg"/>
+                <constraint firstAttribute="bottom" secondItem="Ptt-nS-KtV" secondAttribute="bottom" constant="8" id="lj2-IY-HU1"/>
+                <constraint firstItem="3j6-Mp-dGM" firstAttribute="leading" secondItem="tH0-cC-11D" secondAttribute="leading" id="xiG-Iz-tAP"/>
+                <constraint firstAttribute="trailing" secondItem="MZH-xJ-SdA" secondAttribute="trailing" id="zUe-5Q-9lg"/>
+            </constraints>
+            <size key="customSize" width="262" height="426"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="DV5-Cw-Xd6"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="deleteOrLockButton" destination="Ptt-nS-KtV" id="SfA-eo-7K9"/>
+                <outlet property="mainImageView" destination="MZH-xJ-SdA" id="6n8-ak-wgP"/>
+                <outlet property="providerNameLabel" destination="tH0-cC-11D" id="TXX-6z-zA7"/>
+                <outlet property="shopNameLabel" destination="3j6-Mp-dGM" id="X98-MN-p3p"/>
+            </connections>
+            <point key="canvasLocation" x="310" y="400"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="test.png" width="429" height="759"/>
+    </resources>
+</document>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uEG-m9-9Gw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uEG-m9-9Gw">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -45,75 +46,6 @@
             </objects>
             <point key="canvasLocation" x="-4.5" y="-196.5"/>
         </scene>
-        <!--微店-->
-        <scene sceneID="G5F-nF-5Nq">
-            <objects>
-                <viewController id="RyX-96-r1V" customClass="SmailShopViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aaf-Rr-8fo"/>
-                        <viewControllerLayoutGuide type="bottom" id="gjq-np-vlh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Hq3-xp-KJ5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="05.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="YHe-sX-r3s">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="mTn-wO-o3S"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAO-41-0EA">
-                                <rect key="frame" x="34" y="130" width="80" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8hq-GH-bIZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="在线微店">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doOnLineShop:" destination="RyX-96-r1V" eventType="touchUpInside" id="O4S-Y1-x3w"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dV3-JT-WxV">
-                                <rect key="frame" x="261" y="130" width="80" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="HzV-yQ-stw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="我的微店">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doMyShop:" destination="RyX-96-r1V" eventType="touchUpInside" id="r9a-xL-A1g"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="dV3-JT-WxV" secondAttribute="trailing" constant="18" id="0C8-Kf-dtR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="YHe-sX-r3s" secondAttribute="trailing" constant="-16" id="7Z4-ab-iwQ"/>
-                            <constraint firstItem="rAO-41-0EA" firstAttribute="leading" secondItem="Hq3-xp-KJ5" secondAttribute="leadingMargin" constant="18" id="ACP-hV-dIq"/>
-                            <constraint firstItem="YHe-sX-r3s" firstAttribute="leading" secondItem="Hq3-xp-KJ5" secondAttribute="leadingMargin" constant="-16" id="VX0-pk-erb"/>
-                            <constraint firstItem="rAO-41-0EA" firstAttribute="top" secondItem="YHe-sX-r3s" secondAttribute="bottom" constant="20" id="h75-ae-pR9"/>
-                            <constraint firstItem="dV3-JT-WxV" firstAttribute="top" secondItem="YHe-sX-r3s" secondAttribute="bottom" constant="20" id="ruF-x6-C4x"/>
-                            <constraint firstItem="YHe-sX-r3s" firstAttribute="top" secondItem="Hq3-xp-KJ5" secondAttribute="topMargin" id="s8c-uY-mya"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="微店" id="pgI-xs-gbh"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="MyShop" destination="dV3-JT-WxV" id="Z2L-kk-E67"/>
-                        <outlet property="OnLineShop" destination="rAO-41-0EA" id="uVu-Cu-dhU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vgJ-JQ-qSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-883.5" y="-196.5"/>
-        </scene>
         <!--Main View Controller-->
         <scene sceneID="mSZ-Gj-DdC">
             <objects>
@@ -126,7 +58,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="RyX-96-r1V" kind="relationship" relationship="viewControllers" id="UVm-Ey-Hqn"/>
                         <segue destination="6Jn-0c-QJ5" kind="relationship" relationship="viewControllers" id="toN-UX-pfy"/>
                         <segue destination="19O-Ny-P2r" kind="relationship" relationship="viewControllers" id="4VN-YP-WPd"/>
                         <segue destination="OHC-d8-FmU" kind="relationship" relationship="viewControllers" id="sl7-cS-zWj"/>
@@ -832,7 +763,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="05.jpg" width="22" height="22"/>
         <image name="1.png" width="681" height="11"/>
         <image name="2.png" width="681" height="12"/>
         <image name="3.png" width="600" height="98"/>

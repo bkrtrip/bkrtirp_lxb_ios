@@ -10,7 +10,7 @@
 #import "Single.h"
 @class User;
 @interface UserTool : NSObject
-single_interface(UserTool)
+singleton_interface(UserTool)
 /*
  *保存用户
  */
