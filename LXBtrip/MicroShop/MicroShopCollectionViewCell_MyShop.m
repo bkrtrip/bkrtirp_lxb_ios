@@ -11,6 +11,9 @@
 #import "AppMacro.h"
 
 @interface MicroShopCollectionViewCell_MyShop()
+{
+    NSInteger lockStatus;
+}
 
 @property (strong, nonatomic) IBOutlet UILabel *shopNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *providerNameLabel;
@@ -33,15 +36,19 @@
 
 - (void)setCellContentWithMicroShopInfo:(MicroShopInfo *)info isLock:(NSInteger)isLock isDefault:(NSInteger)isDefault
 {
+    lockStatus = isLock;
     _shopNameLabel.text = info.shopName;
     _providerNameLabel.text = info.shopCompanyName;
     [_mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.shopImg]] placeholderImage:nil options:SDWebImageProgressiveDownload];
     
     //判断是delete还是lock
-    
+//    _deleteOrLockButton setImage:<#(UIImage *)#> forState:<#(UIControlState)#>
 }
 
 
 - (IBAction)deleteOrLockButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteOrLockButtonWithStatus:)]) {
+        [self.delegate supportClickWithDeleteOrLockButtonWithStatus:lockStatus];
+    }
 }
 @end

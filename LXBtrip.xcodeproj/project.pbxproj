@@ -94,6 +94,8 @@
 		97ADF1D51B121001009DA8C3 /* AddShopCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1D31B121001009DA8C3 /* AddShopCollectionViewCell.xib */; };
 		97ADF1D91B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */; };
 		97ADF1DA1B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */; };
+		97ADF1DF1B128A62009DA8C3 /* MicroShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ADF1DD1B128A62009DA8C3 /* MicroShopDetailViewController.m */; };
+		97ADF1E01B128A62009DA8C3 /* MicroShopDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97ADF1DE1B128A62009DA8C3 /* MicroShopDetailViewController.xib */; };
 		C0B31FB90070488B83D0CD91 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5F4DEB1A0744219FAA866C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -261,6 +263,9 @@
 		97ADF1D61B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopCollectionViewCell_MyShop.h; sourceTree = "<group>"; };
 		97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopCollectionViewCell_MyShop.m; sourceTree = "<group>"; };
 		97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MicroShopCollectionViewCell_MyShop.xib; sourceTree = "<group>"; };
+		97ADF1DC1B128A62009DA8C3 /* MicroShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroShopDetailViewController.h; sourceTree = "<group>"; };
+		97ADF1DD1B128A62009DA8C3 /* MicroShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroShopDetailViewController.m; sourceTree = "<group>"; };
+		97ADF1DE1B128A62009DA8C3 /* MicroShopDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MicroShopDetailViewController.xib; sourceTree = "<group>"; };
 		CB5F4DEB1A0744219FAA866C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -543,28 +548,8 @@
 		8E5C69B81AFB13E2004A0CC3 /* MicroShop */ = {
 			isa = PBXGroup;
 			children = (
-				9793A5101B10390400182006 /* MicroShopViewController.h */,
-				9793A5111B10390400182006 /* MicroShopViewController.m */,
-				9793A50A1B102AA300182006 /* MicroShopViewController.xib */,
-				97ADF1C31B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.h */,
-				97ADF1C41B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m */,
-				97ADF1C51B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib */,
-				97ADF1C81B1200A7009DA8C3 /* ReusableHeaderView_myShop.h */,
-				97ADF1C91B1200A7009DA8C3 /* ReusableHeaderView_myShop.m */,
-				97ADF1CA1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib */,
-				97192EB31B0CC83000C02B9E /* MicroShopCollectionView.h */,
-				97192EB41B0CC83000C02B9E /* MicroShopCollectionView.m */,
-				97192EB61B0CC88000C02B9E /* MicroShopFlowLayout.h */,
-				97192EB71B0CC88000C02B9E /* MicroShopFlowLayout.m */,
-				97192EB91B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.h */,
-				97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m */,
-				97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib */,
-				97ADF1D61B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.h */,
-				97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */,
-				97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */,
-				97ADF1D11B121000009DA8C3 /* AddShopCollectionViewCell.h */,
-				97ADF1D21B121001009DA8C3 /* AddShopCollectionViewCell.m */,
-				97ADF1D31B121001009DA8C3 /* AddShopCollectionViewCell.xib */,
+				97ADF1DB1B128A43009DA8C3 /* Micro Shop List */,
+				97ADF1E11B128A90009DA8C3 /* Micro Shop Detail */,
 			);
 			path = MicroShop;
 			sourceTree = "<group>";
@@ -700,6 +685,45 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		97ADF1DB1B128A43009DA8C3 /* Micro Shop List */ = {
+			isa = PBXGroup;
+			children = (
+				9793A5101B10390400182006 /* MicroShopViewController.h */,
+				9793A5111B10390400182006 /* MicroShopViewController.m */,
+				9793A50A1B102AA300182006 /* MicroShopViewController.xib */,
+				97ADF1C31B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.h */,
+				97ADF1C41B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m */,
+				97ADF1C51B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib */,
+				97ADF1C81B1200A7009DA8C3 /* ReusableHeaderView_myShop.h */,
+				97ADF1C91B1200A7009DA8C3 /* ReusableHeaderView_myShop.m */,
+				97ADF1CA1B1200A7009DA8C3 /* ReusableHeaderView_myShop.xib */,
+				97192EB31B0CC83000C02B9E /* MicroShopCollectionView.h */,
+				97192EB41B0CC83000C02B9E /* MicroShopCollectionView.m */,
+				97192EB61B0CC88000C02B9E /* MicroShopFlowLayout.h */,
+				97192EB71B0CC88000C02B9E /* MicroShopFlowLayout.m */,
+				97192EB91B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.h */,
+				97192EBA1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m */,
+				97192EBB1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib */,
+				97ADF1D61B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.h */,
+				97ADF1D71B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.m */,
+				97ADF1D81B121224009DA8C3 /* MicroShopCollectionViewCell_MyShop.xib */,
+				97ADF1D11B121000009DA8C3 /* AddShopCollectionViewCell.h */,
+				97ADF1D21B121001009DA8C3 /* AddShopCollectionViewCell.m */,
+				97ADF1D31B121001009DA8C3 /* AddShopCollectionViewCell.xib */,
+			);
+			name = "Micro Shop List";
+			sourceTree = "<group>";
+		};
+		97ADF1E11B128A90009DA8C3 /* Micro Shop Detail */ = {
+			isa = PBXGroup;
+			children = (
+				97ADF1DC1B128A62009DA8C3 /* MicroShopDetailViewController.h */,
+				97ADF1DD1B128A62009DA8C3 /* MicroShopDetailViewController.m */,
+				97ADF1DE1B128A62009DA8C3 /* MicroShopDetailViewController.xib */,
+			);
+			name = "Micro Shop Detail";
+			sourceTree = "<group>";
+		};
 		A975CA1980B64C4D8494C542 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -808,6 +832,7 @@
 				9793A51F1B10E33D00182006 /* section_header_indicator@2x.png in Resources */,
 				97ADF1CF1B120FAA009DA8C3 /* add_cell@2x.png in Resources */,
 				9793A5201B10E33D00182006 /* section_header_indicator@3x.png in Resources */,
+				97ADF1E01B128A62009DA8C3 /* MicroShopDetailViewController.xib in Resources */,
 				97ADF1C71B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib in Resources */,
 				97ADF1D51B121001009DA8C3 /* AddShopCollectionViewCell.xib in Resources */,
 				97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */,
@@ -902,6 +927,7 @@
 				8E3DE06F1B0111690035964A /* MMLinearProgressView.m in Sources */,
 				97192EB51B0CC83000C02B9E /* MicroShopCollectionView.m in Sources */,
 				8E5C69921AFAFC5B004A0CC3 /* AppDelegate.m in Sources */,
+				97ADF1DF1B128A62009DA8C3 /* MicroShopDetailViewController.m in Sources */,
 				8E7974991AFBB37B004A99A9 /* RegisterTowViewController.m in Sources */,
 				8E5C69C91AFB32F9004A0CC3 /* MyInformationViewController.m in Sources */,
 				9793A5121B10390400182006 /* MicroShopViewController.m in Sources */,

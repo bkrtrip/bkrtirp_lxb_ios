@@ -10,6 +10,7 @@
 #import "MicroShopCollectionView.h"
 #import "MicroShopFlowLayout.h"
 #import "MicroShopCollectionViewCell_OnlineShop.h"
+#import "MicroShopCollectionViewCell_MyShop.h"
 #import "AddShopCollectionViewCell.h"
 #import "AppMacro.h"
 #import <CoreLocation/CoreLocation.h>
@@ -18,7 +19,7 @@
 #import "ReusableHeaderView_myShop.h"
 
 
-@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate>
+@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
@@ -216,7 +217,7 @@
         MicroShopInfo *info = _myShopsArray[indexPath.row];
         [cell setCellContentWithMicroShopInfo:info];
         return cell;
-    } else {
+    } else {// '+'
         MicroShopCollectionViewCell_OnlineShop *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddShopCell" forIndexPath:indexPath];
         return cell;
     }
@@ -247,6 +248,11 @@
 - (void)supportClickWithInstructions
 {
     // go to webview
+}
+#pragma mark - MicroShopCollectionViewCell_MyShop_Delegate
+- (void)supportClickWithDeleteOrLockButtonWithStatus:(NSInteger)isLock
+{
+    // delete or lock
 }
 
 - (IBAction)myShopButtonClicked:(id)sender {
