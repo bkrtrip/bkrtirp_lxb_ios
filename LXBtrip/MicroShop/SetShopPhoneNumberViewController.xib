@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetShopPhoneNumberViewController">
+            <connections>
+                <outlet property="cellPhoneButton" destination="rZF-js-6nw" id="rnu-gu-c8o"/>
+                <outlet property="cellPhoneLabel" destination="NYf-ef-egu" id="DyA-LL-8vo"/>
+                <outlet property="cellPhoneTextField" destination="srw-Xx-Knf" id="38b-7H-nbo"/>
+                <outlet property="districtTextField" destination="B6S-9D-PJj" id="vDf-B5-OUI"/>
+                <outlet property="fixedLineButton" destination="MEY-FV-LXQ" id="iVY-8S-YHU"/>
+                <outlet property="fixedLineLabel" destination="Bnw-LY-FAz" id="EHJ-Jj-K4q"/>
+                <outlet property="fixedLineNumberTextField" destination="Grs-U7-6Ho" id="RQf-uN-LYS"/>
+                <outlet property="separator_cellPhone" destination="QZz-Qo-Qw4" id="bz1-g0-NPt"/>
+                <outlet property="separator_districtNo" destination="YJI-fG-dRJ" id="81o-HX-JbY"/>
+                <outlet property="separator_fixedLineNumber" destination="lDx-Ea-O6D" id="6fM-fM-8e5"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Oem-RO-I2C">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYf-ef-egu">
+                    <rect key="frame" x="48" y="169" width="45" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZF-js-6nw" userLabel="cellPhoneButton">
+                    <rect key="frame" x="30" y="80" width="80" height="110"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="I5e-fH-Gao"/>
+                        <constraint firstAttribute="height" constant="110" id="eFa-fE-CGU"/>
+                        <constraint firstAttribute="width" secondItem="rZF-js-6nw" secondAttribute="height" multiplier="1:1" id="xPR-oM-k16"/>
+                    </constraints>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="70" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="-30" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" image="cell_phone_normal.png"/>
+                    <state key="selected" image="cell_phone_hightlighted.png"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="xPR-oM-k16"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="cellPhoneButtonClicked:" destination="-1" eventType="touchUpInside" id="E2C-Pe-vBA"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="座机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnw-LY-FAz">
+                    <rect key="frame" x="283" y="169" width="45" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEY-FV-LXQ" userLabel="Fixed Line hone Button">
+                    <rect key="frame" x="265" y="80" width="80" height="110"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="MEY-FV-LXQ" secondAttribute="height" multiplier="1:1" id="6zz-o0-3M8"/>
+                        <constraint firstAttribute="width" constant="80" id="BVv-ZM-Syt"/>
+                        <constraint firstAttribute="height" constant="110" id="GW3-lz-UbY"/>
+                    </constraints>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="70" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="-30" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" image="fixed_line_phone_normal.png"/>
+                    <state key="selected" image="fixed_line_phone_hightlighted.png"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="6zz-o0-3M8"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="fixedLineButtonClicked:" destination="-1" eventType="touchUpInside" id="tqO-VT-sJI"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="srw-Xx-Knf" userLabel="textField_cellPhone">
+                    <rect key="frame" x="20" y="217" width="334" height="18"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_field_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="QZz-Qo-Qw4" userLabel="separator_cellPhone">
+                    <rect key="frame" x="20" y="235" width="334" height="6"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="6" id="mGB-hB-glI"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="区号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B6S-9D-PJj" userLabel="textField_districtNo">
+                    <rect key="frame" x="20" y="217" width="50" height="18"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_field_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="YJI-fG-dRJ" userLabel="separator_districtNo">
+                    <rect key="frame" x="20" y="235" width="50" height="6"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="OCu-2N-jGC"/>
+                        <constraint firstAttribute="height" constant="6" id="ccL-LH-GRZ"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="座机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Grs-U7-6Ho" userLabel="textField_fixedLineNumber">
+                    <rect key="frame" x="75" y="217" width="279" height="18"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_field_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="lDx-Ea-O6D" userLabel="separator_fixedLineNumber">
+                    <rect key="frame" x="75" y="235" width="279" height="6"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="ga2-5j-q0G"/>
+                        <constraint firstAttribute="height" constant="6" id="kbi-Sm-49D"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="ga2-5j-q0G"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请正确设置微店的联系电话！" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-Js-QPh">
+                    <rect key="frame" x="20" y="261" width="334" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="MEY-FV-LXQ" firstAttribute="bottom" secondItem="Bnw-LY-FAz" secondAttribute="top" constant="21" id="0K7-JC-FGJ"/>
+                <constraint firstItem="lDx-Ea-O6D" firstAttribute="leading" secondItem="Grs-U7-6Ho" secondAttribute="leading" id="0ut-pi-7ny"/>
+                <constraint firstItem="lDx-Ea-O6D" firstAttribute="trailing" secondItem="Grs-U7-6Ho" secondAttribute="trailing" id="1p5-JF-doN"/>
+                <constraint firstItem="NYf-ef-egu" firstAttribute="top" secondItem="rZF-js-6nw" secondAttribute="bottom" constant="-21" id="4L5-Zv-nEG"/>
+                <constraint firstItem="B6S-9D-PJj" firstAttribute="top" secondItem="Oem-RO-I2C" secondAttribute="top" constant="325" id="4L7-RY-NDM"/>
+                <constraint firstAttribute="trailing" secondItem="MEY-FV-LXQ" secondAttribute="trailing" constant="30" id="65T-Z4-9tE"/>
+                <constraint firstItem="srw-Xx-Knf" firstAttribute="leading" secondItem="Oem-RO-I2C" secondAttribute="leading" constant="20" id="7I9-84-R7G"/>
+                <constraint firstItem="Bnw-LY-FAz" firstAttribute="centerX" secondItem="MEY-FV-LXQ" secondAttribute="centerX" id="85G-Rg-OXF"/>
+                <constraint firstItem="QZz-Qo-Qw4" firstAttribute="top" secondItem="srw-Xx-Knf" secondAttribute="bottom" id="Dda-Nj-n6c"/>
+                <constraint firstAttribute="centerX" secondItem="Jou-Js-QPh" secondAttribute="centerX" constant="0.5" id="E11-ow-BLn"/>
+                <constraint firstAttribute="centerX" secondItem="B6S-9D-PJj" secondAttribute="centerX" constant="0.5" id="LUK-sf-j8D"/>
+                <constraint firstItem="YJI-fG-dRJ" firstAttribute="top" secondItem="B6S-9D-PJj" secondAttribute="bottom" id="M3X-9o-akL"/>
+                <constraint firstItem="Grs-U7-6Ho" firstAttribute="trailing" secondItem="srw-Xx-Knf" secondAttribute="trailing" id="Ru8-0y-PHs"/>
+                <constraint firstItem="Jou-Js-QPh" firstAttribute="top" secondItem="QZz-Qo-Qw4" secondAttribute="bottom" constant="20" id="RwQ-gX-NQK"/>
+                <constraint firstItem="lDx-Ea-O6D" firstAttribute="top" secondItem="Grs-U7-6Ho" secondAttribute="bottom" id="SHu-f4-jXb"/>
+                <constraint firstItem="rZF-js-6nw" firstAttribute="top" secondItem="Oem-RO-I2C" secondAttribute="top" constant="80" id="UPK-Wq-b1R"/>
+                <constraint firstItem="B6S-9D-PJj" firstAttribute="centerY" secondItem="srw-Xx-Knf" secondAttribute="centerY" id="VZo-RX-TNa"/>
+                <constraint firstItem="rZF-js-6nw" firstAttribute="centerY" secondItem="MEY-FV-LXQ" secondAttribute="centerY" id="Vel-3J-4nb"/>
+                <constraint firstItem="QZz-Qo-Qw4" firstAttribute="trailing" secondItem="srw-Xx-Knf" secondAttribute="trailing" id="XRI-ut-tzj"/>
+                <constraint firstItem="srw-Xx-Knf" firstAttribute="top" secondItem="Oem-RO-I2C" secondAttribute="top" constant="200" id="Z2e-EW-f3W"/>
+                <constraint firstItem="Jou-Js-QPh" firstAttribute="leading" secondItem="Oem-RO-I2C" secondAttribute="leading" constant="20" id="aD8-Y4-q46"/>
+                <constraint firstItem="QZz-Qo-Qw4" firstAttribute="leading" secondItem="srw-Xx-Knf" secondAttribute="leading" id="aDh-aT-J8H"/>
+                <constraint firstItem="srw-Xx-Knf" firstAttribute="top" secondItem="NYf-ef-egu" secondAttribute="bottom" constant="30" id="bZZ-3u-8fC"/>
+                <constraint firstAttribute="centerX" secondItem="srw-Xx-Knf" secondAttribute="centerX" id="cpk-lT-xWU"/>
+                <constraint firstItem="Grs-U7-6Ho" firstAttribute="leading" secondItem="B6S-9D-PJj" secondAttribute="trailing" constant="5" id="dk0-CQ-62f"/>
+                <constraint firstItem="rZF-js-6nw" firstAttribute="leading" secondItem="Oem-RO-I2C" secondAttribute="leading" constant="30" id="dp2-OQ-J7l"/>
+                <constraint firstItem="Grs-U7-6Ho" firstAttribute="centerY" secondItem="B6S-9D-PJj" secondAttribute="centerY" id="hh3-xo-YmP"/>
+                <constraint firstItem="B6S-9D-PJj" firstAttribute="leading" secondItem="srw-Xx-Knf" secondAttribute="leading" id="hjx-QR-nCC"/>
+                <constraint firstItem="YJI-fG-dRJ" firstAttribute="trailing" secondItem="B6S-9D-PJj" secondAttribute="trailing" id="j8S-3V-Tej"/>
+                <constraint firstItem="NYf-ef-egu" firstAttribute="centerX" secondItem="rZF-js-6nw" secondAttribute="centerX" id="qG6-V7-QYM"/>
+                <constraint firstItem="YJI-fG-dRJ" firstAttribute="leading" secondItem="B6S-9D-PJj" secondAttribute="leading" id="rXs-tG-iQh"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Z2e-EW-f3W"/>
+                    <exclude reference="4L7-RY-NDM"/>
+                    <exclude reference="LUK-sf-j8D"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="281.5" y="392.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cell_phone_hightlighted.png" width="80" height="81"/>
+        <image name="cell_phone_normal.png" width="80" height="81"/>
+        <image name="fixed_line_phone_hightlighted.png" width="80" height="81"/>
+        <image name="fixed_line_phone_normal.png" width="80" height="81"/>
+        <image name="text_field_border.png" width="391" height="6"/>
+    </resources>
+</document>

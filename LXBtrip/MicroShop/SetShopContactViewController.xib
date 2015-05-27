@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetShopContactViewController">
+            <connections>
+                <outlet property="shopContactTextField" destination="eyQ-NS-T2f" id="sjg-TZ-WJl"/>
+                <outlet property="view" destination="wA7-s2-Cng" id="X3y-tW-l0L"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wA7-s2-Cng">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eyQ-NS-T2f" userLabel="shopContactTextField">
+                    <rect key="frame" x="20" y="20" width="334" height="18"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_field_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="iy3-PX-779">
+                    <rect key="frame" x="20" y="38" width="334" height="6"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="6" id="iQW-NL-HuM"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入业务咨询联系人的真实姓名！" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUh-KS-NeQ">
+                    <rect key="frame" x="20" y="64" width="334" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="iy3-PX-779" firstAttribute="trailing" secondItem="eyQ-NS-T2f" secondAttribute="trailing" id="6n5-Bz-BgK"/>
+                <constraint firstItem="iy3-PX-779" firstAttribute="top" secondItem="eyQ-NS-T2f" secondAttribute="bottom" id="90h-a8-KOH"/>
+                <constraint firstItem="rUh-KS-NeQ" firstAttribute="leading" secondItem="wA7-s2-Cng" secondAttribute="leading" constant="20" id="YYN-BJ-IGv"/>
+                <constraint firstAttribute="centerX" secondItem="rUh-KS-NeQ" secondAttribute="centerX" constant="0.5" id="bGj-KI-ztR"/>
+                <constraint firstItem="eyQ-NS-T2f" firstAttribute="top" secondItem="wA7-s2-Cng" secondAttribute="top" constant="20" id="bmd-UM-W4m"/>
+                <constraint firstItem="rUh-KS-NeQ" firstAttribute="top" secondItem="iy3-PX-779" secondAttribute="bottom" constant="20" id="fhe-Cx-U2T"/>
+                <constraint firstItem="iy3-PX-779" firstAttribute="leading" secondItem="eyQ-NS-T2f" secondAttribute="leading" id="rdD-h1-0W9"/>
+                <constraint firstAttribute="centerX" secondItem="eyQ-NS-T2f" secondAttribute="centerX" id="wlV-zs-493"/>
+                <constraint firstItem="eyQ-NS-T2f" firstAttribute="leading" secondItem="wA7-s2-Cng" secondAttribute="leading" constant="20" id="xBK-3g-n4D"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="281.5" y="392.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="text_field_border.png" width="391" height="6"/>
+    </resources>
+</document>

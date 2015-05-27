@@ -47,8 +47,8 @@
 
 
 - (IBAction)deleteOrLockButtonClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteOrLockButtonWithStatus:)]) {
-        [self.delegate supportClickWithDeleteOrLockButtonWithStatus:lockStatus];
+    if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteButton)]) {
+        [self.delegate supportClickWithDeleteButton];
     }
 }
 @end

@@ -13,6 +13,7 @@
 #import "MicroShopInfo.h"
 #import "HTTPTool.h"
 #import "User.h"
+#import "UIBarButtonItem+Action.h"
 
 
 // 服务器地址
@@ -22,14 +23,27 @@
 // 屏幕
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+#define APP_WINDOW [[UIApplication sharedApplication].windows objectAtIndex:0]
+
+// NavBasedViewController
+#define MainNavTitleColor RGB(255, 255, 255)
+#define MainNavTitleFont [UIFont boldSystemFontOfSize:18]
 
 // Micro shop
-#define LIST_HOR_MARGIN 10
-#define LIST_HOR_SPACING 10
-#define LIST_VER_MARGIN 10
-#define LIST_VER_SPACING 10
+#define LIST_HOR_MARGIN 10.f
+#define LIST_HOR_SPACING 10.f
+#define LIST_VER_MARGIN 10.f
+#define LIST_VER_SPACING 10.f
 #define LIST_WIDTH_HEIGHT_PROPORTION 310.f/520.f
 #define Num_Of_Images_Per_Row 2
+
+#define DELETE_ACTION_SHEET_HEIGHT 187.f
+
+#define TEXT_SELECTED_COLOR [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]
+#define TEXT_NORMAL_COLOR [UIColor colorWithRed:102/255.f green:102/255.f blue:102/255.f alpha:1]
+// FF0075
+#define CUSTOM_RED_COLOR [UIColor colorWithRed:255/255.f green:0/255.f blue:117/255.f alpha:1]
+
 
 //  code	常用返回码
 typedef enum ErrorCodeType

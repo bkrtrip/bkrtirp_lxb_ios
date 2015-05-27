@@ -11,7 +11,7 @@
 
 @protocol MicroShopCollectionViewCell_MyShop_Delegate <NSObject>
 
-- (void)supportClickWithDeleteOrLockButtonWithStatus:(NSInteger)isLock;
+- (void)supportClickWithDeleteButton;
 
 @end
 

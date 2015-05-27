@@ -17,9 +17,9 @@
 #import "Global.h"
 #import "ReusableHeaderView_OnlineShop.h"
 #import "ReusableHeaderView_myShop.h"
+#import "DeleteActionSheet.h"
 
-
-@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate>
+@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, DeleteActionSheetDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
@@ -31,6 +31,9 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (nonatomic, strong) MicroShopCollectionView *onlineShopCollectionView;
 @property (nonatomic, strong) MicroShopCollectionView *myShopCollectionView;
+
+@property (strong, nonatomic) UIControl *darkMask;
+@property (nonatomic, strong) DeleteActionSheet *deleteActionSheet;
 
 @property (nonatomic, copy) NSMutableArray *onlineShopsArray;
 @property (nonatomic, copy) NSMutableArray *myShopsArray;
@@ -49,6 +52,17 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin)];
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
+    
+    // delete view part
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_darkMask addTarget:self action:@selector(hideDeleteActionSheet) forControlEvents:UIControlEventTouchUpInside];
+    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _darkMask.alpha = 0;// initally transparent
+    [APP_WINDOW addSubview:_darkMask];
+
+    _deleteActionSheet = [[DeleteActionSheet alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - DELETE_ACTION_SHEET_HEIGHT, SCREEN_WIDTH, DELETE_ACTION_SHEET_HEIGHT)];
+    
+    [APP_WINDOW addSubview:_deleteActionSheet];
     
     // online shop collection view
     _onlineShopCollectionView = [[MicroShopCollectionView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height) collectionViewLayout:[[MicroShopFlowLayout alloc] init]];
@@ -74,6 +88,14 @@
     
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
     [self startLocation];
+}
+
+- (void)hideDeleteActionSheet
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_deleteActionSheet setFrame:CGRectOffset(_deleteActionSheet.frame, 0, DELETE_ACTION_SHEET_HEIGHT)];
+    }];
 }
 
 //开始定位
@@ -250,9 +272,13 @@
     // go to webview
 }
 #pragma mark - MicroShopCollectionViewCell_MyShop_Delegate
-- (void)supportClickWithDeleteOrLockButtonWithStatus:(NSInteger)isLock
+- (void)supportClickWithDeleteButton
 {
-    // delete or lock
+    // delete
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0.7;
+        [_deleteActionSheet setFrame:CGRectOffset(_deleteActionSheet.frame, 0, -DELETE_ACTION_SHEET_HEIGHT)];
+    }];
 }
 
 - (IBAction)myShopButtonClicked:(id)sender {
@@ -262,4 +288,16 @@
 - (IBAction)onlineShopButtonClicked:(id)sender {
     [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
 }
+
+#pragma mark - DeleteActionSheetDelegate
+- (void)supportClickActionSheetWithYes
+{
+    
+}
+
+- (void)supportClickActionSheetWithNo
+{
+    
+}
+
 @end

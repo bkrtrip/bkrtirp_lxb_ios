@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AppMacro.h"
 
 typedef void (^errorCode_succeed_block)();
-
-#import "AppMacro.h"
 
 @interface Global : NSObject
 singleton_interface(Global)
@@ -20,5 +19,7 @@ singleton_interface(Global)
 - (void)saveUserInfo:(User *)userInfo;
 
 - (void)codeHudWithDict:(NSDictionary *)dict succeed:(errorCode_succeed_block)succeed;// 根据错误码显示HUD
+
+- (void)whiteStyle:(UINavigationController *)nav barItem:(UINavigationItem *)barItem rightItemTitle:(NSString *)title;
 
 @end
