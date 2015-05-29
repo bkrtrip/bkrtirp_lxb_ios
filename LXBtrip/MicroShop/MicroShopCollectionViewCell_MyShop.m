@@ -7,7 +7,6 @@
 //
 
 #import "MicroShopCollectionViewCell_MyShop.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "AppMacro.h"
 
 @interface MicroShopCollectionViewCell_MyShop()
@@ -38,8 +37,10 @@
 {
     lockStatus = isLock;
     _shopNameLabel.text = info.shopName;
-    _providerNameLabel.text = info.shopCompanyName;
-    [_mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.shopImg]] placeholderImage:nil options:SDWebImageProgressiveDownload];
+    _providerNameLabel.text = info.shopProvider;
+    [_mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.shopImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        ;
+    }];
     
     //判断是delete还是lock
 //    _deleteOrLockButton setImage:<#(UIImage *)#> forState:<#(UIControlState)#>

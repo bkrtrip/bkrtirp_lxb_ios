@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlleyListViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fk0-Wf-MrF" userLabel="banner Image View">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Fk0-Wf-MrF" secondAttribute="height" multiplier="160:147" id="Wwi-oN-aFX"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-5h-Ttq">
+                    <rect key="frame" x="0.0" y="294" width="320" height="53"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="NRx-5h-Ttq" secondAttribute="height" multiplier="320:53" id="lMd-Kn-BbU"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xh-7S-kOH">
+                    <rect key="frame" x="266" y="304" width="46" height="30"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="NRx-5h-Ttq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7rH-M8-Au0"/>
+                <constraint firstAttribute="trailing" secondItem="8Xh-7S-kOH" secondAttribute="trailing" constant="8" id="ANf-oV-ri8"/>
+                <constraint firstItem="Fk0-Wf-MrF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UL8-YW-UZJ"/>
+                <constraint firstItem="Fk0-Wf-MrF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VXR-GQ-oUX"/>
+                <constraint firstAttribute="trailing" secondItem="Fk0-Wf-MrF" secondAttribute="trailing" id="ZuY-Ap-AJS"/>
+                <constraint firstItem="NRx-5h-Ttq" firstAttribute="top" secondItem="Fk0-Wf-MrF" secondAttribute="bottom" id="d5q-dv-N3a"/>
+                <constraint firstItem="NRx-5h-Ttq" firstAttribute="centerY" secondItem="8Xh-7S-kOH" secondAttribute="centerY" constant="-0.5" id="osG-u9-NdN"/>
+                <constraint firstAttribute="trailing" secondItem="NRx-5h-Ttq" secondAttribute="trailing" id="wth-T7-IFU"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+</document>

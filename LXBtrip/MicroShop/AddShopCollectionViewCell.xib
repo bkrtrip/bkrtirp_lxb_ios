@@ -18,6 +18,9 @@
                         <state key="normal" image="add_cell.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="addButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="vRX-29-s3b"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

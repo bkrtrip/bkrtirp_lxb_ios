@@ -14,7 +14,7 @@
 @property (nonatomic, copy) NSNumber *shopNo;
 
 @property (nonatomic, copy) NSString *shopName;
-@property (nonatomic, copy) NSString *shopCompanyName;
+@property (nonatomic, copy) NSString *shopProvider;
 @property (nonatomic, copy) NSString *shopImg;
 @property (nonatomic, copy) NSNumber *shopOrderNum;
 @property (nonatomic, copy) NSNumber *shopUsageAmount;

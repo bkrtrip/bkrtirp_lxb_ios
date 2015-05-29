@@ -8,6 +8,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MicroShopDetailViewController">
             <connections>
+                <outlet property="addToMyShopButton" destination="LXk-WH-oQc" id="E3t-BG-ZuL"/>
+                <outlet property="hasAddedToMyShopButton" destination="FYY-Hi-dLX" id="F2O-4l-KHm"/>
+                <outlet property="shopImageView" destination="hCn-DZ-MQ8" id="Ljk-9o-PhQ"/>
+                <outlet property="shopIntroductionLabel" destination="tbp-31-3eh" id="bwP-ap-6jX"/>
+                <outlet property="shopNameLabel" destination="pgY-Qb-bks" id="wiT-Pc-M0C"/>
+                <outlet property="shopProviderLabel" destination="DDg-iw-uRm" id="1ou-80-9Ye"/>
+                <outlet property="shopTypeLabel" destination="BQt-DR-fI3" id="6ej-np-c0b"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -162,6 +169,9 @@
                             <state key="normal" title="添加到我的微店">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="addToMyShopButtonClicked:" destination="-1" eventType="touchUpInside" id="tI6-g0-oUL"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYY-Hi-dLX">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>

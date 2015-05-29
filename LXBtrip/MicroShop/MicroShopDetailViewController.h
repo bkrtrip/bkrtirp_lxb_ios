@@ -10,4 +10,6 @@
 
 @interface MicroShopDetailViewController : NavBaseViewController
 
+@property (nonatomic, copy) NSNumber *shopId;
+
 @end

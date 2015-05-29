@@ -71,7 +71,7 @@
     if (selected) {
         _cellPhoneLabel.textColor = TEXT_SELECTED_COLOR;
     } else {
-        _cellPhoneLabel.textColor = TEXT_NORMAL_COLOR;
+        _cellPhoneLabel.textColor = TEXT_666666;
     }
     
     // fixed line part
@@ -79,7 +79,7 @@
     if (!selected) {
         _fixedLineLabel.textColor = TEXT_SELECTED_COLOR;
     } else {
-        _fixedLineLabel.textColor = TEXT_NORMAL_COLOR;
+        _fixedLineLabel.textColor = TEXT_666666;
     }
 }
 - (void)setFixedLineTextFieldHidden:(BOOL)hidden

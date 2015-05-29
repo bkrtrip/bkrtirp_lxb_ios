@@ -12,21 +12,55 @@
 @implementation HTTPTool
 singleton_implementation(HTTPTool)
 
-// 获取微店列表 - RS100001 RS100002
+// 获取在线微店列表 - LXB1111 - 未登录
++ (void)getOnlineMicroShopListWithProvince:(NSString *)province success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    // TEST
+    province = @"陕西";
+    // TEST
+    
+    NSMutableDictionary *param = [@{@"province":province} mutableCopy];
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1111" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/onLine"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 获取在线微店列表 - LXB1122 - 已登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
+    // TEST
+    province = @"陕西";
+    // TEST
+    
     NSMutableDictionary *param = [@{@"province":province} mutableCopy];
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];
-    }
+    } else
+        return;
+    
     if (staffId) {
         [param setObject:staffId forKey:@"staffid"];
-    }
+    } else
+        return;
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/online"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1122" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/onLine"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
-            success(responseObject);
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (fail) {
@@ -35,21 +69,27 @@ singleton_implementation(HTTPTool)
     }];
 }
 
-// 获取我的微店列表 - RS100003
-+ (void)getMyMicroShopListWithProvince:(NSString *)province companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
+// 获取我的微店列表 - LXB1125
++ (void)getMyMicroShopListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    if (!companyId) {
+    NSMutableDictionary *param;
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
         return;
-    }
-    if (!staffId) {
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
         return;
-    }
-    NSDictionary *param = @{@"companyid":companyId, @"staffid":staffId};
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1125" forHTTPHeaderField:@"AUTHCODE"];
+    
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/myTemplate"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
-            success(responseObject);
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (fail) {
@@ -58,10 +98,40 @@ singleton_implementation(HTTPTool)
     }];
 }
 
+// 获取微店详情 - LXB1113
++ (void)getMicroShopDetailWithShopId:(NSNumber *)shopId success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSDictionary *param = @{@"templateid":shopId};
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1113" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/template"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+
+}
 
 
-
-
+#pragma mark - Private methods
++ (NSDictionary *)dictionaryWithBase64EncodedJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:jsonString options:0];
+    
+    NSError *error = nil;
+    NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:decodedData options:kNilOptions error:&error];
+    return dict;
+}
 
 
 

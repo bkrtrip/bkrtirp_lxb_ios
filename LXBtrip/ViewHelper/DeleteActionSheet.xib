@@ -54,13 +54,22 @@
                                 <action selector="noButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="4nE-e7-5Q3"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wIb-3X-I8B" userLabel="separator_ver">
+                            <rect key="frame" x="206" y="1" width="1" height="58"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="cZo-mk-8E8"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="wIb-3X-I8B" firstAttribute="height" secondItem="T1f-IY-TBy" secondAttribute="height" id="5jS-ez-Flk"/>
                         <constraint firstAttribute="bottom" secondItem="0it-ne-HWJ" secondAttribute="bottom" id="8q7-K6-lnA"/>
                         <constraint firstAttribute="height" constant="60" id="D3k-pF-Hos"/>
                         <constraint firstItem="8LA-Ph-j2f" firstAttribute="top" secondItem="T1f-IY-TBy" secondAttribute="top" id="Hb7-op-Qdk"/>
+                        <constraint firstAttribute="centerX" secondItem="wIb-3X-I8B" secondAttribute="centerX" id="Hfs-4a-KF3"/>
                         <constraint firstAttribute="centerX" secondItem="dfX-nh-07i" secondAttribute="centerX" id="KlP-g0-85B"/>
+                        <constraint firstAttribute="centerY" secondItem="wIb-3X-I8B" secondAttribute="centerY" id="TxX-TV-xFp"/>
                         <constraint firstItem="0it-ne-HWJ" firstAttribute="leading" secondItem="T1f-IY-TBy" secondAttribute="leading" id="VrS-eb-bfE"/>
                         <constraint firstItem="0it-ne-HWJ" firstAttribute="top" secondItem="T1f-IY-TBy" secondAttribute="top" id="cuS-wE-ShC"/>
                         <constraint firstItem="dfX-nh-07i" firstAttribute="width" secondItem="T1f-IY-TBy" secondAttribute="width" id="dBN-6k-MhM"/>

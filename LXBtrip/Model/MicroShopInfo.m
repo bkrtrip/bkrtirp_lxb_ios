@@ -16,7 +16,7 @@
     self.shopId = [dict[@"template_id"] isKindOfClass:[NSNull class]]?nil:dict[@"template_id"];
     self.shopNo = [dict[@"template_no"] isKindOfClass:[NSNull class]]?nil:dict[@"template_no"];
     self.shopName = [dict[@"template_name"] isKindOfClass:[NSNull class]]?nil:dict[@"template_name"];
-    self.shopCompanyName = [dict[@"template_companyname"] isKindOfClass:[NSNull class]]?nil:dict[@"template_companyname"];
+    self.shopProvider = [dict[@"template_companyname"] isKindOfClass:[NSNull class]]?nil:dict[@"template_companyname"];
     self.shopImg = [dict[@"template_img"] isKindOfClass:[NSNull class]]?nil:dict[@"template_img"];
     self.shopOrderNum = [dict[@"order_num"] isKindOfClass:[NSNull class]]?nil:dict[@"order_num"];
     

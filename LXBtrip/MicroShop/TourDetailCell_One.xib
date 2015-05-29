@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="221" id="KGk-i7-Jjw" customClass="TourDetailCell_One">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ulH-FI-StA" userLabel="Main Image View">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="ulH-FI-StA" secondAttribute="height" multiplier="40:17" id="dOR-fa-vZU"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MQd-Lw-OiC">
+                        <rect key="frame" x="8" y="144" width="40" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="6a9-fc-IqN"/>
+                            <constraint firstAttribute="width" secondItem="MQd-Lw-OiC" secondAttribute="height" multiplier="20:13" id="CuN-gq-6CQ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="产品ID:725214" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9B-yz-Sh9">
+                        <rect key="frame" x="56" y="149" width="81" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海拉尔起始-【专列】泰国（曼谷，芭提雅）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhp-uN-9Oi">
+                        <rect key="frame" x="8" y="173" width="304" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全程无自费1晚五星蓝湾沙全程无自费1晚五星蓝湾沙滩别墅梦幻多奇主题乐园，滩别墅梦幻多奇主题乐园，全程无自费1晚五星蓝湾沙滩别" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="332-w2-L3H">
+                        <rect key="frame" x="8" y="201" width="304" height="47"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请提前两天预订" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHQ-iB-PWO">
+                        <rect key="frame" x="8" y="376" width="84" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.29803921568627451" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="SHQ-iB-PWO" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="1gU-Ua-Czr"/>
+                    <constraint firstItem="SHQ-iB-PWO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="3dF-QL-cdJ"/>
+                    <constraint firstItem="332-w2-L3H" firstAttribute="top" secondItem="Lhp-uN-9Oi" secondAttribute="bottom" constant="8" id="9Xd-AI-oRW"/>
+                    <constraint firstItem="e9B-yz-Sh9" firstAttribute="leading" secondItem="MQd-Lw-OiC" secondAttribute="trailing" constant="8" id="Nnr-6x-5x2"/>
+                    <constraint firstItem="e9B-yz-Sh9" firstAttribute="centerY" secondItem="MQd-Lw-OiC" secondAttribute="centerY" constant="-0.5" id="W0R-eU-Ix5"/>
+                    <constraint firstAttribute="centerX" secondItem="332-w2-L3H" secondAttribute="centerX" id="W4o-0G-Vs3"/>
+                    <constraint firstItem="MQd-Lw-OiC" firstAttribute="top" secondItem="ulH-FI-StA" secondAttribute="bottom" constant="8" id="XwR-WE-oQ1"/>
+                    <constraint firstItem="Lhp-uN-9Oi" firstAttribute="leading" secondItem="332-w2-L3H" secondAttribute="leading" id="dLg-hd-Cfw"/>
+                    <constraint firstAttribute="trailing" secondItem="ulH-FI-StA" secondAttribute="trailing" id="gKD-fS-ksp"/>
+                    <constraint firstItem="MQd-Lw-OiC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ik0-QO-Les"/>
+                    <constraint firstItem="Lhp-uN-9Oi" firstAttribute="top" secondItem="MQd-Lw-OiC" secondAttribute="bottom" constant="3" id="oCD-he-CRN"/>
+                    <constraint firstItem="ulH-FI-StA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qVR-Pz-HOD"/>
+                    <constraint firstItem="MQd-Lw-OiC" firstAttribute="leading" secondItem="Lhp-uN-9Oi" secondAttribute="leading" id="rUh-qo-P1W"/>
+                    <constraint firstItem="ulH-FI-StA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vGw-AD-0ZY"/>
+                    <constraint firstAttribute="centerX" secondItem="Lhp-uN-9Oi" secondAttribute="centerX" id="xzs-sb-9hV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mainImageView" destination="ulH-FI-StA" id="i3w-u3-qR2"/>
+                <outlet property="tourDescriptionLabel" destination="332-w2-L3H" id="Ydl-ds-mtR"/>
+                <outlet property="tourIDLabel" destination="e9B-yz-Sh9" id="kAu-Jb-lEB"/>
+                <outlet property="tourNameLabel" destination="Lhp-uN-9Oi" id="amt-X6-ng7"/>
+            </connections>
+            <point key="canvasLocation" x="247" y="249"/>
+        </tableViewCell>
+    </objects>
+</document>

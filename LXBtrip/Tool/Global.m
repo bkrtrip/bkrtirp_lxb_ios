@@ -31,7 +31,7 @@ singleton_implementation(Global)
         UIBarButtonItem *rightItem = barItem.rightBarButtonItems[1];
         btn = (UIButton *)rightItem.customView;
         [btn setTitle:title forState:UIControlStateNormal];
-        btn.titleLabel.textColor = CUSTOM_RED_COLOR;
+        btn.titleLabel.textColor = RED_FF0075;
         btn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     }
     

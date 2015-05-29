@@ -6,9 +6,8 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-
-@interface MicroShopViewController : UIViewController 
+#import "NavBaseViewController.h"
+@interface MicroShopViewController : NavBaseViewController 
 
 
 @end

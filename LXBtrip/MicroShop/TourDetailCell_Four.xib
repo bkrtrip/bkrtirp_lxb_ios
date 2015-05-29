@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TourDetailCell_Four">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uMP-Rl-85s" userLabel="详情">
+                        <rect key="frame" x="0.0" y="0.0" width="107" height="43"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <state key="normal">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="detailButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xmj-Nq-iow"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ult-RL-s7Y" userLabel="行程介绍">
+                        <rect key="frame" x="107" y="0.0" width="106" height="43"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <state key="normal">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="introductionButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="BNA-Tc-DkL"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5x-F7-B6I" userLabel="评论（36）">
+                        <rect key="frame" x="213" y="0.0" width="107" height="43"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <state key="normal">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="reviewButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cT7-e7-cr6"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="y5x-F7-B6I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2Jd-re-dSy"/>
+                    <constraint firstAttribute="trailing" secondItem="y5x-F7-B6I" secondAttribute="trailing" id="6cq-lw-dI2"/>
+                    <constraint firstItem="ult-RL-s7Y" firstAttribute="width" secondItem="uMP-Rl-85s" secondAttribute="width" id="7P1-tR-bJO"/>
+                    <constraint firstAttribute="bottom" secondItem="y5x-F7-B6I" secondAttribute="bottom" id="E2P-jA-vzw"/>
+                    <constraint firstItem="ult-RL-s7Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HLU-1l-9xW"/>
+                    <constraint firstItem="uMP-Rl-85s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jac-t9-Iu8"/>
+                    <constraint firstAttribute="bottom" secondItem="ult-RL-s7Y" secondAttribute="bottom" id="SAZ-V9-FYo"/>
+                    <constraint firstAttribute="bottom" secondItem="uMP-Rl-85s" secondAttribute="bottom" id="TgC-8y-dJ7"/>
+                    <constraint firstItem="ult-RL-s7Y" firstAttribute="leading" secondItem="uMP-Rl-85s" secondAttribute="trailing" id="Zvr-X0-OAj"/>
+                    <constraint firstItem="uMP-Rl-85s" firstAttribute="width" secondItem="y5x-F7-B6I" secondAttribute="width" id="apz-Ox-DFQ"/>
+                    <constraint firstItem="uMP-Rl-85s" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gVb-9y-Wy4"/>
+                    <constraint firstItem="y5x-F7-B6I" firstAttribute="leading" secondItem="ult-RL-s7Y" secondAttribute="trailing" id="qva-dA-Afq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="detailButton" destination="uMP-Rl-85s" id="V5L-1h-aB3"/>
+                <outlet property="introductionButton" destination="ult-RL-s7Y" id="fz2-gl-A8w"/>
+                <outlet property="reviewButton" destination="y5x-F7-B6I" id="Ovq-Wh-vYU"/>
+            </connections>
+            <point key="canvasLocation" x="317" y="305"/>
+        </tableViewCell>
+    </objects>
+</document>
