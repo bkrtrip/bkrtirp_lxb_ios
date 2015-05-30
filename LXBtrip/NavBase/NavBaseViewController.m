@@ -16,18 +16,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    self.navigationController.navigationBar.barTintColor = BG_F5F5F5;
+    self.navigationController.navigationBar.translucent = NO;
+    
+    // left back arrow
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
+    [leftBtn setImage:ImageNamed(@"back") forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(backArrowClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:MainNavTitleFont};
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
 }
 
-// subclass must override
-- (void)setUpNavigationItemWithRightBarItemTitle:(NSString *)title
+// subclass with rightBarButtonItem Title override
+- (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title
 {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem leftBackBarItemWithAction:@selector(backClick:) target:self];
-
-    [[Global sharedGlobal] whiteStyle:self.navigationController barItem:self.navigationItem rightItemTitle:title];
+    // right text
+    if (title) {
+        UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+        rightBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        rightBtn.titleLabel.font = [UIFont systemFontOfSize:12.f];
+        [rightBtn setTitle:title forState:UIControlStateNormal];
+        rightBtn.titleLabel.textColor = RED_FF0075;
+        rightBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
+        item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    }
 }
 
-- (void)backClick:(UIBarButtonItem *)item
+- (void)backArrowClick:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

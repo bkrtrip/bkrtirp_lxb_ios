@@ -24,6 +24,7 @@
 
 @property (copy,nonatomic) NSNumber *companyId;
 @property (copy,nonatomic) NSNumber *staffId;
+@property (copy,nonatomic) NSNumber *token;
 
 -(instancetype)initWithUserID:(NSString *)userID userName:(NSString *)userName userPasssword:(NSString *)userPassword userHead:(NSString *)userHead wdContacts:(NSString *)wdContacts wdName:(NSString *)wdName userPhone:(NSString *)userPhone provinceID:(NSString *)provinceID provinceName:(NSString *)provinceName ciytID:(NSString *)cityID cityName:(NSString *)cityName;
 -(instancetype)initWithDict:(NSDictionary *)dict;

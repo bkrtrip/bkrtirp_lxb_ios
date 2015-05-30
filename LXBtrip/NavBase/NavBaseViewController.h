@@ -11,7 +11,6 @@
 
 @interface NavBaseViewController : UIViewController
 
-- (void)backClick:(UIBarButtonItem *)item;
-- (void)setUpNavigationItemWithRightBarItemTitle:(NSString *)title;
+- (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title;
 
 @end

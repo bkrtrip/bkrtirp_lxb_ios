@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MicroShopViewController.h"
+#import "MainTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +23,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     MicroShopViewController *shopController = [[MicroShopViewController alloc] init];
-    self.window.rootViewController = shopController;
+    
+    MainTabBarViewController *tabController = [[MainTabBarViewController alloc] init];
+    [tabController setViewControllers:[NSArray arrayWithObject:NavC(shopController)]];
+    
+    self.window.rootViewController = tabController;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

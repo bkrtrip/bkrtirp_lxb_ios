@@ -60,7 +60,7 @@
     UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
     [bt setTitle:@"查看更多" forState:UIControlStateNormal];
     bt.titleLabel.textColor = RED_FF0075;
-    [bt setImage:[UIImage imageNamed:@"detail_disclusure"] forState:UIControlStateNormal];
+    [bt setImage:ImageNamed(@"detail_disclusure") forState:UIControlStateNormal];
     [bt addTarget:self action:@selector(fetchMoreComments) forControlEvents:UIControlEventTouchUpInside];
     
     return bt;

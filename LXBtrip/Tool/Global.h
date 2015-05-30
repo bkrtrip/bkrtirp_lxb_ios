@@ -20,6 +20,4 @@ singleton_interface(Global)
 
 - (void)codeHudWithDict:(NSDictionary *)dict succeed:(errorCode_succeed_block)succeed;// 根据错误码显示HUD
 
-- (void)whiteStyle:(UINavigationController *)nav barItem:(UINavigationItem *)barItem rightItemTitle:(NSString *)title;
-
 @end

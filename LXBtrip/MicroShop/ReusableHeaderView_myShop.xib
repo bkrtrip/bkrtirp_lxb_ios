@@ -11,10 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqW-X4-yWH">
-                    <rect key="frame" x="8" y="16" width="103" height="18"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqW-X4-yWH">
+                    <rect key="frame" x="13" y="15" width="113" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="微商运营指导" image="location_red.png">
+                    <state key="normal" title="微商运营指导" image="click_to_webview.png">
                         <color key="titleColor" red="0.3529411764705882" green="0.66666666666666663" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -24,12 +24,13 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="IqW-X4-yWH" firstAttribute="leading" secondItem="mnr-E1-sMw" secondAttribute="leading" constant="8" id="Q0W-jf-5Js"/>
+                <constraint firstItem="IqW-X4-yWH" firstAttribute="leading" secondItem="mnr-E1-sMw" secondAttribute="leading" constant="13" id="Q0W-jf-5Js"/>
                 <constraint firstAttribute="centerY" secondItem="IqW-X4-yWH" secondAttribute="centerY" id="wTr-MU-9CM"/>
             </constraints>
+            <point key="canvasLocation" x="211" y="295"/>
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="location_red.png" width="13" height="17"/>
+        <image name="click_to_webview.png" width="23" height="20"/>
     </resources>
 </document>

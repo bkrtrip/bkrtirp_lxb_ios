@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -14,21 +15,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="262" height="426"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="国内游专卖店" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxV-46-i9D">
-                        <rect key="frame" x="0.0" y="383" width="96" height="20"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <rect key="frame" x="0.0" y="390" width="78" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="旅小宝提供" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaP-JD-44Q">
-                        <rect key="frame" x="0.0" y="406" width="60" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <rect key="frame" x="0.0" y="409" width="50" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="vWh-DC-Utt">
-                        <rect key="frame" x="0.0" y="0.0" width="262" height="373"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vWh-DC-Utt">
+                        <rect key="frame" x="0.0" y="0.0" width="262" height="365"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="vWh-DC-Utt" secondAttribute="height" multiplier="534:760" id="amA-52-fbs"/>
+                            <constraint firstAttribute="width" secondItem="vWh-DC-Utt" secondAttribute="height" multiplier="330:460" id="amA-52-fbs"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="used.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ien-qn-vbv">
@@ -49,27 +50,20 @@
                 <constraint firstItem="Ien-qn-vbv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZIF-LJ-G5L"/>
                 <constraint firstItem="LaP-JD-44Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="c4a-7k-n88"/>
                 <constraint firstItem="LaP-JD-44Q" firstAttribute="top" secondItem="oxV-46-i9D" secondAttribute="bottom" constant="3" id="ceA-OH-x2l"/>
-                <constraint firstItem="oxV-46-i9D" firstAttribute="top" secondItem="vWh-DC-Utt" secondAttribute="bottom" constant="8" id="iuR-Rj-0ny"/>
                 <constraint firstAttribute="bottom" secondItem="LaP-JD-44Q" secondAttribute="bottom" constant="5" id="o9c-Ad-962"/>
                 <constraint firstItem="Ien-qn-vbv" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="z21-rs-uDa"/>
             </constraints>
             <size key="customSize" width="262" height="426"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="iuR-Rj-0ny"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="mainImageView" destination="vWh-DC-Utt" id="jXe-0O-0vM"/>
                 <outlet property="providerNameLabel" destination="LaP-JD-44Q" id="cQi-OZ-EKg"/>
                 <outlet property="shopNameLabel" destination="oxV-46-i9D" id="wHv-Nc-a4o"/>
                 <outlet property="usedImageView" destination="Ien-qn-vbv" id="Pev-09-h0E"/>
             </connections>
-            <point key="canvasLocation" x="310" y="400"/>
+            <point key="canvasLocation" x="153" y="248"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="test.png" width="429" height="759"/>
         <image name="used.png" width="50" height="50"/>
     </resources>
 </document>

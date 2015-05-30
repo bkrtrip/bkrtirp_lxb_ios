@@ -23,11 +23,17 @@ singleton_interface(HTTPTool)
 // 获取在线微店列表 - LXB1122 - 已登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
 
-// 获取我的微店列表 - LXB1125
+// 获取我的微店列表 - LXB1125 - 已登录
 + (void)getMyMicroShopListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取我的微店列表 - LXB11148 - 未登录
++ (void)getMyMicroShopListWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 获取微店详情 - LXB1113
 + (void)getMicroShopDetailWithShopId:(NSNumber *)shopId success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 添加到我的微店 - LXB1224
++ (void)addToMyShopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
 
 
 

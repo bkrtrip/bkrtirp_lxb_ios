@@ -23,11 +23,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpNavigationItemWithRightBarItemTitle:@"完成"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"完成"];
     
     [_tablview registerNib:[UINib nibWithNibName:@"UploadingIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"UploadingIconTableViewCell"];
     
     [_tablview registerNib:[UINib nibWithNibName:@"InfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark - UITableViewDataSource

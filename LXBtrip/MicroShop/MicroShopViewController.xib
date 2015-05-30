@@ -76,10 +76,6 @@
                         <action selector="myShopButtonClicked:" destination="-1" eventType="touchUpInside" id="5WS-FR-NfH"/>
                     </connections>
                 </button>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DjH-7z-YWD">
-                    <rect key="frame" x="0.0" y="190" width="375" height="477"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -89,14 +85,10 @@
                 <constraint firstItem="R0S-Re-KwQ" firstAttribute="width" secondItem="ZWB-3D-PFB" secondAttribute="width" id="ARU-tE-Wc7"/>
                 <constraint firstAttribute="trailing" secondItem="xIF-TC-d0n" secondAttribute="trailing" id="DWp-i7-yUd"/>
                 <constraint firstAttribute="trailing" secondItem="R0S-Re-KwQ" secondAttribute="trailing" id="ETg-lw-VLu"/>
-                <constraint firstAttribute="trailing" secondItem="DjH-7z-YWD" secondAttribute="trailing" id="IVX-UQ-I9O"/>
                 <constraint firstItem="xIF-TC-d0n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jxu-zG-270"/>
                 <constraint firstItem="ZWB-3D-PFB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="M5q-wG-t6V"/>
-                <constraint firstAttribute="bottom" secondItem="DjH-7z-YWD" secondAttribute="bottom" id="aCo-Xk-ARA"/>
-                <constraint firstItem="DjH-7z-YWD" firstAttribute="top" secondItem="ZWB-3D-PFB" secondAttribute="bottom" id="ab8-O9-YRN"/>
                 <constraint firstItem="R0S-Re-KwQ" firstAttribute="height" secondItem="ZWB-3D-PFB" secondAttribute="height" id="bXZ-44-yUM"/>
                 <constraint firstItem="ZWB-3D-PFB" firstAttribute="top" secondItem="xIF-TC-d0n" secondAttribute="bottom" id="hSq-f5-FDN"/>
-                <constraint firstItem="DjH-7z-YWD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="n7W-PB-Znr"/>
                 <constraint firstItem="xIF-TC-d0n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pQD-s5-lEU"/>
                 <constraint firstItem="R0S-Re-KwQ" firstAttribute="centerY" secondItem="ZWB-3D-PFB" secondAttribute="centerY" id="uyC-PI-aXR"/>
             </constraints>

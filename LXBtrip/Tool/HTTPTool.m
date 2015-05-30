@@ -69,7 +69,7 @@ singleton_implementation(HTTPTool)
     }];
 }
 
-// 获取我的微店列表 - LXB1125
+// 获取我的微店列表 - LXB1125 - 已登录
 + (void)getMyMicroShopListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
     NSMutableDictionary *param;
@@ -98,6 +98,24 @@ singleton_implementation(HTTPTool)
     }];
 }
 
+// 获取我的微店列表 - LXB11148 - 未登录
++ (void)getMyMicroShopListWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB11148" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/myTemplate"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
 // 获取微店详情 - LXB1113
 + (void)getMicroShopDetailWithShopId:(NSNumber *)shopId success:(SuccessBlock)success fail:(FailBlock)fail
 {
@@ -116,8 +134,37 @@ singleton_implementation(HTTPTool)
             fail(error);
         }
     }];
-
 }
+
+// 添加到我的微店 - LXB1224
++ (void)addToMyShopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{shopId:@"templateid"} mutableCopy];
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1224" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/addTemplate"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
 
 
 #pragma mark - Private methods
@@ -132,6 +179,7 @@ singleton_implementation(HTTPTool)
     NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:decodedData options:kNilOptions error:&error];
     return dict;
 }
+
 
 
 

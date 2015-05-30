@@ -37,6 +37,17 @@
     [_mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.shopImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         ;
     }];
+    
+    ShopUsedStatus status = [info.shopIsUse intValue];
+    switch (status) {
+        case SHOP_IS_USE:
+            _usedImageView.hidden = NO;
+            break;
+            case SHOP_NOT_USE:
+            _usedImageView.hidden = YES;
+        default:
+            break;
+    }
 }
 
 @end

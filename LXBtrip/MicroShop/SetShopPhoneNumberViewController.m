@@ -42,11 +42,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpNavigationItemWithRightBarItemTitle:@"保存"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
     
     cellPhonePartIsSelected = YES;
     [self SetCellPhonePartSelected:cellPhonePartIsSelected];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
 
 - (IBAction)cellPhoneButtonClicked:(id)sender {
     cellPhonePartIsSelected = YES;

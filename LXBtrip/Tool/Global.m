@@ -16,30 +16,6 @@ singleton_implementation(Global)
     // after login, save user info here.
 }
 
--(void)whiteStyle:(UINavigationController *)nav barItem:(UINavigationItem *)barItem rightItemTitle:(NSString *)title
-{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    nav.navigationBar.barTintColor = [UIColor whiteColor];
-    
-    // left back arrow
-    UIBarButtonItem  * leftItem = barItem.leftBarButtonItems[1];
-    UIButton * btn = (UIButton *)leftItem.customView;
-    [btn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    
-    // right text
-    if (title) {
-        UIBarButtonItem *rightItem = barItem.rightBarButtonItems[1];
-        btn = (UIButton *)rightItem.customView;
-        [btn setTitle:title forState:UIControlStateNormal];
-        btn.titleLabel.textColor = RED_FF0075;
-        btn.titleLabel.font = [UIFont systemFontOfSize:13.f];
-    }
-    
-    nav.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:MainNavTitleFont};
-    nav.navigationBar.backgroundColor = [UIColor whiteColor];
-}
-
-
 - (void)codeHudWithDict:(NSDictionary *)dict succeed:(errorCode_succeed_block)succeed
 {
     ErrorCodeType type = [dict[@"error_code"] intValue];

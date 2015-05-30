@@ -19,6 +19,7 @@
 #import "ReusableHeaderView_myShop.h"
 #import "DeleteActionSheet.h"
 #import "MicroShopDetailViewController.h"
+#import "OpenMiroShopViewController.h"
 
 @interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, DeleteActionSheetDelegate>
 
@@ -45,12 +46,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // tabBarItem
+    UIImage *normal = [ImageNamed(@"shop_normal") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *selected = [ImageNamed(@"service_normal") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"微店" image:normal selectedImage:selected];
     
     _onlineShopsArray = [[NSMutableArray alloc] init];
     _myShopsArray = [[NSMutableArray alloc] init];
     
     CGFloat scrollViewYOrigin = 0.277*SCREEN_HEIGHT;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49)];
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
@@ -189,80 +194,91 @@
 {
     if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
         [HTTPTool getOnlineMicroShopListWithProvince:_locationButton.titleLabel.text companyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
-            [[Global sharedGlobal] codeHudWithDict:result succeed:^{
-                NSArray *data = result[@"RS100002"];
-                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSArray *data = result[@"RS100002"];
+            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
+                    [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
+                }
+                if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
                     
-                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                    if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
-                        [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
-                    }
-                    if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
-                        
-                        NSArray *tempArray = [obj[@"classify_template"] copy];
-                        NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
-                        [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                            MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                            [tempArray2 addObject:info];
-                        }];
-                        [tempDict setObject:tempArray2 forKey:@"classify_template"];
-                    }
-                    [_onlineShopsArray addObject:tempDict];
-                }];
-                [_onlineShopCollectionView reloadData];
+                    NSArray *tempArray = [obj[@"classify_template"] copy];
+                    NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                    [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                        [tempArray2 addObject:info];
+                    }];
+                    [tempDict setObject:tempArray2 forKey:@"classify_template"];
+                }
+                [_onlineShopsArray addObject:tempDict];
             }];
+            [_onlineShopCollectionView reloadData];
         } fail:^(NSError *error) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取在线微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getOnlineMicroShopListWithProvince:_locationButton.titleLabel.text success:^(id result) {
-            [[Global sharedGlobal] codeHudWithDict:result succeed:^{
-                NSArray *data = result[@"RS100001"];
-                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSArray *data = result[@"RS100001"];
+            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
+                    [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
+                }
+                if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
                     
-                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                    if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
-                        [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
-                    }
-                    if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
-                        
-                        NSArray *tempArray = [obj[@"classify_template"] copy];
-                        NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
-                        [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                            MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                            [tempArray2 addObject:info];
-                        }];
-                        [tempDict setObject:tempArray2 forKey:@"classify_template"];
-                    }
-                    [_onlineShopsArray addObject:tempDict];
-                }];
-                [_onlineShopCollectionView reloadData];
+                    NSArray *tempArray = [obj[@"classify_template"] copy];
+                    NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                    [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                        [tempArray2 addObject:info];
+                    }];
+                    [tempDict setObject:tempArray2 forKey:@"classify_template"];
+                }
+                [_onlineShopsArray addObject:tempDict];
+                [_onlineShopsArray addObject:tempDict];
+                [_onlineShopsArray addObject:tempDict];
+                
             }];
+            [_onlineShopCollectionView reloadData];
+
         } fail:^(NSError *error) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取在线微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     }
-    
-    
 }
 
 - (void)getMyShops
 {
-    [HTTPTool getMyMicroShopListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
-        [[Global sharedGlobal] codeHudWithDict:result succeed:^{
+    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
+        [HTTPTool getMyMicroShopListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
+            
             NSArray *data = result[@"RS100005"];
             [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
                 [_myShopsArray addObject:info];
             }];
+            [_myShopCollectionView reloadData];
+        } fail:^(id result) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
         }];
-        [_myShopCollectionView reloadData];
-    } fail:^(id result) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }];
+    } else {
+        [HTTPTool getMyMicroShopListWithSuccess:^(id result) {
+            NSArray *data = result[@"RS100005"];
+            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                [_myShopsArray addObject:info];
+            }];
+            [_myShopCollectionView reloadData];
+        } fail:^(id result) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
+        }];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -321,24 +337,43 @@
         return header;
     }
     
-    ReusableHeaderView_OnlineShop *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_myShop" forIndexPath:indexPath];
+    ReusableHeaderView_myShop *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_myShop" forIndexPath:indexPath];
     return header;
 
 }
 
 #pragma mark - UICollectionViewDelegate
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return CGSizeMake(collectionView.frame.size.width, 50.f);
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // jump to detail
     if (collectionView == _onlineShopCollectionView) {
         MicroShopDetailViewController *detail = [[MicroShopDetailViewController alloc] init];
+        
         NSArray *subSectionArray = [_onlineShopsArray[indexPath.section] valueForKey:@"classify_template"];
         MicroShopInfo *curInfo = subSectionArray[indexPath.row];
         detail.shopId = curInfo.shopId;
+        detail.isMyShop = NO;
         [self.navigationController pushViewController:detail animated:YES];
+        return;
     }
     
-    // add my shop
+    if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
+        OpenMiroShopViewController *open = [[OpenMiroShopViewController alloc] init];
+        [self.navigationController pushViewController:open animated:YES];
+        return;
+    }
+    
+    
+    // add to my shop cell clicked
+    if (collectionView == _myShopCollectionView && indexPath.row == _myShopsArray.count) {
+        [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
+    }
 }
 
 #pragma mark - ReusableHeaderView_myShop_Delegate
@@ -358,6 +393,9 @@
 
 - (IBAction)myShopButtonClicked:(id)sender {
     [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
+    if (_myShopsArray.count == 0) {
+        [self getMyShops];
+    }
 }
 
 - (IBAction)onlineShopButtonClicked:(id)sender {

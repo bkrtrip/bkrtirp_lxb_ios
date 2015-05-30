@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ReusableHeaderView_OnlineShop : UICollectionReusableView
-
 @property (strong, nonatomic) IBOutlet UILabel *sectionHeaderNameLabel;
+
 
 @end
