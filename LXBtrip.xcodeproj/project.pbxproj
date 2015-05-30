@@ -181,6 +181,8 @@
 		97CDE0611B17F89B008B146B /* AlleyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDE05F1B17F89B008B146B /* AlleyListViewController.xib */; };
 		97D78EE11B19ACAA003E66E7 /* DockBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D78EE01B19ACA9003E66E7 /* DockBar.m */; };
 		97D78EE41B19AD04003E66E7 /* TabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D78EE31B19AD04003E66E7 /* TabBarButton.m */; };
+		97D78EE71B19B4C3003E66E7 /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D78EE61B19B4C3003E66E7 /* TabBar.m */; };
+		97D78EE91B19B4D3003E66E7 /* TabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97D78EE81B19B4D3003E66E7 /* TabBar.xib */; };
 		C0B31FB90070488B83D0CD91 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5F4DEB1A0744219FAA866C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -463,6 +465,9 @@
 		97D78EE01B19ACA9003E66E7 /* DockBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DockBar.m; sourceTree = "<group>"; };
 		97D78EE21B19AD04003E66E7 /* TabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarButton.h; sourceTree = "<group>"; };
 		97D78EE31B19AD04003E66E7 /* TabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarButton.m; sourceTree = "<group>"; };
+		97D78EE51B19B4C3003E66E7 /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBar.h; sourceTree = "<group>"; };
+		97D78EE61B19B4C3003E66E7 /* TabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBar.m; sourceTree = "<group>"; };
+		97D78EE81B19B4D3003E66E7 /* TabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBar.xib; sourceTree = "<group>"; };
 		CB5F4DEB1A0744219FAA866C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -969,6 +974,9 @@
 				9789AEEC1B1888CB001AD998 /* MainTabBarViewController.h */,
 				9789AEED1B1888CB001AD998 /* MainTabBarViewController.m */,
 				9789AEEE1B1888CB001AD998 /* MainTabBarViewController.xib */,
+				97D78EE51B19B4C3003E66E7 /* TabBar.h */,
+				97D78EE61B19B4C3003E66E7 /* TabBar.m */,
+				97D78EE81B19B4D3003E66E7 /* TabBar.xib */,
 				97D78EE21B19AD04003E66E7 /* TabBarButton.h */,
 				97D78EE31B19AD04003E66E7 /* TabBarButton.m */,
 				97D78EDF1B19ACA9003E66E7 /* DockBar.h */,
@@ -1350,6 +1358,7 @@
 				97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */,
 				97192EC61B0CCC4D00C02B9E /* test.png in Resources */,
 				97AEDBA91B1401030098F75B /* detail_disclusure@2x.png in Resources */,
+				97D78EE91B19B4D3003E66E7 /* TabBar.xib in Resources */,
 				9793A50F1B10369C00182006 /* location_red@3x.png in Resources */,
 				8E3F5D751B00404300E911F5 /* 5.png in Resources */,
 				97AEDBCE1B1458F10098F75B /* fixed_line_phone_hightlighted@3x.png in Resources */,
@@ -1497,6 +1506,7 @@
 				8E5C69C51AFB31ED004A0CC3 /* ToJoinViewController.m in Sources */,
 				8E3F60791B0093AD00E911F5 /* AFSecurityPolicy.m in Sources */,
 				97AEDBA01B13FC9D0098F75B /* UploadingIconTableViewCell.m in Sources */,
+				97D78EE71B19B4C3003E66E7 /* TabBar.m in Sources */,
 				8E5C69C21AFB31A7004A0CC3 /* SupplierViewController.m in Sources */,
 				97ADF1D41B121001009DA8C3 /* AddShopCollectionViewCell.m in Sources */,
 				8E3DE06D1B0111690035964A /* README.md in Sources */,
