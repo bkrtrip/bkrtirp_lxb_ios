@@ -18,6 +18,6 @@ singleton_interface(Global)
 
 - (void)saveUserInfo:(User *)userInfo;
 
-- (void)codeHudWithDict:(NSDictionary *)dict succeed:(errorCode_succeed_block)succeed;// 根据错误码显示HUD
+- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed;// 根据错误码显示HUD
 
 @end

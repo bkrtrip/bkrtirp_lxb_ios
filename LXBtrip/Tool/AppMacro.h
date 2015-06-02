@@ -14,7 +14,11 @@
 #import "MicroShopInfo.h"
 #import "HTTPTool.h"
 #import "User.h"
+#import "TourInfo.h"
 #import "CommentInfo.h"
+#import "SupplierInfo.h"
+#import "SupplierProduct.h"
+
 #import <SDWebImage/UIImageView+WebCache.h>
 
 // 服务器地址
@@ -25,13 +29,23 @@
 #define MainNavTitleColor RGB(255, 255, 255)
 #define MainNavTitleFont [UIFont boldSystemFontOfSize:18]
 
-// Micro shop
-#define LIST_HOR_MARGIN 10.f
-#define LIST_HOR_SPACING 10.f
-#define LIST_VER_MARGIN 10.f
-#define LIST_VER_SPACING 10.f
-#define LIST_WIDTH_HEIGHT_PROPORTION (310.f/520.f)
-#define Num_Of_Images_Per_Row 2
+// Micro shop collection view
+#define LIST_HOR_MARGIN_MICROSHOP 10.f
+#define LIST_HOR_SPACING_MICROSHOP 10.f
+#define LIST_VER_MARGIN_MICROSHOP 10.f
+#define LIST_VER_SPACING_MICROSHOP 10.f
+#define LIST_WIDTH_HEIGHT_PROPORTION_MICROSHOP (310.f/520.f)
+#define NUM_OF_IMAGES_PER_ROW_MICROSHOP 2
+
+// Supplier collection view
+#define LIST_HOR_MARGIN_SUPPLIER 10.f
+#define LIST_HOR_SPACING_SUPPLIER 10.f
+#define LIST_VER_MARGIN_SUPPLIER 10.f
+#define LIST_VER_SPACING_SUPPLIER 10.f
+#define LIST_WIDTH_HEIGHT_PROPORTION_SUPPLIER (226.f/77.f)
+#define NUM_OF_IMAGES_PER_ROW_SUPPLIER 3
+
+
 
 #define DELETE_ACTION_SHEET_HEIGHT 187.f
 
@@ -51,6 +65,9 @@
 
 // F5F5F5
 #define BG_F5F5F5 [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1]
+
+// 4CA5FF - BLUE
+#define TEXT_4CA5FF [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]
 
 
 
@@ -72,6 +89,17 @@ typedef enum ShopUsedStatus
     SHOP_IS_USE = 0, // 使用
     SHOP_NOT_USE = 1, // 未使用
 } ShopUsedStatus;
+
+typedef enum SupplierStatus
+{
+    supplier_isMy_isNew = 0, // 我的 + 最新
+    supplier_isMy_notNew = 1, // 我的 + 非最新
+    supplier_notMy_isNew = 2, // 非我的 + 最新
+    supplier_notMy_notNew = 3, // 非我的 + 非最新
+} SupplierStatus;
+
+//周边游  #1#492  国内游  #1#283  出境游  #1#303  国内目的地  #1#997  国外目的地  #1#998
+#define LINE_CLASS @{@0:@"#1#492", @1:@"#1#283", @2:@"#1#303", @3:@"#1#997", @4:@"#1#998"}
 
 
 

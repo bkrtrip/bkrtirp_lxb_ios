@@ -13,4 +13,6 @@
 
 - (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title;
 
+- (void)rightBarButtonItemClicked:(id)sender;
+
 @end

@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
+
+@protocol TourListTableViewCell_Delegate <NSObject>
+
+- (void)supportClickWithShareButton;
+- (void)supportClickWithPreviewButton;
+- (void)supportClickWithAccompanyButton;
+
+@end
 
 @interface TourListTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) id<TourListTableViewCell_Delegate>delegate;
+
+- (void)setCellContentWithSupplierProduct:(SupplierProduct *)product;
 @end

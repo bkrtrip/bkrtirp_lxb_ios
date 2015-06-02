@@ -13,6 +13,7 @@
 - (id)initWithDict:(NSDictionary *)dict
 {
     // online shop common part - whether login or not
+    self.tourImage = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
     self.tourName = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
     self.tourKeywords = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
     self.tourCost = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];

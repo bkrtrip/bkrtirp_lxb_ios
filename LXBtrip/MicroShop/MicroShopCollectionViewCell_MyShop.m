@@ -10,9 +10,6 @@
 #import "AppMacro.h"
 
 @interface MicroShopCollectionViewCell_MyShop()
-{
-    NSInteger lockStatus;
-}
 
 @property (strong, nonatomic) IBOutlet UILabel *shopNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *providerNameLabel;
@@ -33,9 +30,8 @@
     [_deleteOrLockButton setImage:nil forState:UIControlStateNormal];
 }
 
-- (void)setCellContentWithMicroShopInfo:(MicroShopInfo *)info isLock:(NSInteger)isLock isDefault:(NSInteger)isDefault
+- (void)setCellContentWithMicroShopInfo:(MicroShopInfo *)info
 {
-    lockStatus = isLock;
     _shopNameLabel.text = info.shopName;
     _providerNameLabel.text = info.shopProvider;
     [_mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.shopImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {

@@ -15,18 +15,18 @@
 {
     self = [super init];
     if (self) {
-        CGFloat itemWidth = (SCREEN_WIDTH-LIST_HOR_MARGIN*2-(Num_Of_Images_Per_Row-1)*LIST_HOR_SPACING)/Num_Of_Images_Per_Row;
-        CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION;
+        CGFloat itemWidth = (SCREEN_WIDTH-LIST_HOR_MARGIN_MICROSHOP*2-(NUM_OF_IMAGES_PER_ROW_MICROSHOP-1)*LIST_HOR_SPACING_MICROSHOP)/NUM_OF_IMAGES_PER_ROW_MICROSHOP;
+        CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION_MICROSHOP;
         
         self.itemSize = CGSizeMake(itemWidth, itemHeight);
         
 //        NSLog(@"self.itemSize: %@", NSStringFromCGSize(self.itemSize));
         // 行margin
-        self.sectionInset = UIEdgeInsetsMake(LIST_VER_MARGIN, LIST_HOR_MARGIN, LIST_VER_MARGIN, LIST_HOR_MARGIN);
+        self.sectionInset = UIEdgeInsetsMake(LIST_VER_MARGIN_MICROSHOP, LIST_HOR_MARGIN_MICROSHOP, LIST_VER_MARGIN_MICROSHOP, LIST_HOR_MARGIN_MICROSHOP);
         // 行距
-        self.minimumLineSpacing = LIST_VER_SPACING;
+        self.minimumLineSpacing = LIST_VER_SPACING_MICROSHOP;
         // 间距
-        self.minimumInteritemSpacing = LIST_HOR_SPACING;
+        self.minimumInteritemSpacing = LIST_HOR_SPACING_MICROSHOP;
     }
     return self;
 }
@@ -40,8 +40,8 @@
 {
     UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     
-    CGFloat itemWidth = (self.collectionView.frame.size.width-LIST_HOR_MARGIN*2-(Num_Of_Images_Per_Row-1)*LIST_HOR_SPACING)/Num_Of_Images_Per_Row;
-    CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION;
+    CGFloat itemWidth = (self.collectionView.frame.size.width-LIST_HOR_MARGIN_MICROSHOP*2-(NUM_OF_IMAGES_PER_ROW_MICROSHOP-1)*LIST_HOR_SPACING_MICROSHOP)/NUM_OF_IMAGES_PER_ROW_MICROSHOP;
+    CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION_MICROSHOP;
     
     attributes.size = CGSizeMake(itemWidth, itemHeight);
     return attributes;

@@ -19,7 +19,7 @@
 #import "ReusableHeaderView_myShop.h"
 #import "DeleteActionSheet.h"
 #import "MicroShopDetailViewController.h"
-#import "OpenMiroShopViewController.h"
+#import "SetShopNameViewController.h"
 
 @interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, DeleteActionSheetDelegate>
 
@@ -44,12 +44,20 @@
 
 @implementation MicroShopViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        // tabBarItem
+        UIImage *normal = [ImageNamed(@"shop_normal") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *selected = [ImageNamed(@"shop_selected") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"微店" image:normal selectedImage:selected];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // tabBarItem
-    UIImage *normal = [ImageNamed(@"shop_normal") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *selected = [ImageNamed(@"service_normal") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"微店" image:normal selectedImage:selected];
     
     _onlineShopsArray = [[NSMutableArray alloc] init];
     _myShopsArray = [[NSMutableArray alloc] init];
@@ -113,12 +121,12 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = NO;
 }
 
 
@@ -268,7 +276,7 @@
         }];
     } else {
         [HTTPTool getMyMicroShopListWithSuccess:^(id result) {
-            NSArray *data = result[@"RS100005"];
+            NSArray *data = result[@"RS100048"];
             [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
                 [_myShopsArray addObject:info];
@@ -318,7 +326,7 @@
         if (indexPath.row < _myShopsArray.count) {
             MicroShopCollectionViewCell_MyShop *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MicroShopCollectionViewCell_MyShop" forIndexPath:indexPath];
             MicroShopInfo *info = _myShopsArray[indexPath.row];
-            [cell setCellContentWithMicroShopInfo:info isLock:NO isDefault:NO];
+            [cell setCellContentWithMicroShopInfo:info];
             return cell;
         } else if (indexPath.row == _myShopsArray.count) {
             // '+'
@@ -364,8 +372,8 @@
     }
     
     if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
-        OpenMiroShopViewController *open = [[OpenMiroShopViewController alloc] init];
-        [self.navigationController pushViewController:open animated:YES];
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
         return;
     }
     

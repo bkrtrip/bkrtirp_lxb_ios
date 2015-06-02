@@ -35,6 +35,7 @@
             <connections>
                 <outlet property="sectionHeaderNameLabel" destination="2kd-NG-Ry7" id="IU1-0U-kn1"/>
             </connections>
+            <point key="canvasLocation" x="181" y="289"/>
         </collectionReusableView>
     </objects>
     <resources>

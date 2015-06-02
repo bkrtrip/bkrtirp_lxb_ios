@@ -81,8 +81,8 @@
     {
         // add to myshop
         [HTTPTool addToMyShopWithShopId:_shopId companyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
-            NSDictionary *dict = result[@"RS100004"];
-            [[Global sharedGlobal] codeHudWithDict:dict succeed:^{
+            id obj = result[@"RS100004"];
+            [[Global sharedGlobal] codeHudWithObject:obj succeed:^{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"添加成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
                 [alert show];
                 _addToMyShopButton.hidden = YES;

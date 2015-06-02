@@ -32,8 +32,12 @@
                             <constraint firstAttribute="width" secondItem="MZH-xJ-SdA" secondAttribute="height" multiplier="534:760" id="Zfp-ab-WFG"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptt-nS-KtV">
-                        <rect key="frame" x="208" y="388" width="46" height="30"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptt-nS-KtV">
+                        <rect key="frame" x="224" y="391" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Ptt-nS-KtV" secondAttribute="height" multiplier="1:1" id="DjE-Ho-6Oc"/>
+                            <constraint firstAttribute="height" constant="30" id="nPs-mK-pm8"/>
+                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -47,6 +51,7 @@
             <constraints>
                 <constraint firstItem="3j6-Mp-dGM" firstAttribute="top" secondItem="MZH-xJ-SdA" secondAttribute="bottom" constant="8" id="DV5-Cw-Xd6"/>
                 <constraint firstItem="MZH-xJ-SdA" firstAttribute="top" secondItem="vbV-6o-px9" secondAttribute="top" id="Ekp-Rf-l8b"/>
+                <constraint firstItem="Ptt-nS-KtV" firstAttribute="bottom" secondItem="tH0-cC-11D" secondAttribute="bottom" id="Evy-j6-bfi"/>
                 <constraint firstAttribute="trailing" secondItem="Ptt-nS-KtV" secondAttribute="trailing" constant="8" id="Rru-Y1-sgG"/>
                 <constraint firstItem="tH0-cC-11D" firstAttribute="leading" secondItem="vbV-6o-px9" secondAttribute="leading" id="X0X-QA-qkj"/>
                 <constraint firstItem="MZH-xJ-SdA" firstAttribute="leading" secondItem="vbV-6o-px9" secondAttribute="leading" id="f5T-p3-mHP"/>
@@ -60,6 +65,7 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="DV5-Cw-Xd6"/>
+                    <exclude reference="lj2-IY-HU1"/>
                 </mask>
             </variation>
             <connections>
@@ -68,7 +74,7 @@
                 <outlet property="providerNameLabel" destination="tH0-cC-11D" id="TXX-6z-zA7"/>
                 <outlet property="shopNameLabel" destination="3j6-Mp-dGM" id="X98-MN-p3p"/>
             </connections>
-            <point key="canvasLocation" x="310" y="400"/>
+            <point key="canvasLocation" x="57" y="384"/>
         </collectionViewCell>
     </objects>
     <resources>

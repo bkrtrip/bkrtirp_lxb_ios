@@ -17,22 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpNavigationItemWithRightBarItemTitle:@"保存"];
+    self.title = @"微店联系人";
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)rightBarButtonItemClicked:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
-*/
+
+
+
+
+
+
 
 @end

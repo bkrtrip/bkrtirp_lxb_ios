@@ -19,7 +19,7 @@
 
 @property (nonatomic, weak) id <MicroShopCollectionViewCell_MyShop_Delegate>delegate;
 
-- (void)setCellContentWithMicroShopInfo:(MicroShopInfo *)info isLock:(NSInteger)isLock isDefault:(NSInteger)isDefault;
+- (void)setCellContentWithMicroShopInfo:(MicroShopInfo *)info;
 
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SetShopNameViewController.h"
+#import "SetShopContactViewController.h"
 
 @interface SetShopNameViewController ()
 
@@ -17,7 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
+    self.title = @"微店名称";
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"下一步"];
+}
+
+- (void)rightBarButtonItemClicked:(id)sender
+{
+    SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+    [self.navigationController pushViewController:setContact animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -25,13 +33,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = YES;
-}
-
 
 
 

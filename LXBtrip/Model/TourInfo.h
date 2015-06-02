@@ -10,6 +10,7 @@
 
 @interface TourInfo : NSObject
 
+@property (nonatomic, copy) NSString *tourImage;
 @property (nonatomic, copy) NSString *tourName;
 @property (nonatomic, copy) NSString *tourKeywords;
 @property (nonatomic, copy) NSString *tourCost;

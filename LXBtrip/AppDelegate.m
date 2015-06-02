@@ -7,8 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "MicroShopViewController.h"
 #import "MainTabBarViewController.h"
+
+#import "MicroShopViewController.h"
+#import "SupplierViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,10 +24,17 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    MicroShopViewController *shopController = [[MicroShopViewController alloc] init];
+    MicroShopViewController *shop = [[MicroShopViewController alloc] init];
+    SupplierViewController *supplier = [[SupplierViewController alloc] init];
+    
+    UINavigationController *shopNav = [[UINavigationController alloc] initWithRootViewController:shop];
+    UINavigationController *supplierNav = [[UINavigationController alloc] initWithRootViewController:supplier];
     
     MainTabBarViewController *tabController = [[MainTabBarViewController alloc] init];
-    [tabController setViewControllers:[NSArray arrayWithObject:NavC(shopController)]];
+//    [tabController setViewControllers:[NSArray arrayWithObjects:shop, supplier, nil]];
+    [tabController setViewControllers:[NSArray arrayWithObjects:shopNav, supplierNav, nil]];
+    tabController.selectedIndex = 1;
+
     
     self.window.rootViewController = tabController;
     
