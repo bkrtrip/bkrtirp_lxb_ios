@@ -35,6 +35,14 @@ singleton_interface(HTTPTool)
 // 添加到我的微店 - LXB1224
 + (void)addToMyShopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
 
+// 锁定微店 - LXB13244
++ (void)lockMicroshopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
+
+
+
+
+
+
 // 专线/地接 - 未登录 - LXB2119
 + (void)getSuppliersListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
@@ -46,6 +54,21 @@ singleton_interface(HTTPTool)
 
 // 供应商详情 - 已登录 - LXB21216
 + (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSNumber *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取国家 - LXB51139
++ (void)getCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取省份 - LXB51140
++ (void)getProvincesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取城市 - LXB51141
++ (void)getCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取热门城市 - LXB51142
++ (void)getHotCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取热门国家 - LXB51143
++ (void)getHotCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
 
 

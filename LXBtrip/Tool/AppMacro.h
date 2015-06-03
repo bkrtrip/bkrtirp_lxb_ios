@@ -18,6 +18,11 @@
 #import "CommentInfo.h"
 #import "SupplierInfo.h"
 #import "SupplierProduct.h"
+#import "City.h"
+#import "Province.h"
+#import "Country.h"
+#import "HotCity.h"
+#import "HotCountry.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -48,6 +53,8 @@
 
 
 #define DELETE_ACTION_SHEET_HEIGHT 187.f
+#define YES_OR_NO_VIEW_HEIGHT 187.f
+
 
 
 #define TEXT_SELECTED_COLOR [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]

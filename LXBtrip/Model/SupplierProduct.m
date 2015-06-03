@@ -24,13 +24,19 @@
     self.productMarketPrice = [dict[@"market_price"] isKindOfClass:[NSNull class]]?nil:dict[@"market_price"];
     
     
-    NSArray *temp = [dict[@"market_ticket_group"] isKindOfClass:[NSNull class]]?nil:dict[@"market_ticket_group"];
-    NSMutableArray *temp2 = [[NSMutableArray alloc] init];
-    [temp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        MarketTicketGroup *group = [[MarketTicketGroup alloc] initWithDict:obj];
-        [temp2 addObject:group];
-    }];
-    self.productMarketTicketGroup = [temp2 copy];
+    NSString *temp = [dict[@"market_ticket_group"] isKindOfClass:[NSNull class]]?nil:dict[@"market_ticket_group"];
+    
+    id object = [self arrayOrDictinaryWithJsonString:temp];
+    
+    if ([object isKindOfClass:[NSArray class]]) {
+        NSMutableArray *temp2 = [[NSMutableArray alloc] init];
+        [object enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            MarketTicketGroup *group = [[MarketTicketGroup alloc] initWithDict:obj];
+            [temp2 addObject:group];
+        }];
+        self.productMarketTicketGroup = [temp2 copy];
+    }
+    
     
     
     self.productPeerNotice = [dict[@"peer_notice"] isKindOfClass:[NSNull class]]?nil:dict[@"peer_notice"];
@@ -52,16 +58,42 @@
 
     temp = [dict[@"travel_ticket_group"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_ticket_group"];
     
-    temp2 = [[NSMutableArray alloc] init];
-    [temp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        TravelTicketGroup *group = [[TravelTicketGroup alloc] initWithDict:obj];
-        [temp2 addObject:group];
-    }];
-    self.productTravelTicketGroup = [temp2 copy];
+    object = [self arrayOrDictinaryWithJsonString:temp];
+    
+    if ([object isKindOfClass:[NSArray class]]) {
+        NSMutableArray *temp2 = [[NSMutableArray alloc] init];
+        [object enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            TravelTicketGroup *group = [[TravelTicketGroup alloc] initWithDict:obj];
+            [temp2 addObject:group];
+        }];
+        self.productTravelTicketGroup = [temp2 copy];
+    }
+
+    
+//    temp2 = [[NSMutableArray alloc] init];
+//    [temp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        TravelTicketGroup *group = [[TravelTicketGroup alloc] initWithDict:obj];
+//        [temp2 addObject:group];
+//    }];
+//    self.productTravelTicketGroup = [temp2 copy];
     
     self.productWalkType = [dict[@"walk_type"] isKindOfClass:[NSNull class]]?nil:dict[@"walk_type"];
 
     return self;
 }
+
+#pragma mark - Private methods
+- (id)arrayOrDictinaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *data = [jsonString dataUsingEncoding:NSASCIIStringEncoding];
+    
+    NSError *error = nil;
+    id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    return obj;
+}
+
 
 @end

@@ -15,6 +15,7 @@
 #import "SupplierCollectionViewFlowLayout.h"
 #import "ReusableHeaderView_Supplier.h"
 #import "SupplierDetailViewController.h"
+#import "SwitchCityViewController.h"
 
 @interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 {
@@ -204,67 +205,72 @@
     
     if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
         [HTTPTool getSuppliersListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId StartCity:startCity lineClass:LINE_CLASS[@(selectedIndex)] lineType:nil pageNum:pageNumsArray[selectedIndex] success:^(id result) {
-            
-            NSArray *data = result[@"RS100010"];
-            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                
-                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                //category
-                if ([obj[@"line_type"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type"]) {
-                    [tempDict setObject:obj[@"line_type"] forKey:@"line_type"];
-                }
-                //first letter
-                if ([obj[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type_letter"]) {
-                    [tempDict setObject:obj[@"line_type_letter"] forKey:@"line_type_letter"];
-                }
-                if ([obj[@"supplier_info"] isKindOfClass:[NSNull class]]?nil:obj[@"supplier_info"]) {
-                    
-                    NSArray *tempArray = [obj[@"supplier_info"] copy];
-                    NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
-                    [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        SupplierInfo *info = [[SupplierInfo alloc] initWithDict:obj];
-                        [tempArray2 addObject:info];
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
+                if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
+                    NSArray *data = result[@"RS100009"];
+                    [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        
+                        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                        //category
+                        if ([obj[@"line_type"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type"]) {
+                            [tempDict setObject:obj[@"line_type"] forKey:@"line_type"];
+                        }
+                        //first letter
+                        if ([obj[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type_letter"]) {
+                            [tempDict setObject:obj[@"line_type_letter"] forKey:@"line_type_letter"];
+                        }
+                        if ([obj[@"supplier_info"] isKindOfClass:[NSNull class]]?nil:obj[@"supplier_info"]) {
+                            
+                            NSArray *tempArray = [obj[@"supplier_info"] copy];
+                            NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                            [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                SupplierInfo *info = [[SupplierInfo alloc] initWithDict:obj];
+                                [tempArray2 addObject:info];
+                            }];
+                            [tempDict setObject:tempArray2 forKey:@"supplier_info"];
+                        }
+                        [_suppliersArray[selectedIndex] addObject:tempDict];
                     }];
-                    [tempDict setObject:tempArray2 forKey:@"supplier_info"];
+                    [collectionViewsArray[selectedIndex] reloadData];
+                    pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
                 }
-                [_suppliersArray[selectedIndex] addObject:tempDict];
             }];
-            [collectionViewsArray[selectedIndex] reloadData];
-            pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getSuppliersListWithStartCity:startCity lineClass:LINE_CLASS[@(selectedIndex)] lineType:nil pageNum:pageNumsArray[selectedIndex] success:^(id result) {
-//            [[Global sharedGlobal] codeHudWithDict:result[@"RS100009"] succeed:^{
-                NSArray *data = result[@"RS100009"];
-                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    
-                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                    //category
-                    if ([obj[@"line_type"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type"]) {
-                        [tempDict setObject:obj[@"line_type"] forKey:@"line_type"];
-                    }
-                    //first letter
-                    if ([obj[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type_letter"]) {
-                        [tempDict setObject:obj[@"line_type_letter"] forKey:@"line_type_letter"];
-                    }
-                    if ([obj[@"supplier_info"] isKindOfClass:[NSNull class]]?nil:obj[@"supplier_info"]) {
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
+                if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
+                    NSArray *data = result[@"RS100009"];
+                    [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         
-                        NSArray *tempArray = [obj[@"supplier_info"] copy];
-                        NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
-                        [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                            SupplierInfo *info = [[SupplierInfo alloc] initWithDict:obj];
-                            [tempArray2 addObject:info];
-                        }];
-                        [tempDict setObject:tempArray2 forKey:@"supplier_info"];
-                    }
-                    [_suppliersArray[selectedIndex] addObject:tempDict];
-                }];
-                [collectionViewsArray[selectedIndex] reloadData];
-                pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
-//            }];
+                        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                        //category
+                        if ([obj[@"line_type"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type"]) {
+                            [tempDict setObject:obj[@"line_type"] forKey:@"line_type"];
+                        }
+                        //first letter
+                        if ([obj[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:obj[@"line_type_letter"]) {
+                            [tempDict setObject:obj[@"line_type_letter"] forKey:@"line_type_letter"];
+                        }
+                        if ([obj[@"supplier_info"] isKindOfClass:[NSNull class]]?nil:obj[@"supplier_info"]) {
+                            
+                            NSArray *tempArray = [obj[@"supplier_info"] copy];
+                            NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                            [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                SupplierInfo *info = [[SupplierInfo alloc] initWithDict:obj];
+                                [tempArray2 addObject:info];
+                            }];
+                            [tempDict setObject:tempArray2 forKey:@"supplier_info"];
+                        }
+                        [_suppliersArray[selectedIndex] addObject:tempDict];
+                    }];
+                    [collectionViewsArray[selectedIndex] reloadData];
+                    pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
+                }
+            }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
@@ -332,6 +338,9 @@
 - (IBAction)myButtonClicked:(id)sender {
 }
 - (IBAction)locationButtonClicked:(id)sender {
+    SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
+    switchCity.curCityName = startCity;
+    [self.navigationController pushViewController:switchCity animated:YES];
 }
 
 - (IBAction)searchProductButtonClicked:(id)sender {

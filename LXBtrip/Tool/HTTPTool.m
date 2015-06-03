@@ -139,7 +139,7 @@ singleton_implementation(HTTPTool)
 // 添加到我的微店 - LXB1224
 + (void)addToMyShopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param = [@{shopId:@"templateid"} mutableCopy];
+    NSMutableDictionary *param = [@{@"templateid":shopId} mutableCopy];
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];
     } else
@@ -164,6 +164,46 @@ singleton_implementation(HTTPTool)
         }
     }];
 }
+
+// 锁定微店 - LXB13244
++ (void)lockMicroshopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{@"templateid":shopId} mutableCopy];
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB13244" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/myLock"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // 专线/地接 - 未登录 - LXB2119
 + (void)getSuppliersListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
@@ -275,6 +315,96 @@ singleton_implementation(HTTPTool)
     }];
 }
 
+// 获取国家 - LXB51139
++ (void)getCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB51139" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/country"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 获取省份 - LXB51140
++ (void)getProvincesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB51140" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/province"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 获取城市 - LXB51141
++ (void)getCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB51141" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/city"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 获取热门城市 - LXB51142
++ (void)getHotCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB51142" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/hotCity"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 获取热门国家 - LXB51143
++ (void)getHotCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB51143" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/hotCountry"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
 
 
 
@@ -301,7 +431,7 @@ singleton_implementation(HTTPTool)
     NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:jsonString options:0];
     
     NSError *error = nil;
-    id obj = [NSJSONSerialization JSONObjectWithData:decodedData options:NSJSONReadingMutableContainers error:&error];
+    id obj = [NSJSONSerialization JSONObjectWithData:decodedData options:NSJSONReadingAllowFragments error:&error];
     return obj;
 }
 

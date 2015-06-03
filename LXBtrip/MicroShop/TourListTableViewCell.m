@@ -22,17 +22,19 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    _tourImageView.layer.cornerRadius = 5.0f;
+    _tourImageView.layer.masksToBounds = YES;
 }
 
 - (void)setCellContentWithSupplierProduct:(SupplierProduct *)product
 {
-    NSString *imgString = [NSString stringWithFormat:@"%@_360*360", product.productTravelGoodsImg1];
-    [_tourImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, imgString]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    NSString *imgString = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, product.productTravelGoodsImg1];
+    [_tourImageView sd_setImageWithURL:[NSURL URLWithString:imgString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         ;
     }];
     _tourTitleLabel.text = product.productTravelGoodsName;
     _tourKeywordsLabel.text = product.productIntroduce;
-    _costLabel.text = [product.productTravelPrice stringValue];
+    _costLabel.text = [NSString stringWithFormat:@"￥%@ 起", product.productTravelPrice];
 }
 
 - (IBAction)accompanyButtonClicked:(id)sender {
@@ -52,3 +54,5 @@
 }
 
 @end
+
+

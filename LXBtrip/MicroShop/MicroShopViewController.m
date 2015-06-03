@@ -17,11 +17,11 @@
 #import "Global.h"
 #import "ReusableHeaderView_OnlineShop.h"
 #import "ReusableHeaderView_myShop.h"
-#import "DeleteActionSheet.h"
+#import "YesOrNoView.h"
 #import "MicroShopDetailViewController.h"
 #import "SetShopNameViewController.h"
 
-@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, DeleteActionSheetDelegate>
+@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
@@ -35,7 +35,7 @@
 @property (nonatomic, strong) MicroShopCollectionView *myShopCollectionView;
 
 @property (strong, nonatomic) UIControl *darkMask;
-@property (nonatomic, strong) DeleteActionSheet *deleteActionSheet;
+@property (nonatomic, strong) YesOrNoView *yesOrNoView;
 
 @property (nonatomic, copy) NSMutableArray *onlineShopsArray;
 @property (nonatomic, copy) NSMutableArray *myShopsArray;
@@ -72,11 +72,15 @@
     [_darkMask addTarget:self action:@selector(hideDeleteActionSheet) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
-    [APP_WINDOW addSubview:_darkMask];
+    [self.view addSubview:_darkMask];
 
-    _deleteActionSheet = [[DeleteActionSheet alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - DELETE_ACTION_SHEET_HEIGHT, SCREEN_WIDTH, DELETE_ACTION_SHEET_HEIGHT)];
+//    _yesOrNoView = [[YesOrNoView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - YES_OR_NO_VIEW_HEIGHT, SCREEN_WIDTH, YES_OR_NO_VIEW_HEIGHT)];
     
-    [APP_WINDOW addSubview:_deleteActionSheet];
+    _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
+    [_yesOrNoView setYesOrNoViewWithIntroductionString:@"删除微店后，如需再次使用，请进入在线微店重新添加到我的微店，且微店自动展示已选供应商的产品！" confirmString:@"现在是否要删除此微店？"];
+    [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT - _yesOrNoView.frame.size.height, _yesOrNoView.frame.size.width, _yesOrNoView.frame.size.height)];
+    _yesOrNoView.delegate = self;
+    [self.view addSubview:_yesOrNoView];
     
     // online shop collection view
     MicroShopFlowLayout *flow_Online = [[MicroShopFlowLayout alloc] init];
@@ -134,7 +138,7 @@
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_deleteActionSheet setFrame:CGRectOffset(_deleteActionSheet.frame, 0, DELETE_ACTION_SHEET_HEIGHT)];
+        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, YES_OR_NO_VIEW_HEIGHT)];
     }];
 }
 
@@ -392,10 +396,9 @@
 #pragma mark - MicroShopCollectionViewCell_MyShop_Delegate
 - (void)supportClickWithDeleteButton
 {
-    // delete
     [UIView animateWithDuration:0.4 animations:^{
-        _darkMask.alpha = 0.7;
-        [_deleteActionSheet setFrame:CGRectOffset(_deleteActionSheet.frame, 0, -DELETE_ACTION_SHEET_HEIGHT)];
+        _darkMask.alpha = 0;
+        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, -YES_OR_NO_VIEW_HEIGHT)];
     }];
 }
 
@@ -410,15 +413,16 @@
     [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
 }
 
-#pragma mark - DeleteActionSheetDelegate
-- (void)supportClickActionSheetWithYes
+#pragma mark - YesOrNoViewDelegate
+- (void)supportClickWithNo
 {
     
 }
 
-- (void)supportClickActionSheetWithNo
+- (void)supportClickWithYes
 {
     
 }
+
 
 @end

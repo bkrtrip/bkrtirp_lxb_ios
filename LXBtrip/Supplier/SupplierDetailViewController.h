@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 #import "AppMacro.h"
 
-@interface SupplierDetailViewController : UIViewController
+@interface SupplierDetailViewController : NavBaseViewController
 
 @property (nonatomic, strong) SupplierInfo *info;
 

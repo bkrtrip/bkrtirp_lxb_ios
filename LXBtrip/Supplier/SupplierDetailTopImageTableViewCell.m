@@ -25,9 +25,9 @@
 
 - (void)setCellContentWithSupplierInfo:(SupplierInfo *)info
 {
-    NSString *logoString = [NSString stringWithFormat:@"%@_logo", info.supplierLogo];
+    NSString *logoString = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.supplierLogo];
     
-    [_supplierImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, logoString]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_supplierImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         ;
     }];
     _supplierNameLabel.text = info.supplierName;
