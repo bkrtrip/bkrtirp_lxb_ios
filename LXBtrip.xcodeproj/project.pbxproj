@@ -210,6 +210,10 @@
 		97AFC1A41B15B3F6009C3CF6 /* micro_shop_banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97AFC1A21B15B3F6009C3CF6 /* micro_shop_banner@3x.png */; };
 		97B374F61B1EFBAA00604130 /* MySupplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B374F41B1EFBAA00604130 /* MySupplierViewController.m */; };
 		97B374F71B1EFBAA00604130 /* MySupplierViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B374F51B1EFBAA00604130 /* MySupplierViewController.xib */; };
+		97B374FC1B1F5C4400604130 /* SiftSupplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B374FA1B1F5C4400604130 /* SiftSupplierViewController.m */; };
+		97B374FD1B1F5C4400604130 /* SiftSupplierViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B374FB1B1F5C4400604130 /* SiftSupplierViewController.xib */; };
+		97B375071B203AD600604130 /* RecentContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B375051B203AD600604130 /* RecentContactTableViewCell.m */; };
+		97B375081B203AD600604130 /* RecentContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B375061B203AD600604130 /* RecentContactTableViewCell.xib */; };
 		97B98F691B17D9B400031749 /* AccompanyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B98F681B17D9B400031749 /* AccompanyInfoView.m */; };
 		97B98F6B1B17D9C500031749 /* AccompanyInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B98F6A1B17D9C500031749 /* AccompanyInfoView.xib */; };
 		97B98F6F1B17DFEB00031749 /* AccompanyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B98F6D1B17DFEB00031749 /* AccompanyInfoViewController.m */; };
@@ -576,6 +580,12 @@
 		97B374F31B1EFBAA00604130 /* MySupplierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySupplierViewController.h; sourceTree = "<group>"; };
 		97B374F41B1EFBAA00604130 /* MySupplierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySupplierViewController.m; sourceTree = "<group>"; };
 		97B374F51B1EFBAA00604130 /* MySupplierViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySupplierViewController.xib; sourceTree = "<group>"; };
+		97B374F91B1F5C4400604130 /* SiftSupplierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiftSupplierViewController.h; sourceTree = "<group>"; };
+		97B374FA1B1F5C4400604130 /* SiftSupplierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiftSupplierViewController.m; sourceTree = "<group>"; };
+		97B374FB1B1F5C4400604130 /* SiftSupplierViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiftSupplierViewController.xib; sourceTree = "<group>"; };
+		97B375041B203AD600604130 /* RecentContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentContactTableViewCell.h; sourceTree = "<group>"; };
+		97B375051B203AD600604130 /* RecentContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentContactTableViewCell.m; sourceTree = "<group>"; };
+		97B375061B203AD600604130 /* RecentContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentContactTableViewCell.xib; sourceTree = "<group>"; };
 		97B98F671B17D9B400031749 /* AccompanyInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccompanyInfoView.h; path = MicroShop/AccompanyInfoView.h; sourceTree = "<group>"; };
 		97B98F681B17D9B400031749 /* AccompanyInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccompanyInfoView.m; path = MicroShop/AccompanyInfoView.m; sourceTree = "<group>"; };
 		97B98F6A1B17D9C500031749 /* AccompanyInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccompanyInfoView.xib; path = MicroShop/AccompanyInfoView.xib; sourceTree = "<group>"; };
@@ -946,9 +956,8 @@
 			children = (
 				977DCF881B1C956C0060C7BB /* Supplier Main */,
 				977DCF8E1B1C95B00060C7BB /* Supplier Detail */,
-				97B374F31B1EFBAA00604130 /* MySupplierViewController.h */,
-				97B374F41B1EFBAA00604130 /* MySupplierViewController.m */,
-				97B374F51B1EFBAA00604130 /* MySupplierViewController.xib */,
+				97B374F81B1F351C00604130 /* My Supplier */,
+				97B374FE1B1F5C4700604130 /* Sift Supplier */,
 			);
 			path = Supplier;
 			sourceTree = "<group>";
@@ -1474,6 +1483,29 @@
 			name = "common controllers";
 			sourceTree = "<group>";
 		};
+		97B374F81B1F351C00604130 /* My Supplier */ = {
+			isa = PBXGroup;
+			children = (
+				97B374F31B1EFBAA00604130 /* MySupplierViewController.h */,
+				97B374F41B1EFBAA00604130 /* MySupplierViewController.m */,
+				97B374F51B1EFBAA00604130 /* MySupplierViewController.xib */,
+				97B375041B203AD600604130 /* RecentContactTableViewCell.h */,
+				97B375051B203AD600604130 /* RecentContactTableViewCell.m */,
+				97B375061B203AD600604130 /* RecentContactTableViewCell.xib */,
+			);
+			name = "My Supplier";
+			sourceTree = "<group>";
+		};
+		97B374FE1B1F5C4700604130 /* Sift Supplier */ = {
+			isa = PBXGroup;
+			children = (
+				97B374F91B1F5C4400604130 /* SiftSupplierViewController.h */,
+				97B374FA1B1F5C4400604130 /* SiftSupplierViewController.m */,
+				97B374FB1B1F5C4400604130 /* SiftSupplierViewController.xib */,
+			);
+			name = "Sift Supplier";
+			sourceTree = "<group>";
+		};
 		97B98F711B17DFFA00031749 /* Accompany Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1604,6 +1636,7 @@
 				97192EC41B0CCC3800C02B9E /* used@3x.png in Resources */,
 				977DCFB01B1C9C130060C7BB /* image_round_rect@3x.png in Resources */,
 				97C3B26A1B1B3BE600C729C4 /* lock@2x.png in Resources */,
+				97B375081B203AD600604130 /* RecentContactTableViewCell.xib in Resources */,
 				97AFC1831B1574F6009C3CF6 /* QQ@3x.png in Resources */,
 				977DCFB31B1C9C130060C7BB /* supplier_detail_top_bg@2x.png in Resources */,
 				97AEDBCA1B1458F10098F75B /* cell_phone_hightlighted@3x.png in Resources */,
@@ -1675,6 +1708,7 @@
 				97AEDBA11B13FC9D0098F75B /* UploadingIconTableViewCell.xib in Resources */,
 				9793A51F1B10E33D00182006 /* section_header_indicator@2x.png in Resources */,
 				97AEDBD01B1458F10098F75B /* fixed_line_phone_normal@3x.png in Resources */,
+				97B374FD1B1F5C4400604130 /* SiftSupplierViewController.xib in Resources */,
 				9771C40C1B173F7B006A850A /* TourDetailCell_Four.xib in Resources */,
 				97D78F0C1B19E326003E66E7 /* click_to_webview@2x.png in Resources */,
 				977DCFDA1B1D54F10060C7BB /* SupplierDetailViewController.xib in Resources */,
@@ -1805,6 +1839,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97192EB81B0CC88000C02B9E /* MicroShopFlowLayout.m in Sources */,
+				97B375071B203AD600604130 /* RecentContactTableViewCell.m in Sources */,
 				9771C4061B173D29006A850A /* TourDetailCell_Three.m in Sources */,
 				97AEDB9A1B13F9790098F75B /* OpenMiroShopViewController.m in Sources */,
 				8E3DE0721B0111690035964A /* MMProgressHUD.m in Sources */,
@@ -1858,6 +1893,7 @@
 				8EEE84E01AFDBF9900C789F3 /* FindPasswordViewController.m in Sources */,
 				97ADF1CB1B1200A7009DA8C3 /* ReusableHeaderView_myShop.m in Sources */,
 				97C786201B1E871900639576 /* Country.m in Sources */,
+				97B374FC1B1F5C4400604130 /* SiftSupplierViewController.m in Sources */,
 				8E3DE06F1B0111690035964A /* MMLinearProgressView.m in Sources */,
 				97C7860B1B1DF2DB00639576 /* SwitchCityViewController.m in Sources */,
 				97192EB51B0CC83000C02B9E /* MicroShopCollectionView.m in Sources */,

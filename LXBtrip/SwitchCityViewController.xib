@@ -7,8 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SwitchCityViewController">
             <connections>
+                <outlet property="cancelButton" destination="Il1-Nz-ZVa" id="EAO-VU-mws"/>
                 <outlet property="mainTableView" destination="fs3-6k-fTC" id="Qo0-oQ-Y5m"/>
-                <outlet property="searchBar" destination="8uS-Qc-m4a" id="HVf-a6-VzA"/>
                 <outlet property="searchedTableView" destination="vHw-Pa-IWy" id="U4r-TH-tMq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -48,42 +48,31 @@
                                 <constraint firstAttribute="centerX" secondItem="1o3-Wo-BIX" secondAttribute="centerX" id="oIO-pw-QCe"/>
                             </constraints>
                         </view>
-                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="8uS-Qc-m4a">
-                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Il1-Nz-ZVa">
+                            <rect key="frame" x="260" y="64" width="60" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="573-zm-BbX"/>
+                                <constraint firstAttribute="width" constant="60" id="AI4-Ie-bFF"/>
+                                <constraint firstAttribute="height" constant="30" id="IIF-1y-mK2"/>
                             </constraints>
-                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="573-zm-BbX"/>
-                                </mask>
-                            </variation>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="取消">
+                                <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
                             <connections>
-                                <outlet property="delegate" destination="-1" id="NEI-Qr-Otp"/>
+                                <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="czG-y8-nLK"/>
                             </connections>
-                        </searchBar>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="118" id="1ei-6u-xmi"/>
-                        <constraint firstItem="8uS-Qc-m4a" firstAttribute="top" secondItem="0GL-Dp-jGN" secondAttribute="bottom" id="49G-sn-lFd"/>
                         <constraint firstItem="0GL-Dp-jGN" firstAttribute="top" secondItem="SQ2-TI-DAI" secondAttribute="top" constant="20" id="8cT-tY-Fds"/>
+                        <constraint firstItem="Il1-Nz-ZVa" firstAttribute="top" secondItem="SQ2-TI-DAI" secondAttribute="top" constant="64" id="B4E-r6-JEk"/>
                         <constraint firstAttribute="trailing" secondItem="0GL-Dp-jGN" secondAttribute="trailing" id="EWC-wc-mCJ"/>
-                        <constraint firstAttribute="bottom" secondItem="8uS-Qc-m4a" secondAttribute="bottom" id="PY2-Qg-GYd"/>
-                        <constraint firstItem="8uS-Qc-m4a" firstAttribute="top" secondItem="0GL-Dp-jGN" secondAttribute="bottom" id="QBl-D1-cuE"/>
                         <constraint firstItem="0GL-Dp-jGN" firstAttribute="leading" secondItem="SQ2-TI-DAI" secondAttribute="leading" id="S5A-vS-Ku5"/>
-                        <constraint firstAttribute="trailing" secondItem="8uS-Qc-m4a" secondAttribute="trailing" id="XdN-eo-SqR"/>
-                        <constraint firstItem="8uS-Qc-m4a" firstAttribute="leading" secondItem="SQ2-TI-DAI" secondAttribute="leading" id="YYA-qn-npE"/>
-                        <constraint firstItem="8uS-Qc-m4a" firstAttribute="top" secondItem="SQ2-TI-DAI" secondAttribute="top" constant="34" id="cGQ-ib-Kc6"/>
+                        <constraint firstAttribute="trailing" secondItem="Il1-Nz-ZVa" secondAttribute="trailing" id="byQ-rD-7ba"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="PY2-Qg-GYd"/>
-                            <exclude reference="QBl-D1-cuE"/>
-                            <exclude reference="cGQ-ib-Kc6"/>
-                        </mask>
-                    </variation>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fs3-6k-fTC" userLabel="main Table View">
                     <rect key="frame" x="0.0" y="118" width="320" height="450"/>
@@ -94,7 +83,7 @@
                     </connections>
                 </tableView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vHw-Pa-IWy" userLabel="searched Table View">
-                    <rect key="frame" x="0.0" y="118" width="320" height="450"/>
+                    <rect key="frame" x="0.0" y="118" width="320" height="190"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="FGy-ur-0Cv"/>
@@ -112,7 +101,7 @@
                 <constraint firstItem="SQ2-TI-DAI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MqI-t9-xTq"/>
                 <constraint firstAttribute="trailing" secondItem="vHw-Pa-IWy" secondAttribute="trailing" id="NlQ-Zm-EiP"/>
                 <constraint firstItem="fs3-6k-fTC" firstAttribute="top" secondItem="SQ2-TI-DAI" secondAttribute="bottom" id="Os1-Vf-x3a"/>
-                <constraint firstAttribute="bottom" secondItem="vHw-Pa-IWy" secondAttribute="bottom" id="UqG-wY-5X1"/>
+                <constraint firstAttribute="bottom" secondItem="vHw-Pa-IWy" secondAttribute="bottom" constant="260" id="UqG-wY-5X1"/>
                 <constraint firstItem="vHw-Pa-IWy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Zd0-Hd-6Vl"/>
                 <constraint firstItem="fs3-6k-fTC" firstAttribute="top" secondItem="SQ2-TI-DAI" secondAttribute="bottom" id="ceI-6V-L1J"/>
                 <constraint firstAttribute="bottom" secondItem="fs3-6k-fTC" secondAttribute="bottom" id="v2S-6K-Pal"/>
@@ -123,7 +112,7 @@
                     <exclude reference="ceI-6V-L1J"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="-94" y="317"/>
+            <point key="canvasLocation" x="-510" y="278"/>
         </view>
     </objects>
     <resources>

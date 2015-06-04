@@ -88,7 +88,6 @@
     
     // --TEST--
     startCity = @"西安";
-    selectedIndex = 1;
     
     CGFloat yOrigin = 20.f + 44.f + 82.f;
     

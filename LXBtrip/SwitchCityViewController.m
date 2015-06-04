@@ -22,8 +22,10 @@
 }
 
 - (IBAction)backButtonClicked:(id)sender;
+- (IBAction)cancelButtonClicked:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
+@property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UITableView *searchedTableView;
 
@@ -45,9 +47,17 @@
     [_mainTableView registerNib:[UINib nibWithNibName:@"SwitchCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"SwitchCityTableViewCell"];
     [_searchedTableView registerNib:[UINib nibWithNibName:@"SwitchCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"SwitchCityTableViewCell"];
     
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 30.f)];
+    _searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    _searchBar.placeholder = @"请输入城市名称";
+    _searchBar.translucent = YES;
+    _searchBar.delegate = self;
+    [self.view addSubview:_searchBar];
+    
     // initial status
     _searchedTableView.hidden = YES;
     _mainTableView.hidden = NO;
+    _cancelButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,19 +72,10 @@
     [super viewWillDisappear:animated];
 }
 
+// compare function
 NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 {
     return [initial_1 caseInsensitiveCompare:initial_2];
-//    
-//    int v1 = [num1 intValue];
-//    int v2 = [num2 intValue];
-//    if (v1 < v2)
-//        return NSOr
-//        deredAscending;
-//    else if (v1 > v2)
-//        return NSOrderedDescending;
-//    else
-//        return NSOrderedSame;
 }
 
 - (void)sortCitiesUsingInitialsWithUnsortedArray:(NSArray *)array
@@ -261,11 +262,26 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 }
 
 #pragma mark - UISearchBarDelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [UIView animateWithDuration:0.1 animations:^{
+        [self changeSearchBarWidthWithDeltaValue:(- _cancelButton.frame.size.width)];
+        _cancelButton.hidden = NO;
+    }];
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    [searchedCitiesArray removeAllObjects];
+    
     // change status
     _searchedTableView.hidden = NO;
     _mainTableView.hidden = YES;
+    
+    if (searchText.length == 0) {
+        [_searchedTableView reloadData];
+        return;
+    }
     
     // length==1 search initial
     if (searchText.length == 1) {
@@ -273,45 +289,65 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
             if ([obj.cityInitail compare:searchText options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                 if (![searchedCitiesArray containsObject:obj]) {
                     [searchedCitiesArray addObject:obj];
-                    [_searchedTableView reloadData];
                 }
             }
         }];
+        
+        [_searchedTableView reloadData];
     }
     // length==2 search acronym_word
-    else if (searchText.length == 2) {
+    else if (searchText.length >= 2) {
         [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-            if (![searchedCitiesArray containsObject:obj]) {
-                [searchedCitiesArray addObject:obj];
-                [_searchedTableView reloadData];
+            if (obj.cityAcronym.length < searchText.length) {
+                return ;
+            } else {
+                NSString *subString = [obj.cityAcronym substringToIndex:searchText.length];
+                if ([searchText compare:subString options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+                    if (![searchedCitiesArray containsObject:obj]) {
+                        [searchedCitiesArray addObject:obj];
+                    }
+                }
             }
         }];
+        
+        [_searchedTableView reloadData];
     }
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    // length==1 search initial
-    if (searchBar.text.length == 1) {
-        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-            if ([obj.cityInitail compare:searchBar.text options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-                if (![searchedCitiesArray containsObject:obj]) {
-                    [searchedCitiesArray addObject:obj];
-                    [_searchedTableView reloadData];
-                }
-            }
-        }];
-    }
-    // length==2 search acronym_word
-    else if (searchBar.text.length == 2) {
-        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-            if (![searchedCitiesArray containsObject:obj]) {
-                [searchedCitiesArray addObject:obj];
-                [_searchedTableView reloadData];
-            }
-        }];
-    }
-}
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+//{
+//    // length==1 search initial
+//    if (searchBar.text.length == 1) {
+//        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
+//            if ([obj.cityInitail compare:searchBar.text options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+//                if (![searchedCitiesArray containsObject:obj]) {
+//                    [searchedCitiesArray addObject:obj];
+//                    [_searchedTableView reloadData];
+//                }
+//            }
+//        }];
+//    }
+//    // length==2 search acronym_word
+//    else if (searchBar.text.length >= 2) {
+//        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
+//            if (obj.cityInitail.length <= searchBar.text.length) {
+//                if ([searchBar.text compare:obj.cityInitail options:NSCaseInsensitiveSearch range:NSMakeRange(0, searchBar.text.length)] == NSOrderedSame) {
+//                    if (![searchedCitiesArray containsObject:obj]) {
+//                        [searchedCitiesArray addObject:obj];
+//                        [_searchedTableView reloadData];
+//                    }
+//                }
+//            } else {
+//                if ([obj.cityInitail compare:searchBar.text options:NSCaseInsensitiveSearch range:NSMakeRange(0, obj.cityInitail.length)] == NSOrderedSame) {
+//                    if (![searchedCitiesArray containsObject:obj]) {
+//                        [searchedCitiesArray addObject:obj];
+//                        [_searchedTableView reloadData];
+//                    }
+//                }
+//            }
+//        }];
+//    }
+//}
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
@@ -323,4 +359,28 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (IBAction)cancelButtonClicked:(id)sender {
+    _searchBar.text = @"";
+    [_searchBar resignFirstResponder];
+    
+    [searchedCitiesArray removeAllObjects];
+    [_searchedTableView reloadData];
+
+    [UIView animateWithDuration:0.1 animations:^{
+        [self changeSearchBarWidthWithDeltaValue:(+ _cancelButton.frame.size.width)];
+        _cancelButton.hidden = YES;
+    }];
+    
+    _searchedTableView.hidden = YES;
+    _mainTableView.hidden = NO;
+    
+}
+
+#pragma mark - Private
+- (void)changeSearchBarWidthWithDeltaValue:(CGFloat)deltaWidth
+{
+    [_searchBar setFrame:CGRectMake(_searchBar.frame.origin.x, _searchBar.frame.origin.y, _searchBar.frame.size.width + deltaWidth, _searchBar.frame.size.height)];
+}
+
 @end
