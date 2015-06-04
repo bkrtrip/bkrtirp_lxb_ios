@@ -17,6 +17,10 @@
     self.supplierIsMy = [dict[@"is_my"] isKindOfClass:[NSNull class]]?nil:dict[@"is_my"];
     self.supplierIsNew = [dict[@"is_new"] isKindOfClass:[NSNull class]]?nil:dict[@"is_new"];
     self.supplierIsSync = [dict[@"is_sync"] isKindOfClass:[NSNull class]]?nil:dict[@"is_sync"];
+    
+    self.supplierLogo = [dict[@"company_logo"] isKindOfClass:[NSNull class]]?nil:dict[@"company_logo"];
+    self.supplierLineType = [dict[@"line_type"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type"];
+    self.supplierLineTypeLetter = [dict[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type_letter"];
 
     
     NSArray *temp = [dict[@"goods_line_list"] isKindOfClass:[NSNull class]]?nil:dict[@"goods_line_list"];

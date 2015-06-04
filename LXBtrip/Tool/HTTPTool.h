@@ -55,6 +55,12 @@ singleton_interface(HTTPTool)
 // 供应商详情 - 已登录 - LXB21216
 + (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSNumber *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
 
+// 我的供应商 - LXB21218
++ (void)getMySuppliersWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineClass:(NSString *)lineClass success:(SuccessBlock)success fail:(FailBlock)fail;
+
+
+
+
 // 获取国家 - LXB51139
 + (void)getCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 

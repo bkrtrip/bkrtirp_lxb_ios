@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Global.h"
+#import "AppMacro.h"
 
 @interface NavBaseViewController : UIViewController
 

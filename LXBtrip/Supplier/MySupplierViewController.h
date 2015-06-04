@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface MySupplierViewController : UIViewController
+@interface MySupplierViewController : NavBaseViewController
 
 @end

@@ -214,6 +214,10 @@
 		97B374FD1B1F5C4400604130 /* SiftSupplierViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B374FB1B1F5C4400604130 /* SiftSupplierViewController.xib */; };
 		97B375071B203AD600604130 /* RecentContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B375051B203AD600604130 /* RecentContactTableViewCell.m */; };
 		97B375081B203AD600604130 /* RecentContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B375061B203AD600604130 /* RecentContactTableViewCell.xib */; };
+		97B375101B20419000604130 /* RecentContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3750F1B20419000604130 /* RecentContactButton.m */; };
+		97B375121B20419E00604130 /* RecentContactButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B375111B20419E00604130 /* RecentContactButton.xib */; };
+		97B375161B2087D200604130 /* MySupplierTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B375141B2087D200604130 /* MySupplierTableViewCell.m */; };
+		97B375171B2087D200604130 /* MySupplierTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B375151B2087D200604130 /* MySupplierTableViewCell.xib */; };
 		97B98F691B17D9B400031749 /* AccompanyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B98F681B17D9B400031749 /* AccompanyInfoView.m */; };
 		97B98F6B1B17D9C500031749 /* AccompanyInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B98F6A1B17D9C500031749 /* AccompanyInfoView.xib */; };
 		97B98F6F1B17DFEB00031749 /* AccompanyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B98F6D1B17DFEB00031749 /* AccompanyInfoViewController.m */; };
@@ -586,6 +590,12 @@
 		97B375041B203AD600604130 /* RecentContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentContactTableViewCell.h; sourceTree = "<group>"; };
 		97B375051B203AD600604130 /* RecentContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentContactTableViewCell.m; sourceTree = "<group>"; };
 		97B375061B203AD600604130 /* RecentContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentContactTableViewCell.xib; sourceTree = "<group>"; };
+		97B3750E1B20419000604130 /* RecentContactButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentContactButton.h; sourceTree = "<group>"; };
+		97B3750F1B20419000604130 /* RecentContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentContactButton.m; sourceTree = "<group>"; };
+		97B375111B20419E00604130 /* RecentContactButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentContactButton.xib; sourceTree = "<group>"; };
+		97B375131B2087D200604130 /* MySupplierTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySupplierTableViewCell.h; sourceTree = "<group>"; };
+		97B375141B2087D200604130 /* MySupplierTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySupplierTableViewCell.m; sourceTree = "<group>"; };
+		97B375151B2087D200604130 /* MySupplierTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySupplierTableViewCell.xib; sourceTree = "<group>"; };
 		97B98F671B17D9B400031749 /* AccompanyInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccompanyInfoView.h; path = MicroShop/AccompanyInfoView.h; sourceTree = "<group>"; };
 		97B98F681B17D9B400031749 /* AccompanyInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccompanyInfoView.m; path = MicroShop/AccompanyInfoView.m; sourceTree = "<group>"; };
 		97B98F6A1B17D9C500031749 /* AccompanyInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccompanyInfoView.xib; path = MicroShop/AccompanyInfoView.xib; sourceTree = "<group>"; };
@@ -1492,6 +1502,12 @@
 				97B375041B203AD600604130 /* RecentContactTableViewCell.h */,
 				97B375051B203AD600604130 /* RecentContactTableViewCell.m */,
 				97B375061B203AD600604130 /* RecentContactTableViewCell.xib */,
+				97B3750E1B20419000604130 /* RecentContactButton.h */,
+				97B3750F1B20419000604130 /* RecentContactButton.m */,
+				97B375111B20419E00604130 /* RecentContactButton.xib */,
+				97B375131B2087D200604130 /* MySupplierTableViewCell.h */,
+				97B375141B2087D200604130 /* MySupplierTableViewCell.m */,
+				97B375151B2087D200604130 /* MySupplierTableViewCell.xib */,
 			);
 			name = "My Supplier";
 			sourceTree = "<group>";
@@ -1728,6 +1744,7 @@
 				97AFC1A01B15ABE5009C3CF6 /* back@3x.png in Resources */,
 				973D8B531B1B571500CA4260 /* not_my_and_not_new@3x.png in Resources */,
 				973D8B4D1B1B571500CA4260 /* add_new_supplier@3x.png in Resources */,
+				97B375121B20419E00604130 /* RecentContactButton.xib in Resources */,
 				97ADF1D51B121001009DA8C3 /* AddShopCollectionViewCell.xib in Resources */,
 				977DCFB51B1C9C130060C7BB /* telephone@2x.png in Resources */,
 				97B98F761B17E70000031749 /* CommentsViewController.xib in Resources */,
@@ -1736,6 +1753,7 @@
 				977DCFB21B1C9C130060C7BB /* message@3x.png in Resources */,
 				97C3B2631B1B371500C729C4 /* to_top@3x.png in Resources */,
 				97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */,
+				97B375171B2087D200604130 /* MySupplierTableViewCell.xib in Resources */,
 				97192EC61B0CCC4D00C02B9E /* test.png in Resources */,
 				973D8B301B1B40DC00CA4260 /* segment_border@3x.png in Resources */,
 				97C3B2561B1B26CB00C729C4 /* search@2x.png in Resources */,
@@ -1839,6 +1857,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97192EB81B0CC88000C02B9E /* MicroShopFlowLayout.m in Sources */,
+				97B375161B2087D200604130 /* MySupplierTableViewCell.m in Sources */,
 				97B375071B203AD600604130 /* RecentContactTableViewCell.m in Sources */,
 				9771C4061B173D29006A850A /* TourDetailCell_Three.m in Sources */,
 				97AEDB9A1B13F9790098F75B /* OpenMiroShopViewController.m in Sources */,
@@ -1935,6 +1954,7 @@
 				8E3F609A1B00AD1100E911F5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8E3F60761B0093AD00E911F5 /* AFHTTPRequestOperationManager.m in Sources */,
 				9771C3FB1B172B9A006A850A /* TourDetailCell_One.m in Sources */,
+				97B375101B20419000604130 /* RecentContactButton.m in Sources */,
 				973D8B381B1B4EF600CA4260 /* SupplierCollectionView.m in Sources */,
 				8E3F609B1B00AD1100E911F5 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8E5C69B71AFB093D004A0CC3 /* MainViewController.m in Sources */,

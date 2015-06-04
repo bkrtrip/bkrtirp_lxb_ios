@@ -72,12 +72,6 @@
     [super viewWillDisappear:animated];
 }
 
-// compare function
-NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
-{
-    return [initial_1 caseInsensitiveCompare:initial_2];
-}
-
 - (void)sortCitiesUsingInitialsWithUnsortedArray:(NSArray *)array
 {
     NSMutableArray *tempParent = [[NSMutableArray alloc] init];

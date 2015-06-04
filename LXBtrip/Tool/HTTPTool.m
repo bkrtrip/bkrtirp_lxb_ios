@@ -315,6 +315,47 @@ singleton_implementation(HTTPTool)
     }];
 }
 
+// 我的供应商 - LXB21218
++ (void)getMySuppliersWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineClass:(NSString *)lineClass success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{@"lineclass":lineClass} mutableCopy];
+    
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB21218" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/mySelf"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+
+}
+
+
+
+
+
+
+
+
+
+
+
 // 获取国家 - LXB51139
 + (void)getCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
 {

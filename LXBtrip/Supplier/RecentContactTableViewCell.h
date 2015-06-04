@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecentContactButton.h"
+
+@protocol RecentContactTableViewCell_Delegate <NSObject>
+
+- (void)supportClickWithRecentContactSupplierIndex:(NSInteger)index;
+
+@end
 
 @interface RecentContactTableViewCell : UITableViewCell
+
+@property (nonatomic, weak) id <RecentContactTableViewCell_Delegate> delegate;
+
+- (void)setCellContentWithSupplierInfos:(NSArray *)suppliers;
 
 @end
