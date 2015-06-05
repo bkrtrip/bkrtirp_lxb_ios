@@ -58,6 +58,9 @@ singleton_interface(HTTPTool)
 // 我的供应商 - LXB21218
 + (void)getMySuppliersWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineClass:(NSString *)lineClass success:(SuccessBlock)success fail:(FailBlock)fail;
 
+// 筛选供应商 - LXB21111
++ (void)getSiftedSuppliersWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
 
 
 

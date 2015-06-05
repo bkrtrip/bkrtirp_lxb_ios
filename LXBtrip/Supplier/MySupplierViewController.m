@@ -117,7 +117,8 @@
         }];
 
     } fail:^(id result) {
-        ;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的供应商失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
     }];
 }
 
@@ -155,7 +156,6 @@
 }
 
 
-
 #pragma mark - UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -186,6 +186,22 @@
     
     return cell;
 }
+
+// 索引目录
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return _allSectionsArray[selectedIndex];
+}
+
+// 点击目录
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    //        [tableView scrollToRowAtIndexPath:selectIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    // 最近联系section不显示
+    return index+1;
+}
+
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

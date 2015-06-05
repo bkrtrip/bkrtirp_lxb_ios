@@ -11,6 +11,12 @@
 @implementation Global
 singleton_implementation(Global)
 
+// compare function
+NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
+{
+    return [initial_1 caseInsensitiveCompare:initial_2];
+}
+
 - (void)saveUserInfo:(User *)userInfo
 {
     // after login, save user info here.

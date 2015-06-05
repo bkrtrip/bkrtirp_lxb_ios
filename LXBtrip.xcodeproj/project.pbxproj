@@ -133,6 +133,13 @@
 		977DCFD81B1D507C0060C7BB /* YesOrNoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977DCFD71B1D507C0060C7BB /* YesOrNoView.xib */; };
 		977DCFDA1B1D54F10060C7BB /* SupplierDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977DCFD91B1D54F10060C7BB /* SupplierDetailViewController.xib */; };
 		9789AEEF1B1888CB001AD998 /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9789AEED1B1888CB001AD998 /* MainTabBarViewController.m */; };
+		979071231B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 979071221B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.m */; };
+		979071261B212B6A00C9FCD6 /* SiftSupplierCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 979071251B212B6A00C9FCD6 /* SiftSupplierCollectionView.m */; };
+		9790712A1B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 979071281B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.m */; };
+		9790712B1B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 979071291B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.xib */; };
+		9790712F1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.m in Sources */ = {isa = PBXBuildFile; fileRef = 9790712D1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.m */; };
+		979071301B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9790712E1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.xib */; };
+		979071331B2136E600C9FCD6 /* SiftedLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 979071321B2136E600C9FCD6 /* SiftedLine.m */; };
 		9793A5081B10276000182006 /* MicroShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9793A5071B10276000182006 /* MicroShopInfo.m */; };
 		9793A50B1B102AA300182006 /* MicroShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9793A50A1B102AA300182006 /* MicroShopViewController.xib */; };
 		9793A50E1B10369C00182006 /* location_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9793A50C1B10369C00182006 /* location_red@2x.png */; };
@@ -487,6 +494,18 @@
 		977DCFD91B1D54F10060C7BB /* SupplierDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupplierDetailViewController.xib; sourceTree = "<group>"; };
 		9789AEEC1B1888CB001AD998 /* MainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
 		9789AEED1B1888CB001AD998 /* MainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
+		979071211B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiftSupplierCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		979071221B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiftSupplierCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		979071241B212B6A00C9FCD6 /* SiftSupplierCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiftSupplierCollectionView.h; sourceTree = "<group>"; };
+		979071251B212B6A00C9FCD6 /* SiftSupplierCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiftSupplierCollectionView.m; sourceTree = "<group>"; };
+		979071271B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiftSupplierCollectionViewCell.h; sourceTree = "<group>"; };
+		979071281B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiftSupplierCollectionViewCell.m; sourceTree = "<group>"; };
+		979071291B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiftSupplierCollectionViewCell.xib; sourceTree = "<group>"; };
+		9790712C1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReusableHeaderView_SiftSupplier.h; sourceTree = "<group>"; };
+		9790712D1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReusableHeaderView_SiftSupplier.m; sourceTree = "<group>"; };
+		9790712E1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReusableHeaderView_SiftSupplier.xib; sourceTree = "<group>"; };
+		979071311B2136E500C9FCD6 /* SiftedLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiftedLine.h; sourceTree = "<group>"; };
+		979071321B2136E600C9FCD6 /* SiftedLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiftedLine.m; sourceTree = "<group>"; };
 		9793A5001B100A9000182006 /* AppMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
 		9793A5011B100AF200182006 /* libPods-SDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SDWebImage.a"; path = "Pods/build/Debug-iphoneos/libPods-SDWebImage.a"; sourceTree = "<group>"; };
 		9793A5061B10276000182006 /* MicroShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MicroShopInfo.h; path = LXBtrip/Model/MicroShopInfo.h; sourceTree = SOURCE_ROOT; };
@@ -1289,6 +1308,8 @@
 				97C786161B1E804200639576 /* HotCity.m */,
 				97C786181B1E80AE00639576 /* HotCountry.h */,
 				97C786191B1E80AE00639576 /* HotCountry.m */,
+				979071311B2136E500C9FCD6 /* SiftedLine.h */,
+				979071321B2136E600C9FCD6 /* SiftedLine.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1518,6 +1539,16 @@
 				97B374F91B1F5C4400604130 /* SiftSupplierViewController.h */,
 				97B374FA1B1F5C4400604130 /* SiftSupplierViewController.m */,
 				97B374FB1B1F5C4400604130 /* SiftSupplierViewController.xib */,
+				979071241B212B6A00C9FCD6 /* SiftSupplierCollectionView.h */,
+				979071251B212B6A00C9FCD6 /* SiftSupplierCollectionView.m */,
+				9790712C1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.h */,
+				9790712D1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.m */,
+				9790712E1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.xib */,
+				979071211B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.h */,
+				979071221B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.m */,
+				979071271B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.h */,
+				979071281B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.m */,
+				979071291B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.xib */,
 			);
 			name = "Sift Supplier";
 			sourceTree = "<group>";
@@ -1742,6 +1773,7 @@
 				977DCF991B1C97090060C7BB /* acompany@2x.png in Resources */,
 				97ADF1C71B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib in Resources */,
 				97AFC1A01B15ABE5009C3CF6 /* back@3x.png in Resources */,
+				979071301B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.xib in Resources */,
 				973D8B531B1B571500CA4260 /* not_my_and_not_new@3x.png in Resources */,
 				973D8B4D1B1B571500CA4260 /* add_new_supplier@3x.png in Resources */,
 				97B375121B20419E00604130 /* RecentContactButton.xib in Resources */,
@@ -1763,6 +1795,7 @@
 				977DCF9C1B1C97090060C7BB /* preview@3x.png in Resources */,
 				97C3B2691B1B3BE600C729C4 /* delete@3x.png in Resources */,
 				977DCFA61B1C98DB0060C7BB /* SupplierDetailTopImageTableViewCell.xib in Resources */,
+				9790712B1B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.xib in Resources */,
 				97D78EFC1B19B873003E66E7 /* mine_selected@2x.png in Resources */,
 				973D8B521B1B571500CA4260 /* not_my_and_not_new@2x.png in Resources */,
 				8E3F5D751B00404300E911F5 /* 5.png in Resources */,
@@ -1883,18 +1916,21 @@
 				97C3B24E1B1B16D100C729C4 /* TourListViewController.m in Sources */,
 				97B98F7F1B17EEB400031749 /* CommentInfo.m in Sources */,
 				8E3F60A11B00AD1100E911F5 /* UIWebView+AFNetworking.m in Sources */,
+				979071231B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.m in Sources */,
 				97C786101B1DF3FA00639576 /* SwitchCityTableViewCell.m in Sources */,
 				97C786141B1E04AA00639576 /* City.m in Sources */,
 				8E3DE0701B0111690035964A /* MMProgressHUD+Animations.m in Sources */,
 				8E3DE0751B0111690035964A /* MMProgressHUDWindow.m in Sources */,
 				8E3F60771B0093AD00E911F5 /* AFHTTPSessionManager.m in Sources */,
 				977DCFA51B1C98DB0060C7BB /* SupplierDetailTopImageTableViewCell.m in Sources */,
+				979071261B212B6A00C9FCD6 /* SiftSupplierCollectionView.m in Sources */,
 				973D8B431B1B548600CA4260 /* SupplierInfo.m in Sources */,
 				97B98F7B1B17EAF800031749 /* CommentTableViewCell.m in Sources */,
 				8E5C69951AFAFC5B004A0CC3 /* ViewController.m in Sources */,
 				97192EBC1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m in Sources */,
 				8E3F60781B0093AD00E911F5 /* AFNetworkReachabilityManager.m in Sources */,
 				8E3DE06E1B0111690035964A /* MMHud.m in Sources */,
+				9790712A1B212B8400C9FCD6 /* SiftSupplierCollectionViewCell.m in Sources */,
 				8E3DE0711B0111690035964A /* MMProgressHUD+Class.m in Sources */,
 				8E3F60751B0093AD00E911F5 /* AFHTTPRequestOperation.m in Sources */,
 				8E3F607B1B0093AD00E911F5 /* AFURLRequestSerialization.m in Sources */,
@@ -1920,6 +1956,7 @@
 				97ADF1DF1B128A62009DA8C3 /* MicroShopDetailViewController.m in Sources */,
 				8E7974991AFBB37B004A99A9 /* RegisterTowViewController.m in Sources */,
 				977DCFD31B1D31C80060C7BB /* TravelTicketGroup.m in Sources */,
+				979071331B2136E600C9FCD6 /* SiftedLine.m in Sources */,
 				9789AEEF1B1888CB001AD998 /* MainTabBarViewController.m in Sources */,
 				8E5C69C91AFB32F9004A0CC3 /* MyInformationViewController.m in Sources */,
 				9793A5121B10390400182006 /* MicroShopViewController.m in Sources */,
@@ -1957,6 +1994,7 @@
 				97B375101B20419000604130 /* RecentContactButton.m in Sources */,
 				973D8B381B1B4EF600CA4260 /* SupplierCollectionView.m in Sources */,
 				8E3F609B1B00AD1100E911F5 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				9790712F1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.m in Sources */,
 				8E5C69B71AFB093D004A0CC3 /* MainViewController.m in Sources */,
 				8E3F607C1B0093AD00E911F5 /* AFURLResponseSerialization.m in Sources */,
 				97AEDBBE1B1449B60098F75B /* SetShopPhoneNumberViewController.m in Sources */,

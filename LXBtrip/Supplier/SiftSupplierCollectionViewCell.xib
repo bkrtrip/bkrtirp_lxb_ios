@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SiftSupplierCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhb-Mb-exu">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="dhb-Mb-exu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3kI-5x-IET"/>
+                <constraint firstAttribute="bottom" secondItem="dhb-Mb-exu" secondAttribute="bottom" id="Bln-tg-62l"/>
+                <constraint firstAttribute="trailing" secondItem="dhb-Mb-exu" secondAttribute="trailing" id="aWQ-Yc-OB7"/>
+                <constraint firstItem="dhb-Mb-exu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="etX-IV-CKp"/>
+            </constraints>
+            <connections>
+                <outlet property="supplierNameLabel" destination="dhb-Mb-exu" id="e7k-oJ-Gzv"/>
+            </connections>
+            <point key="canvasLocation" x="128" y="273"/>
+        </collectionViewCell>
+    </objects>
+</document>

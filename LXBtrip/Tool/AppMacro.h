@@ -23,6 +23,7 @@
 #import "Country.h"
 #import "HotCity.h"
 #import "HotCountry.h"
+#import "SiftedLine.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -50,6 +51,14 @@
 #define LIST_WIDTH_HEIGHT_PROPORTION_SUPPLIER (226.f/77.f)
 #define NUM_OF_IMAGES_PER_ROW_SUPPLIER 3
 
+// Sift supplier collection view
+#define LIST_HOR_MARGIN_SIFT_SUPPLIER 10.f
+#define LIST_HOR_SPACING_SIFT_SUPPLIER 10.f
+#define LIST_VER_MARGIN_SIFT_SUPPLIER 10.f
+#define LIST_VER_SPACING_SIFT_SUPPLIER 10.f
+#define LIST_WIDTH_HEIGHT_PROPORTION_SIFT_SUPPLIER (104.f/74.f)
+#define NUM_OF_IMAGES_PER_ROW_SIFT_SUPPLIER 4
+
 
 
 #define DELETE_ACTION_SHEET_HEIGHT 187.f
@@ -75,8 +84,6 @@
 
 // 4CA5FF - BLUE
 #define TEXT_4CA5FF [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]
-
-
 
 //  code	常用返回码
 typedef enum ErrorCodeType
@@ -105,12 +112,17 @@ typedef enum SupplierStatus
     supplier_notMy_notNew = 3, // 非我的 + 非最新
 } SupplierStatus;
 
+typedef enum SiftedLineType
+{
+    Domestic_ZhuanXian = 2, // 国内 - 专线
+    Abroad_ZhuanXian = 3, // 境外 - 专线
+    Nearby_ZhuanXian = 4,
+    Domestic_DiJie = 6,
+    Abroad_DiJie = 7
+
+} SiftedLineType;
+
 //周边游  #1#492  国内游  #1#283  出境游  #1#303  国内目的地  #1#997  国外目的地  #1#998
 #define LINE_CLASS @{@0:@"#1#492", @1:@"#1#283", @2:@"#1#303", @3:@"#1#997", @4:@"#1#998"}
-
-
-
-
-
 
 #endif

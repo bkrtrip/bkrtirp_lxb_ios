@@ -16,6 +16,7 @@
 #import "ReusableHeaderView_Supplier.h"
 #import "SupplierDetailViewController.h"
 #import "SwitchCityViewController.h"
+#import "SiftSupplierViewController.h"
 
 @interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 {
@@ -77,6 +78,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
+    
     _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
     for (int i = 0; i < 5; i++) {
         NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -120,7 +123,8 @@
     _scrollView.scrollEnabled = NO;
     _scrollView.delegate = self;
         // --TEST--
-    [self getSupplierList];
+    selectedIndex = 0;
+    [self getSupplierListWithLineClass:LINE_CLASS[@(selectedIndex)] lineType:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -184,7 +188,7 @@
                 cityString = [cityString substringWithRange:NSMakeRange(0, cityString.length-1)];
             }
             [_locationButton setTitle:cityString forState:UIControlStateNormal];
-            [self getSupplierList];
+            [self getSupplierListWithLineClass:LINE_CLASS[@(selectedIndex)] lineType:nil];
         }
     }];
 }
@@ -195,15 +199,22 @@
     [alert show];
 }
 
+// passed back from SiftSupplierController
+- (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    [self getSupplierListWithLineClass:info[@"lineclass"] lineType:info[@"linetype"]];
+}
+
 #pragma mark - http
-- (void)getSupplierList
+- (void)getSupplierListWithLineClass:(NSString *)lineClass lineType:(NSString *)lineType
 {    
     if ([isLoadingMoresArray[selectedIndex] integerValue] == 0) {
         pageNumsArray[selectedIndex] = @0;
     }
     
     if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getSuppliersListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId StartCity:startCity lineClass:LINE_CLASS[@(selectedIndex)] lineType:nil pageNum:pageNumsArray[selectedIndex] success:^(id result) {
+        [HTTPTool getSuppliersListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId StartCity:startCity lineClass:lineClass lineType:lineType pageNum:pageNumsArray[selectedIndex] success:^(id result) {
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];
@@ -332,6 +343,10 @@
 
 
 - (IBAction)selectButtonClicked:(id)sender {
+    SiftSupplierViewController *siftSupplier = [[SiftSupplierViewController alloc] init];
+    siftSupplier.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    siftSupplier.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:siftSupplier animated:YES completion:nil];
 }
 
 - (IBAction)myButtonClicked:(id)sender {
@@ -376,7 +391,7 @@
         }
     }];
     if ([_suppliersArray[index] count] == 0) {
-        [self getSupplierList];
+        [self getSupplierListWithLineClass:LINE_CLASS[@(selectedIndex)] lineType:nil];
     }
 }
 @end

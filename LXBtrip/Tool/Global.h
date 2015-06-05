@@ -11,16 +11,15 @@
 
 typedef void (^errorCode_succeed_block)();
 
-// compare function
-NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
-{
-    return [initial_1 caseInsensitiveCompare:initial_2];
-}
 
 @interface Global : NSObject
 singleton_interface(Global)
 
+
 @property (nonatomic, strong) User *userInfo;
+
+// compare function
+NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context);
 
 - (void)saveUserInfo:(User *)userInfo;
 
