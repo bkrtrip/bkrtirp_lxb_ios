@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AccompanyInfoView_Delegate <NSObject>
+
+- (void)supportClickWithMoreInstructions;
+- (void)supportClickWithPhoneCall;
+- (void)supportClickWithShortMessage;
+
+@end
+
 @interface AccompanyInfoView : UIView
+
+@property (nonatomic, weak) id <AccompanyInfoView_Delegate> delegate;
 
 @end

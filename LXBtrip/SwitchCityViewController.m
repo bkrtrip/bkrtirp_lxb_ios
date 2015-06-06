@@ -255,6 +255,31 @@
     return label;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *info;
+    
+    if (tableView == _mainTableView) {
+        if (indexPath.section == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        } else if (indexPath.section == 1) {
+            HotCity *hct = hotCitiesArray[indexPath.row];
+            info = @{@"startcity":hct.hotCityValue};
+        } else {
+            NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
+            City *ct = temp[indexPath.row];
+            info = @{@"startcity":ct.cityName};
+        }
+    } else if (tableView == _searchedTableView) {
+        City *ct = searchedCitiesArray[indexPath.row];
+        info = @{@"startcity":ct.cityName};
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SWITCH_CITY_WITH_CITY_NAME" object:self userInfo:info];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - UISearchBarDelegate
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {

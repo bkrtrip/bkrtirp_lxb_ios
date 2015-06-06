@@ -61,6 +61,19 @@ singleton_interface(HTTPTool)
 // 筛选供应商 - LXB21111
 + (void)getSiftedSuppliersWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
+// 同步/取消同步供应商 - LXB22217 - type:0同步，1取消
++ (void)syncOrCancelSyncMySupplierWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId supplierName:(NSString *)supplierName supplierBrand:(NSString *)supplierBrand type:(NSString *)type success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 当地热门搜索列表 - LXB21112
++ (void)getHotSearchListWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 关键字搜索列表页 - LXB21113
++ (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+
+
+
+
 
 
 

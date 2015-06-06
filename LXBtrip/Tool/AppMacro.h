@@ -24,6 +24,7 @@
 #import "HotCity.h"
 #import "HotCountry.h"
 #import "SiftedLine.h"
+#import "HotSearch.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -61,8 +62,8 @@
 
 
 
-#define DELETE_ACTION_SHEET_HEIGHT 187.f
-#define YES_OR_NO_VIEW_HEIGHT 187.f
+//#define DELETE_ACTION_SHEET_HEIGHT 187.f
+//#define YES_OR_NO_VIEW_HEIGHT 187.f
 
 
 
@@ -78,6 +79,9 @@
 
 // F8F8F8 248
 #define BG_F8F8F8 [UIColor colorWithRed:248/255.f green:248/255.f blue:248/255.f alpha:1]
+
+// E9ECF5 248
+#define BG_E9ECF5 [UIColor colorWithRed:233/255.f green:236/255.f blue:245/255.f alpha:1]
 
 // F5F5F5
 #define BG_F5F5F5 [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1]
@@ -122,7 +126,7 @@ typedef enum SiftedLineType
 
 } SiftedLineType;
 
-//周边游  #1#492  国内游  #1#283  出境游  #1#303  国内目的地  #1#997  国外目的地  #1#998
-#define LINE_CLASS @{@0:@"#1#492", @1:@"#1#283", @2:@"#1#303", @3:@"#1#997", @4:@"#1#998"}
+//国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998
+#define LINE_CLASS @{@0:@"#1#283", @1:@"#1#303", @2:@"#1#492", @3:@"#1#997", @4:@"#1#998"}
 
 #endif

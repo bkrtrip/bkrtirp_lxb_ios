@@ -52,6 +52,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *abroadBUtton_diJie;
 - (IBAction)abroadBUtton_diJieClicked:(id)sender;
 
+- (IBAction)cancelButtonClicked:(id)sender;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *underLineLabel;
@@ -303,7 +304,6 @@
 }
 
 
-
 - (IBAction)myButtonClicked:(id)sender {
 }
 - (IBAction)locationButtonClicked:(id)sender {
@@ -333,6 +333,10 @@
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
     selectedIndex = 4;
     [self scrollToVisibleWithSelectedIndex:selectedIndex];
+}
+
+- (IBAction)cancelButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)scrollToVisibleWithSelectedIndex:(NSInteger)index

@@ -20,12 +20,27 @@
 @implementation AccompanyInfoView
 
 - (IBAction)sendMessageButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithShortMessage)]) {
+        [self.delegate supportClickWithShortMessage];
+    }
 }
 
 - (IBAction)makePhoneCallButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithPhoneCall)]) {
+        [self.delegate supportClickWithPhoneCall];
+    }
 }
 
 - (IBAction)moreInstructionsButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithMoreInstructions)]) {
+        [self.delegate supportClickWithMoreInstructions];
+    }
 }
+
+
+
+
+
+
 
 @end

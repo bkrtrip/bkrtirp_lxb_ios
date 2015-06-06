@@ -22,6 +22,24 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     // after login, save user info here.
 }
 
+- (void)saveSearchHistory:(NSArray *)historyArray
+{
+    NSMutableArray *history = [[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"];
+    [history addObjectsFromArray:historyArray];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
+    [[NSUserDefaults standardUserDefaults] setObject:history forKey:@"search_history"];
+}
+
+- (NSMutableArray *)searchHistory
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"];
+}
+
+- (void)clearSearchHistory
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
+}
+
 - (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed
 {
     if ([obj isKindOfClass:[NSDictionary class]]) {

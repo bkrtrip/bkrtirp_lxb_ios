@@ -17,10 +17,14 @@
 #import "SupplierDetailViewController.h"
 #import "SwitchCityViewController.h"
 #import "SiftSupplierViewController.h"
+#import "MySupplierViewController.h"
 
 @interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 {
     NSString *startCity;
+    NSString *lineClass;
+    NSString *lineType;
+
     NSInteger selectedIndex; // 0~4
     
     NSMutableArray *isLoadingMoresArray;
@@ -78,6 +82,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:@"SWITCH_CITY_WITH_CITY_NAME" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
     
     _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -90,7 +96,10 @@
     isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
     
     // --TEST--
+    selectedIndex = 0;
     startCity = @"西安";
+    lineClass = LINE_CLASS[@(selectedIndex)];
+    lineType = nil;
     
     CGFloat yOrigin = 20.f + 44.f + 82.f;
     
@@ -122,9 +131,9 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     _scrollView.delegate = self;
-        // --TEST--
-    selectedIndex = 0;
-    [self getSupplierListWithLineClass:LINE_CLASS[@(selectedIndex)] lineType:nil];
+    
+    // ---TEST---
+    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -188,7 +197,9 @@
                 cityString = [cityString substringWithRange:NSMakeRange(0, cityString.length-1)];
             }
             [_locationButton setTitle:cityString forState:UIControlStateNormal];
-            [self getSupplierListWithLineClass:LINE_CLASS[@(selectedIndex)] lineType:nil];
+            
+            startCity = cityString;
+            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
         }
     }];
 }
@@ -203,18 +214,30 @@
 - (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
 {
     NSDictionary *info = [note userInfo];
-    [self getSupplierListWithLineClass:info[@"lineclass"] lineType:info[@"linetype"]];
+    lineClass = info[@"lineclass"];
+    lineType = info[@"linetype"];
+
+    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+}
+
+- (void)switchCityWithCityName:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
+    startCity = info[@"startcity"];
+    
+    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
 }
 
 #pragma mark - http
-- (void)getSupplierListWithLineClass:(NSString *)lineClass lineType:(NSString *)lineType
+- (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {    
     if ([isLoadingMoresArray[selectedIndex] integerValue] == 0) {
         pageNumsArray[selectedIndex] = @0;
     }
     
     if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getSuppliersListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId StartCity:startCity lineClass:lineClass lineType:lineType pageNum:pageNumsArray[selectedIndex] success:^(id result) {
+        [HTTPTool getSuppliersListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[selectedIndex] success:^(id result) {
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];
@@ -350,6 +373,8 @@
 }
 
 - (IBAction)myButtonClicked:(id)sender {
+    MySupplierViewController *mySupplier = [[MySupplierViewController alloc] init];
+    [self.navigationController pushViewController:mySupplier animated:YES];
 }
 - (IBAction)locationButtonClicked:(id)sender {
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
@@ -391,7 +416,7 @@
         }
     }];
     if ([_suppliersArray[index] count] == 0) {
-        [self getSupplierListWithLineClass:LINE_CLASS[@(selectedIndex)] lineType:nil];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     }
 }
 @end

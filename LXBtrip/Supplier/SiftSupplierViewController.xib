@@ -263,17 +263,46 @@
                         </mask>
                     </variation>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOG-Yd-Sck">
+                    <rect key="frame" x="0.0" y="513" width="320" height="55"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-wO-6cF">
+                            <rect key="frame" x="85" y="10" width="150" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="8m5-f1-qBe"/>
+                                <constraint firstAttribute="width" constant="150" id="fqE-gK-nn9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="取消">
+                                <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="sxn-tm-OSn"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="ekb-kt-r0K"/>
+                        <constraint firstAttribute="centerX" secondItem="Qk9-wO-6cF" secondAttribute="centerX" id="iis-oF-0K6"/>
+                        <constraint firstAttribute="centerY" secondItem="Qk9-wO-6cF" secondAttribute="centerY" id="mQk-Da-eCl"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="wOG-Yd-Sck" secondAttribute="bottom" id="2dp-hc-mkJ"/>
                 <constraint firstItem="AgV-2s-9Ix" firstAttribute="width" secondItem="TLO-wf-yPi" secondAttribute="width" id="53i-xH-wre"/>
                 <constraint firstItem="HG9-9h-Zjh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5rD-9f-4Jd"/>
                 <constraint firstItem="AgV-2s-9Ix" firstAttribute="leading" secondItem="TLO-wf-yPi" secondAttribute="trailing" id="A8U-Fw-JTi"/>
                 <constraint firstAttribute="trailing" secondItem="HG9-9h-Zjh" secondAttribute="trailing" id="BgL-kK-rop"/>
+                <constraint firstAttribute="trailing" secondItem="wOG-Yd-Sck" secondAttribute="trailing" id="Epp-pf-EkS"/>
                 <constraint firstAttribute="trailing" secondItem="AgV-2s-9Ix" secondAttribute="trailing" id="S7N-RJ-fsD"/>
                 <constraint firstAttribute="trailing" secondItem="4YT-bo-LBm" secondAttribute="trailing" id="Xwz-WF-Qte"/>
                 <constraint firstItem="AgV-2s-9Ix" firstAttribute="centerY" secondItem="TLO-wf-yPi" secondAttribute="centerY" id="Yu1-YI-BbU"/>
                 <constraint firstItem="TLO-wf-yPi" firstAttribute="top" secondItem="4YT-bo-LBm" secondAttribute="bottom" id="adK-3k-goh"/>
+                <constraint firstItem="wOG-Yd-Sck" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fSF-Cr-Mzs"/>
                 <constraint firstItem="HG9-9h-Zjh" firstAttribute="width" secondItem="TLO-wf-yPi" secondAttribute="width" multiplier="2" id="jnG-8w-z8a"/>
                 <constraint firstItem="HG9-9h-Zjh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lb6-D9-SGg"/>
                 <constraint firstItem="HG9-9h-Zjh" firstAttribute="bottom" secondItem="4YT-bo-LBm" secondAttribute="top" id="oQq-5c-Mh4"/>
@@ -281,6 +310,7 @@
                 <constraint firstItem="TLO-wf-yPi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zTg-ET-VMx"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="330" y="378"/>
         </view>
     </objects>
     <resources>

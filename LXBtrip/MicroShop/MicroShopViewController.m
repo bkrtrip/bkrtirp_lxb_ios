@@ -138,7 +138,7 @@
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, YES_OR_NO_VIEW_HEIGHT)];
+        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.frame.size.height)];
     }];
 }
 
@@ -398,7 +398,7 @@
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, -YES_OR_NO_VIEW_HEIGHT)];
+        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, -_yesOrNoView.frame.size.height)];
     }];
 }
 
