@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ReservePriceGroup.h"
-#import "TouristGroup.h"
+#import "TouristInfo.h"
 
 @interface MyOrderItem : NSObject
 
@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString *orderReturnDate;//
 
 @property (nonatomic, strong) ReservePriceGroup *orderReservePriceGroup;
-@property (nonatomic, strong) TouristGroup *orderTouristGroup;
+@property (nonatomic, strong) NSMutableArray *orderTouristGroup;
 
 @property (nonatomic, copy) NSString *orderContactName;//
 @property (nonatomic, copy) NSString *orderContactPhone;//

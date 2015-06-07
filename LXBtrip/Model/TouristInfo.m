@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
-#import "TouristGroup.h"
+#import "TouristInfo.h"
 
-@implementation TouristGroup
+@implementation TouristInfo
 
 - (id)initWithDict:(NSDictionary *)dict
 {

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TouristGroup : NSObject
+@interface TouristInfo : NSObject
 
 @property (nonatomic, copy) NSString *touristName;//
 @property (nonatomic, copy) NSString *touristCode;//

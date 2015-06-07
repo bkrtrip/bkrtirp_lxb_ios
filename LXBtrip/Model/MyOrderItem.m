@@ -27,9 +27,15 @@
     }
     
     id touristGroup = [dict[@"tourist_group"] isKindOfClass:[NSNull class]]?nil:dict[@"reserve_price_group"];
-    if (reservePriceGroup) {
-        self.orderTouristGroup = [[TouristGroup alloc] initWithDict:touristGroup];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    if ([touristGroup isKindOfClass:[NSArray class]]) {
+        [touristGroup enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            TouristInfo *tourist = [[TouristInfo alloc] initWithDict:obj];
+            [temp addObject:tourist];
+        }];
     }
+    
+    self.orderTouristGroup = [temp mutableCopy];
     
     self.orderContactName = [dict[@"contacts_name"] isKindOfClass:[NSNull class]]?nil:dict[@"contacts_name"];
     self.orderContactPhone = [dict[@"contacts_phone"] isKindOfClass:[NSNull class]]?nil:dict[@"contacts_phone"];

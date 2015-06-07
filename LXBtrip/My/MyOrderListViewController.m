@@ -10,6 +10,14 @@
 #import "MyOrderListTableViewCell__Invalid.h"
 #import "MyOrderListTableViewCell__Unconfirmed_Confirmed.h"
 
+typedef enum OrderListType
+{
+    Order_Not_Confirm = 0,
+    Order_Confirmed = 1,
+    Order_Invalid = 2
+}OrderListType;
+
+
 @interface MyOrderListViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, MyOrderListTableViewCell__Invalid_Delegate, MyOrderListTableViewCell__Unconfirmed_Confirmed_Delegate>
 {
     NSInteger selectedIndex;
@@ -17,9 +25,11 @@
     
     NSArray *pageNumsArray;
     NSMutableArray *tableViewsArray;
+    OrderListType orderType;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) UILabel *underLineLabel;
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *orderStatusButtonsArray;
 
@@ -52,6 +62,7 @@
     self.title = @"我的订单";
     
     selectedIndex = 0;
+    orderType = Order_Not_Confirm;
     pageNumsArray = @[@0, @0, @0];
     ordersArray = [[NSMutableArray alloc] initWithCapacity:3];
     for (int i = 0; i < 3; i++) {
@@ -71,6 +82,12 @@
         tableView.dataSource = self;
         [_scrollView addSubview:tableView];
     }
+    
+    CGFloat yOrigin = 64.f + 50.f;
+    
+    _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, SCREEN_WIDTH/3, 2)];
+    _underLineLabel.backgroundColor = RED_FF0075;
+    [self.view addSubview:_underLineLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -121,6 +138,7 @@
                     [ordersArray[selectedIndex] addObject:item];
                 }];
             }
+            [tableViewsArray[selectedIndex] reloadData];
         }];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -148,10 +166,29 @@
 
 
 - (IBAction)orderStatusButtonClicked:(id)sender {
+    
+    [self scrollToVisibleWithSelectedIndex:selectedIndex];
+
     if (selectedIndex == [sender tag]) {
         return;
     }
 }
+
+- (void)scrollToVisibleWithSelectedIndex:(NSInteger)index
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, index*SCREEN_WIDTH, 0) animated:NO];
+        [_underLineLabel setFrame:CGRectMake(index*SCREEN_WIDTH/3, _underLineLabel.frame.origin.y, SCREEN_WIDTH/3, _underLineLabel.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            selectedIndex = index;
+            if ([ordersArray[index] count] == 0) {
+                [self getMyOrderList];
+            }
+        }
+    }];
+}
+
 
 #pragma mark - MyOrderListTableViewCell__Unconfirmed_Confirmed_Delegate
 - (void)supportClickWithCancelOrder
