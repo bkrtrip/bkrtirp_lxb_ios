@@ -439,6 +439,37 @@ singleton_implementation(HTTPTool)
     }];
 }
 
+// 我的订单列表 - LXB41231 - 订单状态：0：未确认 1：已确认 2：已取消
++ (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{@"status":status, @"pagenum":pageNum} mutableCopy];
+    
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB41231" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"myself/lineOrderList"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+
+}
+
 
 
 

@@ -70,6 +70,9 @@ singleton_interface(HTTPTool)
 // 关键字搜索列表页 - LXB21113
 + (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
+// 我的订单列表 - LXB41231 - 订单状态：0：未确认 1：已确认 2：已取消
++ (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum  success:(SuccessBlock)success fail:(FailBlock)fail;
+
 
 
 

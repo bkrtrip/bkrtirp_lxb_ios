@@ -25,6 +25,7 @@
 #import "HotCountry.h"
 #import "SiftedLine.h"
 #import "HotSearch.h"
+#import "MyOrderItem.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
