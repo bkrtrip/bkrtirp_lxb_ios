@@ -53,6 +53,9 @@
                     <constraint firstItem="LVq-6u-yfw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="1" id="dva-QL-Pxi"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="totalPriceLabel" destination="ocu-Tl-NQL" id="c5a-Xp-Wdl"/>
+            </connections>
             <point key="canvasLocation" x="193" y="349"/>
         </tableViewCell>
     </objects>

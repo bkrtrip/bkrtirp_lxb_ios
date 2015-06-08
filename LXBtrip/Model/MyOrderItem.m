@@ -17,6 +17,10 @@
     self.orderTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
     
     self.orderTravelGoodsName = [dict[@"travel_goods_name"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_name"];
+    
+    
+    self.orderStartCity = [dict[@"start_city"] isKindOfClass:[NSNull class]]?nil:dict[@"start_city"];
+
     self.orderStartDate = [dict[@"start_date"] isKindOfClass:[NSNull class]]?nil:dict[@"start_date"];
     self.orderReturnDate = [dict[@"return_date"] isKindOfClass:[NSNull class]]?nil:dict[@"return_date"];
     self.orderJourneyDays = [dict[@"journey_day"] isKindOfClass:[NSNull class]]?nil:dict[@"journey_day"];

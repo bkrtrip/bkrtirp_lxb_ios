@@ -10,13 +10,6 @@
 #import "MyOrderListTableViewCell__Invalid.h"
 #import "MyOrderListTableViewCell__Unconfirmed_Confirmed.h"
 
-typedef enum OrderListType
-{
-    Order_Not_Confirm = 0,
-    Order_Confirmed = 1,
-    Order_Invalid = 2
-}OrderListType;
-
 
 @interface MyOrderListViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, MyOrderListTableViewCell__Invalid_Delegate, MyOrderListTableViewCell__Unconfirmed_Confirmed_Delegate>
 {

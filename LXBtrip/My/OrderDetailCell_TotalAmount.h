@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @interface OrderDetailCell_TotalAmount : UITableViewCell
+
+- (void)setCellContentWithMyOrderItem:(MyOrderItem *)item;
 
 @end

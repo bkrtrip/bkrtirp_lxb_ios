@@ -11,7 +11,7 @@
 @interface OrderDetailCell_TouristsInfo()
 
 @property (strong, nonatomic) IBOutlet UILabel *touristNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *touristPhoneLabel;
+@property (strong, nonatomic) IBOutlet UILabel *touristCertificateNoLabel;
 
 @end
 
@@ -21,10 +21,11 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setCellContentWithTouristInfo:(TouristInfo *)tourist
+{
+    _touristNameLabel.text = tourist.touristName;
+    _touristCertificateNoLabel.text = tourist.touristCode;
 }
+
 
 @end

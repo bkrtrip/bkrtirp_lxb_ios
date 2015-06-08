@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @interface OrderDetailCell_TouristsInfo : UITableViewCell
+
+- (void)setCellContentWithTouristInfo:(TouristInfo *)tourist;
 
 @end

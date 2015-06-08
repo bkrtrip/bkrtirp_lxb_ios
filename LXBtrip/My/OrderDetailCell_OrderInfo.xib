@@ -171,6 +171,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="orderNoLabel" destination="BcJ-PC-1eg" id="INL-TA-jTa"/>
+                <outlet property="orderStatusLabel" destination="gmC-9G-pqh" id="qnQ-BI-8xA"/>
                 <outlet property="peopleNumLabel" destination="2hh-CR-GyL" id="wkl-hL-uYp"/>
                 <outlet property="returnDateLabel" destination="tKQ-UE-w3O" id="ZBD-M1-Q7v"/>
                 <outlet property="startCityLabel" destination="RJC-hH-PFM" id="oGS-AU-FHs"/>

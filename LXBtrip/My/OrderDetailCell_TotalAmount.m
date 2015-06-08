@@ -8,16 +8,27 @@
 
 #import "OrderDetailCell_TotalAmount.h"
 
+@interface OrderDetailCell_TotalAmount()
+
+@property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
+
+@end
+
 @implementation OrderDetailCell_TotalAmount
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setCellContentWithMyOrderItem:(MyOrderItem *)item
+{
+    float adultTotalPrice = [item.orderReservePriceGroup.adultNum integerValue]*[item.orderReservePriceGroup.adultPrice floatValue];
+    
+    float kidTotalPrice = [item.orderReservePriceGroup.kidNum integerValue]*[item.orderReservePriceGroup.kidPrice floatValue] +
+    [item.orderReservePriceGroup.kidBedNum integerValue]*[item.orderReservePriceGroup.kidBedPrice floatValue];
+    
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%f", adultTotalPrice + kidTotalPrice];
 }
+
 
 @end

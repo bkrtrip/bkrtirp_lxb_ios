@@ -10,6 +10,7 @@
 
 @interface OrderDetailCell_OrderInfo()
 
+@property (strong, nonatomic) IBOutlet UILabel *orderStatusLabel;
 @property (strong, nonatomic) IBOutlet UILabel *orderNoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *startCityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *startDateLabel;
@@ -23,10 +24,48 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)setCellContentWithMyOrderItem:(MyOrderItem *)item
+{
+    OrderListType type = [item.orderStatus intValue];
+    switch (type) {
+        case Order_Confirmed:
+            _orderStatusLabel.text = @"已确认";
+            break;
+        case Order_Not_Confirm:
+            _orderStatusLabel.text = @"未确认";
+            break;
+        case Order_Invalid:
+            _orderStatusLabel.text = @"已失效";
+            break;
+        default:
+            break;
+    }
+    
+    _orderNoLabel.text = [item.orderId stringValue];
+    _startCityLabel.text = item.orderStartCity;
+    
+    _startDateLabel.text = item.orderStartDate;
+    _returnDateLabel.text = item.orderReturnDate;
+    
+    
+    _peopleNumLabel.text = @"";
 
-    // Configure the view for the selected state
+    if ([item.orderReservePriceGroup.adultNum integerValue] > 0) {
+        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"成人——%@人", item.orderReservePriceGroup.adultNum]];
+    }
+    
+    if ([item.orderReservePriceGroup.kidBedNum integerValue] > 0) {
+        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"儿童/占床——%@人", item.orderReservePriceGroup.kidBedNum]];
+    }
+    
+    if ([item.orderReservePriceGroup.kidNum integerValue] > 0) {
+        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"儿童——%@人", item.orderReservePriceGroup.kidNum]];
+    }
 }
+
+
+
+
+
 
 @end

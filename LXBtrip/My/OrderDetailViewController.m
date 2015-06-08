@@ -56,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 3) {
-        return <#expression#>
+        return _item.orderTouristGroup.count + 1;
     }
     return 1;
 }
@@ -66,97 +66,77 @@
         case 0:
         {
             CreateOrderCell_OrderId *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_OrderId" forIndexPath:indexPath];
+            [cell setCellContentWithMyOrderItem:_item];
             return cell;
         }
             break;
         case 1:
         {
             OrderDetailCell_OrderInfo *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderDetailCell_OrderInfo" forIndexPath:indexPath];
+            [cell setCellContentWithMyOrderItem:_item];
             return cell;
         }
             break;
         case 2:
         {
             OrderDetailCell_ContactInfo *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderDetailCell_ContactInfo" forIndexPath:indexPath];
+            [cell setCellContentWithMyOrderItem:_item];
             return cell;
         }
             break;
-        case 0:
+        case 3:
         {
-            CreateOrderCell_OrderId *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_OrderId" forIndexPath:indexPath];
+            if (indexPath.row == 0) {
+                CreateOrderCell_BookHeader *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_BookHeader" forIndexPath:indexPath];
+                cell.headerLabel.text = @"游客信息";
+                return cell;
+            }
+            
+            TouristInfo *curTourist = _item.orderTouristGroup[indexPath.row - 1];
+            OrderDetailCell_TouristsInfo *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderDetailCell_TouristsInfo" forIndexPath:indexPath];
+            [cell setCellContentWithTouristInfo:curTourist];
             return cell;
         }
             break;
-        case 0:
+        case 4:
         {
-            CreateOrderCell_OrderId *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_OrderId" forIndexPath:indexPath];
+            OrderDetailCell_TotalAmount *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderDetailCell_TotalAmount" forIndexPath:indexPath];
+            [cell setCellContentWithMyOrderItem:_item];
             return cell;
         }
             break;
             
         default:
+            return nil;
             break;
     }
-    }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
     
-    // Pass the selected object to the new view controller.
+    if (indexPath.section == 0) {
+        // go to product ?
+    }
     
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+//    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
+//    [self.navigationController pushViewController:detailViewController animated:YES];
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = BG_F5F5F5;
+    return header;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section != 0) {
+        return 10.f;
+    }
+    return 0.f;
+}
+
 
 @end

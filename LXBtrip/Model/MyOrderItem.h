@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSNumber *orderId;//
 @property (nonatomic, copy) NSString *orderTravelGoodsCode;//
 @property (nonatomic, copy) NSString *orderTravelGoodsName;//
+@property (nonatomic, copy) NSString *orderStartCity;//
+
 @property (nonatomic, copy) NSString *orderJourneyDays;//
 @property (nonatomic, copy) NSString *orderStartDate;//
 @property (nonatomic, copy) NSString *orderReturnDate;//

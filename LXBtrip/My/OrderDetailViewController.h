@@ -7,7 +7,9 @@
 //
 
 #import "NavBaseViewController.h"
+#import "AppMacro.h"
 
 @interface OrderDetailViewController : NavBaseViewController
 
+@property (nonatomic, strong) MyOrderItem *item;
 @end

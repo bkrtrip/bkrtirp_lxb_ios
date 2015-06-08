@@ -22,10 +22,11 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setCellContentWithMyOrderItem:(MyOrderItem *)item
+{
+    _contactNameLabel.text = item.orderContactName;
+    _contactPhoneNumberLabel.text = item.orderContactPhone;
 }
+
 
 @end

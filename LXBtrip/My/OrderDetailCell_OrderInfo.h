@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @interface OrderDetailCell_OrderInfo : UITableViewCell
+
+- (void)setCellContentWithMyOrderItem:(MyOrderItem *)item;
 
 @end

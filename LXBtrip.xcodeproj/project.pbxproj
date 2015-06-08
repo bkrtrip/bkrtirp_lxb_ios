@@ -1166,7 +1166,7 @@
 			path = Supplier;
 			sourceTree = "<group>";
 		};
-		8E5C69C61AFB32C5004A0CC3 /* My */ = {
+		8E5C69C61AFB32C5004A0CC3 /* My Oder */ = {
 			isa = PBXGroup;
 			children = (
 				97A5705E1B23CEB500D48A36 /* MyOrderListViewController.h */,
@@ -1181,6 +1181,7 @@
 				97C0321A1B248CD5000385B8 /* Order Detail */,
 				97A570921B244D2D00D48A36 /* Create Order */,
 			);
+			name = "My Oder";
 			path = My;
 			sourceTree = "<group>";
 		};
@@ -1338,7 +1339,7 @@
 			children = (
 				97B374F11B1EFB6F00604130 /* common views */,
 				97B374F21B1EFB8000604130 /* common controllers */,
-				8E5C69C61AFB32C5004A0CC3 /* My */,
+				8E5C69C61AFB32C5004A0CC3 /* My Oder */,
 				8E5C69BF1AFB318F004A0CC3 /* Supplier */,
 				8E5C69B81AFB13E2004A0CC3 /* MicroShop */,
 				97CDE0621B17F8A1008B146B /* Alley */,
