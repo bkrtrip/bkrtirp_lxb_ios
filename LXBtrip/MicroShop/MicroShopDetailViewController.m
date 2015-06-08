@@ -91,12 +91,13 @@
 }
 
 - (IBAction)addToMyShopButtonClicked:(id)sender {
-    if (![[Global sharedGlobal] userInfo].token) {
+    if (![UserModel companyId] || ![UserModel staffId]) {
         // go to login page
+        
     } else
     {
         // add to myshop
-        [HTTPTool addToMyShopWithShopId:_shopId companyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
+        [HTTPTool addToMyShopWithShopId:_shopId companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             id obj = result[@"RS100004"];
             [[Global sharedGlobal] codeHudWithObject:obj succeed:^{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"添加成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

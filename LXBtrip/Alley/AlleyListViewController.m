@@ -129,8 +129,8 @@
 
 - (void)getAlleyList
 {
-    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getServiceListWithWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId county:curCountry province:curProvince city:curCity pageNum:@(pageNum) success:^(id result) {
+    if ([UserModel companyId] && [UserModel staffId]) {
+        [HTTPTool getServiceListWithWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] county:curCountry province:curProvince city:curCity pageNum:@(pageNum) success:^(id result) {
             id data = result[@"RS100020"];
             [[Global sharedGlobal] codeHudWithObject:data succeed:^{
                 if ([data isKindOfClass:[NSArray class]]) {

@@ -135,7 +135,7 @@ typedef enum DropDownType
 #pragma mark - HTTP
 - (void)getSearchedSupplierResults
 {
-    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
+    if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool searchSupplierListWithStartCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword pageNum:@(pageNum) success:^(id result) {
             id data = result[@"RS100013"];
             [[Global sharedGlobal] codeHudWithObject:data succeed:^{

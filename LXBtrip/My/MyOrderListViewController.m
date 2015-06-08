@@ -122,7 +122,7 @@
 
 - (void)getMyOrderList
 {
-    [HTTPTool getMyOrderListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId status:[@(selectedIndex) stringValue] pageNum:pageNumsArray[selectedIndex] success:^(id result) {
+    [HTTPTool getMyOrderListWithCompanyId:[UserModel getUserPropertyByKey:@"dat_company_id"] staffId:[UserModel getUserPropertyByKey:@"staff_id"] status:[@(selectedIndex) stringValue] pageNum:pageNumsArray[selectedIndex] success:^(id result) {
         id data = result[@"RS100031"];
         [[Global sharedGlobal] codeHudWithObject:data succeed:^{
             if ([data isKindOfClass:[NSArray class]]) {

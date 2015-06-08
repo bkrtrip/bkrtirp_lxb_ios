@@ -35,7 +35,6 @@
     
     MainTabBarViewController *tabController = [[MainTabBarViewController alloc] init];
     [tabController setViewControllers:[NSArray arrayWithObjects:shopNav, supplierNav, alleyNav, nil]];
-//    tabController.selectedIndex = 1;
     
     self.window.rootViewController = tabController;
     

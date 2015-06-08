@@ -17,11 +17,6 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return [initial_1 caseInsensitiveCompare:initial_2];
 }
 
-- (void)saveUserInfo:(User *)userInfo
-{
-    // after login, save user info here.
-}
-
 - (void)saveSearchHistory:(NSArray *)historyArray
 {
     NSMutableArray *history = [[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"];
@@ -94,6 +89,12 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     } else {
         succeed(nil);
     }
+}
+
+- (UIViewController *)loginViewControllerFromSb
+{
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    return [mainStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewController"];
 }
 
 

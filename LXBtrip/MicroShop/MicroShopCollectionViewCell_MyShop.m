@@ -23,7 +23,6 @@
 @implementation MicroShopCollectionViewCell_MyShop
 
 - (void)awakeFromNib {
-    // Initialization code
     _shopNameLabel.text = nil;
     _providerNameLabel.text = nil;
     _mainImageView.image = nil;
@@ -39,19 +38,21 @@
     }];
     
     //判断是delete还是lock
-    
     TemplateDefaultStatus defaultStatus = [info.shopIsDefault intValue];
     switch (defaultStatus) {
-        case Is_Default:
-            <#statements#>
+        case Is_Locked:// 0：锁定
+            [_deleteOrLockButton setImage:ImageNamed(@"lock") forState:UIControlStateNormal];
             break;
-            
+        case Is_Default:// 1：默认
+            [_deleteOrLockButton setImage:nil forState:UIControlStateNormal];
+            break;
+        case Is_Else:// 2：其他
+            [_deleteOrLockButton setImage:ImageNamed(@"delete") forState:UIControlStateNormal];
+            break;
         default:
             break;
     }
-//    _deleteOrLockButton setImage:<#(UIImage *)#> forState:<#(UIControlState)#>
 }
-
 
 - (IBAction)deleteOrLockButtonClicked:(id)sender {
     if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteButton)]) {

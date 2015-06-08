@@ -20,6 +20,7 @@
 #import "YesOrNoView.h"
 #import "MicroShopDetailViewController.h"
 #import "SetShopNameViewController.h"
+#import "LoginViewController.h"
 
 @interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
 
@@ -232,8 +233,8 @@
 
 - (void)getOnlineShops
 {
-    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getOnlineMicroShopListWithProvince:_locationButton.titleLabel.text companyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
+    if ([UserModel companyId] && [UserModel staffId]) {
+        [HTTPTool getOnlineMicroShopListWithProvince:_locationButton.titleLabel.text companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             NSArray *data = result[@"RS100002"];
             [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 
@@ -290,8 +291,8 @@
 
 - (void)getMyShops
 {
-    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getMyMicroShopListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId success:^(id result) {
+    if ([UserModel companyId] && [UserModel staffId]) {
+        [HTTPTool getMyMicroShopListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             
             NSArray *data = result[@"RS100005"];
             [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -403,20 +404,19 @@
     
     if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
         MicroShopInfo *curShop = _myShopsArray[indexPath.row];
-
-        if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
+        if ([UserModel companyId] && [UserModel staffId]) {
             // go to webview
             // ...
-            
+        } else {
+            [self.navigationController pushViewController:[[Global sharedGlobal] loginViewControllerFromSb] animated:YES];
         }
-        
-//        if (<#condition#>) {
-//            // 未设置用户信息 staff_real_name == nil, staff_department_name == nil
-//            SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-//            [self.navigationController pushViewController:setName animated:YES];
-//            return;
-//        }
-        
+    }
+    
+    // go to set user info page
+    if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
+        return;
     }
     
     

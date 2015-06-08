@@ -236,8 +236,8 @@
         pageNumsArray[selectedIndex] = @0;
     }
     
-    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getSuppliersListWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[selectedIndex] success:^(id result) {
+    if ([UserModel companyId] && [UserModel staffId]) {
+        [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[selectedIndex] success:^(id result) {
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];

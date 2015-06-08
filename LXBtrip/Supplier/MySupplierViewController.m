@@ -89,7 +89,7 @@
 
 - (void)getMySuppliers
 {
-    [HTTPTool getMySuppliersWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId lineClass:LINE_CLASS[@(selectedIndex)] success:^(id result) {
+    [HTTPTool getMySuppliersWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] lineClass:LINE_CLASS[@(selectedIndex)] success:^(id result) {
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100018"] succeed:^{
             id data = result[@"RS100018"];
             if ([data isKindOfClass:[NSDictionary class]]) {

@@ -102,15 +102,14 @@ typedef enum PopUpViewType
 - (IBAction)addToOrRemoveFromMyShopButtonClicked:(id)sender
 {
     // 未登录
-    if (![[Global sharedGlobal] userInfo].companyId || ![[Global sharedGlobal] userInfo].staffId) {
-        
+    if (![UserModel companyId] || ![UserModel staffId]) {
         // go to login page
-        // ...
+        [self.navigationController pushViewController:[[Global sharedGlobal] loginViewControllerFromSb] animated:YES];
         return;
     }
     
     // 未完成资料，合并后要修改
-    if ([[Global sharedGlobal] userInfo]) {
+    if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
         // go to open micro shop
         SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
         [self.navigationController pushViewController:setName animated:YES];
@@ -123,8 +122,8 @@ typedef enum PopUpViewType
 #pragma mark - HTTP
 - (void)getSupplierDetail
 {
-    if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
-        [HTTPTool getSupplierDetailWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId supplierId:_info.supplierId pageNum:@(pageNum) isMy:_info.supplierIsMy success:^(id result) {
+    if ([UserModel companyId] && [UserModel staffId]) {
+        [HTTPTool getSupplierDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] supplierId:_info.supplierId pageNum:@(pageNum) isMy:_info.supplierIsMy success:^(id result) {
             id obj = result[@"RS100016"];
             [[Global sharedGlobal] codeHudWithObject:obj succeed:^{
                 _info = [[SupplierInfo alloc] initWithDict:obj];
@@ -158,7 +157,7 @@ typedef enum PopUpViewType
 
 - (void)syncOrCancelSyncMySupplier
 {
-    [HTTPTool syncOrCancelSyncMySupplierWithCompanyId:[[Global sharedGlobal] userInfo].companyId staffId:[[Global sharedGlobal] userInfo].staffId supplierId:_info.supplierId supplierName:_info.supplierName supplierBrand:_info.supplierBrand type:_type success:^(id result) {
+    [HTTPTool syncOrCancelSyncMySupplierWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] supplierId:_info.supplierId supplierName:_info.supplierName supplierBrand:_info.supplierBrand type:_type success:^(id result) {
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100017"] succeed:^{
             _type = [@(![_type boolValue]) stringValue];
             switch (popUpType) {
@@ -263,7 +262,7 @@ typedef enum PopUpViewType
 {
     [self dismissYesOrNoView];
     // 未登录
-    if (![[Global sharedGlobal] userInfo].companyId || ![[Global sharedGlobal] userInfo].staffId) {
+    if (![UserModel companyId] || ![UserModel staffId]) {
         
         // go to login page
         // ...
@@ -271,7 +270,7 @@ typedef enum PopUpViewType
     }
     
     // 未完成资料，合并后要修改
-    if ([[Global sharedGlobal] userInfo]) {
+    if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
         // go to open micro shop
         SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
         [self.navigationController pushViewController:setName animated:YES];

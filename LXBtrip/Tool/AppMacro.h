@@ -13,7 +13,6 @@
 #import "Single.h"
 #import "MicroShopInfo.h"
 #import "HTTPTool.h"
-#import "User.h"
 #import "TourInfo.h"
 #import "CommentInfo.h"
 #import "SupplierInfo.h"
@@ -27,6 +26,7 @@
 #import "HotSearch.h"
 #import "MyOrderItem.h"
 #import "AlleyInfo.h"
+#import "UserModel.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
