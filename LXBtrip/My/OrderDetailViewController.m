@@ -33,7 +33,6 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailCell_TotalAmount" bundle:nil] forCellReuseIdentifier:@"OrderDetailCell_TotalAmount"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailCell_TouristsInfo" bundle:nil] forCellReuseIdentifier:@"OrderDetailCell_TouristsInfo"];
     [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_BookHeader" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_BookHeader"];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated

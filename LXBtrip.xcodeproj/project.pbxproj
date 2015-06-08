@@ -91,6 +91,38 @@
 		973D8B511B1B571500CA4260 /* is_my@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 973D8B491B1B571500CA4260 /* is_my@3x.png */; };
 		973D8B521B1B571500CA4260 /* not_my_and_not_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 973D8B4A1B1B571500CA4260 /* not_my_and_not_new@2x.png */; };
 		973D8B531B1B571500CA4260 /* not_my_and_not_new@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 973D8B4B1B1B571500CA4260 /* not_my_and_not_new@3x.png */; };
+		9770EEA71B252DBC004FDA7A /* AlleyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEA61B252DBC004FDA7A /* AlleyInfo.m */; };
+		9770EEAD1B2531DA004FDA7A /* AlleyListCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEAC1B2531DA004FDA7A /* AlleyListCollectionView.m */; };
+		9770EEB31B253219004FDA7A /* AlleyListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEB11B253219004FDA7A /* AlleyListCollectionViewCell.m */; };
+		9770EEB41B253219004FDA7A /* AlleyListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEB21B253219004FDA7A /* AlleyListCollectionViewCell.xib */; };
+		9770EEC31B2533E5004FDA7A /* alley_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEB51B2533E4004FDA7A /* alley_banner@2x.png */; };
+		9770EEC41B2533E5004FDA7A /* alley_banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEB61B2533E4004FDA7A /* alley_banner@3x.png */; };
+		9770EEC51B2533E5004FDA7A /* alley_detail_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEB71B2533E4004FDA7A /* alley_detail_banner@2x.png */; };
+		9770EEC61B2533E5004FDA7A /* alley_detail_banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEB81B2533E4004FDA7A /* alley_detail_banner@3x.png */; };
+		9770EEC71B2533E5004FDA7A /* alley_instruction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEB91B2533E5004FDA7A /* alley_instruction@2x.png */; };
+		9770EEC81B2533E5004FDA7A /* alley_instruction@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEBA1B2533E5004FDA7A /* alley_instruction@3x.png */; };
+		9770EEC91B2533E5004FDA7A /* alley_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEBB1B2533E5004FDA7A /* alley_location@2x.png */; };
+		9770EECA1B2533E5004FDA7A /* alley_location@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEBC1B2533E5004FDA7A /* alley_location@3x.png */; };
+		9770EECB1B2533E5004FDA7A /* alley_message@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEBD1B2533E5004FDA7A /* alley_message@2x.png */; };
+		9770EECC1B2533E5004FDA7A /* alley_message@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEBE1B2533E5004FDA7A /* alley_message@3x.png */; };
+		9770EECD1B2533E5004FDA7A /* alley_telephone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEBF1B2533E5004FDA7A /* alley_telephone@2x.png */; };
+		9770EECE1B2533E5004FDA7A /* alley_telephone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEC01B2533E5004FDA7A /* alley_telephone@3x.png */; };
+		9770EECF1B2533E5004FDA7A /* location_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEC11B2533E5004FDA7A /* location_blue@2x.png */; };
+		9770EED01B2533E5004FDA7A /* location_blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEC21B2533E5004FDA7A /* location_blue@3x.png */; };
+		9770EED41B253469004FDA7A /* AlleyListCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EED31B253469004FDA7A /* AlleyListCollectionViewFlowLayout.m */; };
+		9770EED91B253AD7004FDA7A /* AlleyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EED71B253AD7004FDA7A /* AlleyDetailViewController.m */; };
+		9770EEDA1B253AD7004FDA7A /* AlleyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EED81B253AD7004FDA7A /* AlleyDetailViewController.xib */; };
+		9770EEDF1B255568004FDA7A /* AlleyDetailCell_Top.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEDD1B255567004FDA7A /* AlleyDetailCell_Top.m */; };
+		9770EEE01B255568004FDA7A /* AlleyDetailCell_Top.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEDE1B255567004FDA7A /* AlleyDetailCell_Top.xib */; };
+		9770EEE71B2578FC004FDA7A /* AlleyDetailCell_JoinNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEE51B2578FC004FDA7A /* AlleyDetailCell_JoinNum.m */; };
+		9770EEE81B2578FC004FDA7A /* AlleyDetailCell_JoinNum.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEE61B2578FC004FDA7A /* AlleyDetailCell_JoinNum.xib */; };
+		9770EEEC1B257E49004FDA7A /* AlleyDetailCell_Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEEA1B257E49004FDA7A /* AlleyDetailCell_Location.m */; };
+		9770EEED1B257E49004FDA7A /* AlleyDetailCell_Location.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEEB1B257E49004FDA7A /* AlleyDetailCell_Location.xib */; };
+		9770EEF11B25809F004FDA7A /* AlleyDetailCell_Instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEEF1B25809F004FDA7A /* AlleyDetailCell_Instruction.m */; };
+		9770EEF21B25809F004FDA7A /* AlleyDetailCell_Instruction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEF01B25809F004FDA7A /* AlleyDetailCell_Instruction.xib */; };
+		9770EEF51B259C26004FDA7A /* CompanyTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEF41B259C26004FDA7A /* CompanyTemplate.m */; };
+		9770EEF91B25EE23004FDA7A /* MyShopWebPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9770EEF71B25EE23004FDA7A /* MyShopWebPreviewViewController.m */; };
+		9770EEFA1B25EE23004FDA7A /* MyShopWebPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9770EEF81B25EE23004FDA7A /* MyShopWebPreviewViewController.xib */; };
 		9771C3ED1B172664006A850A /* TourListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9771C3EB1B172664006A850A /* TourListTableViewCell.m */; };
 		9771C3EE1B172664006A850A /* TourListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9771C3EC1B172664006A850A /* TourListTableViewCell.xib */; };
 		9771C3F11B1729F8006A850A /* TourInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9771C3F01B1729F8006A850A /* TourInfo.m */; };
@@ -508,6 +540,49 @@
 		973D8B491B1B571500CA4260 /* is_my@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "is_my@3x.png"; path = "Supplier/is_my@3x.png"; sourceTree = "<group>"; };
 		973D8B4A1B1B571500CA4260 /* not_my_and_not_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "not_my_and_not_new@2x.png"; path = "Supplier/not_my_and_not_new@2x.png"; sourceTree = "<group>"; };
 		973D8B4B1B1B571500CA4260 /* not_my_and_not_new@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "not_my_and_not_new@3x.png"; path = "Supplier/not_my_and_not_new@3x.png"; sourceTree = "<group>"; };
+		9770EEA51B252DBC004FDA7A /* AlleyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlleyInfo.h; sourceTree = "<group>"; };
+		9770EEA61B252DBC004FDA7A /* AlleyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlleyInfo.m; sourceTree = "<group>"; };
+		9770EEAB1B2531DA004FDA7A /* AlleyListCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyListCollectionView.h; path = Alley/AlleyListCollectionView.h; sourceTree = "<group>"; };
+		9770EEAC1B2531DA004FDA7A /* AlleyListCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyListCollectionView.m; path = Alley/AlleyListCollectionView.m; sourceTree = "<group>"; };
+		9770EEB01B253219004FDA7A /* AlleyListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyListCollectionViewCell.h; path = Alley/AlleyListCollectionViewCell.h; sourceTree = "<group>"; };
+		9770EEB11B253219004FDA7A /* AlleyListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyListCollectionViewCell.m; path = Alley/AlleyListCollectionViewCell.m; sourceTree = "<group>"; };
+		9770EEB21B253219004FDA7A /* AlleyListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlleyListCollectionViewCell.xib; path = Alley/AlleyListCollectionViewCell.xib; sourceTree = "<group>"; };
+		9770EEB51B2533E4004FDA7A /* alley_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_banner@2x.png"; path = "Alley/alley_banner@2x.png"; sourceTree = "<group>"; };
+		9770EEB61B2533E4004FDA7A /* alley_banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_banner@3x.png"; path = "Alley/alley_banner@3x.png"; sourceTree = "<group>"; };
+		9770EEB71B2533E4004FDA7A /* alley_detail_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_detail_banner@2x.png"; path = "Alley/alley_detail_banner@2x.png"; sourceTree = "<group>"; };
+		9770EEB81B2533E4004FDA7A /* alley_detail_banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_detail_banner@3x.png"; path = "Alley/alley_detail_banner@3x.png"; sourceTree = "<group>"; };
+		9770EEB91B2533E5004FDA7A /* alley_instruction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_instruction@2x.png"; path = "Alley/alley_instruction@2x.png"; sourceTree = "<group>"; };
+		9770EEBA1B2533E5004FDA7A /* alley_instruction@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_instruction@3x.png"; path = "Alley/alley_instruction@3x.png"; sourceTree = "<group>"; };
+		9770EEBB1B2533E5004FDA7A /* alley_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_location@2x.png"; path = "Alley/alley_location@2x.png"; sourceTree = "<group>"; };
+		9770EEBC1B2533E5004FDA7A /* alley_location@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_location@3x.png"; path = "Alley/alley_location@3x.png"; sourceTree = "<group>"; };
+		9770EEBD1B2533E5004FDA7A /* alley_message@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_message@2x.png"; path = "Alley/alley_message@2x.png"; sourceTree = "<group>"; };
+		9770EEBE1B2533E5004FDA7A /* alley_message@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_message@3x.png"; path = "Alley/alley_message@3x.png"; sourceTree = "<group>"; };
+		9770EEBF1B2533E5004FDA7A /* alley_telephone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_telephone@2x.png"; path = "Alley/alley_telephone@2x.png"; sourceTree = "<group>"; };
+		9770EEC01B2533E5004FDA7A /* alley_telephone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_telephone@3x.png"; path = "Alley/alley_telephone@3x.png"; sourceTree = "<group>"; };
+		9770EEC11B2533E5004FDA7A /* location_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location_blue@2x.png"; path = "Alley/location_blue@2x.png"; sourceTree = "<group>"; };
+		9770EEC21B2533E5004FDA7A /* location_blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location_blue@3x.png"; path = "Alley/location_blue@3x.png"; sourceTree = "<group>"; };
+		9770EED21B253469004FDA7A /* AlleyListCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyListCollectionViewFlowLayout.h; path = Alley/AlleyListCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		9770EED31B253469004FDA7A /* AlleyListCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyListCollectionViewFlowLayout.m; path = Alley/AlleyListCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		9770EED61B253AD7004FDA7A /* AlleyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyDetailViewController.h; path = Alley/AlleyDetailViewController.h; sourceTree = "<group>"; };
+		9770EED71B253AD7004FDA7A /* AlleyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyDetailViewController.m; path = Alley/AlleyDetailViewController.m; sourceTree = "<group>"; };
+		9770EED81B253AD7004FDA7A /* AlleyDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlleyDetailViewController.xib; path = Alley/AlleyDetailViewController.xib; sourceTree = "<group>"; };
+		9770EEDC1B255567004FDA7A /* AlleyDetailCell_Top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyDetailCell_Top.h; path = Alley/AlleyDetailCell_Top.h; sourceTree = "<group>"; };
+		9770EEDD1B255567004FDA7A /* AlleyDetailCell_Top.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyDetailCell_Top.m; path = Alley/AlleyDetailCell_Top.m; sourceTree = "<group>"; };
+		9770EEDE1B255567004FDA7A /* AlleyDetailCell_Top.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlleyDetailCell_Top.xib; path = Alley/AlleyDetailCell_Top.xib; sourceTree = "<group>"; };
+		9770EEE41B2578FC004FDA7A /* AlleyDetailCell_JoinNum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyDetailCell_JoinNum.h; path = Alley/AlleyDetailCell_JoinNum.h; sourceTree = "<group>"; };
+		9770EEE51B2578FC004FDA7A /* AlleyDetailCell_JoinNum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyDetailCell_JoinNum.m; path = Alley/AlleyDetailCell_JoinNum.m; sourceTree = "<group>"; };
+		9770EEE61B2578FC004FDA7A /* AlleyDetailCell_JoinNum.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlleyDetailCell_JoinNum.xib; path = Alley/AlleyDetailCell_JoinNum.xib; sourceTree = "<group>"; };
+		9770EEE91B257E49004FDA7A /* AlleyDetailCell_Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyDetailCell_Location.h; path = Alley/AlleyDetailCell_Location.h; sourceTree = "<group>"; };
+		9770EEEA1B257E49004FDA7A /* AlleyDetailCell_Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyDetailCell_Location.m; path = Alley/AlleyDetailCell_Location.m; sourceTree = "<group>"; };
+		9770EEEB1B257E49004FDA7A /* AlleyDetailCell_Location.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlleyDetailCell_Location.xib; path = Alley/AlleyDetailCell_Location.xib; sourceTree = "<group>"; };
+		9770EEEE1B25809F004FDA7A /* AlleyDetailCell_Instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlleyDetailCell_Instruction.h; path = Alley/AlleyDetailCell_Instruction.h; sourceTree = "<group>"; };
+		9770EEEF1B25809F004FDA7A /* AlleyDetailCell_Instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlleyDetailCell_Instruction.m; path = Alley/AlleyDetailCell_Instruction.m; sourceTree = "<group>"; };
+		9770EEF01B25809F004FDA7A /* AlleyDetailCell_Instruction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlleyDetailCell_Instruction.xib; path = Alley/AlleyDetailCell_Instruction.xib; sourceTree = "<group>"; };
+		9770EEF31B259C26004FDA7A /* CompanyTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyTemplate.h; sourceTree = "<group>"; };
+		9770EEF41B259C26004FDA7A /* CompanyTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyTemplate.m; sourceTree = "<group>"; };
+		9770EEF61B25EE23004FDA7A /* MyShopWebPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyShopWebPreviewViewController.h; sourceTree = "<group>"; };
+		9770EEF71B25EE23004FDA7A /* MyShopWebPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyShopWebPreviewViewController.m; sourceTree = "<group>"; };
+		9770EEF81B25EE23004FDA7A /* MyShopWebPreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyShopWebPreviewViewController.xib; sourceTree = "<group>"; };
 		9771C3EA1B172664006A850A /* TourListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourListTableViewCell.h; sourceTree = "<group>"; };
 		9771C3EB1B172664006A850A /* TourListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourListTableViewCell.m; sourceTree = "<group>"; };
 		9771C3EC1B172664006A850A /* TourListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourListTableViewCell.xib; sourceTree = "<group>"; };
@@ -1140,6 +1215,7 @@
 			isa = PBXGroup;
 			children = (
 				97ADF1DB1B128A43009DA8C3 /* Micro Shop List */,
+				9770EEFB1B25EE2E004FDA7A /* My Shop Preview */,
 				97ADF1E11B128A90009DA8C3 /* Micro Shop Detail */,
 				97AEDB9C1B13F97E0098F75B /* Open Shop */,
 				97AEDBB01B1443FD0098F75B /* Set Shop Name */,
@@ -1194,6 +1270,7 @@
 				97AFC1711B1555CF009C3CF6 /* Common */,
 				97192EC01B0CCC3800C02B9E /* MicroShop */,
 				97A5706D1B23DFEB00D48A36 /* MyOrder */,
+				9770EED11B2533EB004FDA7A /* Alley */,
 			);
 			path = image;
 			sourceTree = "<group>";
@@ -1388,6 +1465,76 @@
 			name = Supplier;
 			sourceTree = "<group>";
 		};
+		9770EED11B2533EB004FDA7A /* Alley */ = {
+			isa = PBXGroup;
+			children = (
+				9770EEB51B2533E4004FDA7A /* alley_banner@2x.png */,
+				9770EEB61B2533E4004FDA7A /* alley_banner@3x.png */,
+				9770EEB71B2533E4004FDA7A /* alley_detail_banner@2x.png */,
+				9770EEB81B2533E4004FDA7A /* alley_detail_banner@3x.png */,
+				9770EEB91B2533E5004FDA7A /* alley_instruction@2x.png */,
+				9770EEBA1B2533E5004FDA7A /* alley_instruction@3x.png */,
+				9770EEBB1B2533E5004FDA7A /* alley_location@2x.png */,
+				9770EEBC1B2533E5004FDA7A /* alley_location@3x.png */,
+				9770EEBD1B2533E5004FDA7A /* alley_message@2x.png */,
+				9770EEBE1B2533E5004FDA7A /* alley_message@3x.png */,
+				9770EEBF1B2533E5004FDA7A /* alley_telephone@2x.png */,
+				9770EEC01B2533E5004FDA7A /* alley_telephone@3x.png */,
+				9770EEC11B2533E5004FDA7A /* location_blue@2x.png */,
+				9770EEC21B2533E5004FDA7A /* location_blue@3x.png */,
+			);
+			name = Alley;
+			sourceTree = "<group>";
+		};
+		9770EED51B25393E004FDA7A /* Alley List */ = {
+			isa = PBXGroup;
+			children = (
+				97CDE05D1B17F89B008B146B /* AlleyListViewController.h */,
+				97CDE05E1B17F89B008B146B /* AlleyListViewController.m */,
+				97CDE05F1B17F89B008B146B /* AlleyListViewController.xib */,
+				9770EEAB1B2531DA004FDA7A /* AlleyListCollectionView.h */,
+				9770EEAC1B2531DA004FDA7A /* AlleyListCollectionView.m */,
+				9770EED21B253469004FDA7A /* AlleyListCollectionViewFlowLayout.h */,
+				9770EED31B253469004FDA7A /* AlleyListCollectionViewFlowLayout.m */,
+				9770EEB01B253219004FDA7A /* AlleyListCollectionViewCell.h */,
+				9770EEB11B253219004FDA7A /* AlleyListCollectionViewCell.m */,
+				9770EEB21B253219004FDA7A /* AlleyListCollectionViewCell.xib */,
+			);
+			name = "Alley List";
+			sourceTree = "<group>";
+		};
+		9770EEDB1B253AE1004FDA7A /* Alley Detail */ = {
+			isa = PBXGroup;
+			children = (
+				9770EED61B253AD7004FDA7A /* AlleyDetailViewController.h */,
+				9770EED71B253AD7004FDA7A /* AlleyDetailViewController.m */,
+				9770EED81B253AD7004FDA7A /* AlleyDetailViewController.xib */,
+				9770EEDC1B255567004FDA7A /* AlleyDetailCell_Top.h */,
+				9770EEDD1B255567004FDA7A /* AlleyDetailCell_Top.m */,
+				9770EEDE1B255567004FDA7A /* AlleyDetailCell_Top.xib */,
+				9770EEE41B2578FC004FDA7A /* AlleyDetailCell_JoinNum.h */,
+				9770EEE51B2578FC004FDA7A /* AlleyDetailCell_JoinNum.m */,
+				9770EEE61B2578FC004FDA7A /* AlleyDetailCell_JoinNum.xib */,
+				9770EEE91B257E49004FDA7A /* AlleyDetailCell_Location.h */,
+				9770EEEA1B257E49004FDA7A /* AlleyDetailCell_Location.m */,
+				9770EEEB1B257E49004FDA7A /* AlleyDetailCell_Location.xib */,
+				9770EEEE1B25809F004FDA7A /* AlleyDetailCell_Instruction.h */,
+				9770EEEF1B25809F004FDA7A /* AlleyDetailCell_Instruction.m */,
+				9770EEF01B25809F004FDA7A /* AlleyDetailCell_Instruction.xib */,
+			);
+			name = "Alley Detail";
+			sourceTree = "<group>";
+		};
+		9770EEFB1B25EE2E004FDA7A /* My Shop Preview */ = {
+			isa = PBXGroup;
+			children = (
+				9770EEF61B25EE23004FDA7A /* MyShopWebPreviewViewController.h */,
+				9770EEF71B25EE23004FDA7A /* MyShopWebPreviewViewController.m */,
+				9770EEF81B25EE23004FDA7A /* MyShopWebPreviewViewController.xib */,
+			);
+			name = "My Shop Preview";
+			sourceTree = "<group>";
+		};
 		9771C3E91B17263C006A850A /* Tour List */ = {
 			isa = PBXGroup;
 			children = (
@@ -1510,6 +1657,10 @@
 				97A5707B1B24024400D48A36 /* ReservePriceGroup.m */,
 				97A5707D1B24036400D48A36 /* TouristInfo.h */,
 				97A5707E1B24036400D48A36 /* TouristInfo.m */,
+				9770EEA51B252DBC004FDA7A /* AlleyInfo.h */,
+				9770EEA61B252DBC004FDA7A /* AlleyInfo.m */,
+				9770EEF31B259C26004FDA7A /* CompanyTemplate.h */,
+				9770EEF41B259C26004FDA7A /* CompanyTemplate.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1902,9 +2053,8 @@
 		97CDE0621B17F8A1008B146B /* Alley */ = {
 			isa = PBXGroup;
 			children = (
-				97CDE05D1B17F89B008B146B /* AlleyListViewController.h */,
-				97CDE05E1B17F89B008B146B /* AlleyListViewController.m */,
-				97CDE05F1B17F89B008B146B /* AlleyListViewController.xib */,
+				9770EED51B25393E004FDA7A /* Alley List */,
+				9770EEDB1B253AE1004FDA7A /* Alley Detail */,
 			);
 			name = Alley;
 			sourceTree = "<group>";
@@ -2004,8 +2154,11 @@
 				97C032061B248202000385B8 /* substract_red@2x.png in Resources */,
 				97AFC18B1B1574F6009C3CF6 /* weibo@3x.png in Resources */,
 				97C3B25F1B1B2EFC00C729C4 /* destination@3x.png in Resources */,
+				9770EECF1B2533E5004FDA7A /* location_blue@2x.png in Resources */,
+				9770EEB41B253219004FDA7A /* AlleyListCollectionViewCell.xib in Resources */,
 				97192EC41B0CCC3800C02B9E /* used@3x.png in Resources */,
 				977DCFB01B1C9C130060C7BB /* image_round_rect@3x.png in Resources */,
+				9770EEE81B2578FC004FDA7A /* AlleyDetailCell_JoinNum.xib in Resources */,
 				97C3B26A1B1B3BE600C729C4 /* lock@2x.png in Resources */,
 				97C032131B24884B000385B8 /* confirm_order@2x.png in Resources */,
 				97B375081B203AD600604130 /* RecentContactTableViewCell.xib in Resources */,
@@ -2018,6 +2171,7 @@
 				97C3B2531B1B1E8F00C729C4 /* location_white@3x.png in Resources */,
 				8E93A0861AFC8FA4002CC19E /* 2.png in Resources */,
 				973D8B4E1B1B571500CA4260 /* is_my_and_is_new@2x.png in Resources */,
+				9770EEED1B257E49004FDA7A /* AlleyDetailCell_Location.xib in Resources */,
 				973D8B341B1B428F00CA4260 /* location_green@2x.png in Resources */,
 				97A570871B240B8F00D48A36 /* rectangle_open@3x.png in Resources */,
 				97AFC19C1B15A990009C3CF6 /* NavigationBarWithSearchBar.xib in Resources */,
@@ -2030,6 +2184,7 @@
 				8E3DE06C1B0111690035964A /* LICENSE in Resources */,
 				97C3B25C1B1B2EFC00C729C4 /* calendar@2x.png in Resources */,
 				97A570761B23EA2F00D48A36 /* MyOrderListTableViewCell__Invalid.xib in Resources */,
+				9770EED01B2533E5004FDA7A /* location_blue@3x.png in Resources */,
 				97A5706C1B23D32300D48A36 /* MyOrderListTableViewCell__Unconfirmed_Confirmed.xib in Resources */,
 				97C0322E1B249B3F000385B8 /* OrderDetailCell_TotalAmount.xib in Resources */,
 				97C032291B249431000385B8 /* OrderDetailCell_TouristsInfo.xib in Resources */,
@@ -2051,6 +2206,7 @@
 				97C3B24F1B1B16D100C729C4 /* TourListViewController.xib in Resources */,
 				979E09801B22B2D70062D9AD /* InviteSupplierTableViewCell_First.xib in Resources */,
 				97AEDBAA1B1401030098F75B /* detail_disclusure@3x.png in Resources */,
+				9770EEE01B255568004FDA7A /* AlleyDetailCell_Top.xib in Resources */,
 				97C032141B24884B000385B8 /* confirm_order@3x.png in Resources */,
 				977DCF911B1C96F30060C7BB /* is_new@2x.png in Resources */,
 				97C032101B248734000385B8 /* CreateOrderCell_Confirm.xib in Resources */,
@@ -2088,11 +2244,14 @@
 				97AFC1941B159792009C3CF6 /* my_computer@2x.png in Resources */,
 				8E5C699A1AFAFC5B004A0CC3 /* Images.xcassets in Resources */,
 				97C3B2571B1B26CB00C729C4 /* search@3x.png in Resources */,
+				9770EECC1B2533E5004FDA7A /* alley_message@3x.png in Resources */,
+				9770EEC41B2533E5004FDA7A /* alley_banner@3x.png in Resources */,
 				977DCFD81B1D507C0060C7BB /* YesOrNoView.xib in Resources */,
 				97ADF1E41B12AD2A009DA8C3 /* button_rect@2x.png in Resources */,
 				97D78F001B19B873003E66E7 /* provider_selected@2x.png in Resources */,
 				97AEDBAF1B1443F60098F75B /* SetShopNameViewController.xib in Resources */,
 				97D78F051B19B873003E66E7 /* service_selected@3x.png in Resources */,
+				9770EECB1B2533E5004FDA7A /* alley_message@2x.png in Resources */,
 				97C3B25D1B1B2EFC00C729C4 /* calendar@3x.png in Resources */,
 				97B374F71B1EFBAA00604130 /* MySupplierViewController.xib in Resources */,
 				8E3F60841B009CDD00E911F5 /* 我的订单.png in Resources */,
@@ -2102,8 +2261,11 @@
 				9793A51F1B10E33D00182006 /* section_header_indicator@2x.png in Resources */,
 				97AEDBD01B1458F10098F75B /* fixed_line_phone_normal@3x.png in Resources */,
 				97B374FD1B1F5C4400604130 /* SiftSupplierViewController.xib in Resources */,
+				9770EEC81B2533E5004FDA7A /* alley_instruction@3x.png in Resources */,
 				9771C40C1B173F7B006A850A /* TourDetailCell_Four.xib in Resources */,
+				9770EEC61B2533E5004FDA7A /* alley_detail_banner@3x.png in Resources */,
 				97D78F0C1B19E326003E66E7 /* click_to_webview@2x.png in Resources */,
+				9770EEFA1B25EE23004FDA7A /* MyShopWebPreviewViewController.xib in Resources */,
 				977DCFDA1B1D54F10060C7BB /* SupplierDetailViewController.xib in Resources */,
 				97AEDBCF1B1458F10098F75B /* fixed_line_phone_normal@2x.png in Resources */,
 				97ADF1CF1B120FAA009DA8C3 /* add_cell@2x.png in Resources */,
@@ -2121,6 +2283,7 @@
 				977DCF991B1C97090060C7BB /* acompany@2x.png in Resources */,
 				97ADF1C71B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.xib in Resources */,
 				97A570851B240B8F00D48A36 /* rectangle_close@3x.png in Resources */,
+				9770EECA1B2533E5004FDA7A /* alley_location@3x.png in Resources */,
 				97AFC1A01B15ABE5009C3CF6 /* back@3x.png in Resources */,
 				979071301B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.xib in Resources */,
 				973D8B531B1B571500CA4260 /* not_my_and_not_new@3x.png in Resources */,
@@ -2135,6 +2298,7 @@
 				977DCFB21B1C9C130060C7BB /* message@3x.png in Resources */,
 				97C3B2631B1B371500C729C4 /* to_top@3x.png in Resources */,
 				97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */,
+				9770EECE1B2533E5004FDA7A /* alley_telephone@3x.png in Resources */,
 				97B375171B2087D200604130 /* MySupplierTableViewCell.xib in Resources */,
 				97192EC61B0CCC4D00C02B9E /* test.png in Resources */,
 				979E09AC1B22E1510062D9AD /* SearchSupplier_HotSearchTableViewCell.xib in Resources */,
@@ -2142,7 +2306,9 @@
 				97C3B2561B1B26CB00C729C4 /* search@2x.png in Resources */,
 				97AEDBA91B1401030098F75B /* detail_disclusure@2x.png in Resources */,
 				9793A50F1B10369C00182006 /* location_red@3x.png in Resources */,
+				9770EEDA1B253AD7004FDA7A /* AlleyDetailViewController.xib in Resources */,
 				97C3B2681B1B3BE600C729C4 /* delete@2x.png in Resources */,
+				9770EEC71B2533E5004FDA7A /* alley_instruction@2x.png in Resources */,
 				977DCF9C1B1C97090060C7BB /* preview@3x.png in Resources */,
 				97C3B2691B1B3BE600C729C4 /* delete@3x.png in Resources */,
 				97A570911B244B9A00D48A36 /* CreateOrderViewController.xib in Resources */,
@@ -2166,13 +2332,16 @@
 				97C032241B249120000385B8 /* OrderDetailCell_ContactInfo.xib in Resources */,
 				977DCF9E1B1C97090060C7BB /* share@3x.png in Resources */,
 				97AFC18D1B1574F6009C3CF6 /* yixin@3x.png in Resources */,
+				9770EECD1B2533E5004FDA7A /* alley_telephone@2x.png in Resources */,
 				97D78EFB1B19B873003E66E7 /* mine_normal@3x.png in Resources */,
 				97C3B2621B1B371500C729C4 /* to_top@2x.png in Resources */,
 				97AFC1841B1574F6009C3CF6 /* qzone@2x.png in Resources */,
 				8E93A0871AFC8FA4002CC19E /* 3.png in Resources */,
 				97A570971B244D5C00D48A36 /* CreateOrderCell_OrderId.xib in Resources */,
 				977DCFB41B1C9C130060C7BB /* supplier_detail_top_bg@3x.png in Resources */,
+				9770EEF21B25809F004FDA7A /* AlleyDetailCell_Instruction.xib in Resources */,
 				97192EBD1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.xib in Resources */,
+				9770EEC91B2533E5004FDA7A /* alley_location@2x.png in Resources */,
 				97AEDBA61B13FED40098F75B /* InfoTableViewCell.xib in Resources */,
 				97C786111B1DF3FA00639576 /* SwitchCityTableViewCell.xib in Resources */,
 				97D78F061B19B873003E66E7 /* shop_normal@2x.png in Resources */,
@@ -2180,12 +2349,14 @@
 				979E09941B22B3390062D9AD /* InviteSupplierTableView.xib in Resources */,
 				97D78EFF1B19B873003E66E7 /* provider_normal@3x.png in Resources */,
 				973D8B2B1B1B3FB100CA4260 /* SupplierViewController.xib in Resources */,
+				9770EEC51B2533E5004FDA7A /* alley_detail_banner@2x.png in Resources */,
 				973D8B4C1B1B571500CA4260 /* add_new_supplier@2x.png in Resources */,
 				97C031FB1B247FC5000385B8 /* three_rect_boder@2x.png in Resources */,
 				8E3F60821B009CDD00E911F5 /* 我的供应商.png in Resources */,
 				97C031FC1B247FC5000385B8 /* three_rect_boder@3x.png in Resources */,
 				97AFC1951B159792009C3CF6 /* my_computer@3x.png in Resources */,
 				97D78F081B19B873003E66E7 /* shop_selected@2x.png in Resources */,
+				9770EEC31B2533E5004FDA7A /* alley_banner@2x.png in Resources */,
 				8E93A0851AFC8FA4002CC19E /* 1.png in Resources */,
 				97AFC1751B1555EE009C3CF6 /* separator_hor@3x.png in Resources */,
 				977DCF871B1C07310060C7BB /* ReusableHeaderView_Supplier.xib in Resources */,
@@ -2299,6 +2470,7 @@
 				979071231B212B3300C9FCD6 /* SiftSupplierCollectionViewFlowLayout.m in Sources */,
 				97C786101B1DF3FA00639576 /* SwitchCityTableViewCell.m in Sources */,
 				97C786141B1E04AA00639576 /* City.m in Sources */,
+				9770EEDF1B255568004FDA7A /* AlleyDetailCell_Top.m in Sources */,
 				8E3DE0701B0111690035964A /* MMProgressHUD+Animations.m in Sources */,
 				8E3DE0751B0111690035964A /* MMProgressHUDWindow.m in Sources */,
 				8E3F60771B0093AD00E911F5 /* AFHTTPSessionManager.m in Sources */,
@@ -2309,8 +2481,10 @@
 				97C0321E1B248DB3000385B8 /* OrderDetailCell_OrderInfo.m in Sources */,
 				979E09991B22D6E50062D9AD /* SearchSupplierViewController.m in Sources */,
 				97B98F7B1B17EAF800031749 /* CommentTableViewCell.m in Sources */,
+				9770EED91B253AD7004FDA7A /* AlleyDetailViewController.m in Sources */,
 				979E098E1B22B30B0062D9AD /* InviteSupplierTableViewCell_Fourth.m in Sources */,
 				8E5C69951AFAFC5B004A0CC3 /* ViewController.m in Sources */,
+				9770EEA71B252DBC004FDA7A /* AlleyInfo.m in Sources */,
 				97192EBC1B0CC89700C02B9E /* MicroShopCollectionViewCell_OnlineShop.m in Sources */,
 				979E09891B22B2F80062D9AD /* InviteSupplierTableViewCell_Third.m in Sources */,
 				8E3F60781B0093AD00E911F5 /* AFNetworkReachabilityManager.m in Sources */,
@@ -2320,10 +2494,13 @@
 				8E3DE0711B0111690035964A /* MMProgressHUD+Class.m in Sources */,
 				8E3F60751B0093AD00E911F5 /* AFHTTPRequestOperation.m in Sources */,
 				8E3F607B1B0093AD00E911F5 /* AFURLRequestSerialization.m in Sources */,
+				9770EEF91B25EE23004FDA7A /* MyShopWebPreviewViewController.m in Sources */,
 				8E3F607A1B0093AD00E911F5 /* AFURLConnectionOperation.m in Sources */,
 				97AEDBA51B13FED40098F75B /* InfoTableViewCell.m in Sources */,
 				97A570901B244B9A00D48A36 /* CreateOrderViewController.m in Sources */,
+				9770EEEC1B257E49004FDA7A /* AlleyDetailCell_Location.m in Sources */,
 				97B374F61B1EFBAA00604130 /* MySupplierViewController.m in Sources */,
+				9770EEAD1B2531DA004FDA7A /* AlleyListCollectionView.m in Sources */,
 				8E3F607D1B0093AD00E911F5 /* AFURLSessionManager.m in Sources */,
 				97C031ED1B247AF5000385B8 /* CreateOrderCell_BookHeader.m in Sources */,
 				8E3F609F1B00AD1100E911F5 /* UIProgressView+AFNetworking.m in Sources */,
@@ -2333,6 +2510,7 @@
 				8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */,
 				97AFC1991B15A954009C3CF6 /* NavigationBarWithSearchBar.m in Sources */,
 				8E3F609D1B00AD1100E911F5 /* UIButton+AFNetworking.m in Sources */,
+				9770EEF51B259C26004FDA7A /* CompanyTemplate.m in Sources */,
 				8EEE84E01AFDBF9900C789F3 /* FindPasswordViewController.m in Sources */,
 				97C032281B249431000385B8 /* OrderDetailCell_TouristsInfo.m in Sources */,
 				97ADF1CB1B1200A7009DA8C3 /* ReusableHeaderView_myShop.m in Sources */,
@@ -2350,7 +2528,9 @@
 				9789AEEF1B1888CB001AD998 /* MainTabBarViewController.m in Sources */,
 				9793A5121B10390400182006 /* MicroShopViewController.m in Sources */,
 				5C8195361B089A27004FFA96 /* FindPassWordRequestManger.m in Sources */,
+				9770EEF11B25809F004FDA7A /* AlleyDetailCell_Instruction.m in Sources */,
 				977DCFD61B1D503A0060C7BB /* YesOrNoView.m in Sources */,
+				9770EEB31B253219004FDA7A /* AlleyListCollectionViewCell.m in Sources */,
 				8E3DE0741B0111690035964A /* MMProgressHUDViewController.m in Sources */,
 				97B98F691B17D9B400031749 /* AccompanyInfoView.m in Sources */,
 				97C031F21B247D3F000385B8 /* CreateOrderCell_StartOrEndDate.m in Sources */,
@@ -2358,6 +2538,7 @@
 				979E09B91B22EBD70062D9AD /* HotSearch.m in Sources */,
 				97C7861D1B1E862B00639576 /* Province.m in Sources */,
 				97ADF1C61B113E2D009DA8C3 /* ReusableHeaderView_OnlineShop.m in Sources */,
+				9770EED41B253469004FDA7A /* AlleyListCollectionViewFlowLayout.m in Sources */,
 				97A570751B23EA2F00D48A36 /* MyOrderListTableViewCell__Invalid.m in Sources */,
 				97AEDBAE1B1443F60098F75B /* SetShopNameViewController.m in Sources */,
 				979E09BD1B22ED0A0062D9AD /* SearchSupplier_SearchLineClassTableViewCell.m in Sources */,
@@ -2391,6 +2572,7 @@
 				9790712F1B212F2C00C9FCD6 /* ReusableHeaderView_SiftSupplier.m in Sources */,
 				97C0320F1B248734000385B8 /* CreateOrderCell_Confirm.m in Sources */,
 				8E5C69B71AFB093D004A0CC3 /* MainViewController.m in Sources */,
+				9770EEE71B2578FC004FDA7A /* AlleyDetailCell_JoinNum.m in Sources */,
 				8E3F607C1B0093AD00E911F5 /* AFURLResponseSerialization.m in Sources */,
 				97AEDBBE1B1449B60098F75B /* SetShopPhoneNumberViewController.m in Sources */,
 			);

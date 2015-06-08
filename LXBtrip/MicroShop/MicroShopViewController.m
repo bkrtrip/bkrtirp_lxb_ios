@@ -40,6 +40,8 @@
 @property (nonatomic, copy) NSMutableArray *onlineShopsArray;
 @property (nonatomic, copy) NSMutableArray *myShopsArray;
 
+@property (nonatomic, assign) NSInteger selectedIndex;
+
 @end
 
 @implementation MicroShopViewController
@@ -59,9 +61,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _onlineShopsArray = [[NSMutableArray alloc] init];
-    _myShopsArray = [[NSMutableArray alloc] init];
-    
     CGFloat scrollViewYOrigin = 0.277*SCREEN_HEIGHT;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49)];
     _scrollView.delegate = self;
@@ -73,12 +72,10 @@
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
-
-//    _yesOrNoView = [[YesOrNoView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - YES_OR_NO_VIEW_HEIGHT, SCREEN_WIDTH, YES_OR_NO_VIEW_HEIGHT)];
     
     _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
     [_yesOrNoView setYesOrNoViewWithIntroductionString:@"删除微店后，如需再次使用，请进入在线微店重新添加到我的微店，且微店自动展示已选供应商的产品！" confirmString:@"现在是否要删除此微店？"];
-    [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT - _yesOrNoView.frame.size.height, _yesOrNoView.frame.size.width, _yesOrNoView.frame.size.height)];
+    [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
     _yesOrNoView.delegate = self;
     [self.view addSubview:_yesOrNoView];
     
@@ -114,8 +111,8 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     
-    // ---TEST---
-    [self getOnlineShops];
+    // segment initial status
+    self.selectedIndex = 0;
     
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
     [self startLocation];
@@ -131,6 +128,37 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    _selectedIndex = selectedIndex;
+    switch (_selectedIndex) {
+        case 0:
+        {
+            _onlineShopButton.selected = YES;
+            _myShopButton.selected = NO;
+            [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
+            if (!_onlineShopsArray) {
+                _onlineShopsArray = [[NSMutableArray alloc] init];
+                [self getOnlineShops];
+            }
+        }
+            break;
+        case 1:
+        {
+            _onlineShopButton.selected = NO;
+            _myShopButton.selected = YES;
+            [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
+            if (!_myShopsArray) {
+                _myShopsArray = [[NSMutableArray alloc] init];
+                [self getMyShops];
+            }
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -249,10 +277,7 @@
                     }];
                     [tempDict setObject:tempArray2 forKey:@"classify_template"];
                 }
-                [_onlineShopsArray addObject:tempDict];
-                [_onlineShopsArray addObject:tempDict];
-                [_onlineShopsArray addObject:tempDict];
-                
+                [_onlineShopsArray addObject:tempDict];                
             }];
             [_onlineShopCollectionView reloadData];
 
@@ -375,16 +400,29 @@
         return;
     }
     
+    
     if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
+        MicroShopInfo *curShop = _myShopsArray[indexPath.row];
+
+        if ([[Global sharedGlobal] userInfo].companyId && [[Global sharedGlobal] userInfo].staffId) {
+            // go to webview
+            // ...
+            
+        }
+        
+//        if (<#condition#>) {
+//            // 未设置用户信息 staff_real_name == nil, staff_department_name == nil
+//            SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+//            [self.navigationController pushViewController:setName animated:YES];
+//            return;
+//        }
+        
     }
     
     
     // add to my shop cell clicked
     if (collectionView == _myShopCollectionView && indexPath.row == _myShopsArray.count) {
-        [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
+        self.selectedIndex = 0;
     }
 }
 
@@ -403,14 +441,11 @@
 }
 
 - (IBAction)myShopButtonClicked:(id)sender {
-    [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
-    if (_myShopsArray.count == 0) {
-        [self getMyShops];
-    }
+    self.selectedIndex = 1;
 }
 
 - (IBAction)onlineShopButtonClicked:(id)sender {
-    [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
+    self.selectedIndex = 0;
 }
 
 #pragma mark - YesOrNoViewDelegate

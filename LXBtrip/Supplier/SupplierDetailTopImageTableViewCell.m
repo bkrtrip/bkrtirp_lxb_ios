@@ -15,6 +15,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *providerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *certificateLabel;
 
+@property (strong, nonatomic) SupplierInfo *info;
+
+
 @end
 
 @implementation SupplierDetailTopImageTableViewCell
@@ -25,6 +28,8 @@
 
 - (void)setCellContentWithSupplierInfo:(SupplierInfo *)info
 {
+    _info = info;
+    
     NSString *logoString = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.supplierLogo];
     
     [_supplierImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -36,15 +41,12 @@
 
 
 - (IBAction)messageButtonClicked:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", _info.supplierContactPhone]]];
 }
 
 - (IBAction)phoneButtonClicked:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _info.supplierContactPhone]]];
+
 }
-
-
-
-
-
-
 
 @end

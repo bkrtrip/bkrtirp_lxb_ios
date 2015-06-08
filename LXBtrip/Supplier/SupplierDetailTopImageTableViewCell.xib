@@ -113,7 +113,7 @@
                 <outlet property="supplierImageView" destination="BBq-vd-oJA" id="Bzy-9f-BBp"/>
                 <outlet property="supplierNameLabel" destination="4Du-i9-NG8" id="0Dl-ym-8NZ"/>
             </connections>
-            <point key="canvasLocation" x="202" y="272"/>
+            <point key="canvasLocation" x="94" y="245"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -71,7 +71,21 @@ singleton_interface(HTTPTool)
 + (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 我的订单列表 - LXB41231 - 订单状态：0：未确认 1：已确认 2：已取消
-+ (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum  success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 服务商列表 - LXB31119 - 未登录
++ (void)getServiceListWithCounty:(NSString *)country province:(NSString *)province city:(NSString *)city pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 服务商列表 - LXB31220 - 已登录
++ (void)getServiceListWithWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId county:(NSString *)country province:(NSString *)province city:(NSString *)city pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 服务商详情 - LXB31121
++ (void)getServiceDetailWithServiceId:(NSNumber *)serviceId success:(SuccessBlock)success fail:(FailBlock)fail;
+
+
+
+
+
 
 
 

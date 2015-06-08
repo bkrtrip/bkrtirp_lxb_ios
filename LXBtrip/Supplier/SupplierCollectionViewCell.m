@@ -10,7 +10,7 @@
 
 @interface SupplierCollectionViewCell()
 @property (strong, nonatomic) IBOutlet UIImageView *bgImageView;
-@property (strong, nonatomic) IBOutlet UILabel *supplierNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *supplierBrandLabel;
 
 @end
 
@@ -53,7 +53,7 @@
         default:
             break;
     }
-    _supplierNameLabel.text = info.supplierName;
+    _supplierBrandLabel.text = info.supplierBrand;
 }
 
 

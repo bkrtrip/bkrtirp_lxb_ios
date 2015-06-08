@@ -62,12 +62,28 @@
         
         [_shopImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, _info.shopImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             ;
-            _shopNameLabel.text = _info.shopName;
-            _shopProviderLabel.text = _info.shopProvider;
-            _shopTypeLabel.text = _info.shopType;
-            _shopIntroductionLabel.text = _info.shopIntroduction;
-            _shopMonthUsageLabel.text = [NSString stringWithFormat:@"%@次", _info.shopUsageAmount];
         }];
+        
+        _shopNameLabel.text = _info.shopName;
+        _shopProviderLabel.text = _info.shopProvider;
+        
+        TemplateType templateType = [_info.shopType intValue];
+        switch (templateType) {
+            case Exclusive_Shop:// 专卖
+                _shopTypeLabel.text = @"专卖";
+                break;
+            case Template_By_LXB:// 模板（旅小宝提供）
+                _shopTypeLabel.text = @"模板（旅小宝提供）";
+                break;
+            case Template_By_Supplier:// 模板（供应商提供）
+                _shopTypeLabel.text = @"模板（供应商提供）";
+                break;
+            default:
+                break;
+        }
+        
+        _shopIntroductionLabel.text = _info.shopIntroduction;
+        _shopMonthUsageLabel.text = [NSString stringWithFormat:@"%@次", _info.shopUsageAmount];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取微店详情失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];

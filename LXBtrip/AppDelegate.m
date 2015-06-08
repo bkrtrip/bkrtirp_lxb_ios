@@ -11,6 +11,7 @@
 
 #import "MicroShopViewController.h"
 #import "SupplierViewController.h"
+#import "AlleyListViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,15 +27,15 @@
     
     MicroShopViewController *shop = [[MicroShopViewController alloc] init];
     SupplierViewController *supplier = [[SupplierViewController alloc] init];
+    AlleyListViewController *alley = [[AlleyListViewController alloc] init];
     
     UINavigationController *shopNav = [[UINavigationController alloc] initWithRootViewController:shop];
     UINavigationController *supplierNav = [[UINavigationController alloc] initWithRootViewController:supplier];
+    UINavigationController *alleyNav = [[UINavigationController alloc] initWithRootViewController:alley];
     
     MainTabBarViewController *tabController = [[MainTabBarViewController alloc] init];
-//    [tabController setViewControllers:[NSArray arrayWithObjects:shop, supplier, nil]];
-    [tabController setViewControllers:[NSArray arrayWithObjects:shopNav, supplierNav, nil]];
-    tabController.selectedIndex = 1;
-
+    [tabController setViewControllers:[NSArray arrayWithObjects:shopNav, supplierNav, alleyNav, nil]];
+//    tabController.selectedIndex = 1;
     
     self.window.rootViewController = tabController;
     

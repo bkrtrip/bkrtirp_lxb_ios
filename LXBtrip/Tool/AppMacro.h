@@ -26,6 +26,7 @@
 #import "SiftedLine.h"
 #import "HotSearch.h"
 #import "MyOrderItem.h"
+#import "AlleyInfo.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -61,6 +62,13 @@
 #define LIST_WIDTH_HEIGHT_PROPORTION_SIFT_SUPPLIER (104.f/74.f)
 #define NUM_OF_IMAGES_PER_ROW_SIFT_SUPPLIER 4
 
+// Alley collection view
+#define LIST_HOR_MARGIN_ALLEY 10.f
+#define LIST_HOR_SPACING_ALLEY 0.f
+#define LIST_VER_MARGIN_ALLEY 0.f
+#define LIST_VER_SPACING_ALLEY 0.f
+#define LIST_WIDTH_HEIGHT_PROPORTION_ALLEY (207.f/132.f)
+#define NUM_OF_IMAGES_PER_ROW_ALLEY 2
 
 
 //#define DELETE_ACTION_SHEET_HEIGHT 187.f
@@ -103,6 +111,20 @@ typedef enum ErrorCodeType
 } ErrorCodeType;
 
 
+typedef enum TemplateType
+{
+    Exclusive_Shop = 0, // 专卖
+    Template_By_LXB = 1, // 模板（旅小宝提供）
+    Template_By_Supplier = 2, // 模板（供应商提供）
+} TemplateType;
+
+typedef enum TemplateDefaultStatus
+{
+    Is_Locked = 0, // 0：锁定
+    Is_Default = 1, // 1：默认
+    Is_Else = 2, // 2：其他
+}TemplateDefaultStatus;
+
 typedef enum ShopUsedStatus
 {
     SHOP_IS_USE = 0, // 使用
@@ -133,6 +155,15 @@ typedef enum OrderListType
     Order_Confirmed = 1,
     Order_Invalid = 2
 }OrderListType;
+
+typedef enum AlleyJoinStatus // 加盟状态 0：未加盟、1：待申请、 2：同意  3：拒绝  4：解除
+{
+    Not_Join = 0,
+    Apply_Wait = 1,
+    Apply_Agreed = 2,
+    Apply_Denied = 3,
+    Join_released = 4
+}AlleyJoinStatus;
 
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998

@@ -13,15 +13,14 @@
 - (id)initWithDict:(NSDictionary *)dict
 {
     self.supplierId = [dict[@"company_id"] isKindOfClass:[NSNull class]]?nil:dict[@"company_id"];
-    self.supplierName = [dict[@"company_brand"] isKindOfClass:[NSNull class]]?nil:dict[@"company_brand"];
-    self.supplierIsMy = [dict[@"is_my"] isKindOfClass:[NSNull class]]?nil:dict[@"is_my"];
-    self.supplierIsNew = [dict[@"is_new"] isKindOfClass:[NSNull class]]?nil:dict[@"is_new"];
-    self.supplierIsSync = [dict[@"is_sync"] isKindOfClass:[NSNull class]]?nil:dict[@"is_sync"];
-    
+    self.supplierName = [dict[@"company_name"] isKindOfClass:[NSNull class]]?nil:dict[@"company_name"];
+    self.supplierBrand = [dict[@"company_brand"] isKindOfClass:[NSNull class]]?nil:dict[@"company_brand"];
     self.supplierLogo = [dict[@"company_logo"] isKindOfClass:[NSNull class]]?nil:dict[@"company_logo"];
-    self.supplierLineType = [dict[@"line_type"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type"];
-    self.supplierLineTypeLetter = [dict[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type_letter"];
+    
+    self.supplierContactPhone = [dict[@"company_contactcallphone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contactcallphone"];
 
+
+    self.supplierIsSync = [dict[@"is_sync"] isKindOfClass:[NSNull class]]?nil:dict[@"is_sync"];
     
     NSArray *temp = [dict[@"goods_line_list"] isKindOfClass:[NSNull class]]?nil:dict[@"goods_line_list"];
     NSMutableArray *temp2 = [[NSMutableArray alloc] init];
@@ -29,8 +28,17 @@
         SupplierProduct *product = [[SupplierProduct alloc] initWithDict:obj];
         [temp2 addObject:product];
     }];
-    
     self.supplierProductsArray = [temp2 copy];
+
+
+    self.supplierIsMy = [dict[@"is_my"] isKindOfClass:[NSNull class]]?nil:dict[@"is_my"];
+    self.supplierIsNew = [dict[@"is_new"] isKindOfClass:[NSNull class]]?nil:dict[@"is_new"];
+    
+    self.supplierLineType = [dict[@"line_type"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type"];
+    self.supplierLineTypeLetter = [dict[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type_letter"];
+
+    
+    
     
     return self;
 }

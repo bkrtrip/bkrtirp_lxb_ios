@@ -13,23 +13,17 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="209" height="176"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBr-l1-czg">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_cell.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ydn-P1-pCl">
                         <rect key="frame" x="0.0" y="0.0" width="209" height="176"/>
-                        <state key="normal" image="add_cell.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="addButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="vRX-29-s3b"/>
-                        </connections>
-                    </button>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="hBr-l1-czg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4C6-kB-z4y"/>
-                <constraint firstAttribute="bottom" secondItem="hBr-l1-czg" secondAttribute="bottom" id="FWd-10-xXD"/>
-                <constraint firstAttribute="trailing" secondItem="hBr-l1-czg" secondAttribute="trailing" id="PeQ-pG-9LN"/>
-                <constraint firstItem="hBr-l1-czg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wpj-KW-4G3"/>
+                <constraint firstItem="Ydn-P1-pCl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Du8-ii-kcq"/>
+                <constraint firstItem="Ydn-P1-pCl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LlQ-BH-fok"/>
+                <constraint firstAttribute="bottom" secondItem="Ydn-P1-pCl" secondAttribute="bottom" id="SAs-3h-xrG"/>
+                <constraint firstAttribute="trailing" secondItem="Ydn-P1-pCl" secondAttribute="trailing" id="v5n-qx-W4S"/>
             </constraints>
             <size key="customSize" width="209" height="176"/>
             <point key="canvasLocation" x="292.5" y="256"/>

@@ -38,15 +38,17 @@
         ;
     }];
     
-    ShopUsedStatus status = [info.shopIsUse intValue];
-    switch (status) {
-        case SHOP_IS_USE:
-            _usedImageView.hidden = NO;
-            break;
+    if (info.shopIsUse) {
+        ShopUsedStatus status = [info.shopIsUse intValue];
+        switch (status) {
+            case SHOP_IS_USE:
+                _usedImageView.hidden = NO;
+                break;
             case SHOP_NOT_USE:
-            _usedImageView.hidden = YES;
-        default:
-            break;
+                _usedImageView.hidden = YES;
+            default:
+                break;
+        }
     }
 }
 

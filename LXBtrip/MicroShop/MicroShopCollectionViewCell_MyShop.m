@@ -39,6 +39,16 @@
     }];
     
     //判断是delete还是lock
+    
+    TemplateDefaultStatus defaultStatus = [info.shopIsDefault intValue];
+    switch (defaultStatus) {
+        case Is_Default:
+            <#statements#>
+            break;
+            
+        default:
+            break;
+    }
 //    _deleteOrLockButton setImage:<#(UIImage *)#> forState:<#(UIControlState)#>
 }
 

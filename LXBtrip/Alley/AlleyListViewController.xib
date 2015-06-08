@@ -8,6 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlleyListViewController">
             <connections>
+                <outlet property="bannerImageView" destination="Fk0-Wf-MrF" id="vgA-sm-g3o"/>
+                <outlet property="headerImageView" destination="NRx-5h-Ttq" id="pMZ-Rx-0He"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,20 +18,26 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fk0-Wf-MrF" userLabel="banner Image View">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alley_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fk0-Wf-MrF" userLabel="banner Image View">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="Fk0-Wf-MrF" secondAttribute="height" multiplier="160:147" id="Wwi-oN-aFX"/>
+                        <constraint firstAttribute="width" secondItem="Fk0-Wf-MrF" secondAttribute="height" multiplier="1242:456" id="Wwi-oN-aFX"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-5h-Ttq">
-                    <rect key="frame" x="0.0" y="294" width="320" height="53"/>
+                    <rect key="frame" x="0.0" y="117" width="320" height="37"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="37" id="HBg-hq-xcO"/>
                         <constraint firstAttribute="width" secondItem="NRx-5h-Ttq" secondAttribute="height" multiplier="320:53" id="lMd-Kn-BbU"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="lMd-Kn-BbU"/>
+                        </mask>
+                    </variation>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xh-7S-kOH">
-                    <rect key="frame" x="266" y="304" width="46" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xh-7S-kOH">
+                    <rect key="frame" x="266" y="121" width="46" height="30"/>
                     <state key="normal" title="Button">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -43,10 +51,14 @@
                 <constraint firstItem="Fk0-Wf-MrF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VXR-GQ-oUX"/>
                 <constraint firstAttribute="trailing" secondItem="Fk0-Wf-MrF" secondAttribute="trailing" id="ZuY-Ap-AJS"/>
                 <constraint firstItem="NRx-5h-Ttq" firstAttribute="top" secondItem="Fk0-Wf-MrF" secondAttribute="bottom" id="d5q-dv-N3a"/>
-                <constraint firstItem="NRx-5h-Ttq" firstAttribute="centerY" secondItem="8Xh-7S-kOH" secondAttribute="centerY" constant="-0.5" id="osG-u9-NdN"/>
+                <constraint firstItem="NRx-5h-Ttq" firstAttribute="centerY" secondItem="8Xh-7S-kOH" secondAttribute="centerY" id="osG-u9-NdN"/>
                 <constraint firstAttribute="trailing" secondItem="NRx-5h-Ttq" secondAttribute="trailing" id="wth-T7-IFU"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="180" y="381"/>
         </view>
     </objects>
+    <resources>
+        <image name="alley_banner.png" width="414" height="152"/>
+    </resources>
 </document>
