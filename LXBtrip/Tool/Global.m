@@ -93,7 +93,7 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 
 - (UIViewController *)loginViewControllerFromSb
 {
-    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:[NSBundle mainBundle]];
     return [mainStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewController"];
 }
 
