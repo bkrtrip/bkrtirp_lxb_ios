@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PayListViewController">
+            <connections>
+                <outlet property="payTableView" destination="9p3-nd-S1i" id="B4e-hb-FT7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9p3-nd-S1i">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Fzz-dc-KYU"/>
+                        <outlet property="delegate" destination="-1" id="zBD-Wu-FRt"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="9p3-nd-S1i" secondAttribute="bottom" constant="97" id="IJp-Hf-qsH">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="9p3-nd-S1i" secondAttribute="trailing" constant="8" id="Vry-h3-gbR">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="9p3-nd-S1i" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-8" id="Y7x-ch-arc">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="9p3-nd-S1i" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-97" id="qU8-XO-Suq">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="9p3-nd-S1i"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="IJp-Hf-qsH"/>
+                    <exclude reference="Vry-h3-gbR"/>
+                    <exclude reference="Y7x-ch-arc"/>
+                    <exclude reference="qU8-XO-Suq"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="9p3-nd-S1i"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="IJp-Hf-qsH"/>
+                    <include reference="Vry-h3-gbR"/>
+                    <include reference="Y7x-ch-arc"/>
+                    <include reference="qU8-XO-Suq"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

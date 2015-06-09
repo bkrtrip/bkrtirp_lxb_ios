@@ -9,6 +9,7 @@
 #import "PersonalCenterViewController.h"
 #import "PCommonTableViewCell.h"
 #import "PHeaderTableViewCell.h"
+#import "PayListViewController.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -141,7 +142,36 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
+    switch (indexPath.section) {
+        case 2:
+        {
+            if (indexPath.row == 0) {
+                
+            }
+            else if (indexPath.row == 1) {
+                PayListViewController *viewController = [[PayListViewController alloc] initWithNibName:@"PayListViewController" bundle:nil];
+                
+                [self.navigationController pushViewController:viewController animated:YES];
+            }
+            else if (indexPath.row == 3) {
+                
+            }
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        case 6:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

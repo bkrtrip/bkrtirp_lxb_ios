@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		22AE94C61B27044000E8CD83 /* UserLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C41B27044000E8CD83 /* UserLogin.storyboard */; };
+		22AE94CD1B270CDA00E8CD83 /* PayConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */; };
+		22AE94CE1B270CDA00E8CD83 /* PayConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */; };
+		22AE94CF1B270CDA00E8CD83 /* PayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94CB1B270CDA00E8CD83 /* PayListViewController.m */; };
+		22AE94D01B270CDA00E8CD83 /* PayListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94CC1B270CDA00E8CD83 /* PayListViewController.xib */; };
+		22AE94D71B270CF100E8CD83 /* InfoConfigTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94D21B270CF100E8CD83 /* InfoConfigTableViewCell.m */; };
+		22AE94D81B270CF100E8CD83 /* InfoConfigTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94D31B270CF100E8CD83 /* InfoConfigTableViewCell.xib */; };
+		22AE94D91B270CF100E8CD83 /* WebChatPayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94D51B270CF100E8CD83 /* WebChatPayTableViewCell.m */; };
+		22AE94DA1B270CF100E8CD83 /* WebChatPayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94D61B270CF100E8CD83 /* WebChatPayTableViewCell.xib */; };
 		86CFCF0733534ECB978DC4C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FCCBEC74FA47EE835906A9 /* libPods.a */; };
 		8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F60861B00AC3700E911F5 /* HTTPTool.m */; };
 		8E5C698F1AFAFC5B004A0CC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C698E1AFAFC5B004A0CC3 /* main.m */; };
@@ -432,6 +440,18 @@
 
 /* Begin PBXFileReference section */
 		22AE94C51B27044000E8CD83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UserLogin.storyboard; sourceTree = "<group>"; };
+		22AE94C71B270CDA00E8CD83 /* PayConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayConfigViewController.h; sourceTree = "<group>"; };
+		22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayConfigViewController.m; sourceTree = "<group>"; };
+		22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayConfigViewController.xib; sourceTree = "<group>"; };
+		22AE94CA1B270CDA00E8CD83 /* PayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayListViewController.h; sourceTree = "<group>"; };
+		22AE94CB1B270CDA00E8CD83 /* PayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayListViewController.m; sourceTree = "<group>"; };
+		22AE94CC1B270CDA00E8CD83 /* PayListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayListViewController.xib; sourceTree = "<group>"; };
+		22AE94D11B270CF100E8CD83 /* InfoConfigTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoConfigTableViewCell.h; sourceTree = "<group>"; };
+		22AE94D21B270CF100E8CD83 /* InfoConfigTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoConfigTableViewCell.m; sourceTree = "<group>"; };
+		22AE94D31B270CF100E8CD83 /* InfoConfigTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoConfigTableViewCell.xib; sourceTree = "<group>"; };
+		22AE94D41B270CF100E8CD83 /* WebChatPayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebChatPayTableViewCell.h; sourceTree = "<group>"; };
+		22AE94D51B270CF100E8CD83 /* WebChatPayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebChatPayTableViewCell.m; sourceTree = "<group>"; };
+		22AE94D61B270CF100E8CD83 /* WebChatPayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebChatPayTableViewCell.xib; sourceTree = "<group>"; };
 		59FCCBEC74FA47EE835906A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8195301B07A867004FFA96 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8E3F60851B00AC3700E911F5 /* HTTPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPTool.h; sourceTree = "<group>"; };
@@ -1760,6 +1780,12 @@
 		9794A7731B26A8280077E5C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				22AE94C71B270CDA00E8CD83 /* PayConfigViewController.h */,
+				22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */,
+				22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */,
+				22AE94CA1B270CDA00E8CD83 /* PayListViewController.h */,
+				22AE94CB1B270CDA00E8CD83 /* PayListViewController.m */,
+				22AE94CC1B270CDA00E8CD83 /* PayListViewController.xib */,
 				9794A7741B26A8280077E5C0 /* FPhoneNumViewController.h */,
 				9794A7751B26A8280077E5C0 /* FPhoneNumViewController.m */,
 				9794A7761B26A8280077E5C0 /* FResetPwdViewController.h */,
@@ -1868,6 +1894,12 @@
 		9794A7BF1B26A8280077E5C0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				22AE94D11B270CF100E8CD83 /* InfoConfigTableViewCell.h */,
+				22AE94D21B270CF100E8CD83 /* InfoConfigTableViewCell.m */,
+				22AE94D31B270CF100E8CD83 /* InfoConfigTableViewCell.xib */,
+				22AE94D41B270CF100E8CD83 /* WebChatPayTableViewCell.h */,
+				22AE94D51B270CF100E8CD83 /* WebChatPayTableViewCell.m */,
+				22AE94D61B270CF100E8CD83 /* WebChatPayTableViewCell.xib */,
 				9794A7C01B26A8280077E5C0 /* PCommonTableViewCell.h */,
 				9794A7C11B26A8280077E5C0 /* PCommonTableViewCell.m */,
 				9794A7C21B26A8280077E5C0 /* PCommonTableViewCell.xib */,
@@ -2203,6 +2235,7 @@
 				97AEDBAA1B1401030098F75B /* detail_disclusure@3x.png in Resources */,
 				97C032141B24884B000385B8 /* confirm_order@3x.png in Resources */,
 				9794A8AC1B26A8280077E5C0 /* mySupplier@2x.png in Resources */,
+				22AE94D81B270CF100E8CD83 /* InfoConfigTableViewCell.xib in Resources */,
 				977DCF911B1C96F30060C7BB /* is_new@2x.png in Resources */,
 				9794A8B91B26A8280077E5C0 /* tel_1@2x.png in Resources */,
 				9794A81C1B26A8280077E5C0 /* AccompanyInfoView.xib in Resources */,
@@ -2254,6 +2287,7 @@
 				9794A8B01B26A8280077E5C0 /* phone_1@2x.png in Resources */,
 				97AEDBCC1B1458F10098F75B /* cell_phone_normal@3x.png in Resources */,
 				9794A87F1B26A8280077E5C0 /* NavBaseViewController.xib in Resources */,
+				22AE94CE1B270CDA00E8CD83 /* PayConfigViewController.xib in Resources */,
 				9794A8331B26A8280077E5C0 /* CommentTableViewCell.xib in Resources */,
 				97AFC1941B159792009C3CF6 /* my_computer@2x.png in Resources */,
 				8E5C699A1AFAFC5B004A0CC3 /* Images.xcassets in Resources */,
@@ -2315,6 +2349,7 @@
 				973D8B531B1B571500CA4260 /* not_my_and_not_new@3x.png in Resources */,
 				973D8B4D1B1B571500CA4260 /* add_new_supplier@3x.png in Resources */,
 				977DCFB51B1C9C130060C7BB /* telephone@2x.png in Resources */,
+				22AE94D01B270CDA00E8CD83 /* PayListViewController.xib in Resources */,
 				97A570861B240B8F00D48A36 /* rectangle_open@2x.png in Resources */,
 				9794A8A71B26A8280077E5C0 /* msg@3x.png in Resources */,
 				977DCFAF1B1C9C130060C7BB /* image_round_rect@2x.png in Resources */,
@@ -2391,6 +2426,7 @@
 				97AFC1951B159792009C3CF6 /* my_computer@3x.png in Resources */,
 				9794A8AF1B26A8280077E5C0 /* phone_0@3x.png in Resources */,
 				9794A8141B26A8280077E5C0 /* AlleyDetailCell_Top.xib in Resources */,
+				22AE94DA1B270CF100E8CD83 /* WebChatPayTableViewCell.xib in Resources */,
 				97D78F081B19B873003E66E7 /* shop_selected@2x.png in Resources */,
 				9794A81E1B26A8280077E5C0 /* InviteSupplierTableView.xib in Resources */,
 				9770EEC31B2533E5004FDA7A /* alley_banner@2x.png in Resources */,
@@ -2477,6 +2513,7 @@
 				9794A9191B26A86B0077E5C0 /* AFNetworkReachabilityManager.m in Sources */,
 				97A5707F1B24036400D48A36 /* TouristInfo.m in Sources */,
 				9794A83F1B26A8280077E5C0 /* MicroShopFlowLayout.m in Sources */,
+				22AE94D71B270CF100E8CD83 /* InfoConfigTableViewCell.m in Sources */,
 				9794A8601B26A8280077E5C0 /* CreateOrderCell_BookHeader.m in Sources */,
 				9794A9231B26A86B0077E5C0 /* UIImageView+AFNetworking.m in Sources */,
 				9794A87C1B26A8280077E5C0 /* OrderDetailViewController.m in Sources */,
@@ -2516,6 +2553,8 @@
 				9770EEA71B252DBC004FDA7A /* AlleyInfo.m in Sources */,
 				9794A8291B26A8280077E5C0 /* SwitchCityTableViewCell.m in Sources */,
 				9794A91D1B26A86B0077E5C0 /* AFURLResponseSerialization.m in Sources */,
+				22AE94CF1B270CDA00E8CD83 /* PayListViewController.m in Sources */,
+				22AE94D91B270CF100E8CD83 /* WebChatPayTableViewCell.m in Sources */,
 				9794A8621B26A8280077E5C0 /* CreateOrderCell_Confirm.m in Sources */,
 				9794A9171B26A86B0077E5C0 /* AFHTTPRequestOperationManager.m in Sources */,
 				9794A8501B26A8280077E5C0 /* TourDetailTableViewController.m in Sources */,
@@ -2573,6 +2612,7 @@
 				977DCFBC1B1CB2FD0060C7BB /* MarketTicketGroup.m in Sources */,
 				9794A80D1B26A8280077E5C0 /* AlleyDetailCell_Instruction.m in Sources */,
 				979E09B91B22EBD70062D9AD /* HotSearch.m in Sources */,
+				22AE94CD1B270CDA00E8CD83 /* PayConfigViewController.m in Sources */,
 				9794A86E1B26A8280077E5C0 /* MyOrderListTableViewCell__Invalid.m in Sources */,
 				9794A8441B26A8280077E5C0 /* InfoTableViewCell.m in Sources */,
 				97C7861D1B1E862B00639576 /* Province.m in Sources */,

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="webChatPayCell" rowHeight="60" id="KGk-i7-Jjw" customClass="WebChatPayTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webChat.png" translatesAutoresizingMaskIntoConstraints="NO" id="iby-1I-9tN">
+                        <rect key="frame" x="8" y="16" width="33" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="33" id="GW6-Pm-TuS"/>
+                            <constraint firstAttribute="height" constant="28" id="ctG-Xs-2bM"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信支付" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFc-mu-lDN">
+                        <rect key="frame" x="49" y="9" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请填写开通微信支付的基本信息。" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5f5-xA-whF">
+                        <rect key="frame" x="49" y="34" width="180" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未开通" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Au8-xn-Inf">
+                        <rect key="frame" x="251" y="22" width="36" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yFc-mu-lDN" firstAttribute="leading" secondItem="iby-1I-9tN" secondAttribute="trailing" constant="8" id="CVF-uB-YPg"/>
+                    <constraint firstAttribute="centerY" secondItem="iby-1I-9tN" secondAttribute="centerY" constant="-0.5" id="a5c-cW-Nwf"/>
+                    <constraint firstItem="iby-1I-9tN" firstAttribute="left" secondItem="H2p-sc-9uM" secondAttribute="left" constant="8" id="aNJ-VB-LDt"/>
+                    <constraint firstAttribute="centerY" secondItem="Au8-xn-Inf" secondAttribute="centerY" id="bP7-eZ-vaZ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Au8-xn-Inf" secondAttribute="trailing" constant="-8" id="gsM-IX-f7e"/>
+                    <constraint firstItem="5f5-xA-whF" firstAttribute="centerY" secondItem="iby-1I-9tN" secondAttribute="centerY" constant="11.5" id="h5x-lF-LZH"/>
+                    <constraint firstItem="iby-1I-9tN" firstAttribute="centerY" secondItem="yFc-mu-lDN" secondAttribute="centerY" constant="12.5" id="u8W-Df-BxH"/>
+                    <constraint firstItem="5f5-xA-whF" firstAttribute="leading" secondItem="iby-1I-9tN" secondAttribute="trailing" constant="8" id="y6S-He-YJ8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="wcPayOpenStateLabel" destination="bP7-eZ-vaZ" id="rui-pX-7dq"/>
+            </connections>
+            <point key="canvasLocation" x="243" y="342"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="webChat.png" width="33" height="29"/>
+    </resources>
+</document>
