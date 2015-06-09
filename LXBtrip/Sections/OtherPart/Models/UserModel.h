@@ -34,6 +34,7 @@
 + (NSNumber *)staffId;
 + (NSString *)staffRealName;
 + (NSString *)staffDepartmentName;
++ (NSString *)userToken;
 
  
 @end

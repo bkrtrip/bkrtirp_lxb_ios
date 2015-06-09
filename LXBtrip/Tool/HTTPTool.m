@@ -57,6 +57,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB1122" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"AUTHCODE"];
+
     
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/onLine"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {

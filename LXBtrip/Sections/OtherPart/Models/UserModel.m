@@ -89,19 +89,28 @@ static NSString *userPlistPath = nil;
 // newly add
 + (NSNumber *)companyId
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic objectForKey:@"dat_company_id"];
 }
 + (NSNumber *)staffId
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic objectForKey:@"staff_id"];
 }
 + (NSString *)staffRealName
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic objectForKey:@"staff_real_name"];
 }
 + (NSString *)staffDepartmentName
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic objectForKey:@"staff_departments_name"];
+}
++ (NSString *)userToken
+{
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic objectForKey:@"staff_departments_name"];
 }
 
 @end
