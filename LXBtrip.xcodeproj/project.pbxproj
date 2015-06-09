@@ -1032,6 +1032,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22AE94DD1B271D1F00E8CD83 /* PersonalCenter */ = {
+			isa = PBXGroup;
+			children = (
+				22AE94C71B270CDA00E8CD83 /* PayConfigViewController.h */,
+				22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */,
+				22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */,
+				22AE94CA1B270CDA00E8CD83 /* PayListViewController.h */,
+				22AE94CB1B270CDA00E8CD83 /* PayListViewController.m */,
+				22AE94CC1B270CDA00E8CD83 /* PayListViewController.xib */,
+				9794A77C1B26A8280077E5C0 /* PersonalCenterViewController.h */,
+				9794A77D1B26A8280077E5C0 /* PersonalCenterViewController.m */,
+				9794A77E1B26A8280077E5C0 /* PersonalCenterViewController.xib */,
+			);
+			name = PersonalCenter;
+			sourceTree = "<group>";
+		};
+		22AE94DE1B271D4600E8CD83 /* LoginProcedure */ = {
+			isa = PBXGroup;
+			children = (
+				9794A7741B26A8280077E5C0 /* FPhoneNumViewController.h */,
+				9794A7751B26A8280077E5C0 /* FPhoneNumViewController.m */,
+				9794A7761B26A8280077E5C0 /* FResetPwdViewController.h */,
+				9794A7771B26A8280077E5C0 /* FResetPwdViewController.m */,
+				9794A7781B26A8280077E5C0 /* FVerifyCodeViewController.h */,
+				9794A7791B26A8280077E5C0 /* FVerifyCodeViewController.m */,
+				9794A77A1B26A8280077E5C0 /* LoginViewController.h */,
+				9794A77B1B26A8280077E5C0 /* LoginViewController.m */,
+				9794A77F1B26A8280077E5C0 /* RPhoneNumViewController.h */,
+				9794A7801B26A8280077E5C0 /* RPhoneNumViewController.m */,
+				9794A7811B26A8280077E5C0 /* RSetPwdViewController.h */,
+				9794A7821B26A8280077E5C0 /* RSetPwdViewController.m */,
+				9794A7831B26A8280077E5C0 /* RVerifyCodeViewController.h */,
+				9794A7841B26A8280077E5C0 /* RVerifyCodeViewController.m */,
+			);
+			name = LoginProcedure;
+			sourceTree = "<group>";
+		};
 		8E5C69801AFAFC5B004A0CC3 = {
 			isa = PBXGroup;
 			children = (
@@ -1772,29 +1809,8 @@
 		9794A7731B26A8280077E5C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				22AE94C71B270CDA00E8CD83 /* PayConfigViewController.h */,
-				22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */,
-				22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */,
-				22AE94CA1B270CDA00E8CD83 /* PayListViewController.h */,
-				22AE94CB1B270CDA00E8CD83 /* PayListViewController.m */,
-				22AE94CC1B270CDA00E8CD83 /* PayListViewController.xib */,
-				9794A7741B26A8280077E5C0 /* FPhoneNumViewController.h */,
-				9794A7751B26A8280077E5C0 /* FPhoneNumViewController.m */,
-				9794A7761B26A8280077E5C0 /* FResetPwdViewController.h */,
-				9794A7771B26A8280077E5C0 /* FResetPwdViewController.m */,
-				9794A7781B26A8280077E5C0 /* FVerifyCodeViewController.h */,
-				9794A7791B26A8280077E5C0 /* FVerifyCodeViewController.m */,
-				9794A77A1B26A8280077E5C0 /* LoginViewController.h */,
-				9794A77B1B26A8280077E5C0 /* LoginViewController.m */,
-				9794A77C1B26A8280077E5C0 /* PersonalCenterViewController.h */,
-				9794A77D1B26A8280077E5C0 /* PersonalCenterViewController.m */,
-				9794A77E1B26A8280077E5C0 /* PersonalCenterViewController.xib */,
-				9794A77F1B26A8280077E5C0 /* RPhoneNumViewController.h */,
-				9794A7801B26A8280077E5C0 /* RPhoneNumViewController.m */,
-				9794A7811B26A8280077E5C0 /* RSetPwdViewController.h */,
-				9794A7821B26A8280077E5C0 /* RSetPwdViewController.m */,
-				9794A7831B26A8280077E5C0 /* RVerifyCodeViewController.h */,
-				9794A7841B26A8280077E5C0 /* RVerifyCodeViewController.m */,
+				22AE94DE1B271D4600E8CD83 /* LoginProcedure */,
+				22AE94DD1B271D1F00E8CD83 /* PersonalCenter */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
