@@ -20,7 +20,6 @@
 #import "YesOrNoView.h"
 #import "MicroShopDetailViewController.h"
 #import "SetShopNameViewController.h"
-#import "LoginViewController.h"
 
 @interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
 

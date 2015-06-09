@@ -10,6 +10,7 @@
 #import "PCommonTableViewCell.h"
 #import "PHeaderTableViewCell.h"
 #import "PayListViewController.h"
+#import "AppMacro.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -17,6 +18,19 @@
 @end
 
 @implementation PersonalCenterViewController
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        // tabBarItem
+        UIImage *normal = [ImageNamed(@"mine_normal") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *selected = [ImageNamed(@"mine_selected") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:normal selectedImage:selected];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
