@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22AE94C61B27044000E8CD83 /* UserLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C41B27044000E8CD83 /* UserLogin.storyboard */; };
 		86CFCF0733534ECB978DC4C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FCCBEC74FA47EE835906A9 /* libPods.a */; };
 		8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F60861B00AC3700E911F5 /* HTTPTool.m */; };
 		8E5C698F1AFAFC5B004A0CC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C698E1AFAFC5B004A0CC3 /* main.m */; };
@@ -430,6 +431,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22AE94C51B27044000E8CD83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UserLogin.storyboard; sourceTree = "<group>"; };
 		59FCCBEC74FA47EE835906A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8195301B07A867004FFA96 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8E3F60851B00AC3700E911F5 /* HTTPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPTool.h; sourceTree = "<group>"; };
@@ -1276,6 +1278,7 @@
 			isa = PBXGroup;
 			children = (
 				9794A68D1B26A81D0077E5C0 /* LaunchScreen.xib */,
+				22AE94C41B27044000E8CD83 /* UserLogin.storyboard */,
 			);
 			path = Base.lproj;
 			sourceTree = "<group>";
@@ -2289,6 +2292,7 @@
 				9794A8EF1B26A8280077E5C0 /* YesOrNoView.xib in Resources */,
 				97C3B26B1B1B3BE600C729C4 /* lock@3x.png in Resources */,
 				9794A8171B26A8280077E5C0 /* AlleyListCollectionViewCell.xib in Resources */,
+				22AE94C61B27044000E8CD83 /* UserLogin.storyboard in Resources */,
 				97D78EFA1B19B873003E66E7 /* mine_normal@2x.png in Resources */,
 				97AFC19F1B15ABE5009C3CF6 /* back@2x.png in Resources */,
 				9794A8E61B26A8280077E5C0 /* SupplierCollectionViewCell.xib in Resources */,
@@ -2617,6 +2621,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		22AE94C41B27044000E8CD83 /* UserLogin.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22AE94C51B27044000E8CD83 /* Base */,
+			);
+			name = UserLogin.storyboard;
+			sourceTree = "<group>";
+		};
 		9794A68D1B26A81D0077E5C0 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2709,6 +2721,7 @@
 			baseConfigurationReference = CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LXBtrip/PrefixHeader.pch";
 				INFOPLIST_FILE = LXBtrip/Info.plist;
@@ -2728,6 +2741,7 @@
 			baseConfigurationReference = CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LXBtrip/PrefixHeader.pch";
 				INFOPLIST_FILE = LXBtrip/Info.plist;

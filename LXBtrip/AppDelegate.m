@@ -13,6 +13,9 @@
 #import "SupplierViewController.h"
 #import "AlleyListViewController.h"
 
+#import "LoginViewController.h"
+#import "PersonalCenterViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -25,16 +28,29 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    
+    //登录界面
+    
+    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
+    LoginViewController *loginViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+
+    
+    
     MicroShopViewController *shop = [[MicroShopViewController alloc] init];
     SupplierViewController *supplier = [[SupplierViewController alloc] init];
     AlleyListViewController *alley = [[AlleyListViewController alloc] init];
+    
+    PersonalCenterViewController *personalCenter = [[PersonalCenterViewController alloc] init];
     
     UINavigationController *shopNav = [[UINavigationController alloc] initWithRootViewController:shop];
     UINavigationController *supplierNav = [[UINavigationController alloc] initWithRootViewController:supplier];
     UINavigationController *alleyNav = [[UINavigationController alloc] initWithRootViewController:alley];
     
+    UINavigationController *personalCenterNav = [[UINavigationController alloc] initWithRootViewController:personalCenter];
+    
     MainTabBarViewController *tabController = [[MainTabBarViewController alloc] init];
-    [tabController setViewControllers:[NSArray arrayWithObjects:shopNav, supplierNav, alleyNav, nil]];
+    [tabController setViewControllers:[NSArray arrayWithObjects:shopNav, supplierNav, alleyNav, personalCenterNav, nil]];
     
     self.window.rootViewController = tabController;
     

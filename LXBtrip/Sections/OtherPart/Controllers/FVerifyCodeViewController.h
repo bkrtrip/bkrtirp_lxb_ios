@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface FVerifyCodeViewController : UIViewController
+@interface FVerifyCodeViewController : NavBaseViewController
 
 @property (nonatomic, retain) NSString *phoneNum;
 
