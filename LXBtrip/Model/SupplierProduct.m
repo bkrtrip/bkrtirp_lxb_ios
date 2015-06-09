@@ -14,10 +14,13 @@
 {
     self.productLineClass = [dict[@"category_code"] isKindOfClass:[NSNull class]]?nil:dict[@"category_code"];
     self.productCompanyName = [dict[@"company_name"] isKindOfClass:[NSNull class]]?nil:dict[@"company_name"];
+    self.productCompanyContactPhone = [dict[@"company_contactcallphone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contactcallphone"];
     
     self.productDetailURL = [dict[@"details_url"] isKindOfClass:[NSNull class]]?nil:dict[@"details_url"];
     self.productIntroduceURL = [dict[@"introduce_url"] isKindOfClass:[NSNull class]]?nil:dict[@"introduce_url"];
     self.productShareURL = [dict[@"share_url"] isKindOfClass:[NSNull class]]?nil:dict[@"share_url"];
+    self.productPreviewURL = [dict[@"preview_url"] isKindOfClass:[NSNull class]]?nil:dict[@"preview_url"];
+
     
     self.productIntroduce = [dict[@"goods_introduce"] isKindOfClass:[NSNull class]]?nil:dict[@"goods_introduce"];
     self.productIsTourServices = [dict[@"is_tour_services"] isKindOfClass:[NSNull class]]?nil:dict[@"is_tour_services"];
@@ -44,10 +47,10 @@
     self.productTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
     self.productTravelGoodsCompanyId = [dict[@"travel_goods_companyid"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_companyid"];
     self.productTravelGoodsImg1 = [dict[@"travel_goods_img1"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img1"];
-    self.productTravelGoodsImg2 = [dict[@"travel_goods_img1"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img1"];
-    self.productTravelGoodsImg3 = [dict[@"travel_goods_img1"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img1"];
-    self.productTravelGoodsImg4 = [dict[@"travel_goods_img1"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img1"];
-    self.productTravelGoodsImg5 = [dict[@"travel_goods_img1"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img1"];
+    self.productTravelGoodsImg2 = [dict[@"travel_goods_img2"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img2"];
+    self.productTravelGoodsImg3 = [dict[@"travel_goods_img3"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img3"];
+    self.productTravelGoodsImg4 = [dict[@"travel_goods_img4"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img4"];
+    self.productTravelGoodsImg5 = [dict[@"travel_goods_img5"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img5"];
     
     self.productTravelGoodsName = [dict[@"travel_goods_name"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_name"];
     self.productTravelGoodsUpdateTime = [dict[@"travel_goods_updatetime"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_updatetime"];
@@ -68,14 +71,6 @@
         }];
         self.productTravelTicketGroup = [temp2 copy];
     }
-
-    
-//    temp2 = [[NSMutableArray alloc] init];
-//    [temp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//        TravelTicketGroup *group = [[TravelTicketGroup alloc] initWithDict:obj];
-//        [temp2 addObject:group];
-//    }];
-//    self.productTravelTicketGroup = [temp2 copy];
     
     self.productWalkType = [dict[@"walk_type"] isKindOfClass:[NSNull class]]?nil:dict[@"walk_type"];
 

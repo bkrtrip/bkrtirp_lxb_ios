@@ -7,8 +7,12 @@
 //
 
 #import "MyShopWebPreviewViewController.h"
+#import "TourListViewController.h"
 
-@interface MyShopWebPreviewViewController ()
+@interface MyShopWebPreviewViewController ()<UIWebViewDelegate>
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
+
+// http://mobile.bkrtrip.com/line/custom/@companyid/@staffid/@customid?tpd=@templateid
 
 @end
 
@@ -16,22 +20,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.title = @"线路详情";
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_ShopURLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.f]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+#pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([request.URL.absoluteString isEqualToString:@"http://mobile.bkrtrip.com/line/custom/@companyid/@staffid/@customid?tpd=@templateid"]) {
+        TourListViewController *tourList = [[TourListViewController alloc] init];
+        tourList.templateId = @0;
+        tourList.customId = @"";
+        [self.navigationController pushViewController:tourList animated:YES];
+    }
+    
+    return NO;
+    
+//    if (request.URL.absoluteString isEqualToString:[NSString stringWithFormat:@"http://mobile.bkrtrip.com/line/custom/@%@/@%@/@c%@?tpd=@%@", [UserModel companyId], [UserModel staffId], ]) {
+//        
+//    }
+
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

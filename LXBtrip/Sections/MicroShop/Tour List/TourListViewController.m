@@ -8,8 +8,23 @@
 
 #import "TourListViewController.h"
 #import "TourListTableViewCell.h"
+#import "AppMacro.h"
 
 @interface TourListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TourListTableViewCell_Delegate>
+{
+    NSString *startCity;
+    NSString *endCity;
+    NSInteger dayNum;
+    NSString *lineName;
+    NSInteger pageNum;
+    
+    NSMutableArray *productsArray;
+    NSArray *cityCategoriesArray;
+    NSMutableArray *innerCitiesArray;
+    NSMutableArray *outerCitiesArray;
+    NSArray *walkTypesArray;
+}
+
 @property (strong, nonatomic) IBOutlet UIButton *locationButton;
 - (IBAction)locationButtonClicked:(id)sender;
 - (IBAction)backButtonClicked:(id)sender;
@@ -23,8 +38,13 @@
 
 - (IBAction)toTopButtonClicked:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, copy) NSMutableArray *toursArray;
+@property (strong, nonatomic) IBOutlet UITableView *mainTableView;
+
+@property (strong, nonatomic) IBOutlet UITableView *leftTableView_EndCity;
+@property (strong, nonatomic) IBOutlet UITableView *rightTableView_EndCity;
+@property (strong, nonatomic) IBOutlet UITableView *walkTableView;
+
+@property (nonatomic, copy) SupplierInfo *info;
 
 @end
 
@@ -36,9 +56,41 @@
     _searchButton.layer.cornerRadius = 5.f;
     [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     
-    [_tableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
+    [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     
-    _toursArray = [[NSMutableArray alloc] init];
+    cityCategoriesArray = @[@"国内", @"国外"];
+    cityCategoriesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
+}
+
+- (void)getTourList
+{
+    [HTTPTool getTourListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_templateId customId:_customId startCity:startCity endCity:endCity dayNum:@(dayNum) lineName:lineName pageNum:@(pageNum) success:^(id result) {
+        id data = result[@"RS100007"];
+        [[Global sharedGlobal] codeHudWithObject:data succeed:^{
+            _info = [[SupplierInfo alloc] initWithDict:data];
+            
+            if (!productsArray) {
+                productsArray = [[NSMutableArray alloc] init];
+            }
+            productsArray = [_info.supplierProductsArray mutableCopy];
+            
+            if (!innerCitiesArray) {
+                innerCitiesArray = [[NSMutableArray alloc] init];
+            }
+            innerCitiesArray = [[_info.supplierInnerEndCity componentsSeparatedByString:@"#"] mutableCopy];
+            
+            if (!outerCitiesArray) {
+                outerCitiesArray = [[NSMutableArray alloc] init];
+            }
+            outerCitiesArray = [[_info.supplierOuterEndCity componentsSeparatedByString:@"#"] mutableCopy];
+            
+            [_mainTableView reloadData];
+            [_rightTableView_EndCity reloadData];
+        }];
+    } fail:^(id result) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -48,7 +100,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _toursArray.count;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

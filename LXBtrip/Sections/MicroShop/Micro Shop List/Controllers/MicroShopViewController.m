@@ -405,20 +405,18 @@
     if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
         MicroShopInfo *curShop = _myShopsArray[indexPath.row];
         if ([UserModel companyId] && [UserModel staffId]) {
-            // go to webview
-            // ...
+            // go to set user info page
+            if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
+                SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+                [self.navigationController pushViewController:setName animated:YES];
+            } else {
+                // go to webview
+                // ...
+            }
         } else {
             [self.navigationController pushViewController:[[Global sharedGlobal] loginViewControllerFromSb] animated:YES];
         }
     }
-    
-    // go to set user info page
-    if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
-    }
-    
     
     // add to my shop cell clicked
     if (collectionView == _myShopCollectionView && indexPath.row == _myShopsArray.count) {

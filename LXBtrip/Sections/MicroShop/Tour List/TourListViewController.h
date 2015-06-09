@@ -9,4 +9,8 @@
 #import "NavBaseViewController.h"
 @interface TourListViewController : NavBaseViewController
 
+@property (nonatomic, copy) NSNumber *templateId;
+@property (nonatomic, copy) NSString *customId;
+
+
 @end

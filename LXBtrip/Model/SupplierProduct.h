@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *productDetailURL;//
 @property (nonatomic, copy) NSString *productIntroduceURL;//
 @property (nonatomic, copy) NSString *productShareURL;//
+@property (nonatomic, copy) NSString *productPreviewURL;//
+
 
 @property (nonatomic, copy) NSString *productIntroduce;//
 @property (nonatomic, copy) NSNumber *productIsTourServices;//
@@ -44,6 +46,9 @@
 
 @property (nonatomic, copy) NSNumber *productWalkType;//
 //walk_type
+@property (nonatomic, copy) NSString *productCompanyContactPhone;
+
+
 
 
 //[{"market_adult_price":"2222","market_adult_person":"0","market_kid_price":"0","market_kid_person":"0","market_diff_price":"0","market_time":"2015-5-8"}]
