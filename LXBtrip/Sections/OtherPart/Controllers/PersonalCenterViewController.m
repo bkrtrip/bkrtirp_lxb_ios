@@ -58,11 +58,11 @@
     [self.navigationController setNavigationBarHidden:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.tabBarController.tabBar.hidden = NO;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -72,12 +72,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.tabBarController.tabBar.hidden = YES;
 }
