@@ -13,7 +13,7 @@
 
 - (void)supportClickWithShareButton;
 - (void)supportClickWithPreviewButton;
-- (void)supportClickWithAccompanyButton;
+- (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product;
 
 @end
 

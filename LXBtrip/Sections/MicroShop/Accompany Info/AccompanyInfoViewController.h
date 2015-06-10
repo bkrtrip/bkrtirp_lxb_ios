@@ -11,4 +11,6 @@
 
 @interface AccompanyInfoViewController : NavBaseViewController
 
+@property (nonatomic, strong) SupplierProduct *product;
+
 @end

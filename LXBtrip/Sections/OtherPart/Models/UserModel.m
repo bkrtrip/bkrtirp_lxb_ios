@@ -32,6 +32,7 @@ static NSString *userPlistPath = nil;
 {
     [self clearUserInformation];
     
+    NSLog(@"userDic: %@", userDic);
     if (userDic) {
         [userDic writeToFile:[self getUserPlistPath] atomically:NO];
     }
@@ -89,19 +90,28 @@ static NSString *userPlistPath = nil;
 // newly add
 + (NSNumber *)companyId
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"] objectForKey:@"dat_company_id"];
 }
 + (NSNumber *)staffId
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"] objectForKey:@"staff_id"];
 }
 + (NSString *)staffRealName
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"] objectForKey:@"staff_real_name"];
 }
 + (NSString *)staffDepartmentName
 {
-    return nil;
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"] objectForKey:@"staff_departments_name"];
+}
++ (NSString *)userToken
+{
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"][@"access_token"] objectForKey:@"token"];
 }
 
 @end

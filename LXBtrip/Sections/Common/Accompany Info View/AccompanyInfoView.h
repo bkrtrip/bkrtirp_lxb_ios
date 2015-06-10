@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AppMacro.h"
 @protocol AccompanyInfoView_Delegate <NSObject>
 
 - (void)supportClickWithMoreInstructions;
@@ -19,5 +19,7 @@
 @interface AccompanyInfoView : UIView
 
 @property (nonatomic, weak) id <AccompanyInfoView_Delegate> delegate;
+
+- (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName introduce:(NSString *)introduce price:(NSNumber *)price instructions:(NSString *)instruction;
 
 @end

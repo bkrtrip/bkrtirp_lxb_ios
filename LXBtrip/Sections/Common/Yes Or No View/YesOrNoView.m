@@ -25,11 +25,15 @@
 }
 
 - (IBAction)noButtonClicked:(id)sender {
-    
+    if ([self.delegate respondsToSelector:@selector(supportClickWithNo)]) {
+        [self.delegate supportClickWithNo];
+    }
 }
 
 - (IBAction)yesButtonClicked:(id)sender {
-    
+    if ([self.delegate respondsToSelector:@selector(supportClickWithYes)]) {
+        [self.delegate supportClickWithYes];
+    }
 }
 
 @end

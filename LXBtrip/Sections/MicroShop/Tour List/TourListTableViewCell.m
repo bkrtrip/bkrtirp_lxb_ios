@@ -9,6 +9,9 @@
 #import "TourListTableViewCell.h"
 #import "AppMacro.h"
 @interface TourListTableViewCell()
+{
+    SupplierProduct *supplierProduct;
+}
 
 @property (strong, nonatomic) IBOutlet UIImageView *tourImageView;
 @property (strong, nonatomic) IBOutlet UILabel *tourTitleLabel;
@@ -28,6 +31,8 @@
 
 - (void)setCellContentWithSupplierProduct:(SupplierProduct *)product
 {
+    supplierProduct = product;
+    
     NSString *imgString = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, product.productTravelGoodsImg1];
     [_tourImageView sd_setImageWithURL:[NSURL URLWithString:imgString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         ;
@@ -38,8 +43,8 @@
 }
 
 - (IBAction)accompanyButtonClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(supportClickWithAccompanyButton)]) {
-        [self.delegate supportClickWithAccompanyButton];
+    if ([self.delegate respondsToSelector:@selector(supportClickWithAccompanyInfoWithProduct:)]) {
+        [self.delegate supportClickWithAccompanyInfoWithProduct:supplierProduct];
     }
 }
 - (IBAction)previewButtonClicked:(id)sender {

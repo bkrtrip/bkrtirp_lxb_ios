@@ -27,6 +27,7 @@
 #import "MyOrderItem.h"
 #import "AlleyInfo.h"
 #import "UserModel.h"
+#import "CustomActivityIndicator.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -69,6 +70,10 @@
 #define LIST_VER_SPACING_ALLEY 0.f
 #define LIST_WIDTH_HEIGHT_PROPORTION_ALLEY (207.f/132.f)
 #define NUM_OF_IMAGES_PER_ROW_ALLEY 2
+
+
+// accompany info view max height
+//#define ACCOMPANY_INFO_VIEW_MAX_HEIGHT 300.f
 
 
 //#define DELETE_ACTION_SHEET_HEIGHT 187.f

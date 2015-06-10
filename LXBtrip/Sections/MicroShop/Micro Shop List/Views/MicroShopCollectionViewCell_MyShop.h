@@ -11,7 +11,7 @@
 
 @protocol MicroShopCollectionViewCell_MyShop_Delegate <NSObject>
 
-- (void)supportClickWithDeleteButton;
+- (void)supportClickWithDeleteShopId:(NSNumber *)shopId;
 
 @end
 
