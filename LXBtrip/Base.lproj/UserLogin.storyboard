@@ -9,7 +9,7 @@
         <!--Navigation Controller-->
         <scene sceneID="OUm-Hx-FDd">
             <objects>
-                <navigationController id="xqe-kr-qi7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginControllerNavController" id="xqe-kr-qi7" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="navBack.png" id="GnZ-QK-nje">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -180,6 +180,12 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="登录" id="518-ww-Ofl">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="pwO-tb-cIS">
+                            <color key="tintColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancelLogin:" destination="KVs-Iq-Q9Z" id="idt-hb-pud"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="注册" id="Va7-u0-xvW">
                             <color key="tintColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -1374,7 +1380,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ha8-sy-1qv">
             <objects>
-                <navigationController storyboardIdentifier="registerNav" automaticallyAdjustsScrollViewInsets="NO" id="rkZ-rx-LOe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="registerNavController" automaticallyAdjustsScrollViewInsets="NO" id="rkZ-rx-LOe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="dQt-h9-Rlo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="navBack.png" id="Heq-0x-huM">

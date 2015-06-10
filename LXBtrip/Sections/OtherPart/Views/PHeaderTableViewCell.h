@@ -28,5 +28,8 @@ typedef enum : NSUInteger {
 
 @property (weak, nonatomic) id<HeaderActionProtocol> delegate;
 
+- (void)needUserToSignin:(BOOL)isRequired;
+
 - (void)initialHeaderViewWithUserInfo:(NSDictionary *)userInfoDic;
+
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface PayConfigViewController : UIViewController
+@interface PayConfigViewController : NavBaseViewController
 
 @end

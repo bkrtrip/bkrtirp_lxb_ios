@@ -40,8 +40,10 @@
     // Dispose of any resources that can be recreated
     
 }
--(void)isActionLogin
+-(void)loginSystemForUser:(NSString *)name withPwd:(NSString *)pwd
 {
+    __weak LoginViewController *weakSelf = self;
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval=10;
@@ -61,10 +63,9 @@
                  [UserModel storeUserInformations:jsonObj];
                  
                  
-                 //TODO: 跳转到主tab页面(xiaozhu)
+                 [weakSelf showAlertViewWithTitle:@"提示" message:@"登录成功。" cancelButtonTitle:@"确定"];
                  
-                 UIViewController *viewController = [[PersonalCenterViewController alloc] initWithNibName:@"PersonalCenterViewController" bundle:nil];
-                 [self.navigationController pushViewController:viewController animated:YES];
+                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
                  
              }
              
@@ -81,11 +82,14 @@
 {
     if (![self.phoneNumberText.text isEqualToString:@""]&&![self.passwordText.text isEqualToString:@""])
     {
-        [self isActionLogin];
+        [self loginSystemForUser:self.phoneNumberText.text withPwd:self.passwordText.text];
     }else
     {
-        [self showAlertViewWithTitle:@"提示" message:@"手机号与密码必填项。" cancelButtonTitle:@"确定"];
+        [self showAlertViewWithTitle:@"提示" message:@"请填写手机号或密码。" cancelButtonTitle:@"确定"];
     }
+}
+- (IBAction)cancelLogin:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
