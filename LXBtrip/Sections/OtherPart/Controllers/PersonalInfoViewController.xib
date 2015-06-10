@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PayConfigViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInfoViewController">
             <connections>
-                <outlet property="configTableView" destination="Sua-S7-cUf" id="9F5-31-F57"/>
+                <outlet property="pInfoTableView" destination="YQE-D9-W0j" id="bXW-DM-vvT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,50 +16,46 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Sua-S7-cUf">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YQE-D9-W0j">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="5gy-gx-cK6"/>
-                        <outlet property="delegate" destination="-1" id="5M8-gp-JK9"/>
+                        <outlet property="dataSource" destination="-1" id="SzY-VP-ADc"/>
+                        <outlet property="delegate" destination="-1" id="KDG-QN-dVX"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Sua-S7-cUf" secondAttribute="bottom" constant="244" id="2ek-2G-5Ls">
+                <constraint firstAttribute="trailing" secondItem="YQE-D9-W0j" secondAttribute="trailing" constant="41" id="Cl6-5h-UNY">
                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstAttribute="trailing" secondItem="Sua-S7-cUf" secondAttribute="trailing" constant="157" id="DEM-JK-EXI">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="Sua-S7-cUf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-157" id="HgS-Di-MJF">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="Sua-S7-cUf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-244" id="QhF-dv-eG0">
+                <constraint firstItem="YQE-D9-W0j" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Fp0-iG-IMZ"/>
+                <constraint firstAttribute="bottom" secondItem="YQE-D9-W0j" secondAttribute="bottom" id="Ocp-AI-Pah"/>
+                <constraint firstItem="YQE-D9-W0j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-41" id="ved-e7-Cef">
                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                 </constraint>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="Sua-S7-cUf"/>
+                    <exclude reference="YQE-D9-W0j"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="2ek-2G-5Ls"/>
-                    <exclude reference="DEM-JK-EXI"/>
-                    <exclude reference="HgS-Di-MJF"/>
-                    <exclude reference="QhF-dv-eG0"/>
+                    <exclude reference="Cl6-5h-UNY"/>
+                    <exclude reference="Fp0-iG-IMZ"/>
+                    <exclude reference="Ocp-AI-Pah"/>
+                    <exclude reference="ved-e7-Cef"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
                 <mask key="subviews">
-                    <include reference="Sua-S7-cUf"/>
+                    <include reference="YQE-D9-W0j"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="2ek-2G-5Ls"/>
-                    <include reference="DEM-JK-EXI"/>
-                    <include reference="HgS-Di-MJF"/>
-                    <include reference="QhF-dv-eG0"/>
+                    <include reference="Cl6-5h-UNY"/>
+                    <include reference="Fp0-iG-IMZ"/>
+                    <include reference="Ocp-AI-Pah"/>
+                    <include reference="ved-e7-Cef"/>
                 </mask>
             </variation>
         </view>

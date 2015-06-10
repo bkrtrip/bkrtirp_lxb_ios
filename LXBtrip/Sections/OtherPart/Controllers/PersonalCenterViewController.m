@@ -12,6 +12,9 @@
 #import "PayListViewController.h"
 #import "AppMacro.h"
 
+#import "PersonalInfoViewController.h"
+#import "DispatchersViewController.h"
+
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
 
@@ -211,7 +214,9 @@
             break;
         case GoToDispatchers:
         {
+            DispatchersViewController *viewController = [[DispatchersViewController alloc] init];
             
+            [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
         case GoToSuppliers:
@@ -227,7 +232,8 @@
             break;
         case GoToInfoSettings:
         {
-            
+            PersonalInfoViewController *personalInfoVC = [[PersonalInfoViewController alloc] init];
+            [self.navigationController pushViewController:personalInfoVC animated:YES];
         }
             break;
             
