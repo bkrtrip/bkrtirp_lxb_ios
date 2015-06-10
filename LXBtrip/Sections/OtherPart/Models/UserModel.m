@@ -32,6 +32,7 @@ static NSString *userPlistPath = nil;
 {
     [self clearUserInformation];
     
+    NSLog(@"userDic: %@", userDic);
     if (userDic) {
         [userDic writeToFile:[self getUserPlistPath] atomically:NO];
     }
@@ -90,27 +91,27 @@ static NSString *userPlistPath = nil;
 + (NSNumber *)companyId
 {
     NSDictionary *userDic = [self getUserInformations];
-    return [userDic objectForKey:@"dat_company_id"];
+    return [userDic[@"RS100034"] objectForKey:@"dat_company_id"];
 }
 + (NSNumber *)staffId
 {
     NSDictionary *userDic = [self getUserInformations];
-    return [userDic objectForKey:@"staff_id"];
+    return [userDic[@"RS100034"] objectForKey:@"staff_id"];
 }
 + (NSString *)staffRealName
 {
     NSDictionary *userDic = [self getUserInformations];
-    return [userDic objectForKey:@"staff_real_name"];
+    return [userDic[@"RS100034"] objectForKey:@"staff_real_name"];
 }
 + (NSString *)staffDepartmentName
 {
     NSDictionary *userDic = [self getUserInformations];
-    return [userDic objectForKey:@"staff_departments_name"];
+    return [userDic[@"RS100034"] objectForKey:@"staff_departments_name"];
 }
 + (NSString *)userToken
 {
     NSDictionary *userDic = [self getUserInformations];
-    return [userDic objectForKey:@"staff_departments_name"];
+    return [userDic[@"RS100034"][@"access_token"] objectForKey:@"token"];
 }
 
 @end

@@ -19,6 +19,7 @@
     [super viewDidLoad];
     self.tabBar.barTintColor = BG_F8F8F8;
     self.tabBar.tintColor = RED_FF0075;
+    self.tabBar.translucent = YES;
 }
 
 

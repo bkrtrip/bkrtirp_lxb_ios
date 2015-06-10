@@ -20,6 +20,8 @@
     self.navigationController.navigationBar.barTintColor = BG_F5F5F5;
     self.navigationController.navigationBar.translucent = NO;
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     // left back arrow
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
     [leftBtn setImage:ImageNamed(@"back") forState:UIControlStateNormal];

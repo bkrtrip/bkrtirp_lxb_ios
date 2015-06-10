@@ -18,6 +18,8 @@
 @interface YesOrNoView : UIView
 @property (nonatomic, weak) id <YesOrNoViewDelegate> delegate;
 
+@property (strong, nonatomic) IBOutlet UIView *containerView;
+
 - (void)setYesOrNoViewWithIntroductionString:(NSString *)introString confirmString:(NSString *)confString;
 
 @end

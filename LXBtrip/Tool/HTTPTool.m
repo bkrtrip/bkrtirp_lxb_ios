@@ -15,10 +15,6 @@ singleton_implementation(HTTPTool)
 // 获取在线微店列表 - LXB1111 - 未登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    // TEST
-    province = @"陕西";
-    // TEST
-    
     NSMutableDictionary *param = [@{@"province":province} mutableCopy];
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
@@ -39,10 +35,6 @@ singleton_implementation(HTTPTool)
 // 获取在线微店列表 - LXB1122 - 已登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    // TEST
-    province = @"陕西";
-    // TEST
-    
     NSMutableDictionary *param = [@{@"province":province} mutableCopy];
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];
@@ -57,8 +49,7 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB1122" forHTTPHeaderField:@"AUTHCODE"];
-    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"AUTHCODE"];
-
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
     
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/onLine"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
@@ -74,7 +65,7 @@ singleton_implementation(HTTPTool)
 // 获取我的微店列表 - LXB1125 - 已登录
 + (void)getMyMicroShopListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param;
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] init];
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];
     } else
@@ -88,7 +79,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB1125" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/myTemplate"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -108,6 +100,36 @@ singleton_implementation(HTTPTool)
     [manager.requestSerializer setValue:@"LXB11148" forHTTPHeaderField:@"AUTHCODE"];
     
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/myTemplate"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 删除微店 - LXB1426
++ (void)deleteMyShopWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId shopId:(NSNumber *)shopId success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{@"templateid":shopId} mutableCopy];
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1426" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/delTemplate"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
         }
@@ -168,8 +190,9 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB1224" forHTTPHeaderField:@"AUTHCODE"];
-    
-    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/addTemplate"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/lineList"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
         }
@@ -178,7 +201,6 @@ singleton_implementation(HTTPTool)
             fail(error);
         }
     }];
-
 }
 
 // 添加到我的微店 - LXB1224
@@ -198,7 +220,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB1224" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/addTemplate"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -227,7 +250,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB13244" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/myLock"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -276,7 +300,7 @@ singleton_implementation(HTTPTool)
 // 专线/地接 - 已登录 - LXB21210
 + (void)getSuppliersListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId StartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param = [@{@"startcity":startCity, @"lineclass":lineClass, @"linetype":lineType, @"pagenum":pageNum} mutableCopy];
+    NSMutableDictionary *param = [@{@"startcity":startCity, @"lineclass":lineClass,  @"pagenum":pageNum} mutableCopy];
     
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];
@@ -287,12 +311,18 @@ singleton_implementation(HTTPTool)
         [param setObject:staffId forKey:@"staffid"];
     } else
         return;
+    
+    if (lineType) {
+        [param setObject:staffId forKey:@"linetype"];
+    }
+    
 
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB21210" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/onLine"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -348,7 +378,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB21216" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/details"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -378,7 +409,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB21218" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/mySelf"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -426,7 +458,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB22217" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/ifSync"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -502,7 +535,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB41231" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"myself/lineOrderList"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
@@ -552,7 +586,8 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB31220" forHTTPHeaderField:@"AUTHCODE"];
-    
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"join/onLine"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);

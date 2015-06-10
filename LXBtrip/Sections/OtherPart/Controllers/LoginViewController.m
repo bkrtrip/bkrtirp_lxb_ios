@@ -53,7 +53,8 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval=10;
 //    NSDictionary *parameters=@{@"name":self.phoneNumberText.text,@"pwd":self.passwordText.text};
-    NSDictionary *parameters=@{@"name":@"18602929807",@"pwd":@"654321"};
+//    NSDictionary *parameters=@{@"name":@"18602929807",@"pwd":@"654321"};
+    NSDictionary *parameters=@{@"name":@"xahsly",@"pwd":@"qiqi63361888"};
 
     NSString *partialUrl = [NSString stringWithFormat:@"%@common/login", HOST_BASE_URL];
     [manager POST:partialUrl parameters:parameters
@@ -69,9 +70,11 @@
                  
                  
                  //TODO: 跳转到主tab页面(xiaozhu)
-                 
-                 UIViewController *viewController = [[PersonalCenterViewController alloc] initWithNibName:@"PersonalCenterViewController" bundle:nil];
-                 [self.navigationController pushViewController:viewController animated:YES];
+                 [self.navigationController popViewControllerAnimated:YES];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
+
+//                 UIViewController *viewController = [[PersonalCenterViewController alloc] initWithNibName:@"PersonalCenterViewController" bundle:nil];
+//                 [self.navigationController pushViewController:viewController animated:YES];
                  
              }
              

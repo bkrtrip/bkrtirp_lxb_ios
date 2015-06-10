@@ -10,6 +10,9 @@
 #import "AppMacro.h"
 
 @interface MicroShopCollectionViewCell_MyShop()
+{
+    TemplateDefaultStatus defaultStatus;
+}
 
 @property (strong, nonatomic) IBOutlet UILabel *shopNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *providerNameLabel;
@@ -17,6 +20,9 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *deleteOrLockButton;
 - (IBAction)deleteOrLockButtonClicked:(id)sender;
+
+@property (strong, nonatomic) MicroShopInfo *shopInfo;
+
 
 @end
 
@@ -31,6 +37,8 @@
 
 - (void)setCellContentWithMicroShopInfo:(MicroShopInfo *)info
 {
+    _shopInfo = info;
+    
     _shopNameLabel.text = info.shopName;
     _providerNameLabel.text = info.shopProvider;
     [_mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.shopImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -38,7 +46,7 @@
     }];
     
     //判断是delete还是lock
-    TemplateDefaultStatus defaultStatus = [info.shopIsDefault intValue];
+    defaultStatus = [info.shopIsDefault intValue];
     switch (defaultStatus) {
         case Is_Locked:// 0：锁定
             [_deleteOrLockButton setImage:ImageNamed(@"lock") forState:UIControlStateNormal];
@@ -55,8 +63,10 @@
 }
 
 - (IBAction)deleteOrLockButtonClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteButton)]) {
-        [self.delegate supportClickWithDeleteButton];
+    if (defaultStatus == Is_Else) {
+        if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteShopId:)]) {
+            [self.delegate supportClickWithDeleteShopId:_shopInfo.shopId];
+        }
     }
 }
 @end

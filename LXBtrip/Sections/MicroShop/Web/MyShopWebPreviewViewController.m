@@ -12,8 +12,6 @@
 @interface MyShopWebPreviewViewController ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 
-// http://mobile.bkrtrip.com/line/custom/@companyid/@staffid/@customid?tpd=@templateid
-
 @end
 
 @implementation MyShopWebPreviewViewController
@@ -25,24 +23,45 @@
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_ShopURLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.f]];
 }
 
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 #pragma mark - UIWebViewDelegate
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+    [alert show];
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([request.URL.absoluteString isEqualToString:@"http://mobile.bkrtrip.com/line/custom/@companyid/@staffid/@customid?tpd=@templateid"]) {
+//    NSLog(@"request.URL.absoluteString: --- %@", request.URL.absoluteString);
+    
+    NSString *predicate = [NSString stringWithFormat:@"http://mobile.bkrtrip.com/line/custom/%@/%@/", [UserModel companyId], [UserModel staffId]];
+    if ([request.URL.absoluteString hasPrefix:predicate]) {
+        
+        NSString *infoString = [request.URL.absoluteString substringFromIndex:predicate.length];
+        NSArray *infoArray = [infoString componentsSeparatedByString:@"?"];
+        NSString *customId;
+        NSString *templateId;
+        if (infoArray.count == 2) {
+            customId = infoArray[0];
+            templateId = [infoArray[1] stringByReplacingOccurrencesOfString:@"tpd=" withString:@""];
+        }
+        
         TourListViewController *tourList = [[TourListViewController alloc] init];
-        tourList.templateId = @0;
-        tourList.customId = @"";
+        tourList.templateId = @([templateId integerValue]);
+        tourList.customId = customId;
         [self.navigationController pushViewController:tourList animated:YES];
+        return NO;
     }
     
-    return NO;
-    
-//    if (request.URL.absoluteString isEqualToString:[NSString stringWithFormat:@"http://mobile.bkrtrip.com/line/custom/@%@/@%@/@c%@?tpd=@%@", [UserModel companyId], [UserModel staffId], ]) {
-//        
-//    }
-
+    return YES;
 }
 
 

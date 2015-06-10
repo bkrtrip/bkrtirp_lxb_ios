@@ -7,13 +7,16 @@
 //
 
 #import "AccompanyInfoViewController.h"
+#import "AccompanyInfoCell_Company.h"
+#import "AccompanyInfo_Instructions.h"
 
-@interface AccompanyInfoViewController ()
 
-@property (strong, nonatomic) IBOutlet UILabel *providerNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *instructionsLabel;
+@interface AccompanyInfoViewController () <UITableViewDataSource, UITableViewDelegate>
+{
+    CGFloat instructionCellHeight;
+}
 
-- (IBAction)makePhoneCallButtonClicked:(id)sender;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -21,24 +24,50 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.title = @"同行须知";
+    [_tableView registerNib:[UINib nibWithNibName:@"AccompanyInfoCell_Company" bundle:nil] forCellReuseIdentifier:@"AccompanyInfoCell_Company"];
+    [_tableView registerNib:[UINib nibWithNibName:@"AccompanyInfo_Instructions" bundle:nil] forCellReuseIdentifier:@"AccompanyInfo_Instructions"];
+    _tableView.backgroundColor = BG_F5F5F5;
+    UIView *footer = [[UIView alloc] init];
+    footer.backgroundColor = BG_F5F5F5;
+    _tableView.tableFooterView = footer;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
 }
-*/
 
-- (IBAction)makePhoneCallButtonClicked:(id)sender {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        AccompanyInfoCell_Company *cell = [tableView dequeueReusableCellWithIdentifier:@"AccompanyInfoCell_Company" forIndexPath:indexPath];
+        [cell setCellContentWithSupplierName:_product.productCompanyName];
+        return cell;
+    }
+    
+    AccompanyInfo_Instructions *cell = [tableView dequeueReusableCellWithIdentifier:@"AccompanyInfo_Instructions" forIndexPath:indexPath];
+    instructionCellHeight = [cell cellHeightWithInstructions:_product.productPeerNotice];
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return 57.f;
+    }
+    return instructionCellHeight;
+}
+
 @end

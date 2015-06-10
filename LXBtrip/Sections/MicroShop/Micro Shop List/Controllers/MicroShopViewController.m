@@ -20,8 +20,15 @@
 #import "YesOrNoView.h"
 #import "MicroShopDetailViewController.h"
 #import "SetShopNameViewController.h"
+#import "MyShopWebPreviewViewController.h"
 
 @interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
+{
+    NSString *startProvince;
+    NSNumber *shopIdToDelete;
+    BOOL onLineListNeedsUpdate;
+    BOOL myListNeedsUpdate;
+}
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
@@ -60,6 +67,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // must override superclass
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:self];
     
     CGFloat scrollViewYOrigin = 0.277*SCREEN_HEIGHT;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49)];
@@ -75,7 +86,7 @@
     
     _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
     [_yesOrNoView setYesOrNoViewWithIntroductionString:@"删除微店后，如需再次使用，请进入在线微店重新添加到我的微店，且微店自动展示已选供应商的产品！" confirmString:@"现在是否要删除此微店？"];
-    [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
+    [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
     _yesOrNoView.delegate = self;
     [self.view addSubview:_yesOrNoView];
     
@@ -90,6 +101,8 @@
     _onlineShopCollectionView.dataSource = self;
     _onlineShopCollectionView.delegate = self;
     _onlineShopCollectionView.backgroundColor = [UIColor whiteColor];
+    _onlineShopCollectionView.alwaysBounceVertical = YES;
+
     [_scrollView addSubview:_onlineShopCollectionView];
     
     // online shop collection view
@@ -105,14 +118,17 @@
     _myShopCollectionView.dataSource = self;
     _myShopCollectionView.delegate = self;
     _myShopCollectionView.backgroundColor = [UIColor whiteColor];
+    _myShopCollectionView.alwaysBounceVertical = YES;
     [_scrollView addSubview:_myShopCollectionView];
     
     [_scrollView setContentSize:CGSizeMake(2*SCREEN_WIDTH, _scrollView.frame.size.height)];
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     
-    // segment initial status
-    self.selectedIndex = 0;
+    [self shopListNeedsUpdate];
+    
+    // --TEST--
+    startProvince = @"陕西";
     
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
     [self startLocation];
@@ -123,6 +139,9 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = NO;
+    if (startProvince) {
+        self.selectedIndex = _selectedIndex;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -136,22 +155,40 @@
     switch (_selectedIndex) {
         case 0:
         {
-            _onlineShopButton.selected = YES;
-            _myShopButton.selected = NO;
-            [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
-            if (!_onlineShopsArray) {
-                _onlineShopsArray = [[NSMutableArray alloc] init];
+            if (_onlineShopButton.selected == NO) {
+                _onlineShopButton.selected = YES;
+                _myShopButton.selected = NO;
+            }
+            if (_scrollView.contentOffset.x != 0) {
+                [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
+            }
+            
+            if (onLineListNeedsUpdate) {
+                if (!_onlineShopsArray) {
+                    _onlineShopsArray = [[NSMutableArray alloc] init];
+                } else {
+                    [_onlineShopsArray removeAllObjects];
+                }
                 [self getOnlineShops];
             }
         }
             break;
         case 1:
         {
-            _onlineShopButton.selected = NO;
-            _myShopButton.selected = YES;
-            [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
-            if (!_myShopsArray) {
-                _myShopsArray = [[NSMutableArray alloc] init];
+            if (_onlineShopButton.selected == YES) {
+                _onlineShopButton.selected = NO;
+                _myShopButton.selected = YES;
+            }
+            if (_scrollView.contentOffset.x != _scrollView.frame.size.width) {
+                [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
+            }
+            
+            if (myListNeedsUpdate) {
+                if (!_myShopsArray) {
+                    _myShopsArray = [[NSMutableArray alloc] init];
+                } else {
+                    [_myShopsArray removeAllObjects];
+                }
                 [self getMyShops];
             }
         }
@@ -161,15 +198,13 @@
     }
 }
 
-
-- (void)hideDeleteActionSheet
+- (void)shopListNeedsUpdate
 {
-    [UIView animateWithDuration:0.4 animations:^{
-        _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.frame.size.height)];
-    }];
+    onLineListNeedsUpdate = YES;
+    myListNeedsUpdate = YES;
 }
 
+#pragma mark - Locating part
 //开始定位
 - (void)startLocation{
     _locationManager = [[CLLocationManager alloc] init];
@@ -180,11 +215,11 @@
     
     if(![CLLocationManager locationServicesEnabled]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
+//        [alert show];
     } else {
         if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
+//            [alert show];
         }
     }
     
@@ -214,12 +249,14 @@
             NSDictionary *test = [placemark addressDictionary];
             // locality(城市)
             NSLog(@"%@", test);
-            NSString *cityString = [test objectForKey:@"State"];
-            if ([cityString hasSuffix:@"省"]) {
-                cityString = [cityString substringWithRange:NSMakeRange(0, cityString.length-1)];
+            startProvince = [test objectForKey:@"State"];
+            if ([startProvince hasSuffix:@"省"]) {
+                startProvince = [startProvince substringWithRange:NSMakeRange(0, startProvince.length-1)];
             }
-            [_locationButton setTitle:cityString forState:UIControlStateNormal];
-            [self getOnlineShops];
+            [_locationButton setTitle:startProvince forState:UIControlStateNormal];
+            
+            // segment initial status
+            self.selectedIndex = 0;
         }
     }];
 }
@@ -227,62 +264,69 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-    [alert show];
+//    [alert show];
 }
 
+#pragma mark - HTTP
 - (void)getOnlineShops
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool getOnlineMicroShopListWithProvince:_locationButton.titleLabel.text companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
-            NSArray *data = result[@"RS100002"];
-            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                
-                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
-                    [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
-                }
-                if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
-                    
-                    NSArray *tempArray = [obj[@"classify_template"] copy];
-                    NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
-                    [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                        [tempArray2 addObject:info];
-                    }];
-                    [tempDict setObject:tempArray2 forKey:@"classify_template"];
-                }
-                [_onlineShopsArray addObject:tempDict];
-            }];
-            [_onlineShopCollectionView reloadData];
+        [HTTPTool getOnlineMicroShopListWithProvince:startProvince companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
+            if ([result[@"RS100002"] isKindOfClass:[NSArray class]]) {
+                [result[@"RS100002"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                    if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
+                        [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
+                    }
+                    if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
+                        
+                        NSArray *tempArray = [obj[@"classify_template"] copy];
+                        NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                        [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                            [tempArray2 addObject:info];
+                        }];
+                        [tempDict setObject:tempArray2 forKey:@"classify_template"];
+                    }
+                    [_onlineShopsArray addObject:tempDict];
+                }];
+                [_onlineShopCollectionView reloadData];
+                onLineListNeedsUpdate = NO;
+                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            }
         } fail:^(NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取在线微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
-        [HTTPTool getOnlineMicroShopListWithProvince:_locationButton.titleLabel.text success:^(id result) {
-            NSArray *data = result[@"RS100001"];
-            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                
-                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
-                    [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
-                }
-                if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
-                    
-                    NSArray *tempArray = [obj[@"classify_template"] copy];
-                    NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
-                    [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                        [tempArray2 addObject:info];
-                    }];
-                    [tempDict setObject:tempArray2 forKey:@"classify_template"];
-                }
-                [_onlineShopsArray addObject:tempDict];                
-            }];
-            [_onlineShopCollectionView reloadData];
-
+        [HTTPTool getOnlineMicroShopListWithProvince:startProvince success:^(id result) {
+            if ([result[@"RS100001"] isKindOfClass:[NSArray class]]) {
+                [result[@"RS100001"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                    if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
+                        [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
+                    }
+                    if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
+                        
+                        NSArray *tempArray = [obj[@"classify_template"] copy];
+                        NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                        [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                            [tempArray2 addObject:info];
+                        }];
+                        [tempDict setObject:tempArray2 forKey:@"classify_template"];
+                    }
+                    [_onlineShopsArray addObject:tempDict];
+                }];
+                [_onlineShopCollectionView reloadData];
+                onLineListNeedsUpdate = NO;
+                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            }
         } fail:^(NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取在线微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     }
@@ -290,32 +334,59 @@
 
 - (void)getMyShops
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getMyMicroShopListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
-            
-            NSArray *data = result[@"RS100005"];
-            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                [_myShopsArray addObject:info];
-            }];
-            [_myShopCollectionView reloadData];
+            NSLog(@"result[@\"RS100005\"] -----%@", result[@"RS100005"]);
+            if ([result[@"RS100005"] isKindOfClass:[NSArray class]]) {
+                [result[@"RS100005"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                    [_myShopsArray addObject:info];
+                }];
+                [_myShopCollectionView reloadData];
+                myListNeedsUpdate = NO;
+                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            }
         } fail:^(id result) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getMyMicroShopListWithSuccess:^(id result) {
-            NSArray *data = result[@"RS100048"];
-            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                [_myShopsArray addObject:info];
-            }];
-            [_myShopCollectionView reloadData];
+            if ([result[@"RS100048"] isKindOfClass:[NSArray class]]) {
+                [result[@"RS100048"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                    [_myShopsArray addObject:info];
+                }];
+                [_myShopCollectionView reloadData];
+                myListNeedsUpdate = NO;
+                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            }
         } fail:^(id result) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的微店列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     }
+}
+
+- (void)deleteMyShopWithShopId:(NSNumber *)shopId
+{
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [HTTPTool deleteMyShopWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] shopId:shopId success:^(id result) {
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100006"] succeed:^{
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+//            [alert show];
+            [self shopListNeedsUpdate];
+            self.selectedIndex = _selectedIndex;
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        }];
+    } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -336,7 +407,6 @@
         return [[_onlineShopsArray[section] objectForKey:@"classify_template"] count];
     } else if (collectionView == _myShopCollectionView) {
         return _myShopsArray.count + 1;
-//        return _myShopsArray.count;
     } else {
         return 0;
     }
@@ -356,6 +426,7 @@
             MicroShopCollectionViewCell_MyShop *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MicroShopCollectionViewCell_MyShop" forIndexPath:indexPath];
             MicroShopInfo *info = _myShopsArray[indexPath.row];
             [cell setCellContentWithMicroShopInfo:info];
+            cell.delegate = self;
             return cell;
         } else if (indexPath.row == _myShopsArray.count) {
             // '+'
@@ -395,7 +466,14 @@
         NSArray *subSectionArray = [_onlineShopsArray[indexPath.section] valueForKey:@"classify_template"];
         MicroShopInfo *curInfo = subSectionArray[indexPath.row];
         detail.shopId = curInfo.shopId;
-        detail.isMyShop = NO;
+        //是否使用 0：使用，1：未使用
+        if (curInfo.shopIsUse) {
+            if ([curInfo.shopIsUse intValue] == 0) {
+                detail.isMyShop = YES;
+            } else {
+                detail.isMyShop = NO;
+            }
+        }
         [self.navigationController pushViewController:detail animated:YES];
         return;
     }
@@ -410,7 +488,9 @@
                 [self.navigationController pushViewController:setName animated:YES];
             } else {
                 // go to webview
-                // ...
+                MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
+                web.ShopURLString = [_myShopsArray[indexPath.row] shopPreviewURLString];
+                [self.navigationController pushViewController:web animated:YES];
             }
         } else {
             [self.navigationController pushViewController:[[Global sharedGlobal] loginViewControllerFromSb] animated:YES];
@@ -429,12 +509,11 @@
     // go to webview
 }
 #pragma mark - MicroShopCollectionViewCell_MyShop_Delegate
-- (void)supportClickWithDeleteButton
+- (void)supportClickWithDeleteShopId:(NSNumber *)shopId
 {
-    [UIView animateWithDuration:0.4 animations:^{
-        _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, -_yesOrNoView.frame.size.height)];
-    }];
+    shopIdToDelete = shopId;
+    
+    [self showDeleteActionSheet];
 }
 
 - (IBAction)myShopButtonClicked:(id)sender {
@@ -448,13 +527,37 @@
 #pragma mark - YesOrNoViewDelegate
 - (void)supportClickWithNo
 {
-    
+    [self hideDeleteActionSheet];
 }
 
 - (void)supportClickWithYes
 {
-    
+    if (shopIdToDelete) {
+        [self hideDeleteActionSheet];
+        [self deleteMyShopWithShopId:shopIdToDelete];
+    }
 }
 
+#pragma mark - Private methods
+- (void)hideDeleteActionSheet
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.containerView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.tabBarController.tabBar.hidden = NO;
+        }
+    }];
+}
+
+- (void)showDeleteActionSheet
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.tabBarController.tabBar.hidden = YES;
+        _darkMask.alpha = 1;
+        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, -_yesOrNoView.containerView.frame.size.height)];
+    }];
+}
 
 @end

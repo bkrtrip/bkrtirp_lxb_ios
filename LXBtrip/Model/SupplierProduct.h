@@ -22,12 +22,12 @@
 
 
 @property (nonatomic, copy) NSString *productIntroduce;//
-@property (nonatomic, copy) NSNumber *productIsTourServices;//
+@property (nonatomic, copy) NSString *productIsTourServices;//
 
 @property (nonatomic, copy) NSNumber *productMarketPrice;//
 @property (nonatomic, copy) NSMutableArray *productMarketTicketGroup;
 
-@property (nonatomic, copy) NSNumber *productPeerNotice;//
+@property (nonatomic, copy) NSString *productPeerNotice;//
 @property (nonatomic, copy) NSNumber *productTravelApplyTime;//
 @property (nonatomic, copy) NSString *productTravelGoodsCode;//
 @property (nonatomic, copy) NSNumber *productTravelGoodsCompanyId;//
@@ -39,12 +39,12 @@
 
 @property (nonatomic, copy) NSString *productTravelGoodsName;//
 @property (nonatomic, copy) NSNumber *productTravelGoodsUpdateTime;//
-@property (nonatomic, copy) NSNumber *productTravelJourneyDays;//
+@property (nonatomic, copy) NSString *productTravelJourneyDays;//
 @property (nonatomic, copy) NSNumber *productTravelPrice;//
 
 @property (nonatomic, copy) NSMutableArray *productTravelTicketGroup;
 
-@property (nonatomic, copy) NSNumber *productWalkType;//
+@property (nonatomic, copy) NSString *productWalkType;//
 //walk_type
 @property (nonatomic, copy) NSString *productCompanyContactPhone;
 
