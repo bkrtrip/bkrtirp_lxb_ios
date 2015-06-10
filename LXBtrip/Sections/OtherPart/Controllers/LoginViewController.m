@@ -63,6 +63,10 @@
                  [UserModel storeUserInformations:jsonObj];
                  
                  
+                 if (weakSelf.delegate) {
+                     [weakSelf.delegate loginSuccess];
+                 }
+                 
                  [weakSelf showAlertViewWithTitle:@"提示" message:@"登录成功。" cancelButtonTitle:@"确定"];
                  
                  [weakSelf dismissViewControllerAnimated:YES completion:nil];

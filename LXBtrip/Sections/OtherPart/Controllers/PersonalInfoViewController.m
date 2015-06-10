@@ -121,7 +121,7 @@
             break;
         case 3://联系方式
         {
-            AlterUserInfoViewController *viewController = [[AlterUserInfoViewController alloc] init];
+            AlterPhoneNumViewController *viewController = [[AlterPhoneNumViewController alloc] init];
             
             [self.navigationController pushViewController:viewController animated:YES];
         }
@@ -147,6 +147,7 @@
 {
     AlterUserInfoViewController *viewController = [[AlterUserInfoViewController alloc] init];
     [viewController initailAlterType:type forInfomation:info];
+    viewController.type = type;
     
     [self.navigationController pushViewController:viewController animated:YES];
 }

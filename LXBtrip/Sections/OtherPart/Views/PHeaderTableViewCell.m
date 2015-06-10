@@ -7,6 +7,7 @@
 //
 
 #import "PHeaderTableViewCell.h"
+#import "NSDictionary+GetStringValue.h"
 
 @interface PHeaderTableViewCell ()
 
@@ -42,7 +43,11 @@
 
 - (void)initialHeaderViewWithUserInfo:(NSDictionary *)userInfoDic
 {
-    
+    // when shopname and shop contacter name are not set, show tint label
+    if (userInfoDic) {
+        NSString *staffName = [userInfoDic stringValueByKey:@"staff_real_name"];
+        self.contactNameLabel.text = staffName;
+    }
 }
 
 - (void)needUserToSignin:(BOOL)isRequired

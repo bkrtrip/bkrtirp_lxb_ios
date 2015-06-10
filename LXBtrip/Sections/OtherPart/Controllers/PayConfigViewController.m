@@ -30,17 +30,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.tabBarController.tabBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.tabBarController.tabBar.hidden = NO;
-}
 
 #pragma mark - UITableViewDataSource
 

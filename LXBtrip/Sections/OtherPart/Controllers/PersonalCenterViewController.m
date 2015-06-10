@@ -18,7 +18,7 @@
 #import "LoginViewController.h"
 #import "RPhoneNumViewController.h"//register procedure start point
 
-@interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol>
+@interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
 
 @property (assign, nonatomic) BOOL isAlreadyLogined;
@@ -44,10 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    NSDictionary *userInfoDic = [UserModel getUserInformations];
-    if (userInfoDic) {
-        self.isAlreadyLogined = YES;
-    }
+    self.isAlreadyLogined = [self getUserLoginState];
     
     [self.mineTableView registerNib:[UINib nibWithNibName:@"PSeperaterTableViewCell" bundle:nil] forCellReuseIdentifier:@"separateCell"];
     
@@ -64,6 +61,39 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
+}
+
+
+- (BOOL)getUserLoginState
+{
+    NSDictionary *userInfoDic = [UserModel getUserInformations];
+    if (userInfoDic) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+#pragma mark - LoginVCProtocol
+
+- (void)loginSuccess
+{
+    self.isAlreadyLogined = YES;
+    [self updateUIForLoginState:YES];
 }
 
 
@@ -199,15 +229,29 @@
             break;
         case 6:
         {
-            [self confirmLogOutWithAlert];
-            
-            PHeaderTableViewCell *cell = (PHeaderTableViewCell *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            [cell needUserToSignin:YES];
+            if (self.isAlreadyLogined) {
+                [self confirmLogOutWithAlert];
+                
+                [self updateUIForLoginState:NO];
+            }
         }
             break;
             
         default:
             break;
+    }
+}
+
+
+- (void)updateUIForLoginState:(BOOL)isAlreadyLogin
+{
+    PHeaderTableViewCell *cell = (PHeaderTableViewCell *)[self.mineTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (cell) {
+        [cell needUserToSignin:!isAlreadyLogin];
+        
+        if (isAlreadyLogin) {
+            [cell initialHeaderViewWithUserInfo:[UserModel getUserInformations]];
+        }
     }
 }
 
@@ -271,6 +315,7 @@
             
             UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
             UIViewController *viewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"loginControllerNavController"];
+            ((LoginViewController *)(((UINavigationController *)viewController).viewControllers.firstObject)).delegate = self;
             
             [self presentViewController:viewController animated:YES completion:nil];
         }

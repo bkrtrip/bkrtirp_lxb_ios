@@ -44,7 +44,7 @@
             self.settingTitleLabel.text = @"关于旅小宝";
             break;
         case SignOut:
-            self.settingIconImgView.image = [UIImage imageNamed:@"sginOut"];
+            self.settingIconImgView.image = [UIImage imageNamed:@"signOut"];
             self.settingTitleLabel.text = @"退出登录";
             break;
             
