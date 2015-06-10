@@ -36,7 +36,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDH-wr-Hwf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDH-wr-Hwf">
                                 <rect key="frame" x="26" y="169" width="35" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="8hB-Yi-XAX"/>
@@ -45,7 +45,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6Y-kc-Bk1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="账号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6Y-kc-Bk1">
                                 <rect key="frame" x="26" y="114" width="35" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="CNh-cl-clN"/>
@@ -54,7 +54,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入注册手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5U-se-HvM">
+                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入注册手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5U-se-HvM">
                                 <rect key="frame" x="86" y="114" width="263" height="30"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -66,7 +66,7 @@
                                     <outlet property="delegate" destination="KVs-Iq-Q9Z" id="CMZ-h4-Yul"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btv-E3-dIy">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btv-E3-dIy">
                                 <rect key="frame" x="36" y="254" width="303" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="0np-Uo-Z2w"/>
@@ -77,7 +77,7 @@
                                     <action selector="login:" destination="KVs-Iq-Q9Z" eventType="touchUpInside" id="RC7-e2-ZEB"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4X-Ai-9Su">
+                            <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4X-Ai-9Su">
                                 <rect key="frame" x="86" y="169" width="263" height="30"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -89,23 +89,25 @@
                                     <outlet property="delegate" destination="KVs-Iq-Q9Z" id="nO6-9x-0sj"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="nIc-EO-NmB">
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="nIc-EO-NmB">
                                 <rect key="frame" x="21" y="144" width="333" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="HII-jJ-ttA">
                                         <variation key="heightClass=regular" constant="3"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="14q-E6-YhH">
+                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="14q-E6-YhH">
                                 <rect key="frame" x="21" y="199" width="333" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="RkC-co-EpA">
                                         <variation key="heightClass=regular" constant="3"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="986-Yt-eMF">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="986-Yt-eMF">
                                 <rect key="frame" x="289" y="319" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4uH-aj-6zr"/>
@@ -208,7 +210,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入手机号码进行注册" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mh5-tE-k4l">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="请输入手机号码进行注册" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mh5-tE-k4l">
                                 <rect key="frame" x="41" y="114" width="180" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="Mz8-V7-PFG"/>
@@ -217,7 +219,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8L3-IO-gKp">
+                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8L3-IO-gKp">
                                 <rect key="frame" x="46" y="154" width="303" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="0NI-5D-lbo"/>
@@ -229,11 +231,12 @@
                                     <outlet property="delegate" destination="qu4-hp-4Al" id="db6-9T-x20"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ayR-Pu-g30">
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ayR-Pu-g30">
                                 <rect key="frame" x="21" y="184" width="333" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="GoY-Yi-dpy">
                                         <variation key="heightClass=regular" constant="3"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                                     </constraint>
                                 </constraints>
                             </imageView>
@@ -318,7 +321,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们已发送" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtM-ai-pYV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="我们已发送" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtM-ai-pYV">
                                 <rect key="frame" x="81" y="84" width="67" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="H1c-H7-HdD"/>
@@ -330,18 +333,18 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="TBx-KH-A3R"/>
                                         <exclude reference="H1c-H7-HdD"/>
+                                        <exclude reference="TBx-KH-A3R"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
-                                        <include reference="TBx-KH-A3R"/>
                                         <include reference="H1c-H7-HdD"/>
+                                        <include reference="TBx-KH-A3R"/>
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="短信验证码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="480-FR-dR8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="短信验证码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="480-FR-dR8">
                                 <rect key="frame" x="148" y="84" width="67" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LaG-sb-nTe"/>
@@ -365,7 +368,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到您的手机" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eY-eI-8aD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="到您的手机" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eY-eI-8aD">
                                 <rect key="frame" x="215" y="84" width="67" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="N06-Oj-cOW">
@@ -388,7 +391,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写短信验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OoG-Ew-14i">
+                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写短信验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OoG-Ew-14i">
                                 <rect key="frame" x="36" y="184" width="175" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Nzw-nc-eOq"/>
@@ -409,10 +412,12 @@
                                     <outlet property="delegate" destination="pmb-6y-2qz" id="whV-Df-jfL"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="tKL-CT-mRu">
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="tKL-CT-mRu">
                                 <rect key="frame" x="26" y="214" width="323" height="10"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="Iam-Au-4VB"/>
+                                    <constraint firstAttribute="height" constant="3" id="Iam-Au-4VB">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -425,7 +430,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMK-DI-ARK">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMK-DI-ARK">
                                 <rect key="frame" x="240" y="184" width="109" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="FUN-M8-xR8"/>
@@ -438,14 +443,14 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="GuA-Mm-Sik"/>
                                         <exclude reference="FUN-M8-xR8"/>
+                                        <exclude reference="GuA-Mm-Sik"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
-                                        <include reference="GuA-Mm-Sik"/>
                                         <include reference="FUN-M8-xR8"/>
+                                        <include reference="GuA-Mm-Sik"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -497,14 +502,14 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="MPL-h0-ekn"/>
                                         <exclude reference="MHA-q6-Vq2"/>
+                                        <exclude reference="MPL-h0-ekn"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
-                                        <include reference="MPL-h0-ekn"/>
                                         <include reference="MHA-q6-Vq2"/>
+                                        <include reference="MPL-h0-ekn"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -545,22 +550,22 @@
                                 <exclude reference="Pxv-MX-bCf"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="vaD-Se-Myb"/>
-                                <exclude reference="tCc-4B-vOg"/>
                                 <exclude reference="2Jq-B7-Ao5"/>
                                 <exclude reference="OXc-yR-3FV"/>
-                                <exclude reference="pM2-7r-KUD"/>
-                                <exclude reference="SWX-d7-E0Y"/>
+                                <exclude reference="tCc-4B-vOg"/>
+                                <exclude reference="vaD-Se-Myb"/>
                                 <exclude reference="Dur-x9-Und"/>
-                                <exclude reference="mfL-UE-sJ2"/>
+                                <exclude reference="SWX-d7-E0Y"/>
                                 <exclude reference="ifD-V7-OiM"/>
+                                <exclude reference="mfL-UE-sJ2"/>
+                                <exclude reference="pM2-7r-KUD"/>
                                 <exclude reference="TvY-sQ-wTo"/>
+                                <exclude reference="0AO-Rn-XK8"/>
                                 <exclude reference="GKi-Ty-z2L"/>
+                                <exclude reference="Uiw-yq-vwW"/>
                                 <exclude reference="aVQ-Hd-qao"/>
                                 <exclude reference="caL-Pf-QrV"/>
-                                <exclude reference="Uiw-yq-vwW"/>
                                 <exclude reference="x9J-sf-DY6"/>
-                                <exclude reference="0AO-Rn-XK8"/>
                                 <exclude reference="ttx-bk-kRS"/>
                                 <exclude reference="BHD-Co-CoI"/>
                             </mask>
@@ -572,22 +577,22 @@
                                 <include reference="Pxv-MX-bCf"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="vaD-Se-Myb"/>
-                                <include reference="tCc-4B-vOg"/>
                                 <include reference="2Jq-B7-Ao5"/>
                                 <include reference="OXc-yR-3FV"/>
-                                <include reference="pM2-7r-KUD"/>
-                                <include reference="SWX-d7-E0Y"/>
+                                <include reference="tCc-4B-vOg"/>
+                                <include reference="vaD-Se-Myb"/>
                                 <include reference="Dur-x9-Und"/>
-                                <include reference="mfL-UE-sJ2"/>
+                                <include reference="SWX-d7-E0Y"/>
                                 <include reference="ifD-V7-OiM"/>
+                                <include reference="mfL-UE-sJ2"/>
+                                <include reference="pM2-7r-KUD"/>
                                 <include reference="TvY-sQ-wTo"/>
+                                <include reference="0AO-Rn-XK8"/>
                                 <include reference="GKi-Ty-z2L"/>
+                                <include reference="Uiw-yq-vwW"/>
                                 <include reference="aVQ-Hd-qao"/>
                                 <include reference="caL-Pf-QrV"/>
-                                <include reference="Uiw-yq-vwW"/>
                                 <include reference="x9J-sf-DY6"/>
-                                <include reference="0AO-Rn-XK8"/>
                                 <include reference="ttx-bk-kRS"/>
                                 <include reference="BHD-Co-CoI"/>
                             </mask>
@@ -627,7 +632,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7Q-zm-6tK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="设置密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7Q-zm-6tK">
                                 <rect key="frame" x="26" y="84" width="65" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5Ja-sQ-dqo"/>
@@ -636,7 +641,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6-20位字母、数字和符号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKv-MY-XR1">
+                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6-20位字母、数字和符号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKv-MY-XR1">
                                 <rect key="frame" x="56" y="124" width="293" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FMc-0r-DT4"/>
@@ -647,7 +652,7 @@
                                     <outlet property="delegate" destination="Xr4-bq-vgv" id="aJY-nh-W2E"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请再重复输入一遍" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-fc-3uj">
+                            <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请再重复输入一遍" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-fc-3uj">
                                 <rect key="frame" x="56" y="179" width="293" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3Es-wq-5Gt"/>
@@ -658,19 +663,21 @@
                                     <outlet property="delegate" destination="Xr4-bq-vgv" id="Uv2-gb-gbx"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ldp-2m-00H">
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ldp-2m-00H">
                                 <rect key="frame" x="26" y="154" width="323" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="RRN-kp-GvJ">
                                         <variation key="heightClass=regular" constant="3"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="qbK-WZ-6px">
+                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="qbK-WZ-6px">
                                 <rect key="frame" x="26" y="209" width="323" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="dvY-5p-ICf">
                                         <variation key="heightClass=regular" constant="3"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                                     </constraint>
                                 </constraints>
                             </imageView>
@@ -729,7 +736,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入注册时的手机号，获取验证码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lld-xS-Uze">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="请输入注册时的手机号，获取验证码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lld-xS-Uze">
                                 <rect key="frame" x="66" y="84" width="250" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="lDf-aN-NL8"/>
@@ -739,7 +746,7 @@
                                 <color key="textColor" red="0.31764705879999999" green="0.63921568630000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tB-GT-Kmg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="手机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tB-GT-Kmg">
                                 <rect key="frame" x="36" y="134" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3GM-jS-1UT"/>
@@ -749,7 +756,7 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infoIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="7wg-TL-dVN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="infoIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="7wg-TL-dVN">
                                 <rect key="frame" x="36" y="84" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="47H-ei-39B">
@@ -760,7 +767,7 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入注册手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mdb-5i-eCb">
+                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入注册手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mdb-5i-eCb">
                                 <rect key="frame" x="96" y="134" width="233" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ylI-ce-SM6"/>
@@ -771,15 +778,16 @@
                                     <outlet property="delegate" destination="TDa-uf-Idk" id="p46-WE-0FP"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="6pX-oE-wTA">
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="6pX-oE-wTA">
                                 <rect key="frame" x="26" y="164" width="323" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="KMf-AU-fW8">
                                         <variation key="heightClass=regular" constant="3"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="旅小宝客服热线：400-9979-029" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABy-2F-U5v">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="旅小宝客服热线：400-9979-029" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABy-2F-U5v">
                                 <rect key="frame" x="201" y="204" width="148" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ae6-1I-7BC"/>
@@ -982,7 +990,9 @@
                             <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Qa-oy-gXa">
                                 <rect key="frame" x="26" y="214" width="323" height="10"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="t5O-AV-olP"/>
+                                    <constraint firstAttribute="height" constant="3" id="t5O-AV-olP">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1008,14 +1018,14 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="pFi-lk-shN"/>
                                         <exclude reference="5Xj-iY-sby"/>
+                                        <exclude reference="pFi-lk-shN"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
-                                        <include reference="pFi-lk-shN"/>
                                         <include reference="5Xj-iY-sby"/>
+                                        <include reference="pFi-lk-shN"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -1091,23 +1101,23 @@
                                 <exclude reference="Uz8-kN-DU8"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="f1q-sh-kbx"/>
-                                <exclude reference="JXh-oO-aKZ"/>
-                                <exclude reference="cDq-qz-dgn"/>
-                                <exclude reference="reK-Os-ULZ"/>
                                 <exclude reference="ENG-kS-kKg"/>
+                                <exclude reference="cDq-qz-dgn"/>
                                 <exclude reference="i5z-ID-cVn"/>
+                                <exclude reference="reK-Os-ULZ"/>
+                                <exclude reference="JXh-oO-aKZ"/>
+                                <exclude reference="f1q-sh-kbx"/>
+                                <exclude reference="3C1-bp-1ur"/>
                                 <exclude reference="EYY-Ot-aye"/>
                                 <exclude reference="Hxs-hh-NO2"/>
-                                <exclude reference="3C1-bp-1ur"/>
                                 <exclude reference="THN-Pu-Vgx"/>
                                 <exclude reference="anI-DI-nDW"/>
                                 <exclude reference="Jp7-84-5jX"/>
-                                <exclude reference="gac-Tw-QJi"/>
-                                <exclude reference="Ygp-0A-Q5j"/>
                                 <exclude reference="7Xo-Ym-7DK"/>
                                 <exclude reference="AZI-mL-heR"/>
                                 <exclude reference="WUk-lF-T64"/>
+                                <exclude reference="Ygp-0A-Q5j"/>
+                                <exclude reference="gac-Tw-QJi"/>
                                 <exclude reference="wW7-Y4-0u0"/>
                                 <exclude reference="YtT-uA-z8U"/>
                                 <exclude reference="wNa-wr-mRy"/>
@@ -1126,23 +1136,23 @@
                                 <include reference="Uz8-kN-DU8"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="f1q-sh-kbx"/>
-                                <include reference="JXh-oO-aKZ"/>
-                                <include reference="cDq-qz-dgn"/>
-                                <include reference="reK-Os-ULZ"/>
                                 <include reference="ENG-kS-kKg"/>
+                                <include reference="cDq-qz-dgn"/>
                                 <include reference="i5z-ID-cVn"/>
+                                <include reference="reK-Os-ULZ"/>
+                                <include reference="JXh-oO-aKZ"/>
+                                <include reference="f1q-sh-kbx"/>
+                                <include reference="3C1-bp-1ur"/>
                                 <include reference="EYY-Ot-aye"/>
                                 <include reference="Hxs-hh-NO2"/>
-                                <include reference="3C1-bp-1ur"/>
                                 <include reference="THN-Pu-Vgx"/>
                                 <include reference="anI-DI-nDW"/>
                                 <include reference="Jp7-84-5jX"/>
-                                <include reference="gac-Tw-QJi"/>
-                                <include reference="Ygp-0A-Q5j"/>
                                 <include reference="7Xo-Ym-7DK"/>
                                 <include reference="AZI-mL-heR"/>
                                 <include reference="WUk-lF-T64"/>
+                                <include reference="Ygp-0A-Q5j"/>
+                                <include reference="gac-Tw-QJi"/>
                                 <include reference="wW7-Y4-0u0"/>
                                 <include reference="YtT-uA-z8U"/>
                                 <include reference="wNa-wr-mRy"/>
@@ -1181,7 +1191,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="请设置密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7e-xl-CTp">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="请设置密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7e-xl-CTp">
                                 <rect key="frame" x="26" y="84" width="80" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="BWp-eg-om6"/>
@@ -1200,14 +1210,14 @@
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
-                                        <exclude reference="cts-8R-Enx"/>
                                         <exclude reference="BWp-eg-om6"/>
                                         <include reference="W8g-Oe-tpK"/>
                                         <include reference="ZUs-Nh-ga4"/>
+                                        <exclude reference="cts-8R-Enx"/>
                                     </mask>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6-20位字母、数字和符号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBa-Vx-Zqk">
+                            <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6-20位字母、数字和符号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBa-Vx-Zqk">
                                 <rect key="frame" x="56" y="134" width="263" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="dXG-Lp-r1X"/>
@@ -1229,7 +1239,7 @@
                                     <outlet property="delegate" destination="Rxa-3Z-yU1" id="B1c-Ap-cIZ"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请再重新输入一遍" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fxd-hl-ISr">
+                            <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请再重新输入一遍" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fxd-hl-ISr">
                                 <rect key="frame" x="56" y="194" width="263" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="uDl-k5-xSQ"/>
@@ -1251,10 +1261,12 @@
                                     <outlet property="delegate" destination="Rxa-3Z-yU1" id="4c9-LB-beF"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="UZv-4L-DmG">
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="UZv-4L-DmG">
                                 <rect key="frame" x="26" y="164" width="323" height="10"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="p6D-Ou-ZOg"/>
+                                    <constraint firstAttribute="height" constant="3" id="p6D-Ou-ZOg">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1267,10 +1279,12 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="wNl-Qj-2eG">
+                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="wNl-Qj-2eG">
                                 <rect key="frame" x="26" y="219" width="323" height="10"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="O8a-L0-1zn"/>
+                                    <constraint firstAttribute="height" constant="3" id="O8a-L0-1zn">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1304,37 +1318,37 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Zrg-4q-WQc"/>
-                                <exclude reference="xR5-wD-NiE"/>
                                 <exclude reference="plR-od-cAr"/>
+                                <exclude reference="xR5-wD-NiE"/>
                                 <exclude reference="RBz-eT-jGf"/>
-                                <exclude reference="xj4-Ry-pSk"/>
-                                <exclude reference="ryc-Yz-YuL"/>
                                 <exclude reference="SCy-gF-8Pu"/>
+                                <exclude reference="ryc-Yz-YuL"/>
                                 <exclude reference="xdm-pW-ZsS"/>
-                                <exclude reference="ei6-OL-X4Z"/>
+                                <exclude reference="xj4-Ry-pSk"/>
                                 <exclude reference="0cq-uO-aDb"/>
+                                <exclude reference="ei6-OL-X4Z"/>
                                 <exclude reference="O8m-d9-4eP"/>
-                                <exclude reference="nxW-au-GnK"/>
                                 <exclude reference="YdA-1m-D2F"/>
                                 <exclude reference="eQd-MH-uwd"/>
+                                <exclude reference="nxW-au-GnK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
                                 <include reference="Zrg-4q-WQc"/>
-                                <include reference="xR5-wD-NiE"/>
                                 <include reference="plR-od-cAr"/>
+                                <include reference="xR5-wD-NiE"/>
                                 <include reference="RBz-eT-jGf"/>
-                                <include reference="xj4-Ry-pSk"/>
-                                <include reference="ryc-Yz-YuL"/>
                                 <include reference="SCy-gF-8Pu"/>
+                                <include reference="ryc-Yz-YuL"/>
                                 <include reference="xdm-pW-ZsS"/>
-                                <include reference="ei6-OL-X4Z"/>
+                                <include reference="xj4-Ry-pSk"/>
                                 <include reference="0cq-uO-aDb"/>
+                                <include reference="ei6-OL-X4Z"/>
                                 <include reference="O8m-d9-4eP"/>
-                                <include reference="nxW-au-GnK"/>
                                 <include reference="YdA-1m-D2F"/>
                                 <include reference="eQd-MH-uwd"/>
+                                <include reference="nxW-au-GnK"/>
                             </mask>
                         </variation>
                     </view>

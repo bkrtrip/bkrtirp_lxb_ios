@@ -304,6 +304,7 @@
     AccompanyInfoViewController *info = [[AccompanyInfoViewController alloc] initWithNibName:@"AccompanyInfoViewController" bundle:nil];
     info.product = selectedProduct;
     [self.navigationController pushViewController:info animated:YES];
+    [self hideAccompanyInfoView];
 }
 - (void)supportClickWithPhoneCall
 {

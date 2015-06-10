@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2260D7A51B27A46B000F6856 /* DispatchSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7A31B27A46B000F6856 /* DispatchSwitchTableViewCell.m */; };
+		2260D7A61B27A46B000F6856 /* DispatchSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7A41B27A46B000F6856 /* DispatchSwitchTableViewCell.xib */; };
+		2260D7AA1B27A799000F6856 /* DispatchProfitRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7A81B27A799000F6856 /* DispatchProfitRateTableViewCell.m */; };
+		2260D7AB1B27A799000F6856 /* DispatchProfitRateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7A91B27A799000F6856 /* DispatchProfitRateTableViewCell.xib */; };
+		2260D7AF1B27A9A0000F6856 /* DispatcherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7AD1B27A9A0000F6856 /* DispatcherTableViewCell.m */; };
+		2260D7B01B27A9A0000F6856 /* DispatcherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7AE1B27A9A0000F6856 /* DispatcherTableViewCell.xib */; };
+		2260D7B31B27ADFD000F6856 /* dDial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7B11B27ADFD000F6856 /* dDial@2x.png */; };
+		2260D7B41B27ADFD000F6856 /* dShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7B21B27ADFD000F6856 /* dShare@2x.png */; };
+		2260D7B81B27C1BF000F6856 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7B61B27C1BF000F6856 /* PersonalInfoViewController.m */; };
+		2260D7B91B27C1BF000F6856 /* PersonalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7B71B27C1BF000F6856 /* PersonalInfoViewController.xib */; };
+		2260D7BD1B27C434000F6856 /* AlterUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7BB1B27C434000F6856 /* AlterUserInfoViewController.m */; };
+		2260D7BE1B27C434000F6856 /* AlterUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7BC1B27C434000F6856 /* AlterUserInfoViewController.xib */; };
+		2260D7C21B27D356000F6856 /* AlterPhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7C01B27D356000F6856 /* AlterPhoneNumViewController.m */; };
+		2260D7C31B27D356000F6856 /* AlterPhoneNumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7C11B27D356000F6856 /* AlterPhoneNumViewController.xib */; };
+		2260D7C71B27DA22000F6856 /* AreaSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7C51B27DA22000F6856 /* AreaSettingViewController.m */; };
+		2260D7C81B27DA22000F6856 /* AreaSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7C61B27DA22000F6856 /* AreaSettingViewController.xib */; };
+		2260D7CC1B27DA43000F6856 /* DispatchersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */; };
+		2260D7CD1B27DA43000F6856 /* DispatchersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */; };
 		22AE94C61B27044000E8CD83 /* UserLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C41B27044000E8CD83 /* UserLogin.storyboard */; };
 		22AE94CD1B270CDA00E8CD83 /* PayConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */; };
 		22AE94CE1B270CDA00E8CD83 /* PayConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */; };
@@ -16,6 +34,10 @@
 		22AE94D81B270CF100E8CD83 /* InfoConfigTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94D31B270CF100E8CD83 /* InfoConfigTableViewCell.xib */; };
 		22AE94D91B270CF100E8CD83 /* WebChatPayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94D51B270CF100E8CD83 /* WebChatPayTableViewCell.m */; };
 		22AE94DA1B270CF100E8CD83 /* WebChatPayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94D61B270CF100E8CD83 /* WebChatPayTableViewCell.xib */; };
+		22AE94E21B272D9E00E8CD83 /* PhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94E01B272D9E00E8CD83 /* PhotoTableViewCell.m */; };
+		22AE94E31B272D9E00E8CD83 /* PhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94E11B272D9E00E8CD83 /* PhotoTableViewCell.xib */; };
+		22AE94E71B272DB900E8CD83 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94E51B272DB900E8CD83 /* UserInfoTableViewCell.m */; };
+		22AE94E81B272DB900E8CD83 /* UserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94E61B272DB900E8CD83 /* UserInfoTableViewCell.xib */; };
 		86CFCF0733534ECB978DC4C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FCCBEC74FA47EE835906A9 /* libPods.a */; };
 		8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F60861B00AC3700E911F5 /* HTTPTool.m */; };
 		8E5C698F1AFAFC5B004A0CC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C698E1AFAFC5B004A0CC3 /* main.m */; };
@@ -452,6 +474,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2260D7A21B27A46B000F6856 /* DispatchSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchSwitchTableViewCell.h; sourceTree = "<group>"; };
+		2260D7A31B27A46B000F6856 /* DispatchSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchSwitchTableViewCell.m; sourceTree = "<group>"; };
+		2260D7A41B27A46B000F6856 /* DispatchSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchSwitchTableViewCell.xib; sourceTree = "<group>"; };
+		2260D7A71B27A799000F6856 /* DispatchProfitRateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchProfitRateTableViewCell.h; sourceTree = "<group>"; };
+		2260D7A81B27A799000F6856 /* DispatchProfitRateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchProfitRateTableViewCell.m; sourceTree = "<group>"; };
+		2260D7A91B27A799000F6856 /* DispatchProfitRateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchProfitRateTableViewCell.xib; sourceTree = "<group>"; };
+		2260D7AC1B27A9A0000F6856 /* DispatcherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatcherTableViewCell.h; sourceTree = "<group>"; };
+		2260D7AD1B27A9A0000F6856 /* DispatcherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatcherTableViewCell.m; sourceTree = "<group>"; };
+		2260D7AE1B27A9A0000F6856 /* DispatcherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatcherTableViewCell.xib; sourceTree = "<group>"; };
+		2260D7B11B27ADFD000F6856 /* dDial@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dDial@2x.png"; sourceTree = "<group>"; };
+		2260D7B21B27ADFD000F6856 /* dShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dShare@2x.png"; sourceTree = "<group>"; };
+		2260D7B51B27C1BF000F6856 /* PersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoViewController.h; sourceTree = "<group>"; };
+		2260D7B61B27C1BF000F6856 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
+		2260D7B71B27C1BF000F6856 /* PersonalInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalInfoViewController.xib; sourceTree = "<group>"; };
+		2260D7BA1B27C434000F6856 /* AlterUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlterUserInfoViewController.h; sourceTree = "<group>"; };
+		2260D7BB1B27C434000F6856 /* AlterUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlterUserInfoViewController.m; sourceTree = "<group>"; };
+		2260D7BC1B27C434000F6856 /* AlterUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterUserInfoViewController.xib; sourceTree = "<group>"; };
+		2260D7BF1B27D356000F6856 /* AlterPhoneNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlterPhoneNumViewController.h; sourceTree = "<group>"; };
+		2260D7C01B27D356000F6856 /* AlterPhoneNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlterPhoneNumViewController.m; sourceTree = "<group>"; };
+		2260D7C11B27D356000F6856 /* AlterPhoneNumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterPhoneNumViewController.xib; sourceTree = "<group>"; };
+		2260D7C41B27DA22000F6856 /* AreaSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaSettingViewController.h; sourceTree = "<group>"; };
+		2260D7C51B27DA22000F6856 /* AreaSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaSettingViewController.m; sourceTree = "<group>"; };
+		2260D7C61B27DA22000F6856 /* AreaSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AreaSettingViewController.xib; sourceTree = "<group>"; };
+		2260D7C91B27DA43000F6856 /* DispatchersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchersViewController.h; sourceTree = "<group>"; };
+		2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchersViewController.m; sourceTree = "<group>"; };
+		2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchersViewController.xib; sourceTree = "<group>"; };
 		22AE94C51B27044000E8CD83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UserLogin.storyboard; sourceTree = "<group>"; };
 		22AE94C71B270CDA00E8CD83 /* PayConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayConfigViewController.h; sourceTree = "<group>"; };
 		22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayConfigViewController.m; sourceTree = "<group>"; };
@@ -465,6 +513,12 @@
 		22AE94D41B270CF100E8CD83 /* WebChatPayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebChatPayTableViewCell.h; sourceTree = "<group>"; };
 		22AE94D51B270CF100E8CD83 /* WebChatPayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebChatPayTableViewCell.m; sourceTree = "<group>"; };
 		22AE94D61B270CF100E8CD83 /* WebChatPayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebChatPayTableViewCell.xib; sourceTree = "<group>"; };
+		22AE94DF1B272D9E00E8CD83 /* PhotoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTableViewCell.h; sourceTree = "<group>"; };
+		22AE94E01B272D9E00E8CD83 /* PhotoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTableViewCell.m; sourceTree = "<group>"; };
+		22AE94E11B272D9E00E8CD83 /* PhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoTableViewCell.xib; sourceTree = "<group>"; };
+		22AE94E41B272DB900E8CD83 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
+		22AE94E51B272DB900E8CD83 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
+		22AE94E61B272DB900E8CD83 /* UserInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewCell.xib; sourceTree = "<group>"; };
 		59FCCBEC74FA47EE835906A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8195301B07A867004FFA96 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8E3F60851B00AC3700E911F5 /* HTTPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPTool.h; sourceTree = "<group>"; };
@@ -1076,6 +1130,21 @@
 				9794A77C1B26A8280077E5C0 /* PersonalCenterViewController.h */,
 				9794A77D1B26A8280077E5C0 /* PersonalCenterViewController.m */,
 				9794A77E1B26A8280077E5C0 /* PersonalCenterViewController.xib */,
+				2260D7B51B27C1BF000F6856 /* PersonalInfoViewController.h */,
+				2260D7B61B27C1BF000F6856 /* PersonalInfoViewController.m */,
+				2260D7B71B27C1BF000F6856 /* PersonalInfoViewController.xib */,
+				2260D7BA1B27C434000F6856 /* AlterUserInfoViewController.h */,
+				2260D7BB1B27C434000F6856 /* AlterUserInfoViewController.m */,
+				2260D7BC1B27C434000F6856 /* AlterUserInfoViewController.xib */,
+				2260D7BF1B27D356000F6856 /* AlterPhoneNumViewController.h */,
+				2260D7C01B27D356000F6856 /* AlterPhoneNumViewController.m */,
+				2260D7C11B27D356000F6856 /* AlterPhoneNumViewController.xib */,
+				2260D7C41B27DA22000F6856 /* AreaSettingViewController.h */,
+				2260D7C51B27DA22000F6856 /* AreaSettingViewController.m */,
+				2260D7C61B27DA22000F6856 /* AreaSettingViewController.xib */,
+				2260D7C91B27DA43000F6856 /* DispatchersViewController.h */,
+				2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */,
+				2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -1906,6 +1975,8 @@
 		9794A7931B26A8280077E5C0 /* UserCenter */ = {
 			isa = PBXGroup;
 			children = (
+				2260D7B11B27ADFD000F6856 /* dDial@2x.png */,
+				2260D7B21B27ADFD000F6856 /* dShare@2x.png */,
 				9794A7941B26A8280077E5C0 /* about@2x.png */,
 				9794A7951B26A8280077E5C0 /* about@3x.png */,
 				9794A7961B26A8280077E5C0 /* accessory@3x.png */,
@@ -1977,6 +2048,21 @@
 				9794A7C61B26A8280077E5C0 /* PSeperaterTableViewCell.h */,
 				9794A7C71B26A8280077E5C0 /* PSeperaterTableViewCell.m */,
 				9794A7C81B26A8280077E5C0 /* PSeperaterTableViewCell.xib */,
+				22AE94DF1B272D9E00E8CD83 /* PhotoTableViewCell.h */,
+				22AE94E01B272D9E00E8CD83 /* PhotoTableViewCell.m */,
+				22AE94E11B272D9E00E8CD83 /* PhotoTableViewCell.xib */,
+				22AE94E41B272DB900E8CD83 /* UserInfoTableViewCell.h */,
+				22AE94E51B272DB900E8CD83 /* UserInfoTableViewCell.m */,
+				22AE94E61B272DB900E8CD83 /* UserInfoTableViewCell.xib */,
+				2260D7A21B27A46B000F6856 /* DispatchSwitchTableViewCell.h */,
+				2260D7A31B27A46B000F6856 /* DispatchSwitchTableViewCell.m */,
+				2260D7A41B27A46B000F6856 /* DispatchSwitchTableViewCell.xib */,
+				2260D7A71B27A799000F6856 /* DispatchProfitRateTableViewCell.h */,
+				2260D7A81B27A799000F6856 /* DispatchProfitRateTableViewCell.m */,
+				2260D7A91B27A799000F6856 /* DispatchProfitRateTableViewCell.xib */,
+				2260D7AC1B27A9A0000F6856 /* DispatcherTableViewCell.h */,
+				2260D7AD1B27A9A0000F6856 /* DispatcherTableViewCell.m */,
+				2260D7AE1B27A9A0000F6856 /* DispatcherTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2262,6 +2348,7 @@
 				9794A80C1B26A8280077E5C0 /* AlleyDetailViewController.xib in Resources */,
 				977DCFB01B1C9C130060C7BB /* image_round_rect@3x.png in Resources */,
 				9794A8ED1B26A8280077E5C0 /* SupplierViewController.xib in Resources */,
+				2260D7B01B27A9A0000F6856 /* DispatcherTableViewCell.xib in Resources */,
 				9794A87B1B26A8280077E5C0 /* OrderDetailCell_TouristsInfo.xib in Resources */,
 				97C3B26A1B1B3BE600C729C4 /* lock@2x.png in Resources */,
 				97C032131B24884B000385B8 /* confirm_order@2x.png in Resources */,
@@ -2331,6 +2418,7 @@
 				977DCF921B1C96F30060C7BB /* is_new@3x.png in Resources */,
 				9794A83C1B26A8280077E5C0 /* MicroShopCollectionViewCell_MyShop.xib in Resources */,
 				9794A82A1B26A8280077E5C0 /* SwitchCityTableViewCell.xib in Resources */,
+				2260D7C31B27D356000F6856 /* AlterPhoneNumViewController.xib in Resources */,
 				9794A8631B26A8280077E5C0 /* CreateOrderCell_Confirm.xib in Resources */,
 				9794A8931B26A8280077E5C0 /* inputLine_1@3x.png in Resources */,
 				977DCF9D1B1C97090060C7BB /* share@2x.png in Resources */,
@@ -2352,6 +2440,7 @@
 				9794A8281B26A8280077E5C0 /* ShareView.xib in Resources */,
 				9794A8391B26A8280077E5C0 /* AddShopCollectionViewCell.xib in Resources */,
 				97955AA01B27C01600D3E585 /* YesOrNoView.xib in Resources */,
+				2260D7B41B27ADFD000F6856 /* dShare@2x.png in Resources */,
 				9794A8CB1B26A8280077E5C0 /* RecentContactButton.xib in Resources */,
 				973D8B511B1B571500CA4260 /* is_my@3x.png in Resources */,
 				978DB6751B283C70008EAFDE /* TourListCell_Destination_Right.xib in Resources */,
@@ -2369,6 +2458,7 @@
 				9794A87F1B26A8280077E5C0 /* NavBaseViewController.xib in Resources */,
 				22AE94CE1B270CDA00E8CD83 /* PayConfigViewController.xib in Resources */,
 				9794A8331B26A8280077E5C0 /* CommentTableViewCell.xib in Resources */,
+				2260D7BE1B27C434000F6856 /* AlterUserInfoViewController.xib in Resources */,
 				97AFC1941B159792009C3CF6 /* my_computer@2x.png in Resources */,
 				8E5C699A1AFAFC5B004A0CC3 /* Images.xcassets in Resources */,
 				97C3B2571B1B26CB00C729C4 /* search@3x.png in Resources */,
@@ -2382,6 +2472,7 @@
 				97ADF1E41B12AD2A009DA8C3 /* button_rect@2x.png in Resources */,
 				97D78F001B19B873003E66E7 /* provider_selected@2x.png in Resources */,
 				97D78F051B19B873003E66E7 /* service_selected@3x.png in Resources */,
+				2260D7AB1B27A799000F6856 /* DispatchProfitRateTableViewCell.xib in Resources */,
 				9794A8CF1B26A8280077E5C0 /* ReusableHeaderView_SiftSupplier.xib in Resources */,
 				9794A8AD1B26A8280077E5C0 /* mySupplier@3x.png in Resources */,
 				9794A8971B26A8280077E5C0 /* about@2x.png in Resources */,
@@ -2429,6 +2520,7 @@
 				973D8B4D1B1B571500CA4260 /* add_new_supplier@3x.png in Resources */,
 				977DCFB51B1C9C130060C7BB /* telephone@2x.png in Resources */,
 				22AE94D01B270CDA00E8CD83 /* PayListViewController.xib in Resources */,
+				2260D7C81B27DA22000F6856 /* AreaSettingViewController.xib in Resources */,
 				97A570861B240B8F00D48A36 /* rectangle_open@2x.png in Resources */,
 				9794A8A71B26A8280077E5C0 /* msg@3x.png in Resources */,
 				977DCFAF1B1C9C130060C7BB /* image_round_rect@2x.png in Resources */,
@@ -2441,6 +2533,7 @@
 				9770EECE1B2533E5004FDA7A /* alley_telephone@3x.png in Resources */,
 				9794A8981B26A8280077E5C0 /* about@3x.png in Resources */,
 				97192EC61B0CCC4D00C02B9E /* test.png in Resources */,
+				2260D7B31B27ADFD000F6856 /* dDial@2x.png in Resources */,
 				973D8B301B1B40DC00CA4260 /* segment_border@3x.png in Resources */,
 				97C3B2561B1B26CB00C729C4 /* search@2x.png in Resources */,
 				9794A8411B26A8280077E5C0 /* ReusableHeaderView_myShop.xib in Resources */,
@@ -2456,15 +2549,18 @@
 				9794A8B51B26A8280077E5C0 /* signOut@2x.png in Resources */,
 				977DCF9C1B1C97090060C7BB /* preview@3x.png in Resources */,
 				97C3B2691B1B3BE600C729C4 /* delete@3x.png in Resources */,
+				2260D7B91B27C1BF000F6856 /* PersonalInfoViewController.xib in Resources */,
 				9794A8691B26A8280077E5C0 /* CreateOrderCell_Price.xib in Resources */,
 				9794A8C91B26A8280077E5C0 /* MySupplierViewController.xib in Resources */,
 				97C032031B248202000385B8 /* plus_red@3x.png in Resources */,
 				97D78EFC1B19B873003E66E7 /* mine_selected@2x.png in Resources */,
+				22AE94E81B272DB900E8CD83 /* UserInfoTableViewCell.xib in Resources */,
 				9794A8A11B26A8280077E5C0 /* headerBg@3x.png in Resources */,
 				97C032051B248202000385B8 /* substract_gray@3x.png in Resources */,
 				973D8B521B1B571500CA4260 /* not_my_and_not_new@2x.png in Resources */,
 				9794A86D1B26A8280077E5C0 /* CreateOrderViewController.xib in Resources */,
 				97EB55141B288BFF006D53A9 /* AccompanyInfoCell_Company.xib in Resources */,
+				2260D7A61B27A46B000F6856 /* DispatchSwitchTableViewCell.xib in Resources */,
 				9794A88D1B26A8280077E5C0 /* infoIcon@2x.png in Resources */,
 				9794A8A01B26A8280077E5C0 /* headerBg@2x.png in Resources */,
 				9794A8B61B26A8280077E5C0 /* signOut@3x.png in Resources */,
@@ -2517,6 +2613,7 @@
 				97EB551C1B288E32006D53A9 /* instruction@2x.png in Resources */,
 				9794A8651B26A8280077E5C0 /* CreateOrderCell_Input.xib in Resources */,
 				97AFC1851B1574F6009C3CF6 /* qzone@3x.png in Resources */,
+				22AE94E31B272D9E00E8CD83 /* PhotoTableViewCell.xib in Resources */,
 				9794A88E1B26A8280077E5C0 /* infoIcon@3x.png in Resources */,
 				9794A8BB1B26A8280077E5C0 /* webChat@2x.png in Resources */,
 				97D78F071B19B873003E66E7 /* shop_normal@3x.png in Resources */,
@@ -2525,6 +2622,7 @@
 				97D78F0D1B19E326003E66E7 /* click_to_webview@3x.png in Resources */,
 				97D78EFD1B19B873003E66E7 /* mine_selected@3x.png in Resources */,
 				9794A8B41B26A8280077E5C0 /* seperateLine@2x.png in Resources */,
+				2260D7CD1B27DA43000F6856 /* DispatchersViewController.xib in Resources */,
 				97AFC18C1B1574F6009C3CF6 /* yixin@2x.png in Resources */,
 				97AEDBCD1B1458F10098F75B /* fixed_line_phone_hightlighted@2x.png in Resources */,
 				97AFC1911B15753C009C3CF6 /* friends@3x.png in Resources */,
@@ -2584,6 +2682,7 @@
 				9771C3F11B1729F8006A850A /* TourInfo.m in Sources */,
 				9794A8421B26A8280077E5C0 /* ReusableHeaderView_OnlineShop.m in Sources */,
 				9794A8541B26A8280077E5C0 /* TourDetailCell_One.m in Sources */,
+				2260D7AA1B27A799000F6856 /* DispatchProfitRateTableViewCell.m in Sources */,
 				9794A8851B26A8280077E5C0 /* LoginViewController.m in Sources */,
 				9794A88A1B26A8280077E5C0 /* RVerifyCodeViewController.m in Sources */,
 				97C786171B1E804200639576 /* HotCity.m in Sources */,
@@ -2617,9 +2716,11 @@
 				9794A8881B26A8280077E5C0 /* RPhoneNumViewController.m in Sources */,
 				9794A8381B26A8280077E5C0 /* AddShopCollectionViewCell.m in Sources */,
 				9794A8CE1B26A8280077E5C0 /* ReusableHeaderView_SiftSupplier.m in Sources */,
+				2260D7A51B27A46B000F6856 /* DispatchSwitchTableViewCell.m in Sources */,
 				9794A8D81B26A8280077E5C0 /* SearchSupplier_SearchLineClassTableViewCell.m in Sources */,
 				9794A81F1B26A8280077E5C0 /* InviteSupplierTableViewCell_First.m in Sources */,
 				97955A9F1B27C01600D3E585 /* YesOrNoView.m in Sources */,
+				2260D7C71B27DA22000F6856 /* AreaSettingViewController.m in Sources */,
 				9794A8761B26A8280077E5C0 /* OrderDetailCell_OrderInfo.m in Sources */,
 				9794A8341B26A8280077E5C0 /* MicroShopDetailViewController.m in Sources */,
 				97B98F7F1B17EEB400031749 /* CommentInfo.m in Sources */,
@@ -2639,6 +2740,7 @@
 				9794A8291B26A8280077E5C0 /* SwitchCityTableViewCell.m in Sources */,
 				9794A91D1B26A86B0077E5C0 /* AFURLResponseSerialization.m in Sources */,
 				22AE94CF1B270CDA00E8CD83 /* PayListViewController.m in Sources */,
+				2260D7AF1B27A9A0000F6856 /* DispatcherTableViewCell.m in Sources */,
 				22AE94D91B270CF100E8CD83 /* WebChatPayTableViewCell.m in Sources */,
 				9794A8621B26A8280077E5C0 /* CreateOrderCell_Confirm.m in Sources */,
 				9794A9171B26A86B0077E5C0 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -2653,6 +2755,7 @@
 				9794A8DE1B26A8280077E5C0 /* SiftSupplierCollectionView.m in Sources */,
 				9794A85C1B26A8280077E5C0 /* TourListViewController.m in Sources */,
 				9794A84A1B26A8280077E5C0 /* SetShopContactViewController.m in Sources */,
+				2260D7B81B27C1BF000F6856 /* PersonalInfoViewController.m in Sources */,
 				9794A8831B26A8280077E5C0 /* FResetPwdViewController.m in Sources */,
 				9794A8C41B26A8280077E5C0 /* PSeperaterTableViewCell.m in Sources */,
 				97C7861A1B1E80AE00639576 /* HotCountry.m in Sources */,
@@ -2662,6 +2765,8 @@
 				9794A8781B26A8280077E5C0 /* OrderDetailCell_TotalAmount.m in Sources */,
 				9794A80B1B26A8280077E5C0 /* AlleyDetailViewController.m in Sources */,
 				9794A9161B26A86B0077E5C0 /* AFHTTPRequestOperation.m in Sources */,
+				22AE94E71B272DB900E8CD83 /* UserInfoTableViewCell.m in Sources */,
+				22AE94E21B272D9E00E8CD83 /* PhotoTableViewCell.m in Sources */,
 				9794A80F1B26A8280077E5C0 /* AlleyDetailCell_JoinNum.m in Sources */,
 				9794A9181B26A86B0077E5C0 /* AFHTTPSessionManager.m in Sources */,
 				9794A82B1B26A8280077E5C0 /* SwitchCityViewController.m in Sources */,
@@ -2669,6 +2774,7 @@
 				9794A83D1B26A8280077E5C0 /* MicroShopCollectionViewCell_OnlineShop.m in Sources */,
 				9794A9211B26A86B0077E5C0 /* UIAlertView+AFNetworking.m in Sources */,
 				9794A8481B26A8280077E5C0 /* UploadingIconTableViewCell.m in Sources */,
+				2260D7C21B27D356000F6856 /* AlterPhoneNumViewController.m in Sources */,
 				9770EEF51B259C26004FDA7A /* CompanyTemplate.m in Sources */,
 				9794A9221B26A86B0077E5C0 /* UIButton+AFNetworking.m in Sources */,
 				9794A8191B26A8280077E5C0 /* AlleyListViewController.m in Sources */,
@@ -2712,6 +2818,8 @@
 				8E5C698F1AFAFC5B004A0CC3 /* main.m in Sources */,
 				977DCFBF1B1CB66A0060C7BB /* SupplierProduct.m in Sources */,
 				9794A91E1B26A86B0077E5C0 /* AFURLSessionManager.m in Sources */,
+				9794A8EE1B26A8280077E5C0 /* YesOrNoView.m in Sources */,
+				2260D7BD1B27C434000F6856 /* AlterUserInfoViewController.m in Sources */,
 				9793A5081B10276000182006 /* MicroShopInfo.m in Sources */,
 				9794A8D21B26A8280077E5C0 /* SearchSupplier_HotSearchTableViewCell.m in Sources */,
 				9794A8E41B26A8280077E5C0 /* SupplierCollectionView.m in Sources */,
@@ -2727,6 +2835,7 @@
 				9794A8271B26A8280077E5C0 /* ShareView.m in Sources */,
 				97EB55181B288C16006D53A9 /* AccompanyInfo_Instructions.m in Sources */,
 				9794A8841B26A8280077E5C0 /* FVerifyCodeViewController.m in Sources */,
+				2260D7CC1B27DA43000F6856 /* DispatchersViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PayConfigViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DispatchersViewController">
             <connections>
-                <outlet property="configTableView" destination="Sua-S7-cUf" id="9F5-31-F57"/>
+                <outlet property="dispatchersTableView" destination="rYc-Oe-l7g" id="fsz-Hi-K7l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,50 +16,46 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Sua-S7-cUf">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rYc-Oe-l7g">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="5gy-gx-cK6"/>
-                        <outlet property="delegate" destination="-1" id="5M8-gp-JK9"/>
+                        <outlet property="dataSource" destination="-1" id="Kmx-94-lCA"/>
+                        <outlet property="delegate" destination="-1" id="8Kf-o2-P5l"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Sua-S7-cUf" secondAttribute="bottom" constant="244" id="2ek-2G-5Ls">
+                <constraint firstAttribute="trailing" secondItem="rYc-Oe-l7g" secondAttribute="trailing" id="31G-jQ-9Gl"/>
+                <constraint firstItem="rYc-Oe-l7g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-46" id="POo-Mr-6LM">
                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstAttribute="trailing" secondItem="Sua-S7-cUf" secondAttribute="trailing" constant="157" id="DEM-JK-EXI">
+                <constraint firstAttribute="bottom" secondItem="rYc-Oe-l7g" secondAttribute="bottom" constant="46" id="UPS-JE-Ok0">
                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstItem="Sua-S7-cUf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-157" id="HgS-Di-MJF">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="Sua-S7-cUf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-244" id="QhF-dv-eG0">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
+                <constraint firstItem="rYc-Oe-l7g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jaS-OM-cxe"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="Sua-S7-cUf"/>
+                    <exclude reference="rYc-Oe-l7g"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="2ek-2G-5Ls"/>
-                    <exclude reference="DEM-JK-EXI"/>
-                    <exclude reference="HgS-Di-MJF"/>
-                    <exclude reference="QhF-dv-eG0"/>
+                    <exclude reference="31G-jQ-9Gl"/>
+                    <exclude reference="POo-Mr-6LM"/>
+                    <exclude reference="UPS-JE-Ok0"/>
+                    <exclude reference="jaS-OM-cxe"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
                 <mask key="subviews">
-                    <include reference="Sua-S7-cUf"/>
+                    <include reference="rYc-Oe-l7g"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="2ek-2G-5Ls"/>
-                    <include reference="DEM-JK-EXI"/>
-                    <include reference="HgS-Di-MJF"/>
-                    <include reference="QhF-dv-eG0"/>
+                    <include reference="31G-jQ-9Gl"/>
+                    <include reference="POo-Mr-6LM"/>
+                    <include reference="UPS-JE-Ok0"/>
+                    <include reference="jaS-OM-cxe"/>
                 </mask>
             </variation>
         </view>

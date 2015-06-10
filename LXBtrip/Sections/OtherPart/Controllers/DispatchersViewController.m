@@ -1,24 +1,27 @@
 //
-//  PayConfigViewController.m
-//  lxb
+//  DispatchersViewController.m
+//  LXBtrip
 //
-//  Created by Sam on 6/9/15.
-//  Copyright (c) 2015 Bkrtrip. All rights reserved.
+//  Created by Sam on 6/10/15.
+//  Copyright (c) 2015 LXB. All rights reserved.
 //
 
-#import "PayConfigViewController.h"
-#import "InfoConfigTableViewCell.h"
+#import "DispatchersViewController.h"
+#import "DispatcherTableViewCell.h"
 
-@interface PayConfigViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *configTableView;
+@interface DispatchersViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *dispatchersTableView;
 
 @end
 
-@implementation PayConfigViewController
+@implementation DispatchersViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.dispatchersTableView registerNib:[UINib nibWithNibName:@"DispatcherTableViewCell" bundle:nil] forCellReuseIdentifier:@"dispatcherCell"];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,58 +43,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DispatcherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dispatcherCell"];
     
-    InfoConfigTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoConfigCell"];
-    
-    switch (indexPath.row) {
-        case 0:
-        {
-            [cell initializeCellForType:WCPublicUserName];
-        }
-            break;
-        case 1:
-        {
-            [cell initializeCellForType:WCPwd];
-        }
-            break;
-        case 2:
-        {
-            [cell initializeCellForType:PublicAppId];
-        }
-            break;
-        case 3:
-        {
-            [cell initializeCellForType:PublicSecret];
-        }
-            break;
-        case 4:
-        {
-            [cell initializeCellForType:WCPayAcount];
-        }
-            break;
-        case 5:
-        {
-            [cell initializeCellForType:WCPaySecret];
-        }
-            break;
-            
-            
-        default:
-            break;
-    }
     
     return cell;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 120;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     
     
 }
