@@ -41,9 +41,6 @@
         }];
         self.supplierProductsArray = [temp2 copy];
     }
-    
-    
-
 
     self.supplierIsMy = [dict[@"is_my"] isKindOfClass:[NSNull class]]?nil:dict[@"is_my"];
     self.supplierIsNew = [dict[@"is_new"] isKindOfClass:[NSNull class]]?nil:dict[@"is_new"];
@@ -52,10 +49,9 @@
     self.supplierLineTypeLetter = [dict[@"line_type_letter"] isKindOfClass:[NSNull class]]?nil:dict[@"line_type_letter"];
 
     // for TourList page
-    self.supplierJourneyDay = [dict[@"journey_day"] isKindOfClass:[NSNull class]]?nil:dict[@"journey_day"];
-    self.supplierInnerEndCity = [dict[@"inner_end_city"] isKindOfClass:[NSNull class]]?nil:dict[@"inner_end_city"];
-    self.supplierOuterEndCity = [dict[@"out_end_city"] isKindOfClass:[NSNull class]]?nil:dict[@"out_end_city"];
+    self.supplierEndCity = [dict[@"end_city"] isKindOfClass:[NSNull class]]?nil:dict[@"end_city"];
     self.supplierCustomName = [dict[@"custom_name"] isKindOfClass:[NSNull class]]?nil:dict[@"custom_name"];
+    
     self.supplierCustomId = [dict[@"custom_id"] isKindOfClass:[NSNull class]]?nil:dict[@"custom_id"];
 
     

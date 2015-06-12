@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @interface TourDetailCell_Two : UITableViewCell
+
+- (void)setCellContentWithSupplierProduct:(SupplierProduct *)product;
+
 
 @end

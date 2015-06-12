@@ -1,5 +1,5 @@
 //
-//  TourListCell_Destination_Right.h
+//  TourListCell_WalkType.h
 //  LXBtrip
 //
 //  Created by Yang Xiaozhu on 15/6/10.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TourListCell_Destination_Right : UITableViewCell
+@interface TourListCell_Destination : UITableViewCell
 
 - (void)setCellContentWithDestination:(NSString *)destination;
 

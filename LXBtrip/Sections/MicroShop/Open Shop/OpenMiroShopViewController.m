@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"完成"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"完成" image:nil];
     
     [_tablview registerNib:[UINib nibWithNibName:@"UploadingIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"UploadingIconTableViewCell"];
     

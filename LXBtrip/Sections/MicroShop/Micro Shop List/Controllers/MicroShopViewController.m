@@ -43,6 +43,7 @@
 
 @property (strong, nonatomic) UIControl *darkMask;
 @property (nonatomic, strong) YesOrNoView *yesOrNoView;
+@property (strong, nonatomic) UILabel *changeStatusLabel;
 
 @property (nonatomic, copy) NSMutableArray *onlineShopsArray;
 @property (nonatomic, copy) NSMutableArray *myShopsArray;
@@ -77,22 +78,32 @@
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
-    // delete view part
+    // dark mask
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_darkMask addTarget:self action:@selector(hideDeleteActionSheet) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
     
+    // yes or no view
     _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
     [_yesOrNoView setYesOrNoViewWithIntroductionString:@"删除微店后，如需再次使用，请进入在线微店重新添加到我的微店，且微店自动展示已选供应商的产品！" confirmString:@"现在是否要删除此微店？"];
     [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
     _yesOrNoView.delegate = self;
     [self.view addSubview:_yesOrNoView];
     
+    // change status label
+    _changeStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.15*SCREEN_WIDTH, 0.4*SCREEN_HEIGHT, 0.7*SCREEN_WIDTH, 55.f)];
+    _changeStatusLabel.backgroundColor = [UIColor whiteColor];
+    _changeStatusLabel.text = @"默认";
+    _changeStatusLabel.textColor = TEXT_333333;
+    _changeStatusLabel.font = [UIFont systemFontOfSize:14.f];
+    _changeStatusLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_changeStatusLabel];
+    _changeStatusLabel.hidden = YES;
+    
     // online shop collection view
     MicroShopFlowLayout *flow_Online = [[MicroShopFlowLayout alloc] init];
-    
     _onlineShopCollectionView = [[MicroShopCollectionView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height) collectionViewLayout:flow_Online];
     [_onlineShopCollectionView registerNib:[UINib nibWithNibName:@"MicroShopCollectionViewCell_OnlineShop" bundle:nil] forCellWithReuseIdentifier:@"MicroShopCollectionViewCell_OnlineShop"];
     
@@ -125,6 +136,7 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     
+    [self addLongPressGestureRecognizerForMyShop];
     [self shopListNeedsUpdate];
     
     // --TEST--
@@ -132,6 +144,36 @@
     
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
     [self startLocation];
+}
+
+- (void)addLongPressGestureRecognizerForMyShop
+{
+    UILongPressGestureRecognizer *longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
+    longPressGr.minimumPressDuration = 1.0;
+    [_myShopCollectionView addGestureRecognizer:longPressGr];
+}
+
+-(void)longPressToDo:(UILongPressGestureRecognizer *)gesture
+{
+    if(gesture.state == UIGestureRecognizerStateBegan)
+    {
+        CGPoint point = [gesture locationInView:_myShopCollectionView];
+        NSIndexPath * indexPath = [_myShopCollectionView indexPathForItemAtPoint:point];
+        if(indexPath == nil)
+            return ;
+        //add your code here
+        MicroShopInfo *selInfo = _myShopsArray[indexPath.row];
+        TemplateDefaultStatus status = [selInfo.shopIsDefault intValue];
+        
+        if (status == Is_Default) {
+            _changeStatusLabel.textColor = TEXT_333333;
+        } else {
+            _changeStatusLabel.textColor = TEXT_CCCCD2;
+        }
+        _darkMask.alpha = 1.f;
+        _changeStatusLabel.hidden = NO;
+
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -542,6 +584,7 @@
 - (void)hideDeleteActionSheet
 {
     [UIView animateWithDuration:0.4 animations:^{
+        _changeStatusLabel.hidden = YES;
         _darkMask.alpha = 0;
         [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.containerView.frame.size.height)];
     } completion:^(BOOL finished) {

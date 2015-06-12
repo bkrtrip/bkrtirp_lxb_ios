@@ -161,7 +161,7 @@ singleton_implementation(HTTPTool)
 }
 
 //线路列表页 - LXB1127
-+ (void)getTourListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId customId:(NSString *)customId startCity:(NSString *)startCity endCity:(NSString *)endCity dayNum:(NSNumber *)dayNum lineName:(NSString *)lineName pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
++ (void)getTourListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId customId:(NSString *)customId startCity:(NSString *)startCity endCity:(NSString *)endCity walkType:(NSString *)walkType lineName:(NSString *)lineName pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {
     NSMutableDictionary *param = [@{@"templateid":templateId, @"customid":customId, @"startcity":startCity, @"pagenum":pageNum} mutableCopy];
     if (companyId) {
@@ -178,8 +178,8 @@ singleton_implementation(HTTPTool)
         [param setObject:endCity forKey:@"endciity"];
     }
     
-    if (dayNum) {
-        [param setObject:dayNum forKey:@"daynum"];
+    if (walkType) {
+        [param setObject:walkType forKey:@"walktype"];
     }
     
     if (lineName) {
@@ -189,7 +189,7 @@ singleton_implementation(HTTPTool)
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
-    [manager.requestSerializer setValue:@"LXB1224" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:@"LXB1127" forHTTPHeaderField:@"AUTHCODE"];
     [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
 
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/lineList"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -201,6 +201,38 @@ singleton_implementation(HTTPTool)
             fail(error);
         }
     }];
+}
+
+//线路详情页 - LXB1128
++ (void)getTourDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId lineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{@"templateid":templateId, @"code":code} mutableCopy];
+    
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB1128" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/lineDetails"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+
 }
 
 // 添加到我的微店 - LXB1224

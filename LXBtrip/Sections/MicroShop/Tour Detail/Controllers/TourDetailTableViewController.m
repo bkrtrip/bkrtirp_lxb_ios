@@ -7,8 +7,14 @@
 //
 
 #import "TourDetailTableViewController.h"
+#import "TourDetailCell_One.h"
+#import "TourDetailCell_Two.h"
+#import "TourDetailCell_Three.h"
+#import "TourDetailCell_Four.h"
 
-@interface TourDetailTableViewController ()
+@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -16,37 +22,69 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_One" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_One"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Two" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Two"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Three" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Three"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Four" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Four"];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self getTourDetail];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)rightBarButtonItemClicked:(id)sender
+{
+    //
+}
+
+- (void)getTourDetail
+{
+    [HTTPTool getTourDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_product.productTravelGoodsId lineCode:_product.productTravelGoodsCode success:^(id result) {
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100008"] succeed:^{
+            NSLog(@"result[@\"RS100008\"]: %@", result[@"RS100008"]);
+        }];
+    } fail:^(id result) {
+        
+    }];
+}
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
     return 0;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    switch (indexPath.section) {
+        case 0:
+        {
+            TourDetailCell_One *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_One" forIndexPath:indexPath];
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
     
     // Configure the cell...
     
-    return cell;
+    return nil;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.

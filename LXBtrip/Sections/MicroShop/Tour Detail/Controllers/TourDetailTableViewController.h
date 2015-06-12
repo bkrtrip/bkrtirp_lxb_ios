@@ -6,8 +6,10 @@
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface TourDetailTableViewController : UITableViewController
+@interface TourDetailTableViewController : NavBaseViewController
+
+@property (nonatomic, strong) SupplierProduct *product;
 
 @end

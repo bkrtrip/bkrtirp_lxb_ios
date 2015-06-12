@@ -48,13 +48,13 @@
     }
 }
 - (IBAction)previewButtonClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(supportClickWithPreviewButton)]) {
-        [self.delegate supportClickWithPreviewButton];
+    if ([self.delegate respondsToSelector:@selector(supportClickWithPreviewButtonWithProduct:)]) {
+        [self.delegate supportClickWithPreviewButtonWithProduct:supplierProduct];
     }
 }
 - (IBAction)shareButtonClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(supportClickWithShareButton)]) {
-        [self.delegate supportClickWithShareButton];
+    if ([self.delegate respondsToSelector:@selector(supportClickWithShareButtonWithProduct:)]) {
+        [self.delegate supportClickWithShareButtonWithProduct:supplierProduct];
     }
 }
 

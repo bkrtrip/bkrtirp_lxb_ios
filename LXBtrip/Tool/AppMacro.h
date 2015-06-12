@@ -83,11 +83,19 @@
 
 #define TEXT_SELECTED_COLOR [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]
 
+// CCCCD2
+#define TEXT_CCCCD2 [UIColor colorWithRed:204/255.f green:204/255.f blue:210/255.f alpha:1]
+
 // 999999
 #define TEXT_999999 [UIColor colorWithRed:153/255.f green:153/255.f blue:153/255.f alpha:1]
 
 // 666666
 #define TEXT_666666 [UIColor colorWithRed:102/255.f green:102/255.f blue:102/255.f alpha:1]
+
+// 333333
+#define TEXT_333333 [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1]
+
+
 // FF0075
 #define RED_FF0075 [UIColor colorWithRed:255/255.f green:0/255.f blue:117/255.f alpha:1]
 
@@ -169,6 +177,14 @@ typedef enum AlleyJoinStatus // 加盟状态 0：未加盟、1：待申请、 2�
     Apply_Denied = 3,
     Join_released = 4
 }AlleyJoinStatus;
+
+typedef enum WalkType // 
+{
+    All_Kinds = -1,
+    Follow_Group = 0,
+    Free_Run = 1,
+    Half_Free = 2,
+}WalkType;
 
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998

@@ -2,7 +2,7 @@
 //  TourListCell_WalkType.m
 //  LXBtrip
 //
-//  Created by Yang Xiaozhu on 15/6/10.
+//  Created by Yang Xiaozhu on 15/6/12.
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
@@ -10,27 +10,28 @@
 
 @interface TourListCell_WalkType()
 
-@property (strong, nonatomic) IBOutlet UILabel *walkTypeLabel;
+@property (strong, nonatomic) IBOutlet UIButton *walkTypeButton;
+
 @end
 
 @implementation TourListCell_WalkType
 
 - (void)awakeFromNib {
     // Initialization code
+    _walkTypeButton.userInteractionEnabled = NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    [_walkTypeButton setSelected:selected];
 }
 
-- (void)setCellContentWithWalkType:(NSString *)walkType textColor:(UIColor *)color
+- (void)setCellContentWithWalkType:(NSString *)walkType
 {
-    _walkTypeLabel.text = walkType;
-    if (color) {
-        _walkTypeLabel.textColor = color;
-    }
+    [_walkTypeButton setTitle:walkType forState:UIControlStateNormal];
+    [_walkTypeButton setTitle:walkType forState:UIControlStateSelected];
 }
 
 
