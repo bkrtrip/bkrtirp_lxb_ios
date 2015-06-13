@@ -19,12 +19,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.configTableView registerNib:[UINib nibWithNibName:@"InfoConfigTableViewCell" bundle:nil] forCellReuseIdentifier:@"infoConfigCell"];
+    
+    self.configTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - UITableViewDataSource
 

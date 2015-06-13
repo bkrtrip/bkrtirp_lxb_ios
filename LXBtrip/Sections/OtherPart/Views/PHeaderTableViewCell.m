@@ -7,14 +7,22 @@
 //
 
 #import "PHeaderTableViewCell.h"
+#import "NSDictionary+GetStringValue.h"
 
 @interface PHeaderTableViewCell ()
 
 //用户登录后的显示信息
+@property (weak, nonatomic) IBOutlet UIView *signSuccView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *userPhotoImgView;
 @property (weak, nonatomic) IBOutlet UILabel *userInfoNotSetAlertLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shopNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contactNameLabel;
+
+
+//要求用户进行登录/注册流程
+@property (weak, nonatomic) IBOutlet UIView *notSigninView;
+
 @end
 
 @implementation PHeaderTableViewCell
@@ -35,9 +43,24 @@
 
 - (void)initialHeaderViewWithUserInfo:(NSDictionary *)userInfoDic
 {
-    
+    // when shopname and shop contacter name are not set, show tint label
+    if (userInfoDic) {
+        NSString *staffName = [userInfoDic stringValueByKey:@"staff_real_name"];
+        self.contactNameLabel.text = staffName;
+    }
 }
 
+- (void)needUserToSignin:(BOOL)isRequired
+{
+    if (isRequired) {
+        self.notSigninView.hidden = NO;
+        self.signSuccView.hidden = YES;
+    }
+    else {
+        self.notSigninView.hidden = YES;
+        self.signSuccView.hidden = NO;
+    }
+}
 
 
 - (IBAction)registerUser:(id)sender {

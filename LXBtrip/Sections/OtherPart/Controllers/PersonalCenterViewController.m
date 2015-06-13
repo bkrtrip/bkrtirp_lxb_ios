@@ -11,12 +11,17 @@
 #import "PHeaderTableViewCell.h"
 #import "PayListViewController.h"
 #import "AppMacro.h"
+#import "UserModel.h"
 
 #import "PersonalInfoViewController.h"
 #import "DispatchersViewController.h"
+#import "LoginViewController.h"
+#import "RPhoneNumViewController.h"//register procedure start point
 
-@interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol>
+@interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
+
+@property (assign, nonatomic) BOOL isAlreadyLogined;
 
 @end
 
@@ -39,7 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
+    self.isAlreadyLogined = [self getUserLoginState];
     
     [self.mineTableView registerNib:[UINib nibWithNibName:@"PSeperaterTableViewCell" bundle:nil] forCellReuseIdentifier:@"separateCell"];
     
@@ -53,15 +58,52 @@
     [self.navigationController setNavigationBarHidden:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.tabBarController.tabBar.hidden = NO;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
+}
+
+
+- (BOOL)getUserLoginState
+{
+    NSDictionary *userInfoDic = [UserModel getUserInformations];
+    if (userInfoDic) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+#pragma mark - LoginVCProtocol
+
+- (void)loginSuccess
+{
+    self.isAlreadyLogined = YES;
+    [self updateUIForLoginState:YES];
 }
 
 
@@ -96,6 +138,15 @@
         case 0:
             cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
             ((PHeaderTableViewCell *)cell).delegate = self;
+            if (self.isAlreadyLogined) {
+                [(PHeaderTableViewCell *)cell needUserToSignin:NO];
+                
+                //initial user info
+                [(PHeaderTableViewCell *)cell initialHeaderViewWithUserInfo:nil];
+            }
+            else {
+                [(PHeaderTableViewCell *)cell needUserToSignin:YES];
+            }
             break;
         case 2:
         {
@@ -188,7 +239,11 @@
             break;
         case 6:
         {
-            
+            if (self.isAlreadyLogined) {
+                [self confirmLogOutWithAlert];
+                
+                [self updateUIForLoginState:NO];
+            }
         }
             break;
             
@@ -197,6 +252,62 @@
     }
 }
 
+
+- (void)updateUIForLoginState:(BOOL)isAlreadyLogin
+{
+    PHeaderTableViewCell *cell = (PHeaderTableViewCell *)[self.mineTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (cell) {
+        [cell needUserToSignin:!isAlreadyLogin];
+        
+        if (isAlreadyLogin) {
+            [cell initialHeaderViewWithUserInfo:[UserModel getUserInformations]];
+        }
+    }
+}
+
+
+- (void)confirmLogOutWithAlert
+{
+    if (NSClassFromString(@"UIAlertController")) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"退出当前帐号，您的微店将不能使用，确定要退出 ？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *telAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self signOut];
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            ;
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:telAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"退出当前帐号，您的微店将不能使用，确定要退出 ？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        
+        [alertView show];
+    }
+}
+
+#pragma mark - alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self signOut];
+    }
+}
+
+
+- (void)signOut
+{
+    //clear user infomation
+    [UserModel clearUserInformation];
+    
+    
+}
 
 
 #pragma mark HeaderViewDelegate
@@ -210,12 +321,21 @@
     switch (action) {
         case GoToLogin:
         {
+            //登录界面
             
+            UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
+            UIViewController *viewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"loginControllerNavController"];
+            ((LoginViewController *)(((UINavigationController *)viewController).viewControllers.firstObject)).delegate = self;
+            
+            [self presentViewController:viewController animated:YES completion:nil];
         }
             break;
         case GoToRegister:
         {
+            UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
+            UIViewController *viewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"registerNavController"];
             
+            [self presentViewController:viewController animated:YES completion:nil];
         }
             break;
         case GoToDispatchers:

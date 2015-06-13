@@ -10,7 +10,14 @@
 #import "RPhoneNumViewController.h"
 #import "AppMacro.h"
 
+@protocol LoginVCProtocol <NSObject>
+
+- (void)loginSuccess;
+
+@end
+
 @interface LoginViewController : UIViewController
 
+@property (weak, nonatomic) id<LoginVCProtocol> delegate;
 
 @end

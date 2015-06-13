@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="268" id="KGk-i7-Jjw" customClass="PHeaderTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="268" id="KGk-i7-Jjw" customClass="PHeaderTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="268"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -21,7 +21,7 @@
                             <constraint firstAttribute="height" constant="180" id="8Y2-Xp-gxj"/>
                         </constraints>
                     </imageView>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4u-pJ-7hi" userLabel="View-notSign-in">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4u-pJ-7hi" userLabel="View-notSign-in">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎来到旅小宝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ca-f0-mtv">
@@ -67,7 +67,7 @@
                             <constraint firstItem="VLr-WO-qb7" firstAttribute="centerX" secondItem="2ca-f0-mtv" secondAttribute="centerX" constant="-56.5" id="g3s-7M-ZYB"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43W-GU-nsQ" userLabel="View-log_info">
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43W-GU-nsQ" userLabel="View-log_info">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6XJ-nJ-Eze">
@@ -259,7 +259,9 @@
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="contactNameLabel" destination="jRB-1o-8wz" id="FcI-hZ-LQ8"/>
+                <outlet property="notSigninView" destination="E4u-pJ-7hi" id="6Tt-fX-UQZ"/>
                 <outlet property="shopNameLabel" destination="zmY-1A-oAl" id="81C-jq-af9"/>
+                <outlet property="signSuccView" destination="43W-GU-nsQ" id="39G-c9-Wpe"/>
                 <outlet property="userInfoNotSetAlertLabel" destination="fl4-Eh-zSx" id="ieC-wX-KYK"/>
                 <outlet property="userPhotoImgView" destination="6XJ-nJ-Eze" id="HQC-tm-2ga"/>
             </connections>

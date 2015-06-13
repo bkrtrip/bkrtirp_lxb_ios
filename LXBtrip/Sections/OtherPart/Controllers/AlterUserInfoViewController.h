@@ -17,6 +17,8 @@ typedef enum : NSUInteger {
 
 @interface AlterUserInfoViewController : NavBaseViewController
 
+@property (assign, nonatomic) AlterInfoTypes type;
+
 - (void)initailAlterType:(AlterInfoTypes)type forInfomation:(NSString *)info;
 
 @end
