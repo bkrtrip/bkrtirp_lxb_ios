@@ -39,8 +39,9 @@
     [HTTPTool getServiceDetailWithServiceId:_alley.alleyId success:^(id result) {
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100021"] succeed:^{
             _alley = [[AlleyInfo alloc] initWithDict:result[@"RS100021"]];
+            [_tableView reloadData];
+        } fail:^(id result) {
         }];
-        [_tableView reloadData];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取详情失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];

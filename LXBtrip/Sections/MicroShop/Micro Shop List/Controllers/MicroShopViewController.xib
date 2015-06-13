@@ -53,7 +53,7 @@
                         <constraint firstAttribute="height" constant="52" id="T9T-xx-wzK"/>
                     </constraints>
                     <state key="normal" title="在线微店">
-                        <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" title="在线微店">

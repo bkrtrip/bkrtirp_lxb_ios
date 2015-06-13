@@ -27,7 +27,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drK-ip-dDW">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="659"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-DZ-MQ8">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-DZ-MQ8">
                             <rect key="frame" x="83" y="12" width="248" height="437"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="437" id="jih-7m-Ww1"/>
@@ -219,7 +219,4 @@
             <point key="canvasLocation" x="396" y="392"/>
         </view>
     </objects>
-    <resources>
-        <image name="test.png" width="429" height="759"/>
-    </resources>
 </document>

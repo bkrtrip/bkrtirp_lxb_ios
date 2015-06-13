@@ -12,10 +12,10 @@
 
 - (id)initWithDict:(NSDictionary *)dict
 {
-    self.commentUserPhoto = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
-    self.commentUserName = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
-    self.commentContent = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
-    self.commentCreatedTime = [dict[@""] isKindOfClass:[NSNull class]]?nil:dict[@""];
+    self.commentUserPhoto = [dict[@"head_url"] isKindOfClass:[NSNull class]]?nil:dict[@"head_url"];
+    self.commentUserName = [dict[@"staff_name"] isKindOfClass:[NSNull class]]?nil:dict[@"staff_name"];
+    self.commentContent = [dict[@"content"] isKindOfClass:[NSNull class]]?nil:dict[@"content"];
+    self.commentCreatedTime = [dict[@"create_date"] isKindOfClass:[NSNull class]]?nil:dict[@"create_date"];
     
     return self;
 }

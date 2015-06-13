@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "AppMacro.h"
 
+@protocol TourDetailCell_Four_Delegate <NSObject>
+
+- (void)supportClickWithDetail;
+- (void)supportClickWithTravelTourGuide;
+- (void)supportClickWithReviews;
+
+@end
+
 @interface TourDetailCell_Four : UITableViewCell
 
-- (void)setCellContentWithSupplierProduct:(SupplierProduct *)product;
+@property (nonatomic, weak) id <TourDetailCell_Four_Delegate> delegate;
 
 @end

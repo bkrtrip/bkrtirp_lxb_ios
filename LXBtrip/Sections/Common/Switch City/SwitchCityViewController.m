@@ -119,6 +119,7 @@
             [self sortCitiesUsingInitialsWithUnsortedArray:allCitiesArrayUnsorted];
             allCitiesFetchSucceed = YES;
             [self shouldReloadData];
+        } fail:^(id result) {
         }];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取所有城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

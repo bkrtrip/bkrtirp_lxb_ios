@@ -41,6 +41,12 @@ singleton_interface(HTTPTool)
 //线路详情页 - LXB1128
 + (void)getTourDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId lineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail;
 
+//评论列表 - LXB11245
++ (void)getReviewsListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//新增评论 - LXB12246
++ (void)postReviewWithCompanyIdA:(NSNumber *)companyIdA staffIdA:(NSNumber *)staffIdA CompanyIdB:(NSNumber *)companyIdB staffIdB:(NSNumber *)staffIdB lineCode:(NSString *)code reviewContent:(NSString *)content success:(SuccessBlock)success fail:(FailBlock)fail;
+
 // 添加到我的微店 - LXB1224
 + (void)addToMyShopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
 

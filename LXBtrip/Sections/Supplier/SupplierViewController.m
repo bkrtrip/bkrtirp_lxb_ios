@@ -267,6 +267,7 @@
                     [collectionViewsArray[selectedIndex] reloadData];
                     pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
                 }
+            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -303,6 +304,7 @@
                     [collectionViewsArray[selectedIndex] reloadData];
                     pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
                 }
+            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

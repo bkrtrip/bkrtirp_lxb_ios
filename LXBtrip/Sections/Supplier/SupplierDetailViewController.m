@@ -132,6 +132,7 @@ typedef enum PopUpViewType
                 }
 
                 [_tableView reloadData];
+            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -147,6 +148,7 @@ typedef enum PopUpViewType
                 }
                 
                 [_tableView reloadData];
+            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -177,6 +179,7 @@ typedef enum PopUpViewType
             }
             // restore popUpType
             popUpType = None_Type;
+        } fail:^(id result) {
         }];
     } fail:^(id result) {
         NSString *title;

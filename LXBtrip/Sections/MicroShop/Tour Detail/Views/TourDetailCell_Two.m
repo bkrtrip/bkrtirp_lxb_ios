@@ -18,19 +18,56 @@
 
 @end
 
-
 @implementation TourDetailCell_Two
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (CGFloat)cellHeightWithSupplierProduct:(SupplierProduct *)product startDate:(NSString *)dateString
+{
+    CGFloat cellHeight = 150.f;
+    
+    _providerNameLabel.text = product.productCompanyName;
+    _instructionsLabel.text = product.productPeerNotice;
+    
+    CGSize instructionsLabelSize = [_instructionsLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8.f, MAXFLOAT)];
+    
+    cellHeight += instructionsLabelSize.height;
+    
+    if (product.productMarketTicketGroup.count > 0) {
+        if (dateString) {
+            NSMutableArray *temp = product.productTravelTicketGroup;
+            [temp enumerateObjectsUsingBlock:^(TravelTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+                if ([grp.travelTime isEqualToString:dateString]) {
+                    _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.travelAdultPrice];
+                    _childPerBedPriceLabel.text = [NSString stringWithFormat:@"￥%@/", grp.travelKidPrice];
+                    _childPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.travelKidPriceNoBed];
+                } else {
+                    _adultPriceLabel.text = @"";
+                    _childPerBedPriceLabel.text = @"";
+                    _childPriceLabel.text = @"";
+                }
+            }];
+        } else {
+            TravelTicketGroup *lastGrp = [product.productTravelTicketGroup lastObject];
+            _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.travelAdultPrice];
+            _childPerBedPriceLabel.text = [NSString stringWithFormat:@"￥%@/", lastGrp.travelKidPrice];
+            _childPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.travelKidPriceNoBed];
+        }
+    }
+    return cellHeight;
 }
+- (IBAction)makePhoneCallButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithPhoneCall)]) {
+        [self.delegate supportClickWithPhoneCall];
+    }
+}
+
 - (IBAction)moreInstructionsButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithMoreInstructions)]) {
+        [self.delegate supportClickWithMoreInstructions];
+    }
 }
 
 @end

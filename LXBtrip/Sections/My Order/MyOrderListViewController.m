@@ -132,6 +132,7 @@
                 }];
             }
             [tableViewsArray[selectedIndex] reloadData];
+        } fail:^(id result) {
         }];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

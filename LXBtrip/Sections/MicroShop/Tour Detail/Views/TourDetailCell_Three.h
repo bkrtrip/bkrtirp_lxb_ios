@@ -11,6 +11,6 @@
 
 @interface TourDetailCell_Three : UITableViewCell
 
-- (void)setCellContentWithSupplierProduct:(SupplierProduct *)product;
+- (void)setCellContentWithStartDate:(NSString *)startDate;
 
 @end

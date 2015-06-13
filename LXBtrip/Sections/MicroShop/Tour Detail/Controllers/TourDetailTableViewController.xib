@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TourDetailTableViewController">
             <connections>
-                <outlet property="tableView" destination="0rA-7S-fII" id="vRb-qL-U4D"/>
+                <outlet property="tableView" destination="CDC-TO-acu" id="gFC-C4-aqb"/>
                 <outlet property="view" destination="h1z-7r-qDX" id="R3E-zJ-FHi"/>
             </connections>
         </placeholder>
@@ -16,24 +16,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0rA-7S-fII">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="CDC-TO-acu">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="v2G-SC-KNh"/>
-                        <outlet property="delegate" destination="-1" id="ckz-8w-Gxv"/>
+                        <outlet property="dataSource" destination="-1" id="cmT-7U-vBa"/>
+                        <outlet property="delegate" destination="-1" id="lHo-JO-eFP"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="0rA-7S-fII" firstAttribute="top" secondItem="h1z-7r-qDX" secondAttribute="top" id="1Ia-Tk-CFc"/>
-                <constraint firstAttribute="trailing" secondItem="0rA-7S-fII" secondAttribute="trailing" id="Vbq-Kb-fQK"/>
-                <constraint firstItem="0rA-7S-fII" firstAttribute="leading" secondItem="h1z-7r-qDX" secondAttribute="leading" id="kXW-Fr-Rua"/>
-                <constraint firstAttribute="bottom" secondItem="0rA-7S-fII" secondAttribute="bottom" id="qv3-uU-ben"/>
+                <constraint firstAttribute="trailing" secondItem="CDC-TO-acu" secondAttribute="trailing" id="0XW-ik-H3L"/>
+                <constraint firstAttribute="bottom" secondItem="CDC-TO-acu" secondAttribute="bottom" id="7cN-jf-d6K"/>
+                <constraint firstItem="CDC-TO-acu" firstAttribute="leading" secondItem="h1z-7r-qDX" secondAttribute="leading" id="DqV-lc-g5g"/>
+                <constraint firstItem="CDC-TO-acu" firstAttribute="top" secondItem="h1z-7r-qDX" secondAttribute="top" id="r4O-r5-dR2"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="315" y="334"/>
+            <point key="canvasLocation" x="32" y="337"/>
         </view>
     </objects>
 </document>

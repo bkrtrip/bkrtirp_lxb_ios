@@ -11,6 +11,6 @@
 
 @interface TourDetailCell_One : UITableViewCell
 
-- (void)setCellContentWithSupplierProduct:(SupplierProduct *)product;
+- (CGFloat)cellHeightWithSupplierProduct:(SupplierProduct *)product startDate:(NSString *)dateString;
 
 @end
