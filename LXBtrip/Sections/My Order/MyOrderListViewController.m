@@ -56,7 +56,7 @@
     
     selectedIndex = 0;
     orderType = Order_Not_Confirm;
-    pageNumsArray = @[@0, @0, @0];
+    pageNumsArray = @[@1, @1, @1];
     ordersArray = [[NSMutableArray alloc] initWithCapacity:3];
     for (int i = 0; i < 3; i++) {
         NSMutableArray *array = [[NSMutableArray alloc] init];

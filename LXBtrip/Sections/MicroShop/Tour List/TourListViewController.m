@@ -91,7 +91,7 @@
 
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
     
-    pageNum = 0;
+    pageNum = 1;
     [self setWalkTypeTableViewHidden:YES];
     [self setDestinationCityTableViewHidden:YES];
     
@@ -240,7 +240,7 @@
         }
         [self hidePopUpViews];
         
-        pageNum = 0;
+        pageNum = 1;
         isRefreshing = YES;
         [self getTourList];
     }
@@ -282,7 +282,7 @@
         
         [self hidePopUpViews];
         
-        pageNum = 0;
+        pageNum = 1;
         isRefreshing = YES;
         [self getTourList];
     }
@@ -337,7 +337,7 @@
     if (!_shareView) {
         _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
         CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
-        [_shareView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _shareView.delegate = self;
         [self.view addSubview:_shareView];
     }
@@ -361,7 +361,7 @@
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
         CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName introduce:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
         
-         [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
+         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
          [self.view addSubview:_accompanyInfoView];
     }
@@ -427,6 +427,10 @@
     [self hideShareViewWithCompletionBlock:nil];
 }
 
+- (void)supportClickWithCancel
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

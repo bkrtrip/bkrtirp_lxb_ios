@@ -65,7 +65,9 @@
     curProvince = @"陕西";
     curCountry = @"中国";
     
+    pageNum = 1;
     [self getAlleyList];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

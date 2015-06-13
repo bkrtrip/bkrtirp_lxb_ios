@@ -30,7 +30,7 @@
     }];
     _userNameLabel.text = info.commentUserName;
     _userCommentLabel.text = info.commentContent;    
-    _commentCreatedTimeLabel.text = info.commentCreatedTime;
+    _commentCreatedTimeLabel.text = [info.commentCreatedTime stringValue];
 }
 
 

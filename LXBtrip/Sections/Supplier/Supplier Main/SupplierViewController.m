@@ -25,7 +25,6 @@
     NSString *lineClass;
     NSString *lineType;
 
-    NSInteger selectedIndex; // 0~4
     
     NSMutableArray *isLoadingMoresArray;
     NSMutableArray *pageNumsArray;
@@ -62,6 +61,9 @@
 @property (nonatomic, strong) UILabel *underLineLabel;
 @property (nonatomic, copy) NSMutableArray *suppliersArray;
 
+@property (nonatomic, assign) NSInteger selectedIndex; // 0~4
+
+
 
 @end
 
@@ -82,24 +84,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:@"MY_SHOP_HAS_UPDATED" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:@"SWITCH_CITY_WITH_CITY_NAME" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
-    
-    _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
-    for (int i = 0; i < 5; i++) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [_suppliersArray addObject:array];
-    }
-    
-    pageNumsArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
-    isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
-    
-    // --TEST--
-    selectedIndex = 0;
-    startCity = @"西安";
-    lineClass = LINE_CLASS[@(selectedIndex)];
-    lineType = nil;
     
     CGFloat yOrigin = 20.f + 44.f + 82.f;
     
@@ -122,8 +111,11 @@
         collectionView.dataSource = self;
         collectionView.delegate = self;
         collectionView.backgroundColor = [UIColor whiteColor];
-        [_scrollView addSubview:collectionView];
         
+        UIScrollView *scroll = (UIScrollView *)collectionView;
+        scroll.delegate = self;
+
+        [_scrollView addSubview:collectionView];
         [collectionViewsArray addObject:collectionView];
     }
     
@@ -132,7 +124,26 @@
     _scrollView.scrollEnabled = NO;
     _scrollView.delegate = self;
     
-    // ---TEST---
+
+    // --TEST--
+    self.selectedIndex = 0;
+    startCity = @"西安";
+    lineType = nil;
+    
+    [self refreshSupplierList];
+}
+
+- (void)refreshSupplierList
+{
+    _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
+    for (int i = 0; i < 5; i++) {
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        [_suppliersArray addObject:array];
+    }
+    
+    pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
+    isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
+    
     [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
 }
 
@@ -146,6 +157,12 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    _selectedIndex = selectedIndex;
+    lineClass = LINE_CLASS[@(_selectedIndex)];
 }
 
 //开始定位
@@ -232,15 +249,15 @@
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {    
-    if ([isLoadingMoresArray[selectedIndex] integerValue] == 0) {
-        pageNumsArray[selectedIndex] = @0;
+    if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
+        pageNumsArray[_selectedIndex] = @1;
     }
     
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[selectedIndex] success:^(id result) {
-            [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
-                if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
-                    NSArray *data = result[@"RS100009"];
+        [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100010"] succeed:^{
+                if ([result[@"RS100010"] isKindOfClass:[NSArray class]]) {
+                    NSArray *data = result[@"RS100010"];
                     [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         
                         NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
@@ -262,10 +279,10 @@
                             }];
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
-                        [_suppliersArray[selectedIndex] addObject:tempDict];
+                        [_suppliersArray[_selectedIndex] addObject:tempDict];
                     }];
-                    [collectionViewsArray[selectedIndex] reloadData];
-                    pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
+                    [collectionViewsArray[_selectedIndex] reloadData];
+                    pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
                 }
             } fail:^(id result) {
             }];
@@ -274,7 +291,7 @@
             [alert show];
         }];
     } else {
-        [HTTPTool getSuppliersListWithStartCity:startCity lineClass:LINE_CLASS[@(selectedIndex)] lineType:nil pageNum:pageNumsArray[selectedIndex] success:^(id result) {
+        [HTTPTool getSuppliersListWithStartCity:startCity lineClass:lineClass lineType:nil pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];
@@ -299,10 +316,10 @@
                             }];
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
-                        [_suppliersArray[selectedIndex] addObject:tempDict];
+                        [_suppliersArray[_selectedIndex] addObject:tempDict];
                     }];
-                    [collectionViewsArray[selectedIndex] reloadData];
-                    pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue] + 1);
+                    [collectionViewsArray[_selectedIndex] reloadData];
+                    pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
                 }
             } fail:^(id result) {
             }];
@@ -316,18 +333,18 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [_suppliersArray[selectedIndex] count];
+    return [_suppliersArray[_selectedIndex] count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[_suppliersArray[selectedIndex][section] objectForKey:@"supplier_info"] count];
+    return [[_suppliersArray[_selectedIndex][section] objectForKey:@"supplier_info"] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SupplierCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SupplierCollectionViewCell" forIndexPath:indexPath];
-    NSArray *subArray = [_suppliersArray[selectedIndex][indexPath.section] objectForKey:@"supplier_info"];
+    NSArray *subArray = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"];
     SupplierInfo *info = subArray[indexPath.row];
     [cell setCellContentWithSupplierInfo:info];
     return cell;
@@ -336,7 +353,7 @@
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     ReusableHeaderView_Supplier *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_Supplier" forIndexPath:indexPath];
-    header.sectionHeaderNameLabel.text = [_suppliersArray[selectedIndex][indexPath.section] objectForKey:@"line_type"];
+    header.sectionHeaderNameLabel.text = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"line_type"];
     return header;
 }
 
@@ -351,22 +368,24 @@
 {
     // jump to detail
     SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
-    NSArray *subSectionArray = [_suppliersArray[selectedIndex][indexPath.section] valueForKey:@"supplier_info"];
+    NSArray *subSectionArray = [_suppliersArray[_selectedIndex][indexPath.section] valueForKey:@"supplier_info"];
     SupplierInfo *curInfo = subSectionArray[indexPath.row];
     detail.info = curInfo;
     [self.navigationController pushViewController:detail animated:YES];
 }
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
+    if (fabs(delta) < 10) {
+        isLoadingMoresArray[_selectedIndex] = @(YES);
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    }
+}
 
 
-
-
-
-
-
-
-
-
+#pragma mark - Actions
 - (IBAction)selectButtonClicked:(id)sender {
     SiftSupplierViewController *siftSupplier = [[SiftSupplierViewController alloc] init];
     siftSupplier.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -387,24 +406,24 @@
 - (IBAction)searchProductButtonClicked:(id)sender {
 }
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
-    selectedIndex = 0;
-    [self scrollToVisibleWithSelectedIndex:selectedIndex];
+    self.selectedIndex = 0;
+    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
-    selectedIndex = 1;
-    [self scrollToVisibleWithSelectedIndex:selectedIndex];
+    self.selectedIndex = 1;
+    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
-    selectedIndex = 2;
-    [self scrollToVisibleWithSelectedIndex:selectedIndex];
+    self.selectedIndex = 2;
+    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
-    selectedIndex = 3;
-    [self scrollToVisibleWithSelectedIndex:selectedIndex];
+    self.selectedIndex = 3;
+    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
-    selectedIndex = 4;
-    [self scrollToVisibleWithSelectedIndex:selectedIndex];
+    self.selectedIndex = 4;
+    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 
 - (void)scrollToVisibleWithSelectedIndex:(NSInteger)index
@@ -417,6 +436,7 @@
             [_underLineLabel setFrame:CGRectMake(SCREEN_WIDTH/2.0 + (index-3)*(SCREEN_WIDTH/2.0)/2, _underLineLabel.frame.origin.y, (SCREEN_WIDTH/2.0)/2, _underLineLabel.frame.size.height)];
         }
     }];
+    
     if ([_suppliersArray[index] count] == 0) {
         [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     }

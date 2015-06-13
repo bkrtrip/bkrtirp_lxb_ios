@@ -72,4 +72,9 @@
     }
 }
 
+- (IBAction)cancelButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithCancel)]) {
+        [self.delegate supportClickWithCancel];
+    }
+}
 @end

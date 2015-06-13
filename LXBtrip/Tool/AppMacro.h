@@ -114,6 +114,7 @@
 //  code	常用返回码
 typedef enum ErrorCodeType
 {
+    ERROR_CODE_ERROR = -1,//错误
     ERROR_CODE_SUCCESSFUL = 0,//成功
     ERROR_CODE_NO_DATA = 90001, //查询无数据
     ERROR_CODE_TOKEN_INVALID = 90002, //TOKEN不合法
@@ -185,6 +186,21 @@ typedef enum WalkType //
     Free_Run = 1,
     Half_Free = 2,
 }WalkType;
+
+typedef enum PopUpViewType
+{
+    None_Type = 0,
+    Accompany_Type = 1,
+    Preview_Type = 2,
+    Share_Type = 3
+} PopUpViewType;
+
+typedef enum DropDownType
+{
+    No_Type = 0,
+    StartCity_Type = 1,
+    Travel_Type = 2
+} DropDownType;
 
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998

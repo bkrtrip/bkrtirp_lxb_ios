@@ -361,7 +361,6 @@
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getMyMicroShopListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
-            NSLog(@"result[@\"RS100005\"] -----%@", result[@"RS100005"]);
             if ([result[@"RS100005"] isKindOfClass:[NSArray class]]) {
                 [result[@"RS100005"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];

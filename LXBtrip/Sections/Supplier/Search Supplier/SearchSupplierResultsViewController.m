@@ -12,13 +12,6 @@
 #import "TourListTableViewCell.h"
 #import "SearchSupplier_SearchLineClassTableViewCell.h"
 
-typedef enum DropDownType
-{
-    None_Type = 0,
-    StartCity_Type = 1,
-    Travel_Type = 2
-} DropDownType;
-
 @interface SearchSupplierResultsViewController ()
 {
     NSInteger pageNum;
@@ -58,8 +51,8 @@ typedef enum DropDownType
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    pageNum = 0;
-    dropDownType = None_Type;
+    pageNum = 1;
+    dropDownType = No_Type;
     searchedResultsArray = [[NSMutableArray alloc] init];
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
@@ -168,7 +161,7 @@ typedef enum DropDownType
         [self foldTravelType];
         [self unfoldStartCity];
     }
-    else if (dropDownType == None_Type) {
+    else if (dropDownType == No_Type) {
         [self unfoldStartCity];
     }
 }
@@ -181,7 +174,7 @@ typedef enum DropDownType
     else if (dropDownType == Travel_Type) {
         [self foldTravelType];
     }
-    else if (dropDownType == None_Type) {
+    else if (dropDownType == No_Type) {
         [self unfoldTravelType];
     }
 }
@@ -212,7 +205,7 @@ typedef enum DropDownType
         _darkMask.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
-            dropDownType = None_Type;
+            dropDownType = No_Type;
         }
     }];
 }
@@ -241,7 +234,7 @@ typedef enum DropDownType
         _darkMask.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
-            dropDownType = None_Type;
+            dropDownType = No_Type;
         }
     }];
 }

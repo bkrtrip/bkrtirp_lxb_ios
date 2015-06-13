@@ -18,6 +18,7 @@
 - (void)supportClickWithWeiboWithShareObject:(id)obj;
 - (void)supportClickWithQZoneWithShareObject:(id)obj;
 - (void)supportClickWithYiXinWithShareObject:(id)obj;
+- (void)supportClickWithCancel;
 
 @end
 

@@ -23,7 +23,7 @@
 
 @property (nonatomic, copy) NSMutableArray *supplierProductsArray; // contains SupplierProduct
 
-@property (nonatomic, copy) NSNumber *supplierIsMy;
+@property (nonatomic, copy) NSString *supplierIsMy;
 @property (nonatomic, copy) NSNumber *supplierIsNew;
 @property (nonatomic, copy) NSNumber *supplierIsSync;
 

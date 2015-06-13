@@ -40,6 +40,12 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     if ([obj isKindOfClass:[NSDictionary class]]) {
         ErrorCodeType type = [obj[@"error_code"] intValue];
         switch (type) {
+            case ERROR_CODE_ERROR: //错误
+            {
+                if (succeed) {
+                    succeed(nil);
+                }
+            }
             case ERROR_CODE_SUCCESSFUL: //成功
             {
                 if (succeed) {

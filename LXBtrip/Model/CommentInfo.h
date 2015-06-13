@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString *commentUserPhoto;
 @property (nonatomic, copy) NSString *commentUserName;
 @property (nonatomic, copy) NSString *commentContent;
-@property (nonatomic, copy) NSString *commentCreatedTime;
+@property (nonatomic, copy) NSNumber *commentCreatedTime;
 
 - (id)initWithDict:(NSDictionary *)dict;
 

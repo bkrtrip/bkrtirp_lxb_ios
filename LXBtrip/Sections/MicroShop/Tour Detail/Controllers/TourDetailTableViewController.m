@@ -69,7 +69,6 @@
     [HTTPTool getTourDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_product.productTravelGoodsId lineCode:_product.productTravelGoodsCode success:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100008"] succeed:^{
-            NSLog(@"result[@\"RS100008\"]: %@", result[@"RS100008"]);
             _product = [[SupplierProduct alloc] initWithDict:result[@"RS100008"]];
             [_tableView reloadData];
         } fail:^(id result) {
