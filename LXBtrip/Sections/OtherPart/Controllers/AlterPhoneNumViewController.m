@@ -35,7 +35,7 @@
     
     self.title = @"联系电话";
     
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"image:nil];
 }
 
 - (void)didReceiveMemoryWarning {

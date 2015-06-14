@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self initailWithAlterType:self.type];
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
 
 }
 
