@@ -42,7 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
     
     cellPhonePartIsSelected = YES;
     [self SetCellPhonePartSelected:cellPhonePartIsSelected];

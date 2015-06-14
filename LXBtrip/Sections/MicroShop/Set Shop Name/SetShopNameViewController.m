@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"微店名称";
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"下一步"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"下一步" image:nil];
 }
 
 - (void)rightBarButtonItemClicked:(id)sender

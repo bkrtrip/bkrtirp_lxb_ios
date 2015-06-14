@@ -93,7 +93,7 @@
                 <constraint firstItem="R0S-Re-KwQ" firstAttribute="centerY" secondItem="ZWB-3D-PFB" secondAttribute="centerY" id="uyC-PI-aXR"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="398.5" y="392.5"/>
+            <point key="canvasLocation" x="104.5" y="74.5"/>
         </view>
     </objects>
     <resources>

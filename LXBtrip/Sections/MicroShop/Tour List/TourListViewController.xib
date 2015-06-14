@@ -10,14 +10,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TourListViewController">
             <connections>
                 <outlet property="darkMask" destination="x4b-Gv-Tvd" id="m2Y-xV-9Fj"/>
-                <outlet property="leftTableView_EndCity" destination="z3M-ft-kfG" id="rtL-uT-SAB"/>
+                <outlet property="destinationButton" destination="8gc-94-qjm" id="tNH-OT-Wnh"/>
+                <outlet property="destinationTableView" destination="rJc-Ol-ciH" id="avB-Tw-MKQ"/>
                 <outlet property="locationButton" destination="pm6-ga-Elz" id="7ZH-mT-683"/>
                 <outlet property="mainTableView" destination="Lmw-j1-ZWh" id="mr6-mk-3xk"/>
-                <outlet property="rightTableView_EndCity" destination="rJc-Ol-ciH" id="nKY-av-IXf"/>
                 <outlet property="searchBar" destination="e8K-BQ-wot" id="Bbr-xT-ctL"/>
                 <outlet property="searchButton" destination="5Mf-OE-j4V" id="LGH-Ak-1aE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walkTableView" destination="T4p-cb-ZGg" id="NbM-vY-TkR"/>
+                <outlet property="walkTypeButton" destination="hRV-ia-wRd" id="dqS-y1-zHq"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -136,6 +137,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gc-94-qjm">
                     <rect key="frame" x="0.0" y="98" width="160" height="57"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="57" id="EnX-Bm-6fw"/>
                     </constraints>
@@ -150,6 +152,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRV-ia-wRd">
                     <rect key="frame" x="160" y="98" width="160" height="57"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="出行方式" image="calendar.png">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -161,6 +164,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="In7-aV-etP" userLabel="toTopButton">
                     <rect key="frame" x="280" y="528" width="30" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="In7-aV-etP" secondAttribute="height" multiplier="1:1" id="CVO-fY-B9u"/>
                         <constraint firstAttribute="height" constant="30" id="kBe-U0-alZ"/>
@@ -172,19 +176,8 @@
                         <action selector="toTopButtonClicked:" destination="-1" eventType="touchUpInside" id="R1d-eT-ka3"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="z3M-ft-kfG" userLabel="left_table_view">
-                    <rect key="frame" x="0.0" y="155" width="107" height="88"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="88" id="7ym-Oe-HWQ"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="PKZ-bb-eE4"/>
-                        <outlet property="delegate" destination="-1" id="8ch-VE-l9Z"/>
-                    </connections>
-                </tableView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rJc-Ol-ciH" userLabel="right_table_view">
-                    <rect key="frame" x="107" y="155" width="213" height="264"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rJc-Ol-ciH" userLabel="destinationTableView">
+                    <rect key="frame" x="0.0" y="155" width="320" height="264"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="264" id="LUe-2f-6FI"/>
@@ -210,30 +203,24 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="In7-aV-etP" secondAttribute="trailing" constant="10" id="2RM-4g-2Zf"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="height" secondItem="hRV-ia-wRd" secondAttribute="height" id="6eR-y7-WLk"/>
-                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="z3M-ft-kfG" secondAttribute="leading" id="77u-0v-O8B"/>
                 <constraint firstAttribute="trailing" secondItem="x4b-Gv-Tvd" secondAttribute="trailing" id="82v-HV-7hb"/>
                 <constraint firstItem="6OM-xT-eP2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9Vv-AT-YPC"/>
                 <constraint firstAttribute="trailing" secondItem="Lmw-j1-ZWh" secondAttribute="trailing" id="Agt-sW-MWw"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="centerY" secondItem="hRV-ia-wRd" secondAttribute="centerY" id="BJ7-pP-bKx"/>
                 <constraint firstAttribute="bottom" secondItem="x4b-Gv-Tvd" secondAttribute="bottom" id="CcL-kd-gU6"/>
                 <constraint firstItem="x4b-Gv-Tvd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DA3-42-5hx"/>
-                <constraint firstItem="rJc-Ol-ciH" firstAttribute="leading" secondItem="z3M-ft-kfG" secondAttribute="trailing" id="Ek1-l3-eho"/>
-                <constraint firstItem="z3M-ft-kfG" firstAttribute="width" secondItem="rJc-Ol-ciH" secondAttribute="width" id="Gbs-lP-11C"/>
                 <constraint firstItem="T4p-cb-ZGg" firstAttribute="leading" secondItem="Lmw-j1-ZWh" secondAttribute="leading" id="HNL-Ei-Usn"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="trailing" secondItem="rJc-Ol-ciH" secondAttribute="trailing" id="JsW-AT-sfq"/>
                 <constraint firstItem="x4b-Gv-Tvd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ksh-YJ-g9T"/>
                 <constraint firstAttribute="bottom" secondItem="In7-aV-etP" secondAttribute="bottom" constant="10" id="Kvz-n0-MqA"/>
+                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="rJc-Ol-ciH" secondAttribute="leading" id="MHO-It-R9t"/>
                 <constraint firstItem="T4p-cb-ZGg" firstAttribute="trailing" secondItem="Lmw-j1-ZWh" secondAttribute="trailing" id="MSG-JV-5HH"/>
                 <constraint firstAttribute="trailing" secondItem="hRV-ia-wRd" secondAttribute="trailing" id="Mxg-Gt-iAC"/>
-                <constraint firstItem="rJc-Ol-ciH" firstAttribute="height" secondItem="z3M-ft-kfG" secondAttribute="height" id="OtH-14-68X"/>
                 <constraint firstItem="x4b-Gv-Tvd" firstAttribute="top" secondItem="hRV-ia-wRd" secondAttribute="bottom" id="VBI-va-ys7"/>
-                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="width" secondItem="z3M-ft-kfG" secondAttribute="width" multiplier="3" id="Y2x-Kp-1v7"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="hRV-ia-wRd" secondAttribute="bottom" id="YoQ-6q-ozL"/>
                 <constraint firstAttribute="bottom" secondItem="Lmw-j1-ZWh" secondAttribute="bottom" id="bxy-TE-lLO"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="width" secondItem="6OM-xT-eP2" secondAttribute="width" multiplier="0.5" id="chr-ep-TGl"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="em8-hI-tBE"/>
-                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="z3M-ft-kfG" secondAttribute="top" id="evs-mh-RIu"/>
-                <constraint firstItem="rJc-Ol-ciH" firstAttribute="centerY" secondItem="z3M-ft-kfG" secondAttribute="centerY" id="fen-fv-uG8"/>
                 <constraint firstItem="hRV-ia-wRd" firstAttribute="leading" secondItem="8gc-94-qjm" secondAttribute="trailing" id="gb5-XE-F2p"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="width" secondItem="hRV-ia-wRd" secondAttribute="width" id="h3d-Q2-0sr"/>
                 <constraint firstAttribute="trailing" secondItem="6OM-xT-eP2" secondAttribute="trailing" id="ha1-JF-wzu"/>
@@ -247,12 +234,9 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="VBI-va-ys7"/>
-                    <exclude reference="Gbs-lP-11C"/>
-                    <exclude reference="OtH-14-68X"/>
-                    <exclude reference="fen-fv-uG8"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="-450" y="123"/>
+            <point key="canvasLocation" x="-390" y="72"/>
         </view>
     </objects>
     <resources>

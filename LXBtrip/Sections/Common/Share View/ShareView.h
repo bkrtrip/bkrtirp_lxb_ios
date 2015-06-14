@@ -10,19 +10,22 @@
 
 @protocol ShareViewDelegate <NSObject>
 
-- (void)supportClickWithQQ;
-- (void)supportClickWithWeChat;
-- (void)supportClickWithFriends;
-- (void)supportClickWithShortMessage;
-- (void)supportClickWithSendingToComputer;
-- (void)supportClickWithWeibo;
-- (void)supportClickWithQZone;
-- (void)supportClickWithYiXin;
+- (void)supportClickWithQQWithShareObject:(id)obj;
+- (void)supportClickWithWeChatWithShareObject:(id)obj;
+- (void)supportClickWithFriendsWithShareObject:(id)obj;
+- (void)supportClickWithShortMessageWithShareObject:(id)obj;
+- (void)supportClickWithSendingToComputerWithShareObject:(id)obj;
+- (void)supportClickWithWeiboWithShareObject:(id)obj;
+- (void)supportClickWithQZoneWithShareObject:(id)obj;
+- (void)supportClickWithYiXinWithShareObject:(id)obj;
+- (void)supportClickWithCancel;
 
 @end
 
 @interface ShareView : UIView
 
 @property (nonatomic, weak) id <ShareViewDelegate>delegate;
+
+- (CGFloat)shareViewHeightWithShareObject:(id)object;
 
 @end

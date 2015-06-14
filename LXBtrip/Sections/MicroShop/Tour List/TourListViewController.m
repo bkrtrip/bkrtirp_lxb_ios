@@ -8,32 +8,41 @@
 
 #import "TourListViewController.h"
 #import "TourListTableViewCell.h"
-#import "TourListCell_Destination_Left.h"
-#import "TourListCell_Destination_Right.h"
+#import "TourListCell_Destination.h"
 #import "TourListCell_WalkType.h"
 #import "AppMacro.h"
 #import "AccompanyInfoViewController.h"
 #import "AccompanyInfoView.h"
+#import "ShareView.h"
+#import "TourWebPreviewViewController.h"
+#import "TourDetailTableViewController.h"
 
-@interface TourListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TourListTableViewCell_Delegate, UIScrollViewDelegate, AccompanyInfoView_Delegate>
+@interface TourListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TourListTableViewCell_Delegate, UIScrollViewDelegate, AccompanyInfoView_Delegate, ShareViewDelegate>
 {
     NSString *startCity;
     NSString *endCity;
-    NSNumber *dayNum;
     NSString *lineName;
+    NSString *walkType;
     NSInteger pageNum;
     
-    NSArray *cityCategoriesArray;
-    NSMutableArray *innerCitiesArray;
-    NSMutableArray *outerCitiesArray;
-    NSMutableArray *curCitiesArray;
+    NSMutableArray *citiesArray;
     NSMutableArray *productsArray;
     NSArray *walkTypesArray;
     
     SupplierProduct *selectedProduct;
+    
+    TourListCell_Destination *selectedCell_Destination;
+    TourListCell_WalkType *selectedCell_WalkType;
+    
+    BOOL isRefreshing;
 }
 
+
 @property (strong, nonatomic) IBOutlet UIButton *locationButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *destinationButton;
+@property (strong, nonatomic) IBOutlet UIButton *walkTypeButton;
+
 - (IBAction)locationButtonClicked:(id)sender;
 - (IBAction)backButtonClicked:(id)sender;
 
@@ -48,12 +57,12 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 
-@property (strong, nonatomic) IBOutlet UITableView *leftTableView_EndCity;
-@property (strong, nonatomic) IBOutlet UITableView *rightTableView_EndCity;
+@property (strong, nonatomic) IBOutlet UITableView *destinationTableView;
 @property (strong, nonatomic) IBOutlet UITableView *walkTableView;
 
 @property (strong, nonatomic) IBOutlet UIControl *darkMask;
 @property (nonatomic, strong) AccompanyInfoView *accompanyInfoView;
+@property (nonatomic, strong) ShareView *shareView;
 
 @property (nonatomic, copy) SupplierInfo *info;
 
@@ -73,24 +82,21 @@
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     
-    [_leftTableView_EndCity registerNib:[UINib nibWithNibName:@"TourListCell_Destination_Left" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination_Left"];
-    [_rightTableView_EndCity registerNib:[UINib nibWithNibName:@"TourListCell_Destination_Right" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination_Right"];
-    _leftTableView_EndCity.backgroundColor = [UIColor whiteColor];
-    _rightTableView_EndCity.backgroundColor = BG_F5F5F5;
+    [_destinationTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
     
     [_walkTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
     
     UIScrollView *scroll = (UIScrollView *)_mainTableView;
     scroll.delegate = self;
 
-    cityCategoriesArray = @[@"国内", @"国外"];
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
     
-    pageNum = 0;
+    pageNum = 1;
     [self setWalkTypeTableViewHidden:YES];
     [self setDestinationCityTableViewHidden:YES];
     
     // --TEST--
+    isRefreshing = NO;
     startCity = @"西安";
     [self getTourList];
 }
@@ -111,28 +117,37 @@
 {
     [self setDestinationCityTableViewHidden:YES];
     [self setWalkTypeTableViewHidden:YES];
-    [self hideAccompanyInfoView];
+    [self hideAccompanyInfoViewWithCompletionBlock:nil];
+    [self hideShareViewWithCompletionBlock:nil];
     _darkMask.alpha = 0;
 }
 
 - (void)getTourList
 {
-    [HTTPTool getTourListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_templateId customId:_customId startCity:startCity endCity:endCity dayNum:dayNum lineName:lineName pageNum:@(pageNum) success:^(id result) {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [HTTPTool getTourListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_templateId customId:_customId startCity:startCity endCity:endCity walkType:walkType lineName:lineName pageNum:@(pageNum) success:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         id data = result[@"RS100007"];
         [[Global sharedGlobal] codeHudWithObject:data succeed:^{
             NSLog(@"pageNum: --- %ld", (long)pageNum);
             NSLog(@"_info.supplierProductsArray.count:------\n%lu", (unsigned long)_info.supplierProductsArray.count);
-
+            
+            if (isRefreshing == YES) {
+                _info = nil;
+                [productsArray removeAllObjects];
+                isRefreshing = NO;
+            }
+            
             SupplierInfo *info = [[SupplierInfo alloc] initWithDict:data];
             if (!_info) {
                 _info = info;
                 self.title = _info.supplierCustomName;
-                innerCitiesArray = [[_info.supplierInnerEndCity componentsSeparatedByString:@"#"] mutableCopy];
-                outerCitiesArray = [[_info.supplierOuterEndCity componentsSeparatedByString:@"#"] mutableCopy];
-                curCitiesArray = [innerCitiesArray copy];
+                if (!endCity) {
+                    citiesArray = [[_info.supplierEndCity componentsSeparatedByString:@"#"] mutableCopy];
+                    [_destinationTableView reloadData];
+                }
                 productsArray = [info.supplierProductsArray mutableCopy];
                 [_mainTableView reloadData];
-                [_rightTableView_EndCity reloadData];
                 pageNum++;
                 return ;
             }
@@ -143,10 +158,11 @@
             [productsArray addObjectsFromArray:info.supplierProductsArray];
             _info.supplierProductsArray = [productsArray mutableCopy];
             [_mainTableView reloadData];
-            [_rightTableView_EndCity reloadData];
             pageNum++;
+        } fail:^(id result) {
         }];
     } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
@@ -167,12 +183,8 @@
         return 4;
     }
     
-    if (tableView == _leftTableView_EndCity) {
-        return 2;
-    }
-    
-    if (tableView == _rightTableView_EndCity) {
-        return curCitiesArray.count;
+    if (tableView == _destinationTableView) {
+        return citiesArray.count;
     }
     return 0;
 }
@@ -188,28 +200,13 @@
     
     if (tableView == _walkTableView) {
         TourListCell_WalkType *cell = (TourListCell_WalkType *)[tableView dequeueReusableCellWithIdentifier:@"TourListCell_WalkType" forIndexPath:indexPath];
-        UIColor *textColor;
-        if (indexPath.row == 0) {
-            textColor = TEXT_4CA5FF;
-        } else {
-            textColor = nil;
-        }
-        [cell setCellContentWithWalkType:walkTypesArray[indexPath.row] textColor:textColor];
+        [cell setCellContentWithWalkType:walkTypesArray[indexPath.row]];
         return cell;
     }
     
-    if (tableView == _leftTableView_EndCity) {
-        TourListCell_Destination_Left *cell = (TourListCell_Destination_Left *)[tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination_Left" forIndexPath:indexPath];
-        [cell setCellContentWithDestination:cityCategoriesArray[indexPath.row]];
-        UIView *selectBgView = [[UIView alloc] init];
-        selectBgView.backgroundColor = BG_F5F5F5;
-        cell.selectedBackgroundView = selectBgView;
-        return cell;
-    }
+    TourListCell_Destination *cell = (TourListCell_Destination *)[tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination" forIndexPath:indexPath];
+    [cell setCellContentWithDestination:citiesArray[indexPath.row]];
     
-    TourListCell_Destination_Right *cell = (TourListCell_Destination_Right *)[tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination_Right" forIndexPath:indexPath];
-    [cell setCellContentWithDestination:curCitiesArray[indexPath.row]];
-    cell.backgroundColor = BG_F5F5F5;
     return cell;
 }
 
@@ -224,18 +221,69 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _leftTableView_EndCity) {
-        if (indexPath.row == 0) {
-            curCitiesArray = [innerCitiesArray copy];
-        } else if (indexPath.row == 1) {
-            curCitiesArray = [outerCitiesArray copy];
-        }
-        [_rightTableView_EndCity reloadData];
+    if (tableView == _mainTableView) {
+        TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
+        detail.product = productsArray[indexPath.row];
+        [self.navigationController pushViewController:detail animated:YES];
     }
     
-    if (tableView == _rightTableView_EndCity) {
-        endCity = curCitiesArray[indexPath.row];
-        pageNum = 0;
+    if (tableView == _destinationTableView) {
+        [selectedCell_Destination setSelected:NO];
+        selectedCell_Destination = (TourListCell_Destination *)[_destinationTableView cellForRowAtIndexPath:indexPath];
+        [selectedCell_Destination setSelected:YES];
+        
+        endCity = citiesArray[indexPath.row];
+        if (indexPath.row == 0) {
+            [_destinationButton setTitle:@"目的地城市" forState:UIControlStateNormal];
+        } else {
+            [_destinationButton setTitle:endCity forState:UIControlStateNormal];
+        }
+        [self hidePopUpViews];
+        
+        pageNum = 1;
+        isRefreshing = YES;
+        [self getTourList];
+    }
+    
+    if (tableView == _walkTableView) {
+        [selectedCell_WalkType setSelected:NO];
+        selectedCell_WalkType = (TourListCell_WalkType *)[_walkTableView cellForRowAtIndexPath:indexPath];
+        [selectedCell_WalkType setSelected:YES];
+        
+        WalkType walk = indexPath.row;
+        switch (walk) {
+            case All_Kinds:
+            {
+                walkType = nil;
+                [_walkTypeButton setTitle:@"出行方式" forState:UIControlStateNormal];
+            }
+                break;
+            case Follow_Group:
+            {
+                walkType = @"0";
+                [_walkTypeButton setTitle:@"跟团游" forState:UIControlStateNormal];
+            }
+                break;
+            case Free_Run:
+            {
+                walkType = @"1";
+                [_walkTypeButton setTitle:@"自由行" forState:UIControlStateNormal];
+            }
+                break;
+            case Half_Free:
+            {
+                walkType = @"2";
+                [_walkTypeButton setTitle:@"半自助" forState:UIControlStateNormal];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        [self hidePopUpViews];
+        
+        pageNum = 1;
+        isRefreshing = YES;
         [self getTourList];
     }
 }
@@ -250,24 +298,31 @@
 }
 - (IBAction)destinationButtonClicked:(id)sender {
     [self setWalkTypeTableViewHidden:YES];
-    if (_leftTableView_EndCity.hidden == YES) {
-        _darkMask.alpha = 1.0;
+    if (_destinationTableView.hidden == YES) {
         [self setDestinationCityTableViewHidden:NO];
-        [self tableView:_leftTableView_EndCity didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        _darkMask.alpha = 1.0;
+        if (!selectedCell_Destination) {
+            selectedCell_Destination = (TourListCell_Destination *)[_destinationTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [selectedCell_Destination setSelected:YES];
+        }
     } else {
-        _darkMask.alpha = 0;
         [self setDestinationCityTableViewHidden:YES];
+        _darkMask.alpha = 0;
     }
 }
 
 - (IBAction)walkTypeButtonClicked:(id)sender {
     [self setDestinationCityTableViewHidden:YES];
     if (_walkTableView.hidden == YES) {
-        _darkMask.alpha = 1.0;
         [self setWalkTypeTableViewHidden:NO];
+        _darkMask.alpha = 1.0;
+        if (!selectedCell_WalkType) {
+            selectedCell_WalkType = (TourListCell_WalkType *)[_walkTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [selectedCell_WalkType setSelected:YES];
+        }
     } else {
-        _darkMask.alpha = 0;
         [self setWalkTypeTableViewHidden:YES];
+        _darkMask.alpha = 0;
     }
 }
 
@@ -276,13 +331,28 @@
 }
 
 #pragma mark - TourListTableViewCell_Delegate
-- (void)supportClickWithShareButton
+- (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
+    selectedProduct = product;
+    if (!_shareView) {
+        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
+        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+        _shareView.delegate = self;
+        [self.view addSubview:_shareView];
+    }
     
+    [self showShareView];
+
 }
-- (void)supportClickWithPreviewButton
+- (void)supportClickWithPreviewButtonWithProduct:(SupplierProduct *)product
 {
-    
+    selectedProduct = product;
+    if (selectedProduct.productPreviewURL) {
+        TourWebPreviewViewController *web = [[TourWebPreviewViewController alloc] init];
+        web.tourURLString = selectedProduct.productPreviewURL;
+        [self.navigationController pushViewController:web animated:YES];
+    }
 }
 - (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product
 {
@@ -291,7 +361,7 @@
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
         CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName introduce:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
         
-         [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
+         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
          [self.view addSubview:_accompanyInfoView];
     }
@@ -301,10 +371,11 @@
 #pragma mark - AccompanyInfoView_Delegate
 - (void)supportClickWithMoreInstructions
 {
-    AccompanyInfoViewController *info = [[AccompanyInfoViewController alloc] initWithNibName:@"AccompanyInfoViewController" bundle:nil];
-    info.product = selectedProduct;
-    [self.navigationController pushViewController:info animated:YES];
-    [self hideAccompanyInfoView];
+    [self hideAccompanyInfoViewWithCompletionBlock:^{
+        AccompanyInfoViewController *info = [[AccompanyInfoViewController alloc] initWithNibName:@"AccompanyInfoViewController" bundle:nil];
+        info.product = selectedProduct;
+        [self.navigationController pushViewController:info animated:YES];
+    }];
 }
 - (void)supportClickWithPhoneCall
 {
@@ -313,6 +384,52 @@
 - (void)supportClickWithShortMessage
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+}
+
+#pragma mark - ShareViewDelegate
+- (void)supportClickWithWeChatWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithQQWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithQZoneWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithShortMessageWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithSendingToComputerWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithYiXinWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithWeiboWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithFriendsWithShareObject:(id)obj
+{
+    [self hideShareViewWithCompletionBlock:nil];
+}
+
+- (void)supportClickWithCancel
+{
+    [self hideShareViewWithCompletionBlock:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -329,8 +446,7 @@
 #pragma mark - Private methods
 - (void)setDestinationCityTableViewHidden:(BOOL)hidden
 {
-    _leftTableView_EndCity.hidden = hidden;
-    _rightTableView_EndCity.hidden = hidden;
+    _destinationTableView.hidden = hidden;
 }
 
 - (void)setWalkTypeTableViewHidden:(BOOL)hidden
@@ -338,7 +454,8 @@
     _walkTableView.hidden = hidden;
 }
 
-- (void)hideAccompanyInfoView
+// show/hide accompanyInfoView
+- (void)hideAccompanyInfoViewWithCompletionBlock:(void (^)())block
 {
     if (_accompanyInfoView.frame.origin.y == SCREEN_HEIGHT) {
         return;
@@ -349,6 +466,9 @@
     } completion:^(BOOL finished) {
         if (finished) {
             [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
+            if (block) {
+                block();
+            }
         }
     }];
 }
@@ -362,7 +482,32 @@
     }];
 }
 
+// show/hide ShareView
+- (void)showShareView
+{
+    [self.view insertSubview:_darkMask aboveSubview:_walkTableView];
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 1;
+        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
+    }];
+}
 
-
+- (void)hideShareViewWithCompletionBlock:(void (^)())block
+{
+    if (_shareView.frame.origin.y == SCREEN_HEIGHT) {
+        return;
+    }
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
+            if (block) {
+                block();
+            }
+        }
+    }];
+}
 
 @end

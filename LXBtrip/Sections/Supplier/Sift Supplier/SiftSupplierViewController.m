@@ -177,6 +177,7 @@
             // now group data into four sections
             [self groupDataIntoFourSections];
             [collectionViewsArray[selectedIndex] reloadData];
+        } fail:^(id result) {
         }];
 
     } fail:^(id result) {

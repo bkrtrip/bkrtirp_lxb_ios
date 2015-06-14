@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @interface TourDetailCell_One : UITableViewCell
+
+- (CGFloat)cellHeightWithSupplierProduct:(SupplierProduct *)product startDate:(NSString *)dateString;
 
 @end

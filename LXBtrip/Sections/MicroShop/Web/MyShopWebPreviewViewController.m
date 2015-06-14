@@ -10,6 +10,10 @@
 #import "TourListViewController.h"
 
 @interface MyShopWebPreviewViewController ()<UIWebViewDelegate>
+{
+    NSTimer *loadTimer;
+}
+
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end
@@ -20,7 +24,17 @@
     [super viewDidLoad];
     
     self.title = @"线路详情";
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_ShopURLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.f]];
+    loadTimer = [NSTimer scheduledTimerWithTimeInterval:10.f target:self selector:@selector(stopLoading) userInfo:nil repeats:NO];
+}
+
+- (void)stopLoading
+{
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+    [_webView stopLoading];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -36,6 +50,12 @@
     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [loadTimer invalidate];
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

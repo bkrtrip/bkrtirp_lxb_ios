@@ -26,7 +26,7 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="MZH-xJ-SdA">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MZH-xJ-SdA">
                         <rect key="frame" x="0.0" y="0.0" width="262" height="373"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="MZH-xJ-SdA" secondAttribute="height" multiplier="534:760" id="Zfp-ab-WFG"/>
@@ -77,7 +77,4 @@
             <point key="canvasLocation" x="57" y="384"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="test.png" width="429" height="759"/>
-    </resources>
 </document>

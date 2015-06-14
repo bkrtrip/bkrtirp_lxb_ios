@@ -23,14 +23,12 @@
 
 @property (nonatomic, copy) NSMutableArray *supplierProductsArray; // contains SupplierProduct
 
-@property (nonatomic, copy) NSNumber *supplierIsMy;
+@property (nonatomic, copy) NSString *supplierIsMy;
 @property (nonatomic, copy) NSNumber *supplierIsNew;
 @property (nonatomic, copy) NSNumber *supplierIsSync;
 
 // for TourList page
-@property (nonatomic, copy) NSString *supplierJourneyDay;//行程天数 多个用#隔开 （搜索条件）
-@property (nonatomic, copy) NSString *supplierInnerEndCity;//国内目的城市 多个用#隔开  （搜索条件）
-@property (nonatomic, copy) NSString *supplierOuterEndCity;//国外目的城市 多个用#隔开 （搜索条件）
+@property (nonatomic, copy) NSString *supplierEndCity;//目的城市 多个用#隔开  （搜索条件）
 @property (nonatomic, copy) NSString *supplierCustomName;//分类名称 （页面标题）
 @property (nonatomic, copy) NSNumber *supplierCustomId;//分类id
 

@@ -56,7 +56,7 @@
     
     selectedIndex = 0;
     orderType = Order_Not_Confirm;
-    pageNumsArray = @[@0, @0, @0];
+    pageNumsArray = @[@1, @1, @1];
     ordersArray = [[NSMutableArray alloc] initWithCapacity:3];
     for (int i = 0; i < 3; i++) {
         NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -132,6 +132,7 @@
                 }];
             }
             [tableViewsArray[selectedIndex] reloadData];
+        } fail:^(id result) {
         }];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

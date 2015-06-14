@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"微店联系人";
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
 }
 
 - (void)rightBarButtonItemClicked:(id)sender

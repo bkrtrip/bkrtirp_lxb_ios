@@ -35,11 +35,17 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
 }
 
-- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed
+- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed fail:(FailBlock)fail
 {
     if ([obj isKindOfClass:[NSDictionary class]]) {
         ErrorCodeType type = [obj[@"error_code"] intValue];
         switch (type) {
+            case ERROR_CODE_ERROR: //错误
+            {
+                if (succeed) {
+                    succeed(nil);
+                }
+            }
             case ERROR_CODE_SUCCESSFUL: //成功
             {
                 if (succeed) {
@@ -86,6 +92,7 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
             default:
                 break;
         }
+        fail(nil);
     } else {
         succeed(nil);
     }

@@ -65,7 +65,9 @@
     curProvince = @"陕西";
     curCountry = @"中国";
     
+    pageNum = 1;
     [self getAlleyList];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,6 +142,7 @@
                     }];
                 }
                 [_collectionView reloadData];
+            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -157,6 +160,7 @@
                     }];
                 }
                 [_collectionView reloadData];
+            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

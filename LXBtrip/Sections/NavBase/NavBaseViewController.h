@@ -12,7 +12,8 @@
 
 @interface NavBaseViewController : UIViewController
 
-- (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title;
+// for subclass to override
+- (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title image:(UIImage *)img;
 
 - (void)rightBarButtonItemClicked:(id)sender;
 

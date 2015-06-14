@@ -11,8 +11,8 @@
 
 @protocol TourListTableViewCell_Delegate <NSObject>
 
-- (void)supportClickWithShareButton;
-- (void)supportClickWithPreviewButton;
+- (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product;
+- (void)supportClickWithPreviewButtonWithProduct:(SupplierProduct *)product;
 - (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product;
 
 @end

@@ -45,6 +45,9 @@
     self.productPeerNotice = [dict[@"peer_notice"] isKindOfClass:[NSNull class]]?nil:dict[@"peer_notice"];
     self.productTravelApplyTime = [dict[@"travel_apply_time"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_apply_time"];
     self.productTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
+    
+    self.productTravelGoodsId = [dict[@"travel_goods_id"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_id"];
+
     self.productTravelGoodsCompanyId = [dict[@"travel_goods_companyid"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_companyid"];
     self.productTravelGoodsImg1 = [dict[@"travel_goods_img1"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img1"];
     self.productTravelGoodsImg2 = [dict[@"travel_goods_img2"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_img2"];

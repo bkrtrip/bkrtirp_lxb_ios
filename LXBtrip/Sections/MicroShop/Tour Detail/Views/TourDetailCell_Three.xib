@@ -35,8 +35,8 @@
                         <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="detail_disclusure.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZDi-ck-BBL">
-                        <rect key="frame" x="305" y="16" width="7" height="12"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="detail_disclusure.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZDi-ck-BBL">
+                        <rect key="frame" x="305" y="38" width="7" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ZDi-ck-BBL" secondAttribute="height" multiplier="20:36" id="8pZ-us-J8S"/>
                             <constraint firstAttribute="height" constant="12" id="xi2-Lg-Zga"/>
@@ -69,7 +69,7 @@
             <connections>
                 <outlet property="startDateLabel" destination="Ybc-l3-0sM" id="MSE-P2-o19"/>
             </connections>
-            <point key="canvasLocation" x="-24" y="273.5"/>
+            <point key="canvasLocation" x="64" y="265.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -36,7 +36,22 @@ singleton_interface(HTTPTool)
 + (void)deleteMyShopWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId shopId:(NSNumber *)shopId success:(SuccessBlock)success fail:(FailBlock)fail;
 
 //线路列表页 - LXB1127
-+ (void)getTourListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId customId:(NSString *)customId startCity:(NSString *)startCity endCity:(NSString *)endCity dayNum:(NSNumber *)dayNum lineName:(NSString *)lineName pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)getTourListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId customId:(NSString *)customId startCity:(NSString *)startCity endCity:(NSString *)endCity walkType:(NSString *)walkType lineName:(NSString *)lineName pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//线路详情页 - LXB1128
++ (void)getTourDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId lineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//评论列表 - LXB51158 - 未登录
++ (void)getReviewsListWithLineCode:(NSString *)code pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//评论列表 - LXB51245 - 已登录
++ (void)getReviewsListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineCode:(NSString *)code pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//新增评论 - LXB52159 - 未登录
++ (void)postReviewWithCompanyId:(NSNumber *)companyId lineCode:(NSString *)code reviewContent:(NSString *)content success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//新增评论 - LXB52246 - 已登录
++ (void)postReviewWithCompanyIdA:(NSNumber *)companyIdA staffIdA:(NSNumber *)staffIdA companyId:(NSNumber *)companyId lineCode:(NSString *)code reviewContent:(NSString *)content success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 添加到我的微店 - LXB1224
 + (void)addToMyShopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
@@ -56,10 +71,10 @@ singleton_interface(HTTPTool)
 + (void)getSuppliersListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId StartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 供应商详情 - 未登录 - LXB21115
-+ (void)getSupplierDetailWithSupplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSNumber *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)getSupplierDetailWithSupplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 供应商详情 - 已登录 - LXB21216
-+ (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSNumber *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 我的供应商 - LXB21218
 + (void)getMySuppliersWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineClass:(NSString *)lineClass success:(SuccessBlock)success fail:(FailBlock)fail;

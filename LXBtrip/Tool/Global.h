@@ -23,7 +23,7 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 
 - (void)saveSearchHistory:(NSArray *)historyArray;
 - (void)clearSearchHistory;
-- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed;// 根据错误码显示HUD
+- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed fail:(FailBlock)fail;// 根据错误码显示HUD
 
 - (UIViewController *)loginViewControllerFromSb;
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @interface TourDetailCell_Three : UITableViewCell
+
+- (void)setCellContentWithStartDate:(NSString *)startDate;
 
 @end

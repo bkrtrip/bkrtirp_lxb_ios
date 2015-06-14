@@ -24,19 +24,18 @@
 
 - (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName introduce:(NSString *)introduce price:(NSNumber *)price instructions:(NSString *)instruction
 {
-    viewHeight = 177.f;
+    viewHeight = 163.f;
     
     _providerNameLabel.text = supplierName;
     _tourKeywordsLabel.text = introduce;
-    _calPriceLabel.text = [price stringValue];
+    _calPriceLabel.text = [NSString stringWithFormat:@"￥%@起", price];
     _instructionsLabel.text = instruction;
+    
+    CGSize keywordsSize = [_tourKeywordsLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8, MAXFLOAT)];
     
     CGSize instructionSize = [_instructionsLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8, MAXFLOAT)];
     
-    viewHeight += instructionSize.height;
-//    if (viewHeight > ACCOMPANY_INFO_VIEW_MAX_HEIGHT) {
-//        return ACCOMPANY_INFO_VIEW_MAX_HEIGHT;
-//    }
+    viewHeight += keywordsSize.height + instructionSize.height;
     return viewHeight;
 }
 
