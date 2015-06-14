@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微店联系人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbS-JN-khe">
-                        <rect key="frame" x="8" y="21" width="80" height="18"/>
+                        <rect key="frame" x="16" y="21" width="80" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="fYG-yS-CrF"/>
                         </constraints>
@@ -25,18 +25,18 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金铃" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="324-2e-1qL">
-                        <rect key="frame" x="103" y="22" width="209" height="15"/>
+                        <rect key="frame" x="111" y="22" width="193" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="LbS-JN-khe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0dE-nf-Njp"/>
+                    <constraint firstItem="LbS-JN-khe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="0dE-nf-Njp"/>
                     <constraint firstAttribute="centerY" secondItem="324-2e-1qL" secondAttribute="centerY" id="3aX-2R-fSe"/>
                     <constraint firstItem="324-2e-1qL" firstAttribute="leading" secondItem="LbS-JN-khe" secondAttribute="trailing" constant="15" id="De0-sS-PxR"/>
                     <constraint firstAttribute="centerY" secondItem="LbS-JN-khe" secondAttribute="centerY" id="Mbz-cv-chm"/>
-                    <constraint firstItem="324-2e-1qL" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="g5B-ie-hM8"/>
+                    <constraint firstItem="324-2e-1qL" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-8" id="g5B-ie-hM8"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>

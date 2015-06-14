@@ -12,6 +12,9 @@
 #import "PayListViewController.h"
 #import "AppMacro.h"
 #import "UserModel.h"
+#import "AFNetworking.h"
+#import "NSDictionary+GetStringValue.h"
+#import "UIViewController+CommonUsed.h"
 
 #import "PersonalInfoViewController.h"
 #import "DispatchersViewController.h"
@@ -22,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
 
 @property (assign, nonatomic) BOOL isAlreadyLogined;
+
+@property (retain, nonatomic) NSDictionary *userInfoDic;
 
 @end
 
@@ -45,6 +50,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.isAlreadyLogined = [self getUserLoginState];
+    [self getUserInformation];
     
     [self.mineTableView registerNib:[UINib nibWithNibName:@"PSeperaterTableViewCell" bundle:nil] forCellReuseIdentifier:@"separateCell"];
     
@@ -56,13 +62,12 @@
     
 
     [self.navigationController setNavigationBarHidden:YES];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    self.tabBarController.tabBar.hidden = NO;
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -76,6 +81,8 @@
 
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.tabBarController.tabBar.hidden = NO;
+    
+    [self getUserInformation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -103,7 +110,8 @@
 - (void)loginSuccess
 {
     self.isAlreadyLogined = YES;
-    [self updateUIForLoginState:YES];
+    [self getUserInformation];
+//    [self updateUIForLoginState:YES];
 }
 
 
@@ -142,7 +150,7 @@
                 [(PHeaderTableViewCell *)cell needUserToSignin:NO];
                 
                 //initial user info
-                [(PHeaderTableViewCell *)cell initialHeaderViewWithUserInfo:nil];
+                [(PHeaderTableViewCell *)cell initialHeaderViewWithUserInfo:self.userInfoDic];
             }
             else {
                 [(PHeaderTableViewCell *)cell needUserToSignin:YES];
@@ -260,7 +268,7 @@
         [cell needUserToSignin:!isAlreadyLogin];
         
         if (isAlreadyLogin) {
-            [cell initialHeaderViewWithUserInfo:[UserModel getUserInformations]];
+            [cell initialHeaderViewWithUserInfo:self.userInfoDic];
         }
     }
 }
@@ -359,6 +367,8 @@
         case GoToInfoSettings:
         {
             PersonalInfoViewController *personalInfoVC = [[PersonalInfoViewController alloc] init];
+            personalInfoVC.userInfoDic = self.userInfoDic;
+            
             [self.navigationController pushViewController:personalInfoVC animated:YES];
         }
             break;
@@ -366,6 +376,46 @@
         default:
             break;
     }
+}
+
+
+- (void)getUserInformation
+{
+    __weak PersonalCenterViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/staffData", HOST_BASE_URL];
+    NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100026"];
+                 
+                 if (resultDic) {
+                     weakSelf.userInfoDic = resultDic;
+                     [weakSelf updateUIForLoginState:YES];
+                 }
+             }
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
 }
 
 /*

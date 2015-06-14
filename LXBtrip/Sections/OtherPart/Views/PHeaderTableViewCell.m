@@ -8,6 +8,7 @@
 
 #import "PHeaderTableViewCell.h"
 #import "NSDictionary+GetStringValue.h"
+#import "AppMacro.h"
 
 @interface PHeaderTableViewCell ()
 
@@ -45,8 +46,33 @@
 {
     // when shopname and shop contacter name are not set, show tint label
     if (userInfoDic) {
-        NSString *staffName = [userInfoDic stringValueByKey:@"staff_real_name"];
-        self.contactNameLabel.text = staffName;
+        NSString *staffRealName = [userInfoDic stringValueByKey:STAFF_REAL_NAME];
+        NSString *shopName = [userInfoDic stringValueByKey:MICRO_SHOP_NAME];
+        
+        if (staffRealName.length == 0 && shopName.length == 0) {
+            self.userInfoNotSetAlertLabel.hidden = NO;
+            self.contactNameLabel.hidden = YES;
+            self.shopNameLabel.hidden = YES;
+        }
+        else {
+            self.userInfoNotSetAlertLabel.hidden = YES;
+            self.contactNameLabel.hidden = NO;
+            self.shopNameLabel.hidden = NO;
+            
+            self.contactNameLabel.text = staffRealName;
+            self.shopNameLabel.text = shopName;
+
+        }
+        
+        NSString *photoURL = [userInfoDic stringValueByKey:PHOTO_URL];
+        if (PHOTO_URL.length > 0) {
+            [self.userPhotoImgView sd_setImageWithURL:[NSURL URLWithString:photoURL] placeholderImage:nil];
+        }
+    }
+    else {
+        self.userInfoNotSetAlertLabel.hidden = NO;
+        self.contactNameLabel.hidden = YES;
+        self.shopNameLabel.hidden = YES;
     }
 }
 

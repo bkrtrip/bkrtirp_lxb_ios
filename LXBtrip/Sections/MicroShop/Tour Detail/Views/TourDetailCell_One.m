@@ -29,13 +29,13 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _scrollView.pagingEnabled = YES;
 }
 
 - (CGFloat)cellHeightWithSupplierProduct:(SupplierProduct *)product startDate:(NSString *)dateString
 {
     CGFloat cellHeight = 254.f;
     // scroll top images
+    _scrollView.pagingEnabled = YES;
     NSMutableArray *imgURLs = [[NSMutableArray alloc] init];
     int picNum = 0;
     if (product.productTravelGoodsImg1 && product.productTravelGoodsImg1.length>0) {

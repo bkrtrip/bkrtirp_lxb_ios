@@ -11,6 +11,6 @@
 
 @interface AlterPhoneNumViewController : NavBaseViewController
 
-
+@property (nonatomic, retain) NSDictionary *userInfoDic;
 
 @end
