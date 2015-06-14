@@ -27,9 +27,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.phoneLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:167.0/255.0 blue:248.0/255.0 alpha:1.0];
-    self.phoneSwitchBtn.selected = YES;
     
+    self.title = @"联系电话";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,11 +36,52 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)editInfoForPhoneNumber:(BOOL)isEditPhoneNum
+{
+    if (isEditPhoneNum) {
+        self.phoneLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:167.0/255.0 blue:248.0/255.0 alpha:1.0];
+        self.phoneSwitchBtn.enabled = YES;
+        
+        self.telLabel.textColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
+        self.telSwitchBtn.enabled = NO;
+        
+        self.contactNumberTF.text = self.phoneNum ? self.phoneNum : @"";
+    }
+    else {
+        self.phoneLabel.textColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
+        self.phoneSwitchBtn.enabled = NO;
+        
+        self.telLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:167.0/255.0 blue:248.0/255.0 alpha:1.0];
+        self.telSwitchBtn.enabled = YES;
+        
+        self.contactNumberTF.text = self.telNum ? self.telNum : @"";
+    }
+}
+
 - (IBAction)changeContactNumber:(id)sender {
     //tag 33-phone, 44-tel
+    
+    if (((UIButton *) sender).tag == 33) {
+        [self editInfoForPhoneNumber:YES];
+    }
+    else {
+        [self editInfoForPhoneNumber:NO];
+    }
 }
 
 
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    ((UIImageView *)[self.view viewWithTag:11]).image = [UIImage imageNamed:@"inputLine_1"];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    ((UIImageView *)[self.view viewWithTag:11]).image = [UIImage imageNamed:@"inputLine_0"];
+}
 
 /*
 #pragma mark - Navigation

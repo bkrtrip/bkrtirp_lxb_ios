@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface PersonalInfoViewController : UIViewController
+@interface PersonalInfoViewController : NavBaseViewController
 
 @end

@@ -11,6 +11,7 @@
 
 @interface AlterPhoneNumViewController : NavBaseViewController
 
-
+@property (nonatomic, retain) NSString *phoneNum;
+@property (nonatomic, retain) NSString *telNum;
 
 @end

@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="海南市" placeholder="请输入注册手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tfX-lg-PRg">
+                <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tfX-lg-PRg">
                     <rect key="frame" x="96" y="134" width="233" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="43" id="zm7-C9-bIt"/>
@@ -97,7 +97,6 @@
                     <exclude reference="way-vx-yux"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="zIr-2M-RKn"/>
                     <exclude reference="73H-5B-mbD"/>
                     <exclude reference="Fwv-qC-BbP"/>
                     <exclude reference="Mav-qt-tzD"/>
@@ -105,6 +104,7 @@
                     <exclude reference="hV3-m7-5ws"/>
                     <exclude reference="hgi-E2-IAJ"/>
                     <exclude reference="sTA-z2-sb1"/>
+                    <exclude reference="zIr-2M-RKn"/>
                     <exclude reference="w2v-fY-R0h"/>
                 </mask>
             </variation>
@@ -115,7 +115,6 @@
                     <include reference="way-vx-yux"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="zIr-2M-RKn"/>
                     <include reference="73H-5B-mbD"/>
                     <include reference="Fwv-qC-BbP"/>
                     <include reference="Mav-qt-tzD"/>
@@ -123,6 +122,7 @@
                     <include reference="hV3-m7-5ws"/>
                     <include reference="hgi-E2-IAJ"/>
                     <include reference="sTA-z2-sb1"/>
+                    <include reference="zIr-2M-RKn"/>
                     <include reference="w2v-fY-R0h"/>
                 </mask>
             </variation>

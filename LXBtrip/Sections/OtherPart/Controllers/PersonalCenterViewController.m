@@ -97,6 +97,21 @@
     return NO;
 }
 
+- (NSDictionary *)getHeaderInfoDic
+{
+    NSString *staffRealName = [[NSUserDefaults standardUserDefaults] stringForKey:STAFF_REAL_NAME];
+    NSString *shopName = [[NSUserDefaults standardUserDefaults] stringForKey:MICRO_SHOP_NAME];
+    NSString *photoURL = [UserModel getUserPropertyByKey:@"head_url"];
+    if (photoURL) {
+        photoURL = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, photoURL];
+    }
+    else {
+        photoURL = @"";
+    }
+    
+    return @{STAFF_REAL_NAME:staffRealName == nil ? @"" : staffRealName, MICRO_SHOP_NAME: shopName == nil ? @"" : shopName, PHOTO_URL:photoURL};
+}
+
 
 #pragma mark - LoginVCProtocol
 
@@ -142,7 +157,7 @@
                 [(PHeaderTableViewCell *)cell needUserToSignin:NO];
                 
                 //initial user info
-                [(PHeaderTableViewCell *)cell initialHeaderViewWithUserInfo:nil];
+                [(PHeaderTableViewCell *)cell initialHeaderViewWithUserInfo:[self getHeaderInfoDic]];
             }
             else {
                 [(PHeaderTableViewCell *)cell needUserToSignin:YES];
@@ -260,7 +275,7 @@
         [cell needUserToSignin:!isAlreadyLogin];
         
         if (isAlreadyLogin) {
-            [cell initialHeaderViewWithUserInfo:[UserModel getUserInformations]];
+            [cell initialHeaderViewWithUserInfo:[self getHeaderInfoDic]];
         }
     }
 }
