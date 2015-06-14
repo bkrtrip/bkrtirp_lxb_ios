@@ -82,7 +82,9 @@
                 <constraint firstItem="3et-aw-VRQ" firstAttribute="width" secondItem="tfX-lg-PRg" secondAttribute="width" id="Fwv-qC-BbP">
                     <variation key="heightClass=regular-widthClass=compact" constant="18"/>
                 </constraint>
-                <constraint firstItem="3et-aw-VRQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="Mav-qt-tzD"/>
+                <constraint firstItem="3et-aw-VRQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="Mav-qt-tzD">
+                    <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                </constraint>
                 <constraint firstItem="3et-aw-VRQ" firstAttribute="centerX" secondItem="tfX-lg-PRg" secondAttribute="centerX" id="NvJ-D2-Dd4"/>
                 <constraint firstAttribute="trailing" secondItem="3et-aw-VRQ" secondAttribute="trailing" constant="18" id="hV3-m7-5ws"/>
                 <constraint firstItem="3et-aw-VRQ" firstAttribute="top" secondItem="tfX-lg-PRg" secondAttribute="bottom" constant="-10" id="hgi-E2-IAJ"/>

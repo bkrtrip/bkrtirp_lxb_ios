@@ -25,6 +25,10 @@
 		2260D7C81B27DA22000F6856 /* AreaSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7C61B27DA22000F6856 /* AreaSettingViewController.xib */; };
 		2260D7CC1B27DA43000F6856 /* DispatchersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */; };
 		2260D7CD1B27DA43000F6856 /* DispatchersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */; };
+		22924CF91B2D8B1300D898CF /* WCPayHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */; };
+		22924CFA1B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */; };
+		22924CFE1B2D8C6700D898CF /* WCPayFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CFC1B2D8C6700D898CF /* WCPayFooterTableViewCell.m */; };
+		22924CFF1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22924CFD1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib */; };
 		22AE94C61B27044000E8CD83 /* UserLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C41B27044000E8CD83 /* UserLogin.storyboard */; };
 		22AE94CD1B270CDA00E8CD83 /* PayConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */; };
 		22AE94CE1B270CDA00E8CD83 /* PayConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AE94C91B270CDA00E8CD83 /* PayConfigViewController.xib */; };
@@ -500,6 +504,12 @@
 		2260D7C91B27DA43000F6856 /* DispatchersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchersViewController.h; sourceTree = "<group>"; };
 		2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchersViewController.m; sourceTree = "<group>"; };
 		2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchersViewController.xib; sourceTree = "<group>"; };
+		22924CF61B2D8B1300D898CF /* WCPayHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPayHeaderTableViewCell.h; sourceTree = "<group>"; };
+		22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPayHeaderTableViewCell.m; sourceTree = "<group>"; };
+		22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCPayHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		22924CFB1B2D8C6700D898CF /* WCPayFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPayFooterTableViewCell.h; sourceTree = "<group>"; };
+		22924CFC1B2D8C6700D898CF /* WCPayFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPayFooterTableViewCell.m; sourceTree = "<group>"; };
+		22924CFD1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCPayFooterTableViewCell.xib; sourceTree = "<group>"; };
 		22AE94C51B27044000E8CD83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UserLogin.storyboard; sourceTree = "<group>"; };
 		22AE94C71B270CDA00E8CD83 /* PayConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayConfigViewController.h; sourceTree = "<group>"; };
 		22AE94C81B270CDA00E8CD83 /* PayConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayConfigViewController.m; sourceTree = "<group>"; };
@@ -2063,6 +2073,12 @@
 				2260D7AC1B27A9A0000F6856 /* DispatcherTableViewCell.h */,
 				2260D7AD1B27A9A0000F6856 /* DispatcherTableViewCell.m */,
 				2260D7AE1B27A9A0000F6856 /* DispatcherTableViewCell.xib */,
+				22924CF61B2D8B1300D898CF /* WCPayHeaderTableViewCell.h */,
+				22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */,
+				22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */,
+				22924CFB1B2D8C6700D898CF /* WCPayFooterTableViewCell.h */,
+				22924CFC1B2D8C6700D898CF /* WCPayFooterTableViewCell.m */,
+				22924CFD1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2441,6 +2457,7 @@
 				9794A8391B26A8280077E5C0 /* AddShopCollectionViewCell.xib in Resources */,
 				97955AA01B27C01600D3E585 /* YesOrNoView.xib in Resources */,
 				2260D7B41B27ADFD000F6856 /* dShare@2x.png in Resources */,
+				22924CFF1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib in Resources */,
 				9794A8CB1B26A8280077E5C0 /* RecentContactButton.xib in Resources */,
 				973D8B511B1B571500CA4260 /* is_my@3x.png in Resources */,
 				978DB6751B283C70008EAFDE /* TourListCell_Destination_Right.xib in Resources */,
@@ -2493,6 +2510,7 @@
 				97D78F0C1B19E326003E66E7 /* click_to_webview@2x.png in Resources */,
 				9794A8991B26A8280077E5C0 /* accessory@3x.png in Resources */,
 				97AEDBCF1B1458F10098F75B /* fixed_line_phone_normal@2x.png in Resources */,
+				22924CFA1B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib in Resources */,
 				97ADF1CF1B120FAA009DA8C3 /* add_cell@2x.png in Resources */,
 				97C3B26B1B1B3BE600C729C4 /* lock@3x.png in Resources */,
 				9794A8171B26A8280077E5C0 /* AlleyListCollectionViewCell.xib in Resources */,
@@ -2745,6 +2763,7 @@
 				9794A8621B26A8280077E5C0 /* CreateOrderCell_Confirm.m in Sources */,
 				9794A9171B26A86B0077E5C0 /* AFHTTPRequestOperationManager.m in Sources */,
 				9794A8501B26A8280077E5C0 /* TourDetailTableViewController.m in Sources */,
+				22924CF91B2D8B1300D898CF /* WCPayHeaderTableViewCell.m in Sources */,
 				9794A8741B26A8280077E5C0 /* OrderDetailCell_ContactInfo.m in Sources */,
 				9794A8131B26A8280077E5C0 /* AlleyDetailCell_Top.m in Sources */,
 				9794A8111B26A8280077E5C0 /* AlleyDetailCell_Location.m in Sources */,
@@ -2815,10 +2834,10 @@
 				9794A8821B26A8280077E5C0 /* FPhoneNumViewController.m in Sources */,
 				9794A84C1B26A8280077E5C0 /* SetShopNameViewController.m in Sources */,
 				9794A82E1B26A8280077E5C0 /* AccompanyInfoViewController.m in Sources */,
+				22924CFE1B2D8C6700D898CF /* WCPayFooterTableViewCell.m in Sources */,
 				8E5C698F1AFAFC5B004A0CC3 /* main.m in Sources */,
 				977DCFBF1B1CB66A0060C7BB /* SupplierProduct.m in Sources */,
 				9794A91E1B26A86B0077E5C0 /* AFURLSessionManager.m in Sources */,
-				9794A8EE1B26A8280077E5C0 /* YesOrNoView.m in Sources */,
 				2260D7BD1B27C434000F6856 /* AlterUserInfoViewController.m in Sources */,
 				9793A5081B10276000182006 /* MicroShopInfo.m in Sources */,
 				9794A8D21B26A8280077E5C0 /* SearchSupplier_HotSearchTableViewCell.m in Sources */,

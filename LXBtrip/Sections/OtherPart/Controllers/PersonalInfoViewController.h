@@ -11,4 +11,6 @@
 
 @interface PersonalInfoViewController : NavBaseViewController
 
+@property (nonatomic, retain) NSDictionary *userInfoDic;
+
 @end

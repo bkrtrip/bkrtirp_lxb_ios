@@ -20,16 +20,16 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" tag="33" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brG-Op-HZW" userLabel="Button-phone">
+                <button opaque="NO" tag="33" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brG-Op-HZW" userLabel="Button-phone">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="73" id="GZY-lY-zj3"/>
                         <constraint firstAttribute="width" constant="73" id="wEL-vp-ZKV"/>
                     </constraints>
-                    <state key="normal" backgroundImage="phone_1.png">
+                    <state key="normal" backgroundImage="phone_0.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="disabled" backgroundImage="phone_0.png"/>
+                    <state key="selected" image="phone_1.png"/>
                     <state key="highlighted" backgroundImage="phone_1.png"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -53,7 +53,7 @@
                         <constraint firstAttribute="height" constant="73" id="2dJ-fZ-v5D"/>
                         <constraint firstAttribute="width" constant="73" id="rcY-Zn-uel"/>
                     </constraints>
-                    <state key="normal" backgroundImage="tel_1.png">
+                    <state key="normal" backgroundImage="tel_0.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="disabled" backgroundImage="tel_0.png"/>
@@ -81,7 +81,7 @@
                         <constraint firstAttribute="height" constant="43" id="wLi-WZ-MH2"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="wLi-WZ-MH2"/>
@@ -213,9 +213,12 @@
                     <exclude reference="aTX-e0-AQF"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="ob9-0j-OBO"/>
+                    <exclude reference="x5u-Ka-7Qj"/>
                     <exclude reference="Ycb-vQ-t5N"/>
                     <exclude reference="ekf-Hr-poX"/>
+                    <exclude reference="ACX-jJ-5nO"/>
+                    <exclude reference="kaZ-kx-tH5"/>
+                    <exclude reference="ob9-0j-OBO"/>
                     <exclude reference="5Od-WD-Kj3"/>
                     <exclude reference="Agt-QJ-vE7"/>
                     <exclude reference="EQb-sc-710"/>
@@ -226,9 +229,6 @@
                     <exclude reference="zhn-J3-zpt"/>
                     <exclude reference="Cld-Tk-NhK"/>
                     <exclude reference="pvF-Wa-S2d"/>
-                    <exclude reference="ACX-jJ-5nO"/>
-                    <exclude reference="kaZ-kx-tH5"/>
-                    <exclude reference="x5u-Ka-7Qj"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -242,9 +242,12 @@
                     <include reference="aTX-e0-AQF"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="ob9-0j-OBO"/>
+                    <include reference="x5u-Ka-7Qj"/>
                     <include reference="Ycb-vQ-t5N"/>
                     <include reference="ekf-Hr-poX"/>
+                    <include reference="ACX-jJ-5nO"/>
+                    <include reference="kaZ-kx-tH5"/>
+                    <include reference="ob9-0j-OBO"/>
                     <include reference="5Od-WD-Kj3"/>
                     <include reference="Agt-QJ-vE7"/>
                     <include reference="EQb-sc-710"/>
@@ -255,9 +258,6 @@
                     <include reference="zhn-J3-zpt"/>
                     <include reference="Cld-Tk-NhK"/>
                     <include reference="pvF-Wa-S2d"/>
-                    <include reference="ACX-jJ-5nO"/>
-                    <include reference="kaZ-kx-tH5"/>
-                    <include reference="x5u-Ka-7Qj"/>
                 </mask>
             </variation>
         </view>

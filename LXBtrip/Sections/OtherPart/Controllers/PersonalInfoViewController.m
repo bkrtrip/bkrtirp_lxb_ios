@@ -15,11 +15,10 @@
 #import "AFNetworking.h"
 #import "UIViewController+CommonUsed.h"
 
-@interface PersonalInfoViewController ()
+@interface PersonalInfoViewController ()<UpdateUserInformationDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *pInfoTableView;
 
-@property (retain, nonatomic) NSDictionary *userInfoDic;
 
 @end
 
@@ -37,7 +36,9 @@
     
     self.title = @"我的信息";
     
-    [self getUserInformation];
+    if (self.userInfoDic == nil) {
+        [self getUserInformation];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,7 +65,7 @@
      {
          if (responseObject)
          {
-             id jsonObj = [self jsonObjWithBase64EncodedJsonString:operation.responseString];
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
              NSLog(@"%@", jsonObj);
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
@@ -73,7 +74,7 @@
                  
                  if (resultDic) {
                      weakSelf.userInfoDic = resultDic;
-                     [self.pInfoTableView reloadData];
+                     [weakSelf.pInfoTableView reloadData];
                  }
              }
              
@@ -157,9 +158,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 80;
+        return 70;
     }
-    return 70;
+    return 55;
 }
 
 
@@ -181,6 +182,7 @@
         case 3://联系方式
         {
             AlterPhoneNumViewController *viewController = [[AlterPhoneNumViewController alloc] init];
+            viewController.userInfoDic = self.userInfoDic;
             
             [self.navigationController pushViewController:viewController animated:YES];
         }
@@ -205,10 +207,19 @@
 - (void)goToAlterInfoPageWithType:(AlterInfoTypes)type withInformation:(NSString *)info
 {
     AlterUserInfoViewController *viewController = [[AlterUserInfoViewController alloc] init];
-    [viewController initailAlterType:type forInfomation:info];
+    viewController.userInfoDic = self.userInfoDic;
     viewController.type = type;
+    viewController.delegate = self;
     
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+
+#pragma mark - UpdateUserInformationDelegate
+
+- (void)updateUserInformationSuccessfully
+{
+    [self getUserInformation];
 }
 
 /*

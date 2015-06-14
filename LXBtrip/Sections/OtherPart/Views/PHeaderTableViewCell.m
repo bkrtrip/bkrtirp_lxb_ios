@@ -69,6 +69,11 @@
             [self.userPhotoImgView sd_setImageWithURL:[NSURL URLWithString:photoURL] placeholderImage:nil];
         }
     }
+    else {
+        self.userInfoNotSetAlertLabel.hidden = NO;
+        self.contactNameLabel.hidden = YES;
+        self.shopNameLabel.hidden = YES;
+    }
 }
 
 - (void)needUserToSignin:(BOOL)isRequired

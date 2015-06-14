@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#define STAFF_REAL_NAME @"StaffRealName"
-#define MICRO_SHOP_NAME @"ShopName"
-#define PHOTO_URL @"PhotoURL"
+#define STAFF_REAL_NAME @"staff_real_name"
+#define MICRO_SHOP_NAME @"staff_departments_name"
+#define PHOTO_URL @"head_url"
 
 typedef enum : NSUInteger {
     GoToSuppliers,

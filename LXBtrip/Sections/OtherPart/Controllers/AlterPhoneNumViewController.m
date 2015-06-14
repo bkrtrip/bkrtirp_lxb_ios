@@ -7,6 +7,7 @@
 //
 
 #import "AlterPhoneNumViewController.h"
+#import "NSDictionary+GetStringValue.h"
 
 //(238.0/255.0, 238.0/255.0, 238.0/255.0, 1.0)
 //(68.0/255.0, 167.0/255.0, 248.0/255.0, 1.0)
@@ -19,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *phoneSwitchBtn;
 @property (weak, nonatomic) IBOutlet UIButton *telSwitchBtn;
 
+@property (nonatomic, retain) NSString *phoneNum;
+@property (nonatomic, retain) NSString *telNum;
+
 @end
 
 @implementation AlterPhoneNumViewController
@@ -27,8 +31,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self editInfoForPhoneNumber:YES];
     
     self.title = @"联系电话";
+    
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,26 +43,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)rightBarButtonItemClicked:(id)sender
+{
+    
+}
+
 
 - (void)editInfoForPhoneNumber:(BOOL)isEditPhoneNum
 {
     if (isEditPhoneNum) {
         self.phoneLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:167.0/255.0 blue:248.0/255.0 alpha:1.0];
-        self.phoneSwitchBtn.enabled = YES;
+        self.phoneSwitchBtn.selected = YES;
         
-        self.telLabel.textColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
-        self.telSwitchBtn.enabled = NO;
+        self.telLabel.textColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
+        self.telSwitchBtn.selected = NO;
         
-        self.contactNumberTF.text = self.phoneNum ? self.phoneNum : @"";
+        self.contactNumberTF.text = [self.userInfoDic stringValueByKey:@"wd_phone"];
     }
     else {
-        self.phoneLabel.textColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
-        self.phoneSwitchBtn.enabled = NO;
+        self.phoneLabel.textColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
+        self.phoneSwitchBtn.selected = NO;
         
         self.telLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:167.0/255.0 blue:248.0/255.0 alpha:1.0];
-        self.telSwitchBtn.enabled = YES;
+        self.telSwitchBtn.selected = YES;
         
-        self.contactNumberTF.text = self.telNum ? self.telNum : @"";
+        self.contactNumberTF.text = @"";//[self.userInfoDic stringValueByKey:@""];
     }
 }
 
