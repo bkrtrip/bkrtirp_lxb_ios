@@ -31,8 +31,8 @@
     }];
 
     _alleyNameLabel.text = alley.alleyName;
-    _alleyServiceCostLabel.text = [alley.alleyServiceCost stringValue];
-    [_alleyLocationButton setTitle:alley.alleyLocation forState:UIControlStateNormal];
+    _alleyServiceCostLabel.text = [NSString stringWithFormat:@"服务费：￥%@起", alley.alleyServiceCost];
+//    [_alleyLocationButton setTitle:alley.alleyLocation forState:UIControlStateNormal];
 }
 
 

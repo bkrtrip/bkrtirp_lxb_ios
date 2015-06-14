@@ -10,4 +10,6 @@
 
 @interface SiftSupplierViewController : UIViewController
 
+@property (nonatomic, copy) NSString *startCity;
+
 @end

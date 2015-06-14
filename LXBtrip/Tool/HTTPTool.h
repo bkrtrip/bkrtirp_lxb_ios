@@ -59,11 +59,6 @@ singleton_interface(HTTPTool)
 // 锁定微店 - LXB13244
 + (void)lockMicroshopWithShopId:(NSNumber *)shopId companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail;
 
-
-
-
-
-
 // 专线/地接 - 未登录 - LXB2119
 + (void)getSuppliersListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
@@ -89,7 +84,7 @@ singleton_interface(HTTPTool)
 + (void)getHotSearchListWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 关键字搜索列表页 - LXB21113
-+ (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 我的订单列表 - LXB41231 - 订单状态：0：未确认 1：已确认 2：已取消
 + (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
@@ -102,15 +97,6 @@ singleton_interface(HTTPTool)
 
 // 服务商详情 - LXB31121
 + (void)getServiceDetailWithServiceId:(NSNumber *)serviceId success:(SuccessBlock)success fail:(FailBlock)fail;
-
-
-
-
-
-
-
-
-
 
 
 // 获取国家 - LXB51139

@@ -21,9 +21,14 @@
     // Initialization code
 }
 
-- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
+- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
 {
+    CGFloat cellHeight = 45.f;
     _instructionsLabel.text = info.alleyServiceNotice;
+    CGSize instructionSize = [_instructionsLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8, MAXFLOAT)];
+    cellHeight += instructionSize.height;
+    
+    return cellHeight;
 }
 
 @end

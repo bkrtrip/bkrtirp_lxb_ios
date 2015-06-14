@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface SearchSupplierViewController : UIViewController
+@interface SearchSupplierViewController : NavBaseViewController
 
 @end

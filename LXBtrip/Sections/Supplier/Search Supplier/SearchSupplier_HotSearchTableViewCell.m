@@ -24,6 +24,9 @@
     [_hotSearchButtonsArray enumerateObjectsUsingBlock:^(UIButton *bt, NSUInteger idx, BOOL *stop) {
         bt.tag = idx;
         [bt setTitle:@"" forState:UIControlStateNormal];
+        bt.layer.cornerRadius = 3.f;
+        bt.layer.borderColor = TEXT_CCCCD2.CGColor;
+        bt.layer.borderWidth = .5f;
     }];
 }
 
@@ -31,11 +34,10 @@
 {
     [_hotSearchButtonsArray enumerateObjectsUsingBlock:^(UIButton *bt, NSUInteger idx, BOOL *stop) {
         if (names.count > idx) {
-            [bt setTitle:names[idx] forState:UIControlStateNormal];
+            [bt setTitle:[names[idx] hotSearchValue] forState:UIControlStateNormal];
         }
     }];
 }
-
 
 - (IBAction)hotSearchButtonClicked:(id)sender {
     if ([self.delegate respondsToSelector:@selector(supportClickHotSearchWithIndex:)]) {

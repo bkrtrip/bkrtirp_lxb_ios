@@ -22,9 +22,10 @@
     // Initialization code
 }
 
-- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
+- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
 {
     _locationLabel.text = info.alleyCompanyAddress;
+    return 70.f;
 }
 
 

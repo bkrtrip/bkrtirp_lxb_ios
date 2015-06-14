@@ -17,11 +17,14 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return [initial_1 caseInsensitiveCompare:initial_2];
 }
 
-- (void)saveSearchHistory:(NSArray *)historyArray
+- (void)saveToSearchHistoryWithKeyword:(NSString *)keyword
 {
-    NSMutableArray *history = [[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"];
-    [history addObjectsFromArray:historyArray];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
+    NSMutableArray *history = [[[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"] mutableCopy];
+    if (!history) {
+        history = [[NSMutableArray alloc] init];
+    }
+    [history addObject:keyword];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
     [[NSUserDefaults standardUserDefaults] setObject:history forKey:@"search_history"];
 }
 
@@ -98,10 +101,11 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     }
 }
 
-- (UIViewController *)loginViewControllerFromSb
+- (UINavigationController *)loginNavViewControllerFromSb
 {
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:[NSBundle mainBundle]];
-    return [mainStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    UIViewController *login = [mainStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    return NavC(login);
 }
 
 

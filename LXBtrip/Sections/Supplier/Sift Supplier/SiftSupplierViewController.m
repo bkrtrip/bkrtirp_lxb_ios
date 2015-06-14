@@ -17,13 +17,13 @@
 
 @interface SiftSupplierViewController ()<CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 {
-    NSString *startCity;
     NSInteger selectedIndex; // 0~4
     
     NSMutableArray *allSupplierListsArrayInOrder;
     NSMutableArray *allSupplierListsArrayUnsorted;
     NSMutableArray *fourSectionsListsArrayInOrder;
 
+    NSMutableArray *dataIsLoadedArray;// contains BOOL values
 
     NSMutableArray *allFirstLettersArray;
     NSMutableArray *collectionViewsArray;
@@ -84,14 +84,18 @@
     
     fourSectionsListsArrayInOrder = [[NSMutableArray alloc] initWithCapacity:5];
     for (int i = 0; i < 5; i++) {
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:4];
-        [fourSectionsListsArrayInOrder addObject:array];
+        NSMutableArray *arrayCategory = [[NSMutableArray alloc] initWithCapacity:4];
+        for (int j = 0; j < 4; j++) {
+            NSMutableArray *arraySection = [[NSMutableArray alloc] init];
+            [arrayCategory addObject:arraySection];
+        }
+        [fourSectionsListsArrayInOrder addObject:arrayCategory];
     }
     
-    // --TEST--
-    startCity = @"西安";
-    selectedIndex = 0;
+    dataIsLoadedArray = [@[@(NO), @(NO), @(NO), @(NO), @(NO)] mutableCopy];
     
+    selectedIndex = 0;
+    [_locationButton setTitle:_startCity forState:UIControlStateNormal];
     
     CGFloat yOrigin = 20.f + 44.f + 82.f;
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
@@ -140,7 +144,9 @@
 
 - (void)getSiftSupplierList
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool getSiftedSuppliersWithSuccess:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100011"] succeed:^{
             id data = result[@"RS100011"];
             if ([data isKindOfClass:[NSArray class]]) {
@@ -151,19 +157,19 @@
                     SiftedLineType type = [siftLine.siftedLineType intValue];
                     switch (type) {
                         case Domestic_ZhuanXian:
-                            [allSupplierListsArrayUnsorted[0] addObject:obj];
+                            [allSupplierListsArrayUnsorted[0] addObject:siftLine];
                             break;
                         case Abroad_ZhuanXian:
-                            [allSupplierListsArrayUnsorted[1] addObject:obj];
+                            [allSupplierListsArrayUnsorted[1] addObject:siftLine];
                             break;
                         case Nearby_ZhuanXian:
-                            [allSupplierListsArrayUnsorted[2] addObject:obj];
+                            [allSupplierListsArrayUnsorted[2] addObject:siftLine];
                             break;
                         case Domestic_DiJie:
-                            [allSupplierListsArrayUnsorted[3] addObject:obj];
+                            [allSupplierListsArrayUnsorted[3] addObject:siftLine];
                             break;
                         case Abroad_DiJie:
-                            [allSupplierListsArrayUnsorted[4] addObject:obj];
+                            [allSupplierListsArrayUnsorted[4] addObject:siftLine];
                             break;
                         default:
                             break;
@@ -171,34 +177,47 @@
                 }];
             }
             
-            // now sort data with initials
-            [self sortSuppliersUsingInitialsWithUnsortedArray:allSupplierListsArrayUnsorted[selectedIndex]];
+            [allSupplierListsArrayUnsorted enumerateObjectsUsingBlock:^(NSArray *arr, NSUInteger idx, BOOL *stop) {
+                // now sort data with initials
+                [self sortSuppliersUsingInitialsWithUnsortedArray:arr index:idx];
+                // now group data into four sections
+                [self groupDataIntoFourSectionsWithIndex:idx];
+            }];
             
-            // now group data into four sections
-            [self groupDataIntoFourSections];
+//            // now sort data with initials
+//            [self sortSuppliersUsingInitialsWithUnsortedArray:allSupplierListsArrayUnsorted[selectedIndex]];
+//            
+//            // now group data into four sections
+//            [self groupDataIntoFourSections];
+            
+//            [collectionViewsArray enumerateObjectsUsingBlock:^(UICollectionView *collection, NSUInteger idx, BOOL *stop) {
+//                [collection reloadData];
+//            }];
             [collectionViewsArray[selectedIndex] reloadData];
+            // record data loaded status
+            dataIsLoadedArray[selectedIndex] = @(YES);
         } fail:^(id result) {
         }];
-
     } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取筛选供应商失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
 }
 
-- (void)sortSuppliersUsingInitialsWithUnsortedArray:(NSArray *)array
+- (void)sortSuppliersUsingInitialsWithUnsortedArray:(NSArray *)array index:(NSInteger)index
 {
     NSMutableArray *tempParent = [[NSMutableArray alloc] init];
     // create unsorted keys array and values array separately
     [array enumerateObjectsUsingBlock:^(SiftedLine *obj, NSUInteger idx, BOOL *stop) {
-        if ([allFirstLettersArray[selectedIndex] containsObject:obj.siftedLineFirstLetter]) {
-            NSInteger index = [allFirstLettersArray[selectedIndex] indexOfObject:obj.siftedLineFirstLetter];
-            NSMutableArray *tempSon = tempParent[index];
+        if ([allFirstLettersArray[index] containsObject:obj.siftedLineFirstLetter]) {
+            NSInteger tempIndex = [allFirstLettersArray[index] indexOfObject:obj.siftedLineFirstLetter];
+            NSMutableArray *tempSon = tempParent[tempIndex];
             if (![tempSon containsObject:obj]) {
                 [tempSon addObject:obj];
             }
         } else {
-            [allFirstLettersArray[selectedIndex] addObject:obj.siftedLineFirstLetter];
+            [allFirstLettersArray[index] addObject:obj.siftedLineFirstLetter];
             NSMutableArray *tempNewSon = [[NSMutableArray alloc] init];
             [tempNewSon addObject:obj];
             [tempParent addObject:tempNewSon];
@@ -206,38 +225,38 @@
     }];
     
     // sort initials array
-    allFirstLettersArray[selectedIndex] = [[allFirstLettersArray[selectedIndex] sortedArrayUsingFunction:initialSort context:NULL] mutableCopy];
+    allFirstLettersArray[index] = [[allFirstLettersArray[index] sortedArrayUsingFunction:initialSort context:NULL] mutableCopy];
     
     // create final initial-keyed dictionaries' array
-    [allFirstLettersArray[selectedIndex] enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL *stop) {
+    [allFirstLettersArray[index] enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL *stop) {
         [tempParent enumerateObjectsUsingBlock:^(NSArray *arr, NSUInteger idx, BOOL *stop) {
-            if ([[arr[0] cityInitail] isEqualToString:str]) {
+            if ([[arr[0] siftedLineFirstLetter] isEqualToString:str]) {
                 NSDictionary *temp = @{str:arr};
-                [allSupplierListsArrayInOrder[selectedIndex] addObject:temp];
+                [allSupplierListsArrayInOrder[index] addObject:temp];
             }
         }];
     }];
 }
 
-- (void)groupDataIntoFourSections
+- (void)groupDataIntoFourSectionsWithIndex:(NSInteger)index
 {
-    [allSupplierListsArrayInOrder[selectedIndex] enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop2) {
-        NSString *curFirstLetter = allFirstLettersArray[idx];
+    [allSupplierListsArrayInOrder[index] enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop2) {
+        NSString *curFirstLetter = allFirstLettersArray[index][idx];
         if ([curFirstLetter compare:@"A" options:NSCaseInsensitiveSearch] != NSOrderedAscending &&
             [curFirstLetter compare:@"G" options:NSCaseInsensitiveSearch] != NSOrderedDescending) {
-            [fourSectionsListsArrayInOrder[selectedIndex][0] addObjectsFromArray:dict[curFirstLetter]];
+            [fourSectionsListsArrayInOrder[index][0] addObjectsFromArray:dict[curFirstLetter]];
         }
         if ([curFirstLetter compare:@"H" options:NSCaseInsensitiveSearch] != NSOrderedAscending &&
             [curFirstLetter compare:@"N" options:NSCaseInsensitiveSearch] != NSOrderedDescending) {
-            [fourSectionsListsArrayInOrder[selectedIndex][1] addObjectsFromArray:dict[curFirstLetter]];
+            [fourSectionsListsArrayInOrder[index][1] addObjectsFromArray:dict[curFirstLetter]];
         }
         if ([curFirstLetter compare:@"O" options:NSCaseInsensitiveSearch] != NSOrderedAscending &&
             [curFirstLetter compare:@"T" options:NSCaseInsensitiveSearch] != NSOrderedDescending) {
-            [fourSectionsListsArrayInOrder[selectedIndex][2] addObjectsFromArray:dict[curFirstLetter]];
+            [fourSectionsListsArrayInOrder[index][2] addObjectsFromArray:dict[curFirstLetter]];
         }
         if ([curFirstLetter compare:@"U" options:NSCaseInsensitiveSearch] != NSOrderedAscending &&
             [curFirstLetter compare:@"Z" options:NSCaseInsensitiveSearch] != NSOrderedDescending) {
-            [fourSectionsListsArrayInOrder[selectedIndex][3] addObjectsFromArray:dict[curFirstLetter]];
+            [fourSectionsListsArrayInOrder[index][3] addObjectsFromArray:dict[curFirstLetter]];
         }
     }];
 }
@@ -250,7 +269,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [fourSectionsListsArrayInOrder[selectedIndex][section] count];
+    if ([fourSectionsListsArrayInOrder[selectedIndex] count] > 0) {
+        return [fourSectionsListsArrayInOrder[selectedIndex][section] count];
+    } else
+        return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -304,6 +326,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)selectButtonClicked:(id)sender{
+}
 
 - (IBAction)myButtonClicked:(id)sender {
 }
@@ -350,9 +374,11 @@
             [_underLineLabel setFrame:CGRectMake(SCREEN_WIDTH/2.0 + (index-3)*(SCREEN_WIDTH/2.0)/2, _underLineLabel.frame.origin.y, (SCREEN_WIDTH/2.0)/2, _underLineLabel.frame.size.height)];
         }
     }];
+    
+    if ([dataIsLoadedArray[selectedIndex] isEqualToNumber:@(NO)]) {
+        [collectionViewsArray[selectedIndex] reloadData];
+        dataIsLoadedArray[selectedIndex] = @(YES);
+    }
 }
-
-
-
 
 @end

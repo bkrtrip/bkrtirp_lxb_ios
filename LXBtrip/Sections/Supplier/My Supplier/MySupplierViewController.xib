@@ -23,44 +23,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Brw-RE-FZK">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vI-lQ-NaL">
-                            <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的供应商" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUd-gk-a7R">
-                                    <rect key="frame" x="118" y="12" width="85" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yG-aF-3Cy" userLabel="backButton">
-                                    <rect key="frame" x="8" y="11" width="7" height="22"/>
-                                    <state key="normal" image="back.png">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="8yG-aF-3Cy" firstAttribute="leading" secondItem="9vI-lQ-NaL" secondAttribute="leading" constant="8" id="J5m-ca-jaQ"/>
-                                <constraint firstAttribute="centerY" secondItem="OUd-gk-a7R" secondAttribute="centerY" id="KTa-4n-4QR"/>
-                                <constraint firstAttribute="height" constant="44" id="S47-V2-bNs"/>
-                                <constraint firstAttribute="centerX" secondItem="OUd-gk-a7R" secondAttribute="centerX" id="dK0-1z-BfP"/>
-                                <constraint firstAttribute="centerY" secondItem="8yG-aF-3Cy" secondAttribute="centerY" id="z9f-XU-0HK"/>
-                            </constraints>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="9vI-lQ-NaL" firstAttribute="leading" secondItem="Brw-RE-FZK" secondAttribute="leading" id="Nyi-lV-EV3"/>
-                        <constraint firstItem="9vI-lQ-NaL" firstAttribute="top" secondItem="Brw-RE-FZK" secondAttribute="top" constant="20" id="Sh5-8r-NCc"/>
-                        <constraint firstAttribute="height" constant="64" id="a8a-GA-nqr"/>
-                        <constraint firstAttribute="trailing" secondItem="9vI-lQ-NaL" secondAttribute="trailing" id="gJe-1I-n2b"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIV-OT-big" userLabel="left">
-                    <rect key="frame" x="0.0" y="64" width="160" height="82"/>
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="82"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kh-0c-OMN">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="39"/>
@@ -137,7 +101,7 @@
                     </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF7-kk-I9w" userLabel="right">
-                    <rect key="frame" x="160" y="64" width="160" height="82"/>
+                    <rect key="frame" x="160" y="0.0" width="160" height="82"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6V-MV-BCX">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="39"/>
@@ -201,16 +165,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="WIV-OT-big" firstAttribute="width" secondItem="Brw-RE-FZK" secondAttribute="width" multiplier="0.5" id="0AV-BP-TZ9"/>
                 <constraint firstItem="WIV-OT-big" firstAttribute="width" secondItem="BF7-kk-I9w" secondAttribute="width" id="1Sg-iD-2fY"/>
                 <constraint firstItem="BF7-kk-I9w" firstAttribute="leading" secondItem="WIV-OT-big" secondAttribute="trailing" id="6bO-xS-z62"/>
-                <constraint firstItem="WIV-OT-big" firstAttribute="top" secondItem="Brw-RE-FZK" secondAttribute="bottom" id="AKw-1l-LEF"/>
+                <constraint firstItem="WIV-OT-big" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FpI-Iy-d4i"/>
                 <constraint firstItem="WIV-OT-big" firstAttribute="width" secondItem="BF7-kk-I9w" secondAttribute="width" multiplier="0.5" id="JVq-IB-XEK"/>
-                <constraint firstAttribute="trailing" secondItem="Brw-RE-FZK" secondAttribute="trailing" id="e3T-s2-T8d"/>
-                <constraint firstItem="Brw-RE-FZK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fgh-sq-FAS"/>
+                <constraint firstAttribute="trailing" secondItem="BF7-kk-I9w" secondAttribute="trailing" id="hQ0-gk-EGD"/>
                 <constraint firstItem="WIV-OT-big" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oqf-NJ-Wpa"/>
                 <constraint firstItem="WIV-OT-big" firstAttribute="centerY" secondItem="BF7-kk-I9w" secondAttribute="centerY" id="wUa-Ho-g2F"/>
-                <constraint firstItem="Brw-RE-FZK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wmZ-uH-LtE"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <variation key="default">
@@ -221,7 +182,4 @@
             <point key="canvasLocation" x="224" y="223"/>
         </view>
     </objects>
-    <resources>
-        <image name="back.png" width="7" height="13"/>
-    </resources>
 </document>

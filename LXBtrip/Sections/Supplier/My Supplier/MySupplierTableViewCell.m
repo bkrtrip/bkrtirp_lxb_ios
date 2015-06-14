@@ -10,6 +10,7 @@
 
 @interface MySupplierTableViewCell()
 
+@property (strong, nonatomic) IBOutlet UIImageView *supplierLogoImageView;
 @property (strong, nonatomic) IBOutlet UILabel *supplierNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *lineClassLabel;
 
@@ -21,32 +22,13 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 - (void)setCellContentWithSupplierInfo:(SupplierInfo *)info
 {
-    _supplierNameLabel.text = info.supplierName;
+    [_supplierLogoImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.supplierLogo]] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+    _supplierNameLabel.text = info.supplierBrand;
     _lineClassLabel.text = info.supplierLineType;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

@@ -7,18 +7,17 @@
 //
 
 #import "SearchSupplierViewController.h"
-#import "AppMacro.h"
 #import "SearchSupplier_HotSearchTableViewCell.h"
-#import "SearchSupplier_SearchHistoryItemTableViewCell.h"
 #import "SearchSupplier_SearchHistoryTitleTableViewCell.h"
-#import "SearchSupplier_SearchLineClassTableViewCell.h"
+#import "TourListCell_Destination.h"
 #import "Global.h"
+#import "SearchSupplierResultsViewController.h"
 
-@interface SearchSupplierViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface SearchSupplierViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SearchSupplier_HotSearchTableViewCell_Delegate>
 {
     NSMutableArray *searchHistoryArray;
     NSMutableArray *hotSearchNames;
-
+    NSString *lineClass;
 }
 
 - (IBAction)backButtonClicked:(id)sender;
@@ -42,6 +41,13 @@
 
 @implementation SearchSupplierViewController
 
+- (void)awakeFromNib
+{
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    imgView.image = ImageNamed(@"search");
+    _searchTextField.leftView = imgView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     searchHistoryArray = [[Global sharedGlobal] searchHistory];
@@ -52,17 +58,41 @@
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
+    [self.view insertSubview:_darkMask belowSubview:_dropDownTableView];
 
     [_mainTableView registerNib:[UINib nibWithNibName:@"SearchSupplier_HotSearchTableViewCell" bundle:nil] forCellReuseIdentifier:@"SearchSupplier_HotSearchTableViewCell"];
-    [_mainTableView registerNib:[UINib nibWithNibName:@"SearchSupplier_SearchHistoryItemTableViewCell" bundle:nil] forCellReuseIdentifier:@"SearchSupplier_SearchHistoryItemTableViewCell"];
+    [_mainTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
     [_mainTableView registerNib:[UINib nibWithNibName:@"SearchSupplier_SearchHistoryTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"SearchSupplier_SearchHistoryTitleTableViewCell"];
     _mainTableView.backgroundColor = BG_E9ECF5;
+    [self setMainTableFooterView];
     
-    [_dropDownTableView registerNib:[UINib nibWithNibName:@"SearchSupplier_SearchLineClassTableViewCell" bundle:nil] forCellReuseIdentifier:@"SearchSupplier_SearchLineClassTableViewCell"];
+    [_dropDownTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
     _dropDownTableView.tableFooterView = [[UIView alloc] init];
     
     // initial status
     [self dismissDropDownTableView];
+    lineClass = LINE_CLASS[@0];
+    [_lineClassButton setTitle:@"国内游" forState:UIControlStateNormal];
+    
+    [self getHotSearchList];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)setMainTableFooterView
+{
+    UIButton *footer = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60.f)];
+    footer.backgroundColor = [UIColor clearColor];
+    footer.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    [footer setTitleColor:TEXT_4CA5FF forState:UIControlStateNormal];
+    [footer setTitle:@"清空搜索历史" forState:UIControlStateNormal];
+    [footer addTarget:self action:@selector(clearSearchHistory) forControlEvents:UIControlEventTouchUpInside];
+    _mainTableView.tableFooterView = footer;
 }
 
 - (void)dismissDropDownTableView
@@ -114,6 +144,7 @@
         if (indexPath.section == 0) {
             SearchSupplier_HotSearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchSupplier_HotSearchTableViewCell" forIndexPath:indexPath];
             [cell setCellContentWithHotSearchNames:hotSearchNames];
+            cell.delegate = self;
             return cell;
         }
         if (indexPath.section == 1) {
@@ -122,29 +153,29 @@
                 return cell;
             }
             
-            SearchSupplier_SearchHistoryItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchSupplier_SearchHistoryItemTableViewCell" forIndexPath:indexPath];
-            [cell setCellContentWithSearchHistoryName:searchHistoryArray[indexPath.row-1]];
+            TourListCell_Destination *cell = [tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination" forIndexPath:indexPath];
+            [cell setCellContentWithDestination:searchHistoryArray[indexPath.row-1]];
             return cell;
         }
     }
     
-    SearchSupplier_SearchLineClassTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchSupplier_SearchLineClassTableViewCell" forIndexPath:indexPath];
+    TourListCell_Destination *cell = [tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination" forIndexPath:indexPath];
     
     switch (indexPath.row) {
         case 0:
-            [cell setCellContentWithLineClassName:@"国内游"];
+            [cell setCellContentWithDestination:@"国内游"];
             break;
         case 1:
-            [cell setCellContentWithLineClassName:@"出境游"];
+            [cell setCellContentWithDestination:@"出境游"];
             break;
         case 2:
-            [cell setCellContentWithLineClassName:@"周边游"];
+            [cell setCellContentWithDestination:@"周边游"];
             break;
         case 3:
-            [cell setCellContentWithLineClassName:@"国内目的地"];
+            [cell setCellContentWithDestination:@"国内目的地"];
             break;
         case 4:
-            [cell setCellContentWithLineClassName:@"国外目的地"];
+            [cell setCellContentWithDestination:@"国外目的地"];
             break;
         default:
             break;
@@ -174,39 +205,45 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == _mainTableView) {
-        if (indexPath.section == 0) {
-            return ;
-        }
         if (indexPath.section == 1) {
-            if (indexPath.row == 0) {
+            if (indexPath.row > 0) {
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                NSString *historyName = searchHistoryArray[indexPath.row-1];
+                SearchSupplierResultsViewController *results = [[SearchSupplierResultsViewController alloc] init];
+                results.lineClass = lineClass;
+                results.keyword = historyName;
+                [self.navigationController pushViewController:results animated:YES];
                 return ;
             }
-            
-            NSString *historyName = searchHistoryArray[indexPath.row-1];
-            // go to SearchResultsController
-            // ...
-            return ;
         }
     }
     
-    switch (indexPath.row) {
-        case 0:
-            [_lineClassButton setTitle:@"国内游" forState:UIControlStateNormal];
-            break;
-        case 1:
-            [_lineClassButton setTitle:@"出境游" forState:UIControlStateNormal];
-            break;
-        case 2:
-            [_lineClassButton setTitle:@"周边游" forState:UIControlStateNormal];
-            break;
-        case 3:
-            [_lineClassButton setTitle:@"国内目的地" forState:UIControlStateNormal];
-            break;
-        case 4:
-            [_lineClassButton setTitle:@"国外目的地" forState:UIControlStateNormal];
-            break;
-        default:
-            break;
+    // drop down table view
+    if (tableView == _dropDownTableView) {
+        switch (indexPath.row) {
+            case 0:
+                [_lineClassButton setTitle:@"国内游" forState:UIControlStateNormal];
+                lineClass = LINE_CLASS[@0];
+                break;
+            case 1:
+                [_lineClassButton setTitle:@"出境游" forState:UIControlStateNormal];
+                lineClass = LINE_CLASS[@1];
+                break;
+            case 2:
+                [_lineClassButton setTitle:@"周边游" forState:UIControlStateNormal];
+                lineClass = LINE_CLASS[@2];
+                break;
+            case 3:
+                [_lineClassButton setTitle:@"国内目的地" forState:UIControlStateNormal];
+                lineClass = LINE_CLASS[@3];
+                break;
+            case 4:
+                [_lineClassButton setTitle:@"国外目的地" forState:UIControlStateNormal];
+                lineClass = LINE_CLASS[@4];
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -225,26 +262,22 @@
     return 7.f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+#pragma mark - SearchSupplier_HotSearchTableViewCell_Delegate
+- (void)supportClickHotSearchWithIndex:(NSInteger)index
 {
-    UIButton *footer = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60.f)];
-    footer.backgroundColor = [UIColor clearColor];
-    footer.titleLabel.font = [UIFont systemFontOfSize:15.f];
-    [footer setTitleColor:TEXT_4CA5FF forState:UIControlStateNormal];
-    [footer setTitle:@"清空搜索历史" forState:UIControlStateNormal];
-    [footer addTarget:self action:@selector(clearSearchHistory) forControlEvents:UIControlEventTouchUpInside];
-    
-    return footer;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 60.f;
+    NSString *hotTheme = [hotSearchNames[index] hotSearchValue];
+    SearchSupplierResultsViewController *results = [[SearchSupplierResultsViewController alloc] init];
+    results.lineClass = lineClass;
+    results.hotTheme = hotTheme;
+    [self.navigationController pushViewController:results animated:YES];
 }
 
 #pragma mark - HTTP
 - (void)getHotSearchList
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool getHotSearchListWithSuccess:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100012"] succeed:^{
             if ([result[@"RS100012"] isKindOfClass:[NSArray class]]) {
                 [result[@"RS100012"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -256,6 +289,7 @@
         } fail:^(id result) {
         }];
     } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取热门搜索列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
@@ -269,8 +303,16 @@
     }
 }
 - (IBAction)searchButtonClicked:(id)sender {
-    // pass params to search results controller
-    
+    if (!_searchTextField.text || _searchTextField.text.length == 0) {
+        return;
+    }
+    NSString *keywords = _searchTextField.text;
+    SearchSupplierResultsViewController *results = [[SearchSupplierResultsViewController alloc] init];
+    results.lineClass = lineClass;
+    results.keyword = keywords;
+    [self.navigationController pushViewController:results animated:YES];
+    [[Global sharedGlobal] saveToSearchHistoryWithKeyword:_searchTextField.text];
+    [_searchTextField resignFirstResponder];
 }
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

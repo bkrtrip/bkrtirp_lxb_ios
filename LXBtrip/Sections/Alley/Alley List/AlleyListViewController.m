@@ -12,6 +12,7 @@
 #import "AlleyListCollectionViewFlowLayout.h"
 #import "AppMacro.h"
 #import "Global.h"
+#import "AlleyDetailViewController.h"
 
 @interface AlleyListViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 {
@@ -44,12 +45,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = YES;
     
     _alleysArray = [[NSMutableArray alloc] init];
     
     AlleyListCollectionViewFlowLayout *flow = [[AlleyListCollectionViewFlowLayout alloc] init];
     
-    CGFloat yOrigin = _bannerImageView.frame.size.height + _headerImageView.frame.size.height;
+    CGFloat yOrigin = 117.f + 37.f;
     _collectionView = [[AlleyListCollectionView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin) collectionViewLayout:flow];
     
     [_collectionView registerNib:[UINib nibWithNibName:@"AlleyListCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"AlleyListCollectionViewCell"];
@@ -67,7 +69,6 @@
     
     pageNum = 1;
     [self getAlleyList];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,23 +111,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // jump to detail
-//    if (collectionView == _onlineShopCollectionView) {
-//        MicroShopDetailViewController *detail = [[MicroShopDetailViewController alloc] init];
-//        
-//        NSArray *subSectionArray = [_onlineShopsArray[indexPath.section] valueForKey:@"classify_template"];
-//        MicroShopInfo *curInfo = subSectionArray[indexPath.row];
-//        detail.shopId = curInfo.shopId;
-//        detail.isMyShop = NO;
-//        [self.navigationController pushViewController:detail animated:YES];
-//        return;
-//    }
-//    
-//    if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
-//        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-//        [self.navigationController pushViewController:setName animated:YES];
-//        return;
-//    }
-
+    AlleyDetailViewController *detail = [[AlleyDetailViewController alloc] init];
+    detail.alley = _alleysArray[indexPath.row];
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 - (void)getAlleyList

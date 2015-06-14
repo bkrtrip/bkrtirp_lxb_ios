@@ -18,6 +18,7 @@
 #import "SwitchCityViewController.h"
 #import "SiftSupplierViewController.h"
 #import "MySupplierViewController.h"
+#import "SearchSupplierViewController.h"
 
 @interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 {
@@ -97,6 +98,10 @@
     [self.view addSubview:_underLineLabel];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, self.view.frame.size.height - yOrigin - 49.f)];
+    [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, _scrollView.frame.size.height)];
+    _scrollView.pagingEnabled = YES;
+    _scrollView.scrollEnabled = NO;
+    _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
 
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -118,12 +123,6 @@
         [_scrollView addSubview:collectionView];
         [collectionViewsArray addObject:collectionView];
     }
-    
-    [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, _scrollView.frame.size.height)];
-    _scrollView.pagingEnabled = YES;
-    _scrollView.scrollEnabled = NO;
-    _scrollView.delegate = self;
-    
 
     // --TEST--
     self.selectedIndex = 0;
@@ -163,6 +162,25 @@
 {
     _selectedIndex = selectedIndex;
     lineClass = LINE_CLASS[@(_selectedIndex)];
+}
+
+// passed back from SiftSupplierController
+- (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    lineClass = info[@"lineclass"];
+    lineType = info[@"linetype"];
+    
+    [self refreshSupplierList];
+}
+
+- (void)switchCityWithCityName:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
+    startCity = info[@"startcity"];
+    
+    [self refreshSupplierList];
 }
 
 //开始定位
@@ -227,34 +245,17 @@
     [alert show];
 }
 
-// passed back from SiftSupplierController
-- (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
-{
-    NSDictionary *info = [note userInfo];
-    lineClass = info[@"lineclass"];
-    lineType = info[@"linetype"];
-
-    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-}
-
-- (void)switchCityWithCityName:(NSNotification *)note
-{
-    NSDictionary *info = [note userInfo];
-    [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
-    startCity = info[@"startcity"];
-    
-    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-}
-
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
-{    
+{
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
         pageNumsArray[_selectedIndex] = @1;
     }
     
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100010"] succeed:^{
                 if ([result[@"RS100010"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100010"];
@@ -287,11 +288,13 @@
             } fail:^(id result) {
             }];
         } fail:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getSuppliersListWithStartCity:startCity lineClass:lineClass lineType:nil pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];
@@ -324,6 +327,7 @@
             } fail:^(id result) {
             }];
         } fail:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -388,14 +392,19 @@
 #pragma mark - Actions
 - (IBAction)selectButtonClicked:(id)sender {
     SiftSupplierViewController *siftSupplier = [[SiftSupplierViewController alloc] init];
+    siftSupplier.startCity = startCity;
     siftSupplier.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     siftSupplier.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:siftSupplier animated:YES completion:nil];
 }
 
 - (IBAction)myButtonClicked:(id)sender {
-    MySupplierViewController *mySupplier = [[MySupplierViewController alloc] init];
-    [self.navigationController pushViewController:mySupplier animated:YES];
+    if ([UserModel companyId]  && [UserModel staffId]) {
+        MySupplierViewController *mySupplier = [[MySupplierViewController alloc] init];
+        [self.navigationController pushViewController:mySupplier animated:YES];
+        return;
+    }
+    [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
 }
 - (IBAction)locationButtonClicked:(id)sender {
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
@@ -404,6 +413,8 @@
 }
 
 - (IBAction)searchProductButtonClicked:(id)sender {
+    SearchSupplierViewController *search = [[SearchSupplierViewController alloc] init];
+    [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
     self.selectedIndex = 0;

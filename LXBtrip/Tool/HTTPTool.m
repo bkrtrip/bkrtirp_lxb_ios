@@ -448,7 +448,7 @@ singleton_implementation(HTTPTool)
         return;
     
     if (lineType) {
-        [param setObject:staffId forKey:@"linetype"];
+        [param setObject:lineType forKey:@"linetype"];
     }
     
 
@@ -625,9 +625,13 @@ singleton_implementation(HTTPTool)
 }
 
 // 关键字搜索列表页 - LXB21113
-+ (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
++ (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param = [@{@"startcity":startCity, @"lineclass":lineClass, @"pagenum":pageNum} mutableCopy];
+    NSMutableDictionary *param = [@{@"lineclass":lineClass, @"pagenum":pageNum} mutableCopy];
+    
+    if (startCity) {
+        [param setObject:startCity forKey:@"startcity"];
+    }
     
     if (hotTheme) {
         [param setObject:hotTheme forKey:@"hottheme"];
@@ -635,6 +639,10 @@ singleton_implementation(HTTPTool)
     
     if (keyword) {
         [param setObject:keyword forKey:@"keyword"];
+    }
+    
+    if (walkType) {
+        [param setObject:walkType forKey:@"walktype"];
     }
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];

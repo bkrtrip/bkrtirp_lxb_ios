@@ -315,6 +315,7 @@
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getOnlineMicroShopListWithProvince:startProvince companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100002"] succeed:^{
                 if ([result[@"RS100002"] isKindOfClass:[NSArray class]]) {
                     [result[@"RS100002"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -336,7 +337,6 @@
                     }];
                     [_onlineShopCollectionView reloadData];
                     onLineListNeedsUpdate = NO;
-                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
                 }
             } fail:^(id result) {
             }];
@@ -347,7 +347,31 @@
         }];
     } else {
         [HTTPTool getOnlineMicroShopListWithProvince:startProvince success:^(id result) {
-            
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100001"] succeed:^{
+                if ([result[@"RS100001"] isKindOfClass:[NSArray class]]) {
+                    [result[@"RS100001"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                        if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
+                            [tempDict setObject:obj[@"classify_name"] forKey:@"classify_name"];
+                        }
+                        if ([obj[@"classify_template"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_template"]) {
+                            
+                            NSArray *tempArray = [obj[@"classify_template"] copy];
+                            NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+                            [tempArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                                [tempArray2 addObject:info];
+                            }];
+                            [tempDict setObject:tempArray2 forKey:@"classify_template"];
+                        }
+                        [_onlineShopsArray addObject:tempDict];
+                    }];
+                    [_onlineShopCollectionView reloadData];
+                    onLineListNeedsUpdate = NO;
+                }
+            } fail:^(id result) {
+            }];
         } fail:^(NSError *error) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -359,17 +383,21 @@
 - (void)getMyShops
 {
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getMyMicroShopListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
-            if ([result[@"RS100005"] isKindOfClass:[NSArray class]]) {
-                [result[@"RS100005"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                    [_myShopsArray addObject:info];
-                }];
-                [_myShopCollectionView reloadData];
-                myListNeedsUpdate = NO;
-                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            }
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100005"] succeed:^{
+                if ([result[@"RS100005"] isKindOfClass:[NSArray class]]) {
+                    [result[@"RS100005"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                        [_myShopsArray addObject:info];
+                    }];
+                    [_myShopCollectionView reloadData];
+                    myListNeedsUpdate = NO;
+                }
+            } fail:^(id result) {
+            }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -377,15 +405,19 @@
         }];
     } else {
         [HTTPTool getMyMicroShopListWithSuccess:^(id result) {
-            if ([result[@"RS100048"] isKindOfClass:[NSArray class]]) {
-                [result[@"RS100048"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
-                    [_myShopsArray addObject:info];
-                }];
-                [_myShopCollectionView reloadData];
-                myListNeedsUpdate = NO;
-                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            }
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100048"] succeed:^{
+                if ([result[@"RS100048"] isKindOfClass:[NSArray class]]) {
+                    [result[@"RS100048"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
+                        [_myShopsArray addObject:info];
+                    }];
+                    [_myShopCollectionView reloadData];
+                    myListNeedsUpdate = NO;
+                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+                }
+            } fail:^(id result) {
+            }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -517,7 +549,7 @@
                 [self.navigationController pushViewController:web animated:YES];
             }
         } else {
-            [self.navigationController pushViewController:[[Global sharedGlobal] loginViewControllerFromSb] animated:YES];
+            [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
         }
     }
     

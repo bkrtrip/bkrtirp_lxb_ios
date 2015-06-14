@@ -22,7 +22,7 @@
 
 @implementation AlleyDetailCell_Top
 
-- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
+- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
 {
     _alley = info;
     
@@ -33,6 +33,8 @@
     }];
     _alleyNameLabel.text = info.alleyName;
     _providerLabel.text = info.alleyBrand;
+    
+    return 200.f;
 }
 
 

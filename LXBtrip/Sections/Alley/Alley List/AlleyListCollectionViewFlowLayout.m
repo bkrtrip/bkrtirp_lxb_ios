@@ -15,8 +15,8 @@
 {
     self = [super init];
     if (self) {
-        CGFloat itemWidth = (SCREEN_WIDTH-LIST_HOR_MARGIN_ALLEY*2-(NUM_OF_IMAGES_PER_ROW_ALLEY-1)*LIST_HOR_SPACING_ALLEY)/NUM_OF_IMAGES_PER_ROW_ALLEY;
-        CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION_ALLEY;
+        CGFloat itemWidth = SCREEN_WIDTH/2.0;
+        CGFloat itemHeight = itemWidth/(LIST_WIDTH_HEIGHT_PROPORTION_ALLEY);
         
         self.itemSize = CGSizeMake(itemWidth, itemHeight);
         

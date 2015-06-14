@@ -11,6 +11,6 @@
 
 @interface AlleyDetailCell_Location : UITableViewCell
 
-- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info;
+- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info;
 
 @end

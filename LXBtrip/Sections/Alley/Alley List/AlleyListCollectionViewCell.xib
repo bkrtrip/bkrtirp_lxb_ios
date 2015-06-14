@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AlleyListCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="160" height="132"/>
+            <rect key="frame" x="0.0" y="0.0" width="210" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="160" height="132"/>
+                <rect key="frame" x="0.0" y="0.0" width="210" height="150"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHt-ve-7RL">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="73"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHt-ve-7RL">
+                        <rect key="frame" x="59" y="0.0" width="93" height="93"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="73" id="4r0-ha-W3L"/>
+                            <constraint firstAttribute="width" secondItem="oHt-ve-7RL" secondAttribute="height" multiplier="1:1" id="zq6-Ns-ztJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4r0-ha-W3L"/>
+                            </mask>
+                        </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Xian Huashang Agency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-m5-OTb">
-                        <rect key="frame" x="8" y="75" width="139" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="8" y="98" width="194" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="RL7-QY-qZd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加盟费：￥400起" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYf-LL-pMJ">
-                        <rect key="frame" x="8" y="96" width="86" height="14"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <rect key="frame" x="8" y="117" width="78" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="qRb-JZ-uzU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSb-vv-e57">
-                        <rect key="frame" x="8" y="115" width="61" height="14"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <rect key="frame" x="8" y="134" width="52" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="11" id="w68-9u-gKz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <state key="normal" title=" 500m以内" image="location_blue.png">
                             <color key="titleColor" red="0.42352941176470588" green="0.54509803921568623" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,22 +60,33 @@
             </view>
             <constraints>
                 <constraint firstItem="mSb-vv-e57" firstAttribute="top" secondItem="gYf-LL-pMJ" secondAttribute="bottom" constant="5" id="DR3-FA-SjA"/>
+                <constraint firstAttribute="centerX" secondItem="oHt-ve-7RL" secondAttribute="centerX" id="EXh-gf-UKd"/>
                 <constraint firstItem="gYf-LL-pMJ" firstAttribute="top" secondItem="ohI-m5-OTb" secondAttribute="bottom" constant="5" id="GzS-FJ-F01"/>
                 <constraint firstItem="ohI-m5-OTb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="NPO-0K-PdT"/>
+                <constraint firstAttribute="bottom" secondItem="mSb-vv-e57" secondAttribute="bottom" constant="5" id="Q2M-De-NWj"/>
                 <constraint firstAttribute="trailing" secondItem="oHt-ve-7RL" secondAttribute="trailing" id="UNb-00-pyy"/>
                 <constraint firstItem="mSb-vv-e57" firstAttribute="leading" secondItem="ohI-m5-OTb" secondAttribute="leading" id="ZIV-A2-bdA"/>
+                <constraint firstAttribute="centerX" secondItem="ohI-m5-OTb" secondAttribute="centerX" id="cFI-nN-VSR"/>
+                <constraint firstItem="ohI-m5-OTb" firstAttribute="top" secondItem="oHt-ve-7RL" secondAttribute="bottom" constant="5" id="jf6-bt-Tw9"/>
                 <constraint firstItem="oHt-ve-7RL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mcw-Ww-7dq"/>
                 <constraint firstItem="ohI-m5-OTb" firstAttribute="top" secondItem="oHt-ve-7RL" secondAttribute="bottom" constant="2" id="ur2-7J-aE8"/>
                 <constraint firstItem="gYf-LL-pMJ" firstAttribute="leading" secondItem="ohI-m5-OTb" secondAttribute="leading" id="vYi-0K-Xcc"/>
                 <constraint firstItem="oHt-ve-7RL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zWq-Ci-JCc"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="UNb-00-pyy"/>
+                    <exclude reference="mcw-Ww-7dq"/>
+                    <exclude reference="ur2-7J-aE8"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="alleyLocationButton" destination="mSb-vv-e57" id="7Nl-Ef-zbp"/>
                 <outlet property="alleyLogoImageview" destination="oHt-ve-7RL" id="Vcx-Uz-fGn"/>
                 <outlet property="alleyNameLabel" destination="ohI-m5-OTb" id="6cw-bq-Lby"/>
                 <outlet property="alleyServiceCostLabel" destination="gYf-LL-pMJ" id="1Xy-96-nKa"/>
             </connections>
-            <point key="canvasLocation" x="240" y="244"/>
+            <point key="canvasLocation" x="-47" y="216"/>
         </collectionViewCell>
     </objects>
     <resources>

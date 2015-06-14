@@ -58,7 +58,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 
 @property (strong, nonatomic) IBOutlet UITableView *destinationTableView;
-@property (strong, nonatomic) IBOutlet UITableView *walkTableView;
+@property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
 
 @property (strong, nonatomic) IBOutlet UIControl *darkMask;
 @property (nonatomic, strong) AccompanyInfoView *accompanyInfoView;
@@ -84,7 +84,7 @@
     
     [_destinationTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
     
-    [_walkTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
+    [_walkTypeTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
     
     UIScrollView *scroll = (UIScrollView *)_mainTableView;
     scroll.delegate = self;
@@ -129,9 +129,6 @@
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         id data = result[@"RS100007"];
         [[Global sharedGlobal] codeHudWithObject:data succeed:^{
-            NSLog(@"pageNum: --- %ld", (long)pageNum);
-            NSLog(@"_info.supplierProductsArray.count:------\n%lu", (unsigned long)_info.supplierProductsArray.count);
-            
             if (isRefreshing == YES) {
                 _info = nil;
                 [productsArray removeAllObjects];
@@ -179,7 +176,7 @@
         return _info.supplierProductsArray.count;
     }
     
-    if (tableView == _walkTableView) {
+    if (tableView == _walkTypeTableView) {
         return 4;
     }
     
@@ -198,7 +195,7 @@
         return cell;
     }
     
-    if (tableView == _walkTableView) {
+    if (tableView == _walkTypeTableView) {
         TourListCell_WalkType *cell = (TourListCell_WalkType *)[tableView dequeueReusableCellWithIdentifier:@"TourListCell_WalkType" forIndexPath:indexPath];
         [cell setCellContentWithWalkType:walkTypesArray[indexPath.row]];
         return cell;
@@ -245,12 +242,12 @@
         [self getTourList];
     }
     
-    if (tableView == _walkTableView) {
+    if (tableView == _walkTypeTableView) {
         [selectedCell_WalkType setSelected:NO];
-        selectedCell_WalkType = (TourListCell_WalkType *)[_walkTableView cellForRowAtIndexPath:indexPath];
+        selectedCell_WalkType = (TourListCell_WalkType *)[_walkTypeTableView cellForRowAtIndexPath:indexPath];
         [selectedCell_WalkType setSelected:YES];
         
-        WalkType walk = indexPath.row;
+        WalkType walk = indexPath.row - 1;
         switch (walk) {
             case All_Kinds:
             {
@@ -313,11 +310,11 @@
 
 - (IBAction)walkTypeButtonClicked:(id)sender {
     [self setDestinationCityTableViewHidden:YES];
-    if (_walkTableView.hidden == YES) {
+    if (_walkTypeTableView.hidden == YES) {
         [self setWalkTypeTableViewHidden:NO];
         _darkMask.alpha = 1.0;
         if (!selectedCell_WalkType) {
-            selectedCell_WalkType = (TourListCell_WalkType *)[_walkTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            selectedCell_WalkType = (TourListCell_WalkType *)[_walkTypeTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             [selectedCell_WalkType setSelected:YES];
         }
     } else {
@@ -451,7 +448,7 @@
 
 - (void)setWalkTypeTableViewHidden:(BOOL)hidden
 {
-    _walkTableView.hidden = hidden;
+    _walkTypeTableView.hidden = hidden;
 }
 
 // show/hide accompanyInfoView
@@ -475,7 +472,7 @@
 
 - (void)showAccompanyInfoView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTableView];
+    [self.view insertSubview:_darkMask aboveSubview:_walkTypeTableView];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
@@ -485,7 +482,7 @@
 // show/hide ShareView
 - (void)showShareView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTableView];
+    [self.view insertSubview:_darkMask aboveSubview:_walkTypeTableView];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];

@@ -51,6 +51,7 @@
     self.title = @"供应商信息";
     [_tableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"SupplierDetailTopImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"SupplierDetailTopImageTableViewCell"];
+    _tableView.tableFooterView = [[UIView alloc] init];
     
     UIScrollView *scroll = (UIScrollView *)_tableView;
     scroll.delegate = self;
@@ -85,8 +86,10 @@
 {
     _isMinetype = type;
     if (!_isMinetype || [_isMinetype intValue] == 1) {
+        _isMinetype = @"1";
         [_addToOrRemoveFromMyShopButton setTitle:@"同步到我的微店" forState:UIControlStateNormal];
     } else {
+        _isMinetype = @"0";
         [_addToOrRemoveFromMyShopButton setTitle:@"取消同步到微店" forState:UIControlStateNormal];
     }
 }
@@ -104,7 +107,7 @@
     // 未登录
     if (![UserModel companyId] || ![UserModel staffId]) {
         // go to login page
-        [self.navigationController pushViewController:[[Global sharedGlobal] loginViewControllerFromSb] animated:YES];
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
         return;
     }
     

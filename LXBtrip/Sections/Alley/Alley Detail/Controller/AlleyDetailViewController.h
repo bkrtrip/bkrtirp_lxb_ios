@@ -8,7 +8,6 @@
 
 #import "NavBaseViewController.h"
 
-
 @interface AlleyDetailViewController : NavBaseViewController
 
 @property (strong, nonatomic) AlleyInfo *alley;

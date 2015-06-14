@@ -9,6 +9,7 @@
 #import "MySupplierViewController.h"
 #import "RecentContactTableViewCell.h"
 #import "MySupplierTableViewCell.h"
+#import "SupplierDetailViewController.h"
 
 @interface MySupplierViewController () <RecentContactTableViewCell_Delegate, UITableViewDataSource, UITableViewDelegate>
 {
@@ -52,12 +53,16 @@
     _allMySuppliersArrayInOrder = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
     _allRecentSuppliersArray = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
     
-    CGFloat yOrigin = 20.f + 44.f + 82.f;
+    CGFloat yOrigin = 82.f;
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
-    
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, self.view.frame.size.height - yOrigin - 49.f)];
+
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 64.f)];
+    [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, _scrollView.frame.size.height)];
+    _scrollView.pagingEnabled = YES;
+    _scrollView.scrollEnabled = NO;
+    _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
     tableViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -67,17 +72,19 @@
         [tableview registerNib:[UINib nibWithNibName:@"RecentContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"RecentContactTableViewCell"];
         tableview.dataSource = self;
         tableview.delegate = self;
+        tableview.tableFooterView = [[UIView alloc] init];
         [_scrollView addSubview:tableview];
         [tableViewsArray addObject:tableview];
     }
     
-    // --TEST--
+    selectedIndex = 0;
     [self getMySuppliers];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.title = @"我的供应商";
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
 }
@@ -101,8 +108,8 @@
                         SupplierInfo *info= [[SupplierInfo alloc] initWithDict:obj];
                         [_allMySuppliersArrayUnsorted[selectedIndex] addObject:info];
                     }];
+                    [self sortSuppliersUsingInitialsWithUnsortedArray:_allMySuppliersArrayUnsorted[selectedIndex]];
                 }
-                [self sortSuppliersUsingInitialsWithUnsortedArray:_allMySuppliersArrayUnsorted[selectedIndex]];
                 
                 //recently_company part
                 id recentSuppliersData = data[@"recently_company"];
@@ -147,7 +154,7 @@
     // create final initial-keyed dictionaries' array
     [_allSectionsArray[selectedIndex] enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL *stop) {
         [tempParent enumerateObjectsUsingBlock:^(NSArray *arr, NSUInteger idx, BOOL *stop) {
-            if ([[arr[0] cityInitail] isEqualToString:str]) {
+            if ([[arr[0] supplierLineTypeLetter] isEqualToString:str]) {
                 NSDictionary *temp = @{str:arr};
                 [_allMySuppliersArrayInOrder[selectedIndex] addObject:temp];
             }
@@ -159,15 +166,18 @@
 #pragma mark - UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [_allMySuppliersArrayInOrder[selectedIndex] count] + 1;// plus 1 最近联系
+    return [_allMySuppliersArrayInOrder[selectedIndex] count] + (_allRecentSuppliersArray.count>0?1:0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 6;
+        return 1;
     }
-    return [[_allMySuppliersArrayInOrder[selectedIndex][section-1] objectForKey:_allSectionsArray[selectedIndex][section-1]] count];
+    if ([_allMySuppliersArrayInOrder[selectedIndex] count] > 0) {
+        return [[_allMySuppliersArrayInOrder[selectedIndex][section-1] objectForKey:_allSectionsArray[selectedIndex][section-1]] count];
+    } else
+        return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -175,15 +185,13 @@
     if (indexPath.section == 0) {
         RecentContactTableViewCell *cell = (RecentContactTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"RecentContactTableViewCell" forIndexPath:indexPath];
         [cell setCellContentWithSupplierInfos:_allRecentSuppliersArray[selectedIndex]];
+        cell.delegate = self;
         return cell;
     }
     
     MySupplierTableViewCell *cell = (MySupplierTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MySupplierTableViewCell" forIndexPath:indexPath];
-    
     NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section-1] objectForKey:_allSectionsArray[selectedIndex][indexPath.section-1]];
-    
     [cell setCellContentWithSupplierInfo:subArray[indexPath.row]];
-    
     return cell;
 }
 
@@ -196,14 +204,24 @@
 // 点击目录
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    //        [tableView scrollToRowAtIndexPath:selectIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
     // 最近联系section不显示
     return index+1;
 }
 
 
 #pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section > 0) {
+        // jump to detail
+        SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
+        NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section-1] objectForKey:_allSectionsArray[selectedIndex][indexPath.section-1]];
+        SupplierInfo *curInfo = subArray[indexPath.row];
+        detail.info = curInfo;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 23.f;
@@ -236,17 +254,10 @@
 {
     SupplierInfo *selectedInfo = _allRecentSuppliersArray[selectedIndex][index];
     // go to supplier's page
-    //...
-    
+    SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
+    detail.info = selectedInfo;
+    [self.navigationController pushViewController:detail animated:YES];
 }
-
-
-
-
-
-
-
-
 
 
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {

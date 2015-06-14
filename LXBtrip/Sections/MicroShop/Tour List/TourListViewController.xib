@@ -17,8 +17,8 @@
                 <outlet property="searchBar" destination="e8K-BQ-wot" id="Bbr-xT-ctL"/>
                 <outlet property="searchButton" destination="5Mf-OE-j4V" id="LGH-Ak-1aE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="walkTableView" destination="T4p-cb-ZGg" id="NbM-vY-TkR"/>
                 <outlet property="walkTypeButton" destination="hRV-ia-wRd" id="dqS-y1-zHq"/>
+                <outlet property="walkTypeTableView" destination="T4p-cb-ZGg" id="JBN-Xi-3Wg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -236,7 +236,7 @@
                     <exclude reference="VBI-va-ys7"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="-390" y="72"/>
+            <point key="canvasLocation" x="-472" y="24"/>
         </view>
     </objects>
     <resources>

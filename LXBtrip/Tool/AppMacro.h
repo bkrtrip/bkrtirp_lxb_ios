@@ -64,22 +64,12 @@
 #define NUM_OF_IMAGES_PER_ROW_SIFT_SUPPLIER 4
 
 // Alley collection view
-#define LIST_HOR_MARGIN_ALLEY 10.f
+#define LIST_HOR_MARGIN_ALLEY 0.f
 #define LIST_HOR_SPACING_ALLEY 0.f
 #define LIST_VER_MARGIN_ALLEY 0.f
 #define LIST_VER_SPACING_ALLEY 0.f
-#define LIST_WIDTH_HEIGHT_PROPORTION_ALLEY (207.f/132.f)
+#define LIST_WIDTH_HEIGHT_PROPORTION_ALLEY (210.f/150.f)
 #define NUM_OF_IMAGES_PER_ROW_ALLEY 2
-
-
-// accompany info view max height
-//#define ACCOMPANY_INFO_VIEW_MAX_HEIGHT 300.f
-
-
-//#define DELETE_ACTION_SHEET_HEIGHT 187.f
-//#define YES_OR_NO_VIEW_HEIGHT 187.f
-
-
 
 #define TEXT_SELECTED_COLOR [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
 
 @protocol SearchSupplier_HotSearchTableViewCell_Delegate <NSObject>
 

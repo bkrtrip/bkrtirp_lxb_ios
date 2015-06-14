@@ -11,6 +11,6 @@
 
 @interface AlleyDetailCell_JoinNum : UITableViewCell
 
-- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info;
+- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info;
 
 @end

@@ -22,7 +22,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Fk0-Wf-MrF" secondAttribute="height" multiplier="1242:456" id="Wwi-oN-aFX"/>
+                        <constraint firstAttribute="height" constant="117" id="k6v-Ju-6ax"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Wwi-oN-aFX"/>
+                        </mask>
+                    </variation>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-5h-Ttq">
                     <rect key="frame" x="0.0" y="117" width="320" height="37"/>
@@ -36,29 +42,45 @@
                         </mask>
                     </variation>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xh-7S-kOH">
-                    <rect key="frame" x="266" y="121" width="46" height="30"/>
-                    <state key="normal" title="Button">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xh-7S-kOH">
+                    <rect key="frame" x="245" y="128" width="60" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="Hel-Ua-IJs"/>
+                        <constraint firstAttribute="width" constant="60" id="zjk-Kk-2vP"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <state key="normal" title="离我最近">
+                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="rectangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="PCB-0s-tBG">
+                    <rect key="frame" x="296" y="135" width="9" height="9"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="9" id="ePx-ib-xQV"/>
+                        <constraint firstAttribute="width" secondItem="PCB-0s-tBG" secondAttribute="height" multiplier="1:1" id="yG9-NK-sXY"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="8Xh-7S-kOH" firstAttribute="trailing" secondItem="PCB-0s-tBG" secondAttribute="trailing" id="5kO-1R-tqs"/>
                 <constraint firstItem="NRx-5h-Ttq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7rH-M8-Au0"/>
-                <constraint firstAttribute="trailing" secondItem="8Xh-7S-kOH" secondAttribute="trailing" constant="8" id="ANf-oV-ri8"/>
+                <constraint firstAttribute="trailing" secondItem="8Xh-7S-kOH" secondAttribute="trailing" constant="15" id="ANf-oV-ri8"/>
                 <constraint firstItem="Fk0-Wf-MrF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UL8-YW-UZJ"/>
                 <constraint firstItem="Fk0-Wf-MrF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VXR-GQ-oUX"/>
                 <constraint firstAttribute="trailing" secondItem="Fk0-Wf-MrF" secondAttribute="trailing" id="ZuY-Ap-AJS"/>
+                <constraint firstItem="8Xh-7S-kOH" firstAttribute="bottom" secondItem="PCB-0s-tBG" secondAttribute="bottom" id="a7e-9T-FMn"/>
                 <constraint firstItem="NRx-5h-Ttq" firstAttribute="top" secondItem="Fk0-Wf-MrF" secondAttribute="bottom" id="d5q-dv-N3a"/>
                 <constraint firstItem="NRx-5h-Ttq" firstAttribute="centerY" secondItem="8Xh-7S-kOH" secondAttribute="centerY" id="osG-u9-NdN"/>
                 <constraint firstAttribute="trailing" secondItem="NRx-5h-Ttq" secondAttribute="trailing" id="wth-T7-IFU"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="180" y="381"/>
+            <point key="canvasLocation" x="164" y="377"/>
         </view>
     </objects>
     <resources>
         <image name="alley_banner.png" width="414" height="152"/>
+        <image name="rectangle_close.png" width="8" height="9"/>
     </resources>
 </document>
