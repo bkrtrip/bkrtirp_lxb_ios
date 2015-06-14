@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="头像" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="116-jU-Kbz">
-                        <rect key="frame" x="8" y="26" width="30" height="18"/>
+                        <rect key="frame" x="15" y="26" width="30" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6x4-OW-uFr">
-                        <rect key="frame" x="262" y="10" width="50" height="50"/>
+                        <rect key="frame" x="254" y="10" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="Kgd-nn-i5S"/>
                             <constraint firstAttribute="height" constant="50" id="NvQ-Ki-cXJ"/>
@@ -30,10 +30,10 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="116-jU-Kbz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4vB-aD-wZ5"/>
+                    <constraint firstItem="116-jU-Kbz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="4vB-aD-wZ5"/>
                     <constraint firstAttribute="centerY" secondItem="116-jU-Kbz" secondAttribute="centerY" id="TWw-GW-TsD"/>
                     <constraint firstAttribute="centerY" secondItem="6x4-OW-uFr" secondAttribute="centerY" id="wat-lY-jPV"/>
-                    <constraint firstItem="6x4-OW-uFr" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="xdN-Zn-GYR"/>
+                    <constraint firstItem="6x4-OW-uFr" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-8" id="xdN-Zn-GYR"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>

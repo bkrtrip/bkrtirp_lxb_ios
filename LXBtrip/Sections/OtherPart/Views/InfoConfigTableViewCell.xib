@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信公众平台用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwi-uC-lN9">
-                        <rect key="frame" x="8" y="16" width="132" height="17"/>
+                        <rect key="frame" x="15" y="16" width="132" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="132" id="TDG-Rv-qf7"/>
                         </constraints>
@@ -24,8 +24,11 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日工水土人蚶晃叵" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Er-sB-AW4">
-                        <rect key="frame" x="145" y="17" width="167" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Er-sB-AW4">
+                        <rect key="frame" x="152" y="17" width="153" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="SgG-V2-SQu"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -33,12 +36,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="0Er-sB-AW4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IfL-X7-vQq"/>
-                    <constraint firstItem="fwi-uC-lN9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="SXj-pA-HRL"/>
+                    <constraint firstItem="fwi-uC-lN9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="SXj-pA-HRL"/>
                     <constraint firstItem="0Er-sB-AW4" firstAttribute="leading" secondItem="fwi-uC-lN9" secondAttribute="trailing" constant="5" id="WLv-Vu-Ayq"/>
                     <constraint firstAttribute="centerY" secondItem="fwi-uC-lN9" secondAttribute="centerY" id="YpA-Xp-dgr"/>
-                    <constraint firstItem="0Er-sB-AW4" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="lBZ-yt-HWO"/>
+                    <constraint firstItem="0Er-sB-AW4" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-7" id="lBZ-yt-HWO"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="contentLabel" destination="0Er-sB-AW4" id="CFX-aN-gdk"/>
                 <outlet property="titleLabel" destination="fwi-uC-lN9" id="7VD-GK-Iaq"/>

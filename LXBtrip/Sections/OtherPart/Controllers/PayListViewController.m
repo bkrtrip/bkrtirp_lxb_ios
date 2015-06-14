@@ -25,6 +25,7 @@
     
     self.payTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 
+    self.title = @"支付";
 }
 
 - (void)didReceiveMemoryWarning {

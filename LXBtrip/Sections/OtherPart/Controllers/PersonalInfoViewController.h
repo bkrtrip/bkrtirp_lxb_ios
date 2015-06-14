@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface PersonalInfoViewController : UIViewController
+@interface PersonalInfoViewController : NavBaseViewController
+
+@property (nonatomic, retain) NSDictionary *userInfoDic;
 
 @end

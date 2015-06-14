@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "NavBaseViewController.h"
 
+
+@protocol UpdateUserInformationDelegate <NSObject>
+
+- (void)updateUserInformationSuccessfully;
+
+@end
+
+
 typedef enum : NSUInteger {
     ShopContactName,
     ShopName,
@@ -19,6 +27,8 @@ typedef enum : NSUInteger {
 
 @property (assign, nonatomic) AlterInfoTypes type;
 
-- (void)initailAlterType:(AlterInfoTypes)type forInfomation:(NSString *)info;
+@property (retain, nonatomic) NSDictionary *userInfoDic;
+
+@property (weak, nonatomic) id<UpdateUserInformationDelegate> delegate;
 
 @end
