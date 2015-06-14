@@ -15,7 +15,7 @@
 
 @interface AlleyDetailViewController () < UITableViewDataSource, UITableViewDelegate>
 {
-    NSMutableArray *cellHeights;
+    NSMutableDictionary *cellHeights;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -29,10 +29,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"服务商信息";
+    
+    cellHeights = [[NSMutableDictionary alloc] init];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_Top" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_Top"];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_JoinNum" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_JoinNum"];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_Location" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_Location"];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_Instruction" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_Instruction"];
+    
     _tableView.tableFooterView = [[UIView alloc] init];
     
     [self getAlleyDetail];
@@ -64,46 +71,42 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (!_alley.alleyServiceNotice) {
-        return 0;
-    }
-    return 4;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
+    switch (indexPath.row) {
         case 0:
         {
             AlleyDetailCell_Top *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_Top" forIndexPath:indexPath];
-            if (!cellHeights) {
-                cellHeights = [[NSMutableArray alloc] init];
-            }
-            [cellHeights addObject:@([cell cellHeightWithAlleyInfo:_alley])];
+            [cell setCellContentWithAlleyInfo:_alley];
             return cell;
         }
             break;
         case 1:
         {
             AlleyDetailCell_JoinNum *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_JoinNum" forIndexPath:indexPath];
-            [cellHeights addObject:@([cell cellHeightWithAlleyInfo:_alley])];
+            [cell setCellContentWithAlleyInfo:_alley];
             return cell;
         }
             break;
         case 2:
         {
             AlleyDetailCell_Location *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_Location" forIndexPath:indexPath];
-            [cellHeights addObject:@([cell cellHeightWithAlleyInfo:_alley])];
+            CGFloat cellHeight = [cell cellHeightWithAlleyInfo:_alley];
+            [cellHeights setObject:@(cellHeight) forKey:@"third_cell_height"];
             return cell;
         }
             break;
         case 3:
         {
             AlleyDetailCell_Instruction *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_Instruction" forIndexPath:indexPath];
-            [cellHeights addObject:@([cell cellHeightWithAlleyInfo:_alley])];
+            CGFloat cellHeight = [cell cellHeightWithAlleyInfo:_alley];
+            [cellHeights setObject:@(cellHeight) forKey:@"fourth_cell_height"];
             return cell;
         }
             break;
@@ -117,7 +120,23 @@
 #pragma mark - Table view delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [cellHeights[indexPath.row] floatValue];
+    switch (indexPath.row) {
+        case 0:
+            return 200.f;
+            break;
+        case 1:
+            return 70.f;
+            break;
+        case 2:
+            return [cellHeights[@"third_cell_height"] floatValue];
+            break;
+        case 3:
+            return [cellHeights[@"fourth_cell_height"] floatValue];
+            break;
+        default:
+            return 0;
+            break;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
