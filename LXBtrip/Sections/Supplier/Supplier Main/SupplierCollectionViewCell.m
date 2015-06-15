@@ -22,8 +22,10 @@
 
 - (void)setCellContentWithSupplierInfo:(SupplierInfo *)info
 {
-    SupplierStatus status = -1;
-    if (info.supplierIsMy && [info.supplierIsMy intValue] == 0) {
+    SupplierStatus status;
+    if (!info) {
+        status = -1;
+    } else if (info.supplierIsMy && [info.supplierIsMy intValue] == 0) {
         if (info.supplierIsNew && [info.supplierIsNew intValue] == 0) {
             status = 0;
         } else {
@@ -38,16 +40,19 @@
     }
     
     switch (status) {
-        case 0:
+        case invite_supplier:
+            [_bgImageView setImage:ImageNamed(@"add_new_supplier")];
+            break;
+        case supplier_isMy_isNew:
             [_bgImageView setImage:ImageNamed(@"is_my_and_is_new")];
             break;
-        case 1:
+        case supplier_isMy_notNew:
             [_bgImageView setImage:ImageNamed(@"is_my")];
             break;
-        case 2:
+        case supplier_notMy_isNew:
             [_bgImageView setImage:ImageNamed(@"is_new")];
             break;
-        case 3:
+        case supplier_notMy_notNew:
             [_bgImageView setImage:ImageNamed(@"not_my_and_not_new")];
             break;
         default:

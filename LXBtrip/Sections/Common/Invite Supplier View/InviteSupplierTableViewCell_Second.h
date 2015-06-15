@@ -10,4 +10,6 @@
 
 @interface InviteSupplierTableViewCell_Second : UITableViewCell
 
+- (void)setCellContentWithInvitationWords:(NSString *)words;
+
 @end

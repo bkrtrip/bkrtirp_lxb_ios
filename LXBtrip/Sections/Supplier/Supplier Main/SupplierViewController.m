@@ -19,8 +19,13 @@
 #import "SiftSupplierViewController.h"
 #import "MySupplierViewController.h"
 #import "SearchSupplierViewController.h"
+#import "InviteSupplierTableViewCell_First.h"
+#import "InviteSupplierTableViewCell_Second.h"
+#import "InviteSupplierTableViewCell_Third.h"
+#import "InviteSupplierTableViewCell_Fourth.h"
 
-@interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
+
+@interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
     NSString *startCity;
     NSString *lineClass;
@@ -55,16 +60,18 @@
 @property (strong, nonatomic) IBOutlet UIButton *abroadBUtton_diJie;
 - (IBAction)abroadBUtton_diJieClicked:(id)sender;
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-
+// invite supplier table view
+@property (strong, nonatomic) UIControl *darkMask;
+@property (strong, nonatomic) UITableView *inviteTableView;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *underLineLabel;
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
 @property (nonatomic, copy) NSMutableArray *suppliersArray;
 
 @property (nonatomic, assign) NSInteger selectedIndex; // 0~4
-
-
 
 @end
 
@@ -128,6 +135,13 @@
         [_scrollView addSubview:collectionView];
         [collectionViewsArray addObject:collectionView];
     }
+    
+    // dark mask
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_darkMask addTarget:self action:@selector(hideInviteTableView) forControlEvents:UIControlEventTouchUpInside];
+    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _darkMask.alpha = 0;// initally transparent
+    [self.view addSubview:_darkMask];
 
     // --TEST--
     startCity = @"西安";
@@ -198,6 +212,27 @@
     startCity = info[@"startcity"];
     
     [self refreshSupplierList];
+}
+
+- (void)hideInviteTableView
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_inviteTableView setFrame:CGRectOffset(_inviteTableView.frame, 0, _inviteTableView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.tabBarController.tabBar.hidden = NO;
+        }
+    }];
+}
+
+- (void)showInviteTableView
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.tabBarController.tabBar.hidden = YES;
+        _darkMask.alpha = 1;
+        [_inviteTableView setFrame:CGRectOffset(_inviteTableView.frame, 0, -_inviteTableView.frame.size.height)];
+    }];
 }
 
 //开始定位
@@ -369,15 +404,20 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[_suppliersArray[_selectedIndex][section] objectForKey:@"supplier_info"] count];
+    return [[_suppliersArray[_selectedIndex][section] objectForKey:@"supplier_info"] count] + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SupplierCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SupplierCollectionViewCell" forIndexPath:indexPath];
-    NSArray *subArray = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"];
-    SupplierInfo *info = subArray[indexPath.row];
-    [cell setCellContentWithSupplierInfo:info];
+    if ([[_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"] count] > indexPath.row) {
+        NSArray *subArray = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"];
+        SupplierInfo *info = subArray[indexPath.row];
+        [cell setCellContentWithSupplierInfo:info];
+    } else {
+        [cell setCellContentWithSupplierInfo:nil];
+    }
+    
     return cell;
 }
 
@@ -389,7 +429,6 @@
 }
 
 #pragma mark - UICollectionViewDelegate
-
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     return CGSizeMake(collectionView.frame.size.width, 23.f);
@@ -397,22 +436,135 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // jump to detail
-    SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
-    NSArray *subSectionArray = [_suppliersArray[_selectedIndex][indexPath.section] valueForKey:@"supplier_info"];
-    SupplierInfo *curInfo = subSectionArray[indexPath.row];
-    detail.info = curInfo;
-    [self.navigationController pushViewController:detail animated:YES];
+    if ([[_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"] count] > indexPath.row) {
+        // jump to detail
+        SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
+        NSArray *subSectionArray = [_suppliersArray[_selectedIndex][indexPath.section] valueForKey:@"supplier_info"];
+        SupplierInfo *curInfo = subSectionArray[indexPath.row];
+        detail.info = curInfo;
+        [self.navigationController pushViewController:detail animated:YES];
+        return ;
+    }
+    
+    if (!_inviteTableView) {
+        CGFloat height = 365.f;
+        _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, height)];
+        _inviteTableView.dataSource = self;
+        _inviteTableView.delegate = self;
+        [self.view addSubview:_inviteTableView];
+        
+        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
+        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
+        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
+        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
+}
+    [self showInviteTableView];
+}
+
+#pragma mark - UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 6;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+        {
+            InviteSupplierTableViewCell_First *cell = (InviteSupplierTableViewCell_First *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_First" forIndexPath:indexPath];
+            [cell setCellContentWithInvitationCode:nil];
+            return cell;
+        }
+            break;
+        case 1:
+        {
+            InviteSupplierTableViewCell_Second *cell = (InviteSupplierTableViewCell_Second *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Second" forIndexPath:indexPath];
+            [cell setCellContentWithInvitationWords:@"邀请十家供应商，免费赠送定制版微店一套"];
+            return cell;
+        }
+            break;
+        case 2:
+        {
+            InviteSupplierTableViewCell_Second *cell = (InviteSupplierTableViewCell_Second *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Second" forIndexPath:indexPath];
+            [cell setCellContentWithInvitationWords:@"邀请五家供应商，免费开通企业级服务功能"];
+            return cell;
+        }
+            break;
+        case 3:
+        {
+            InviteSupplierTableViewCell_Second *cell = (InviteSupplierTableViewCell_Second *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Second" forIndexPath:indexPath];
+            [cell setCellContentWithInvitationWords:@"邀请三家供应商，免费定制设计海报一份"];
+            return cell;
+        }
+            break;
+        case 4:
+        {
+            InviteSupplierTableViewCell_Third *cell = (InviteSupplierTableViewCell_Third *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Third" forIndexPath:indexPath];
+            [cell setCellContentWithPhoneNumber:nil];
+            return cell;
+        }
+            break;
+        case 5:
+        {
+            InviteSupplierTableViewCell_Fourth *cell = (InviteSupplierTableViewCell_Fourth *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Fourth" forIndexPath:indexPath];
+            cell.delegate = self;
+            return cell;
+        }
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+            return 50.f;
+            break;
+        case 1:
+            return 45.f;
+            break;
+        case 2:
+            return 45.f;
+            break;
+        case 3:
+            return 45.f;
+            break;
+        case 4:
+            return 70.f;
+            break;
+        case 5:
+            return 110.f;
+            break;
+        default:
+            return 0;
+            break;
+    };
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 }
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
-    if (fabs(delta) < 10) {
-        isLoadingMoresArray[_selectedIndex] = @1;
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    if ([scrollView isKindOfClass:[UICollectionView class]]) {
+        CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
+        if (fabs(delta) < 10) {
+            isLoadingMoresArray[_selectedIndex] = @1;
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+        }
     }
 }
 

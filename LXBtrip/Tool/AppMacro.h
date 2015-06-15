@@ -137,6 +137,7 @@ typedef enum ShopUsedStatus
 
 typedef enum SupplierStatus
 {
+    invite_supplier = -1, // 加号，邀请supplier
     supplier_isMy_isNew = 0, // 我的 + 最新
     supplier_isMy_notNew = 1, // 我的 + 非最新
     supplier_notMy_isNew = 2, // 非我的 + 最新

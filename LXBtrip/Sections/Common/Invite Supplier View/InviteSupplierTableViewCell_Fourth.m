@@ -8,16 +8,41 @@
 
 #import "InviteSupplierTableViewCell_Fourth.h"
 
+@interface InviteSupplierTableViewCell_Fourth()
+
+@end
+
 @implementation InviteSupplierTableViewCell_Fourth
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (IBAction)callButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithPhoneCall)]) {
+        [self.delegate supportClickWithPhoneCall];
+    }
 }
+
+- (IBAction)messageButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithShortMessage)]) {
+        [self.delegate supportClickWithShortMessage];
+    }
+}
+
+- (IBAction)qqButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithQQ)]) {
+        [self.delegate supportClickWithQQ];
+    }
+}
+
+- (IBAction)wechatButtonClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(supportClickWithWeChat)]) {
+        [self.delegate supportClickWithWeChat];
+    }
+}
+
+
+
 
 @end

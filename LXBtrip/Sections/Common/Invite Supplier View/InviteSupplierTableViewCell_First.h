@@ -10,4 +10,6 @@
 
 @interface InviteSupplierTableViewCell_First : UITableViewCell
 
+- (void)setCellContentWithInvitationCode:(NSString *)code;
+
 @end
