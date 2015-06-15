@@ -54,7 +54,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
 @property (strong, nonatomic) IBOutlet UITableView *startCityTableView;
 
-@property (strong, nonatomic) UIControl *darkMask;
+
+@property (strong, nonatomic) IBOutlet UIControl *darkMask;
 @property (nonatomic, strong) AccompanyInfoView *accompanyInfoView;
 @property (nonatomic, strong) ShareView *shareView;
 
@@ -78,20 +79,16 @@
     scrollView.delegate = self;
     
     [_walkTypeTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
-    _walkTypeTableView.tableFooterView = [[UIView alloc] init];
-    _walkTypeTableView.backgroundColor = [UIColor clearColor];
-    _walkTypeTableView.tableFooterView = [[UIView alloc] init];
     
     [_startCityTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
-    _startCityTableView.tableFooterView = [[UIView alloc] init];
-    _startCityTableView.backgroundColor = [UIColor clearColor];
-    _startCityTableView.tableFooterView = [[UIView alloc] init];
+
     
-    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    [self.view addSubview:_darkMask];
+
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
-    [self.view addSubview:_darkMask];
     [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
     
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
@@ -104,6 +101,7 @@
     if (_keyword.length > 0) {
         _searchBar.text = _keyword;
     }
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getSearchedSupplierResults];
     [self getAllCities];
 }
@@ -195,6 +193,7 @@
         isRefreshing = YES;
         _hotTheme = nil;
         _keyword = nil;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSearchedSupplierResults];
     }
     
@@ -239,6 +238,7 @@
         isRefreshing = YES;
         _hotTheme = nil;
         _keyword = nil;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSearchedSupplierResults];
     }
 }
@@ -349,21 +349,19 @@
 #pragma mark - HTTP
 - (void)getSearchedSupplierResults
 {
-    if (isRefreshing == YES) {
-        pageNum = 1;
-    }
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    
     [HTTPTool searchSupplierListWithStartCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if (isRefreshing == YES) {
+            pageNum = 1;
+            [searchedResultsArray removeAllObjects];
+            [_mainTableView reloadData];
+            isRefreshing = NO;
+        }
+        
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100013"] succeed:^{
             
             if ([result[@"RS100013"][@"goods_list"] isKindOfClass:[NSArray class]]) {
-                
-                if (isRefreshing == YES) {
-                    [searchedResultsArray removeAllObjects];
-                    isRefreshing = NO;
-                }
                 
 //                if ([result[@"RS100013"][@"goods_list"] count] == 0) {
 //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -419,6 +417,7 @@
     if (scrollView == _mainTableView) {
         CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
         if (fabs(delta) < 10) {
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getSearchedSupplierResults];
         }
     }

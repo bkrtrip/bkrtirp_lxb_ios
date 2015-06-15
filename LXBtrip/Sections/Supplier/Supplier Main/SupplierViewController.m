@@ -116,6 +116,11 @@
         collectionView.dataSource = self;
         collectionView.delegate = self;
         collectionView.backgroundColor = [UIColor whiteColor];
+        collectionView.alwaysBounceVertical = YES;
+        
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
+        [collectionView addSubview:refreshControl];
         
         UIScrollView *scroll = (UIScrollView *)collectionView;
         scroll.delegate = self;
@@ -125,11 +130,19 @@
     }
 
     // --TEST--
-    self.selectedIndex = 0;
     startCity = @"西安";
     lineType = nil;
-    
+    _selectedIndex = 0;
+
     [self refreshSupplierList];
+}
+
+- (void)refreshCollectionViews:(id)sender
+{
+    [sender endRefreshing];
+    pageNumsArray[_selectedIndex] = @1;
+    isLoadingMoresArray[_selectedIndex] = @0;
+    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
 }
 
 - (void)refreshSupplierList
@@ -140,9 +153,11 @@
         [_suppliersArray addObject:array];
     }
     
+    lineClass = LINE_CLASS[@(_selectedIndex)];
     pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
     isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
     
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
 }
 
@@ -162,16 +177,18 @@
 {
     _selectedIndex = selectedIndex;
     lineClass = LINE_CLASS[@(_selectedIndex)];
+    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 
 // passed back from SiftSupplierController
 - (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
 {
     NSDictionary *info = [note userInfo];
-    lineClass = info[@"lineclass"];
-    lineType = info[@"linetype"];
+    lineType = info[@"line_type"];
+    pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
+    isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
     
-    [self refreshSupplierList];
+    self.selectedIndex = [info[@"line_class_index"] integerValue];
 }
 
 - (void)switchCityWithCityName:(NSNotification *)note
@@ -234,6 +251,7 @@
             [_locationButton setTitle:cityString forState:UIControlStateNormal];
             
             startCity = cityString;
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
         }
     }];
@@ -248,14 +266,16 @@
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
-        pageNumsArray[_selectedIndex] = @1;
-    }
-    
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
+                [_suppliersArray[_selectedIndex] removeAllObjects];
+                isLoadingMoresArray[_selectedIndex] = @1;
+                [collectionViewsArray[_selectedIndex] reloadData];
+            }
+
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100010"] succeed:^{
                 if ([result[@"RS100010"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100010"];
@@ -293,8 +313,15 @@
             [alert show];
         }];
     } else {
-        [HTTPTool getSuppliersListWithStartCity:startCity lineClass:lineClass lineType:nil pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+        [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
+                [_suppliersArray[_selectedIndex] removeAllObjects];
+                isLoadingMoresArray[_selectedIndex] = @1;
+                [collectionViewsArray[_selectedIndex] reloadData];
+            }
+
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];
@@ -383,7 +410,8 @@
 {
     CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
     if (fabs(delta) < 10) {
-        isLoadingMoresArray[_selectedIndex] = @(YES);
+        isLoadingMoresArray[_selectedIndex] = @1;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     }
 }
@@ -418,23 +446,18 @@
 }
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
     self.selectedIndex = 0;
-    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
     self.selectedIndex = 1;
-    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
     self.selectedIndex = 2;
-    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
     self.selectedIndex = 3;
-    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
     self.selectedIndex = 4;
-    [self scrollToVisibleWithSelectedIndex:_selectedIndex];
 }
 
 - (void)scrollToVisibleWithSelectedIndex:(NSInteger)index
@@ -448,7 +471,8 @@
         }
     }];
     
-    if ([_suppliersArray[index] count] == 0) {
+    if ([isLoadingMoresArray[index] integerValue] == 0) {
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     }
 }

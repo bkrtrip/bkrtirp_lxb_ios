@@ -13,7 +13,6 @@
 #import "YesOrNoView.h"
 #import "ShareView.h"
 #import "AccompanyInfoView.h"
-#import "LoginViewController.h"
 #import "TourWebPreviewViewController.h"
 #import "SetShopNameViewController.h"
 #import "AccompanyInfoViewController.h"
@@ -284,6 +283,7 @@
 #pragma mark - TourListTableViewCell_Delegate
 - (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
+    
     popUpType = Share_Type;
     selectedProduct = product;
 
@@ -429,10 +429,8 @@
     [self hideYesOrNoView];
     // 未登录
     if (![UserModel companyId] || ![UserModel staffId]) {
-        
         // go to login page
-        LoginViewController *login = [[LoginViewController alloc] init];
-        [self.navigationController pushViewController:login animated:YES];
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
         return;
     }
     

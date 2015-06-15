@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchSupplierResultsViewController">
             <connections>
+                <outlet property="darkMask" destination="7in-eC-NH9" id="7no-J4-UIl"/>
                 <outlet property="imageView_Closed_StartCity" destination="Fiz-F3-IxC" id="AWs-0Q-cs6"/>
                 <outlet property="imageView_Closed_TravelType" destination="8is-o2-mHs" id="WJL-Vc-NIa"/>
                 <outlet property="imageView_Open_StartCity" destination="K9M-z8-etd" id="vRQ-Dm-LCo"/>
@@ -35,6 +36,10 @@
                         <outlet property="delegate" destination="-1" id="2iO-On-8wq"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7in-eC-NH9" userLabel="dark mask" customClass="UIControl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJW-rA-BO8" userLabel="Nav View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
@@ -156,25 +161,23 @@
                         </mask>
                     </variation>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="C2n-tG-P0A" userLabel="walkTypeTableView">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="C2n-tG-P0A" userLabel="walkTypeTableView">
                     <rect key="frame" x="0.0" y="113" width="320" height="176"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="176" id="2Pj-FZ-a3g"/>
                     </constraints>
-                    <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="vs7-6S-GQS"/>
                         <outlet property="delegate" destination="-1" id="IC4-KB-z7k"/>
                     </connections>
                 </tableView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oJ-yys" userLabel="startCityTableView">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oJ-yys" userLabel="startCityTableView">
                     <rect key="frame" x="0.0" y="113" width="320" height="308"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="308" id="hiR-cF-yEs"/>
                     </constraints>
-                    <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="LtW-FT-jOy"/>
                         <outlet property="delegate" destination="-1" id="Al9-sO-cel"/>
@@ -192,26 +195,36 @@
                 <constraint firstItem="Gkg-7h-4zI" firstAttribute="leading" secondItem="P4J-xk-y5A" secondAttribute="leading" id="BE3-y6-HwB"/>
                 <constraint firstItem="fJW-rA-BO8" firstAttribute="top" secondItem="P4J-xk-y5A" secondAttribute="top" id="BnO-9W-QLX"/>
                 <constraint firstItem="fi0-FZ-hEA" firstAttribute="centerY" secondItem="HUl-a3-KeK" secondAttribute="centerY" id="Hle-S1-UXn"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="leading" secondItem="C2n-tG-P0A" secondAttribute="leading" id="JbN-4x-K9z"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="trailing" secondItem="K9M-z8-etd" secondAttribute="trailing" constant="1" id="KS1-wm-TOr"/>
                 <constraint firstItem="fJW-rA-BO8" firstAttribute="leading" secondItem="P4J-xk-y5A" secondAttribute="leading" id="MOy-Up-bXr"/>
                 <constraint firstItem="fi0-FZ-hEA" firstAttribute="bottom" secondItem="wRK-xQ-Lap" secondAttribute="bottom" constant="3" id="MZl-1n-dUn"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="top" secondItem="C2n-tG-P0A" secondAttribute="top" id="Mt5-xA-Hkm"/>
                 <constraint firstItem="fi0-FZ-hEA" firstAttribute="width" secondItem="HUl-a3-KeK" secondAttribute="width" id="Nf6-zZ-6hU"/>
+                <constraint firstAttribute="trailing" secondItem="7in-eC-NH9" secondAttribute="trailing" id="PbT-V1-X9t"/>
                 <constraint firstAttribute="trailing" secondItem="fi0-FZ-hEA" secondAttribute="trailing" id="PdL-fL-ycE"/>
                 <constraint firstItem="o6C-oJ-yys" firstAttribute="top" secondItem="fi0-FZ-hEA" secondAttribute="bottom" id="Qb6-Ne-wGE"/>
+                <constraint firstItem="7in-eC-NH9" firstAttribute="leading" secondItem="P4J-xk-y5A" secondAttribute="leading" id="Rpn-t5-57z"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="trailing" secondItem="o6C-oJ-yys" secondAttribute="trailing" id="So0-b3-P7E"/>
                 <constraint firstItem="fi0-FZ-hEA" firstAttribute="bottom" secondItem="8is-o2-mHs" secondAttribute="bottom" constant="3" id="Srj-5O-bxN"/>
                 <constraint firstItem="o6C-oJ-yys" firstAttribute="leading" secondItem="P4J-xk-y5A" secondAttribute="leading" id="Tcb-Bs-1HD"/>
                 <constraint firstAttribute="trailing" secondItem="C2n-tG-P0A" secondAttribute="trailing" id="Twd-Hh-3OQ"/>
                 <constraint firstItem="8is-o2-mHs" firstAttribute="width" secondItem="8is-o2-mHs" secondAttribute="height" multiplier="17:18" id="UFq-5W-rsE"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="leading" secondItem="P4J-xk-y5A" secondAttribute="leading" id="VVc-pE-wKW"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="trailing" secondItem="Fiz-F3-IxC" secondAttribute="trailing" constant="3" id="Vad-L4-yuh"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="leading" secondItem="o6C-oJ-yys" secondAttribute="leading" id="VnO-oM-Yqa"/>
                 <constraint firstAttribute="bottom" secondItem="Gkg-7h-4zI" secondAttribute="bottom" id="W28-jE-5sK"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="top" secondItem="o6C-oJ-yys" secondAttribute="top" id="ac4-Li-HE4"/>
                 <constraint firstItem="Fiz-F3-IxC" firstAttribute="width" secondItem="Fiz-F3-IxC" secondAttribute="height" multiplier="17:18" id="cVW-Pd-dQS"/>
                 <constraint firstAttribute="trailing" secondItem="o6C-oJ-yys" secondAttribute="trailing" id="dO7-ZL-wmv"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="trailing" secondItem="C2n-tG-P0A" secondAttribute="trailing" id="f4q-at-dKp"/>
                 <constraint firstAttribute="bottom" secondItem="C2n-tG-P0A" secondAttribute="bottom" id="fHg-7l-whs"/>
                 <constraint firstItem="fi0-FZ-hEA" firstAttribute="height" secondItem="HUl-a3-KeK" secondAttribute="height" id="hNJ-HY-hXO"/>
                 <constraint firstItem="fi0-FZ-hEA" firstAttribute="leading" secondItem="HUl-a3-KeK" secondAttribute="trailing" id="hc9-ep-Yzb"/>
+                <constraint firstItem="7in-eC-NH9" firstAttribute="top" secondItem="P4J-xk-y5A" secondAttribute="top" id="hmQ-uo-n3o"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="bottom" secondItem="K9M-z8-etd" secondAttribute="bottom" constant="3" id="hoC-9F-Gdy"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="bottom" secondItem="Fiz-F3-IxC" secondAttribute="bottom" constant="3" id="j5P-Yj-mQ3"/>
+                <constraint firstAttribute="bottom" secondItem="7in-eC-NH9" secondAttribute="bottom" id="oNv-HX-Gmg"/>
                 <constraint firstAttribute="trailing" secondItem="Gkg-7h-4zI" secondAttribute="trailing" id="rxu-gr-EUw"/>
                 <constraint firstItem="K9M-z8-etd" firstAttribute="width" secondItem="K9M-z8-etd" secondAttribute="height" multiplier="2:1" id="uMo-XM-12B"/>
                 <constraint firstItem="C2n-tG-P0A" firstAttribute="top" secondItem="fi0-FZ-hEA" secondAttribute="bottom" id="wAU-aU-mRb"/>
@@ -220,10 +233,16 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="2MW-Ma-7G7"/>
+                    <exclude reference="Twd-Hh-3OQ"/>
                     <exclude reference="fHg-7l-whs"/>
+                    <exclude reference="wAU-aU-mRb"/>
+                    <exclude reference="Qb6-Ne-wGE"/>
+                    <exclude reference="Tcb-Bs-1HD"/>
+                    <exclude reference="dO7-ZL-wmv"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="499" y="393"/>
+            <point key="canvasLocation" x="454" y="354"/>
         </view>
     </objects>
     <resources>

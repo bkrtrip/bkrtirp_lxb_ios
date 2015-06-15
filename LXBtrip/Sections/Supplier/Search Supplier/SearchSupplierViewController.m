@@ -50,7 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    searchHistoryArray = [[Global sharedGlobal] searchHistory];
+    searchHistoryArray = [[[Global sharedGlobal] searchHistory] mutableCopy];
     hotSearchNames = [[NSMutableArray alloc] init];
     
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -244,6 +244,7 @@
             default:
                 break;
         }
+        [self dismissDropDownTableView];
     }
 }
 
@@ -311,8 +312,13 @@
     results.lineClass = lineClass;
     results.keyword = keywords;
     [self.navigationController pushViewController:results animated:YES];
-    [[Global sharedGlobal] saveToSearchHistoryWithKeyword:_searchTextField.text];
     [_searchTextField resignFirstResponder];
+    [[Global sharedGlobal] saveToSearchHistoryWithKeyword:_searchTextField.text];
+    if (!searchHistoryArray) {
+        searchHistoryArray = [[NSMutableArray alloc] init];
+    }
+    [searchHistoryArray addObject:keywords];
+    [_mainTableView reloadData];
 }
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

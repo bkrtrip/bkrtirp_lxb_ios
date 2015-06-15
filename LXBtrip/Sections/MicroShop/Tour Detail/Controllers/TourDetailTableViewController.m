@@ -152,8 +152,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    DetailViewController *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
-//    [self.navigationController pushViewController:detailViewController animated:YES];
+
 }
 
 #pragma mark - TourDetailCell_Four_Delegate
