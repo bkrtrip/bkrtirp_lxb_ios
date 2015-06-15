@@ -20,10 +20,9 @@
     // Initialization code
 }
 
-- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
+- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
 {
     _joinedNumLabel.text = info.alleyJoinNum;
-    return 70.f;
 }
 
 

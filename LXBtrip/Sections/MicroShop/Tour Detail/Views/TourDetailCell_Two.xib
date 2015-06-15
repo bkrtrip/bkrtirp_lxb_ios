@@ -48,7 +48,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥468" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kfz-4W-BvC">
-                        <rect key="frame" x="85" y="64" width="38" height="17"/>
+                        <rect key="frame" x="86" y="64" width="38" height="17"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -116,7 +116,7 @@
                             <constraint firstAttribute="width" secondItem="grz-gA-gB8" secondAttribute="height" multiplier="20:36" id="xk7-d4-3mN"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Bn-GC-5uR" userLabel="more instruction Button">
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Bn-GC-5uR" userLabel="more instruction Button">
                         <rect key="frame" x="0.0" y="114" width="320" height="35"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -159,7 +159,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="3Pu-FP-dhQ" secondAttribute="trailing" constant="14" id="dCe-gx-MRS"/>
                     <constraint firstItem="grz-gA-gB8" firstAttribute="centerY" secondItem="E3R-Qh-9WT" secondAttribute="centerY" id="fYa-Yf-cAz"/>
                     <constraint firstItem="lIC-m1-dDd" firstAttribute="leading" secondItem="P2k-kd-84V" secondAttribute="trailing" constant="3" id="fhq-Sm-dN0"/>
-                    <constraint firstItem="Kfz-4W-BvC" firstAttribute="leading" secondItem="ivQ-G2-0dg" secondAttribute="trailing" constant="-1" id="jlZ-YP-tU8"/>
+                    <constraint firstItem="Kfz-4W-BvC" firstAttribute="leading" secondItem="ivQ-G2-0dg" secondAttribute="trailing" id="jlZ-YP-tU8"/>
                     <constraint firstItem="uwb-x7-DWP" firstAttribute="top" secondItem="vTm-rs-IKO" secondAttribute="bottom" constant="10" id="jzt-L1-uor"/>
                     <constraint firstAttribute="bottom" secondItem="5Bn-GC-5uR" secondAttribute="bottom" id="ptw-wG-aGL"/>
                     <constraint firstItem="ERg-YH-WoH" firstAttribute="leading" secondItem="pt9-an-OYt" secondAttribute="trailing" constant="1" id="qRz-3b-tbz"/>
@@ -169,6 +169,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="ptw-wG-aGL"/>
                         <exclude reference="KFn-os-DHJ"/>
                         <exclude reference="Lp8-eN-3KU"/>
                         <exclude reference="fhq-Sm-dN0"/>

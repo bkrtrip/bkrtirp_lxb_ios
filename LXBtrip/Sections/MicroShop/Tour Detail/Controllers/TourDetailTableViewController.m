@@ -15,7 +15,7 @@
 #import "CommentsViewController.h"
 #import "TourDetailWebDetailViewController.h"
 
-@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate>
+@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
 {
     NSMutableDictionary *cellHeights;
 }
@@ -32,21 +32,18 @@
     self.title = @"线路详情";
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
     
-//    cellHeights = [@{@"first_cell_height":@(254.f), @"second_cell_height":@(150.f)} mutableCopy];
-    
-//    UINib *nib = [UINib nibWithNibName:@"TourDetailCell_One" bundle:nil];
-    
     cellHeights = [[NSMutableDictionary alloc] init];
+    [cellHeights setObject:@(25.f) forKey:@"first_cell_height"];
     [self setUpTableView];
     [self getTourDetail];
 }
 
 - (void)setUpTableView
 {
-    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_One" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_One"];
     [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Two" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Two"];
     [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Three" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Three"];
     [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Four" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Four"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_One" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_One"];
     
     _tableView.tableFooterView = [[UIView alloc] init];
 }
