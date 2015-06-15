@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface DispatchersViewController : UIViewController
+@interface DispatchersViewController : NavBaseViewController
 
 @end

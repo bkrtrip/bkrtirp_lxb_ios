@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXY-LY-4xC">
-                        <rect key="frame" x="0.0" y="2" width="320" height="112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李梅" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yd5-EJ-mBb">
                                 <rect key="frame" x="79" y="10" width="70" height="18"/>
@@ -168,7 +169,6 @@
                             <constraint firstItem="x2z-c6-2ZA" firstAttribute="leading" secondItem="yd5-EJ-mBb" secondAttribute="trailing" constant="8" id="HAk-vh-wdZ"/>
                             <constraint firstItem="CZU-5U-KFj" firstAttribute="centerY" secondItem="Y64-YI-yF3" secondAttribute="centerY" id="LZ3-ej-Yjk"/>
                             <constraint firstAttribute="bottom" secondItem="CKu-vT-UVZ" secondAttribute="bottom" constant="7" id="Qz6-SG-t0k"/>
-                            <constraint firstAttribute="width" constant="320" id="RTg-gO-qcl"/>
                             <constraint firstItem="CZU-5U-KFj" firstAttribute="leading" secondItem="Y64-YI-yF3" secondAttribute="trailing" constant="2" id="UNa-Nv-ZmJ"/>
                             <constraint firstAttribute="trailing" secondItem="aoL-Bx-yKa" secondAttribute="trailing" constant="37" id="Wsk-4H-loi"/>
                             <constraint firstItem="7FR-4K-u85" firstAttribute="leading" secondItem="CKu-vT-UVZ" secondAttribute="trailing" constant="46" id="apw-dZ-C6k"/>
@@ -178,7 +178,6 @@
                             <constraint firstItem="sMZ-LJ-drP" firstAttribute="centerY" secondItem="yd5-EJ-mBb" secondAttribute="centerY" constant="21" id="gSI-Gf-yoo"/>
                             <constraint firstItem="KH6-Ai-jCd" firstAttribute="leading" secondItem="sMZ-LJ-drP" secondAttribute="trailing" constant="11" id="jVd-GX-I0J"/>
                             <constraint firstItem="fU9-vN-pBs" firstAttribute="leading" secondItem="7FR-4K-u85" secondAttribute="trailing" constant="8" id="mSl-cl-8GD"/>
-                            <constraint firstAttribute="height" constant="112" id="o7L-6i-HKj"/>
                             <constraint firstItem="CKu-vT-UVZ" firstAttribute="leading" secondItem="i1p-rv-1aN" secondAttribute="trailing" constant="97" id="rUK-qh-s0m"/>
                             <constraint firstAttribute="centerX" secondItem="CKu-vT-UVZ" secondAttribute="centerX" constant="2.5" id="tV4-ew-Uyt"/>
                             <constraint firstItem="CKu-vT-UVZ" firstAttribute="centerY" secondItem="2No-tL-Ow5" secondAttribute="centerY" constant="1" id="u51-u2-jFI"/>
@@ -189,8 +188,11 @@
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
-                    <constraint firstItem="mXY-LY-4xC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="RIJ-X9-DcO"/>
-                    <constraint firstAttribute="centerX" secondItem="mXY-LY-4xC" secondAttribute="centerX" id="qGW-pB-8NC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="mXY-LY-4xC" secondAttribute="bottom" constant="-1" id="5Tv-KF-95U"/>
+                    <constraint firstAttribute="centerX" secondItem="mXY-LY-4xC" secondAttribute="centerX" id="AyL-vx-U2s"/>
+                    <constraint firstItem="mXY-LY-4xC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RIJ-X9-DcO"/>
+                    <constraint firstItem="mXY-LY-4xC" firstAttribute="left" secondItem="H2p-sc-9uM" secondAttribute="left" id="drE-03-Uf2"/>
+                    <constraint firstItem="mXY-LY-4xC" firstAttribute="right" secondItem="H2p-sc-9uM" secondAttribute="right" id="rk0-du-jWR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

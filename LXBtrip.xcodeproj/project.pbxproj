@@ -25,6 +25,10 @@
 		2260D7C81B27DA22000F6856 /* AreaSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7C61B27DA22000F6856 /* AreaSettingViewController.xib */; };
 		2260D7CC1B27DA43000F6856 /* DispatchersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */; };
 		2260D7CD1B27DA43000F6856 /* DispatchersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */; };
+		227389FE1B2DD8F2008E328E /* DispatchSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227389FC1B2DD8F2008E328E /* DispatchSettingsViewController.m */; };
+		227389FF1B2DD8F2008E328E /* DispatchSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227389FD1B2DD8F2008E328E /* DispatchSettingsViewController.xib */; };
+		22738A031B2DD91E008E328E /* DispaterInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22738A011B2DD91E008E328E /* DispaterInfoViewController.m */; };
+		22738A041B2DD91E008E328E /* DispaterInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */; };
 		22924CF91B2D8B1300D898CF /* WCPayHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */; };
 		22924CFA1B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */; };
 		22924CFE1B2D8C6700D898CF /* WCPayFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CFC1B2D8C6700D898CF /* WCPayFooterTableViewCell.m */; };
@@ -432,7 +436,6 @@
 		97CDAF7C1B2BF996009917FB /* TourDetailWebDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDAF7A1B2BF996009917FB /* TourDetailWebDetailViewController.xib */; };
 		97CDAFC91B2C2FBE009917FB /* SearchSupplier_HotSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAF8D1B2C2FBE009917FB /* SearchSupplier_HotSearchTableViewCell.m */; };
 		97CDAFCA1B2C2FBE009917FB /* SearchSupplier_HotSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDAF8E1B2C2FBE009917FB /* SearchSupplier_HotSearchTableViewCell.xib */; };
-		97CDAFCD1B2C2FBE009917FB /* SearchSupplier_SearchHistoryTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAF931B2C2FBE009917FB /* SearchSupplier_SearchHistoryTitleTableViewCell.m */; };
 		97CDAFCE1B2C2FBE009917FB /* SearchSupplier_SearchHistoryTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDAF941B2C2FBE009917FB /* SearchSupplier_SearchHistoryTitleTableViewCell.xib */; };
 		97CDAFD11B2C2FBE009917FB /* SearchSupplierResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAF991B2C2FBE009917FB /* SearchSupplierResultsViewController.m */; };
 		97CDAFD21B2C2FBE009917FB /* SearchSupplierResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDAF9A1B2C2FBE009917FB /* SearchSupplierResultsViewController.xib */; };
@@ -443,7 +446,6 @@
 		97CDAFD71B2C2FBE009917FB /* SiftSupplierCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAFA31B2C2FBE009917FB /* SiftSupplierCollectionView.m */; };
 		97CDAFD81B2C2FBE009917FB /* SiftSupplierCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAFA51B2C2FBE009917FB /* SiftSupplierCollectionViewCell.m */; };
 		97CDAFD91B2C2FBE009917FB /* SiftSupplierCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDAFA61B2C2FBE009917FB /* SiftSupplierCollectionViewCell.xib */; };
-		97CDAFDA1B2C2FBE009917FB /* SiftSupplierCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAFA81B2C2FBE009917FB /* SiftSupplierCollectionViewFlowLayout.m */; };
 		97CDAFDB1B2C2FBE009917FB /* SiftSupplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAFAA1B2C2FBE009917FB /* SiftSupplierViewController.m */; };
 		97CDAFDC1B2C2FBE009917FB /* SiftSupplierViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97CDAFAB1B2C2FBE009917FB /* SiftSupplierViewController.xib */; };
 		97CDAFDD1B2C2FBE009917FB /* SupplierDetailTopImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CDAFAE1B2C2FBE009917FB /* SupplierDetailTopImageTableViewCell.m */; };
@@ -525,6 +527,12 @@
 		2260D7C91B27DA43000F6856 /* DispatchersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchersViewController.h; sourceTree = "<group>"; };
 		2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchersViewController.m; sourceTree = "<group>"; };
 		2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchersViewController.xib; sourceTree = "<group>"; };
+		227389FB1B2DD8F2008E328E /* DispatchSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchSettingsViewController.h; sourceTree = "<group>"; };
+		227389FC1B2DD8F2008E328E /* DispatchSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchSettingsViewController.m; sourceTree = "<group>"; };
+		227389FD1B2DD8F2008E328E /* DispatchSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchSettingsViewController.xib; sourceTree = "<group>"; };
+		22738A001B2DD91E008E328E /* DispaterInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispaterInfoViewController.h; sourceTree = "<group>"; };
+		22738A011B2DD91E008E328E /* DispaterInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispaterInfoViewController.m; sourceTree = "<group>"; };
+		22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispaterInfoViewController.xib; sourceTree = "<group>"; };
 		22924CF61B2D8B1300D898CF /* WCPayHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPayHeaderTableViewCell.h; sourceTree = "<group>"; };
 		22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPayHeaderTableViewCell.m; sourceTree = "<group>"; };
 		22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCPayHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -1196,6 +1204,12 @@
 				2260D7C91B27DA43000F6856 /* DispatchersViewController.h */,
 				2260D7CA1B27DA43000F6856 /* DispatchersViewController.m */,
 				2260D7CB1B27DA43000F6856 /* DispatchersViewController.xib */,
+				227389FB1B2DD8F2008E328E /* DispatchSettingsViewController.h */,
+				227389FC1B2DD8F2008E328E /* DispatchSettingsViewController.m */,
+				227389FD1B2DD8F2008E328E /* DispatchSettingsViewController.xib */,
+				22738A001B2DD91E008E328E /* DispaterInfoViewController.h */,
+				22738A011B2DD91E008E328E /* DispaterInfoViewController.m */,
+				22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -2496,6 +2510,7 @@
 				9794A89D1B26A8280077E5C0 /* dial@3x.png in Resources */,
 				97A570841B240B8F00D48A36 /* rectangle_close@2x.png in Resources */,
 				9794A8611B26A8280077E5C0 /* CreateOrderCell_BookHeader.xib in Resources */,
+				227389FF1B2DD8F2008E328E /* DispatchSettingsViewController.xib in Resources */,
 				9794A8A31B26A8280077E5C0 /* help@3x.png in Resources */,
 				97C3B25C1B1B2EFC00C729C4 /* calendar@2x.png in Resources */,
 				9794A8491B26A8280077E5C0 /* UploadingIconTableViewCell.xib in Resources */,
@@ -2522,6 +2537,7 @@
 				977DCF911B1C96F30060C7BB /* is_new@2x.png in Resources */,
 				9794A8B91B26A8280077E5C0 /* tel_1@2x.png in Resources */,
 				9794A81C1B26A8280077E5C0 /* AccompanyInfoView.xib in Resources */,
+				22738A041B2DD91E008E328E /* DispaterInfoViewController.xib in Resources */,
 				97D78F031B19B873003E66E7 /* service_normal@3x.png in Resources */,
 				9794A8371B26A8280077E5C0 /* MicroShopViewController.xib in Resources */,
 				9794A8B21B26A8280077E5C0 /* register@2x.png in Resources */,
@@ -2563,7 +2579,6 @@
 				97955AA01B27C01600D3E585 /* YesOrNoView.xib in Resources */,
 				2260D7B41B27ADFD000F6856 /* dShare@2x.png in Resources */,
 				22924CFF1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib in Resources */,
-				9794A8CB1B26A8280077E5C0 /* RecentContactButton.xib in Resources */,
 				973D8B511B1B571500CA4260 /* is_my@3x.png in Resources */,
 				973D8B2F1B1B40DC00CA4260 /* segment_border@2x.png in Resources */,
 				977DCF9B1B1C97090060C7BB /* preview@2x.png in Resources */,
@@ -2943,6 +2958,7 @@
 				977DCFD31B1D31C80060C7BB /* TravelTicketGroup.m in Sources */,
 				9794A81D1B26A8280077E5C0 /* InviteSupplierTableView.m in Sources */,
 				97CDAFD31B2C2FBE009917FB /* SearchSupplierViewController.m in Sources */,
+				227389FE1B2DD8F2008E328E /* DispatchSettingsViewController.m in Sources */,
 				97CDAFC91B2C2FBE009917FB /* SearchSupplier_HotSearchTableViewCell.m in Sources */,
 				979071331B2136E600C9FCD6 /* SiftedLine.m in Sources */,
 				9794A9201B26A86B0077E5C0 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -2969,6 +2985,7 @@
 				972DCEFD1B2AD013002C4155 /* TourListCell_WalkType.m in Sources */,
 				9794A8361B26A8280077E5C0 /* MicroShopViewController.m in Sources */,
 				97CDAF7B1B2BF996009917FB /* TourDetailWebDetailViewController.m in Sources */,
+				22738A031B2DD91E008E328E /* DispaterInfoViewController.m in Sources */,
 				9794A8701B26A8280077E5C0 /* MyOrderListTableViewCell__Unconfirmed_Confirmed.m in Sources */,
 				9794A8211B26A8280077E5C0 /* InviteSupplierTableViewCell_Fourth.m in Sources */,
 				9794A83B1B26A8280077E5C0 /* MicroShopCollectionViewCell_MyShop.m in Sources */,

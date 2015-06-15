@@ -21,6 +21,8 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.dispatchersTableView registerNib:[UINib nibWithNibName:@"DispatcherTableViewCell" bundle:nil] forCellReuseIdentifier:@"dispatcherCell"];
+    
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"添加" image:nil];
 
 }
 
@@ -31,15 +33,17 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.tabBarController.tabBar.hidden = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+
+- (void)rightBarButtonItemClicked:(id)sender
 {
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.tabBarController.tabBar.hidden = NO;
+    
 }
+
 
 #pragma mark - UITableViewDataSource
 
@@ -73,6 +77,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     
+    
+}
+
+
+- (void)getDispatchersList
+{
     
 }
 
