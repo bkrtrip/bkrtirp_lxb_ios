@@ -50,7 +50,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.isAlreadyLogined = [self getUserLoginState];
-    [self getUserInformation];
+    if (self.isAlreadyLogined) {
+        [self getUserInformation];
+    }
+    
     
     [self.mineTableView registerNib:[UINib nibWithNibName:@"PSeperaterTableViewCell" bundle:nil] forCellReuseIdentifier:@"separateCell"];
     
@@ -82,7 +85,9 @@
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.tabBarController.tabBar.hidden = NO;
     
-    [self getUserInformation];
+    if (self.isAlreadyLogined) {
+        [self getUserInformation];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

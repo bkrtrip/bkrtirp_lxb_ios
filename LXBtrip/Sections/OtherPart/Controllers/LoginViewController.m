@@ -86,6 +86,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
+         [weakSelf showAlertViewWithTitle:@"提示" message:@"登录失败，请重试。" cancelButtonTitle:@"确定"];
      }];
 }
 
