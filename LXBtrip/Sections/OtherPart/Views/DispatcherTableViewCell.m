@@ -7,6 +7,7 @@
 //
 
 #import "DispatcherTableViewCell.h"
+#import "NSDictionary+GetStringValue.h"
 
 @interface DispatcherTableViewCell ()
 
@@ -33,7 +34,18 @@
 
 - (void)initialContactInformation:(NSDictionary *)infoDic
 {
-    
+    if (infoDic) {
+        self.nameLabel.text = [infoDic stringValueByKey:@"staff_real_name"];
+        self.phoneNumLabel.text = [infoDic stringValueByKey:@"staff_partner_phonenum"];
+        self.microShopNameLabel.text = [infoDic stringValueByKey:@"staff_departments_name"];
+        
+        double timeInterval = [(NSNumber *)[infoDic stringValueByKey:@"create_date"] doubleValue] / 1000;
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+        self.admitDateLabel.text = [dateFormatter stringFromDate:date];
+        
+    }
 }
 
 - (IBAction)dialToContact:(id)sender {

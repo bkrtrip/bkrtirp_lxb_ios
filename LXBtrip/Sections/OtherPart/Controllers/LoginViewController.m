@@ -54,9 +54,9 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval=10;
-//    NSDictionary *parameters=@{@"name":self.phoneNumberText.text,@"pwd":self.passwordText.text};
+    NSDictionary *parameters=@{@"name":name,@"pwd":pwd};
 //    NSDictionary *parameters=@{@"name":@"18602929807",@"pwd":@"654321"};
-    NSDictionary *parameters=@{@"name":@"xahsly",@"pwd":@"qiqi63361888"};
+//    NSDictionary *parameters=@{@"name":@"xahsly",@"pwd":@"qiqi63361888"};
 
     NSString *partialUrl = [NSString stringWithFormat:@"%@common/login", HOST_BASE_URL];
     [manager POST:partialUrl parameters:parameters

@@ -7,8 +7,15 @@
 //
 
 #import "DispaterInfoViewController.h"
+#import "AppMacro.h"
+#import "UserModel.h"
+#import "AFNetworking.h"
+#import "NSDictionary+GetStringValue.h"
+#import "UIViewController+CommonUsed.h"
 
 @interface DispaterInfoViewController ()
+
+
 
 @end
 

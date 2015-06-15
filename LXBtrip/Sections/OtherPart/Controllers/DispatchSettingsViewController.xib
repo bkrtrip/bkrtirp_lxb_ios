@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DispatchSettingsViewController">
             <connections>
+                <outlet property="dSettingsTableView" destination="wxx-tn-zeX" id="d4l-ye-HNN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -13,7 +15,49 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-tn-zeX">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="GFF-51-d5x"/>
+                        <outlet property="delegate" destination="-1" id="1Wq-AW-L9v"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="wxx-tn-zeX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2R0-DY-qFH"/>
+                <constraint firstAttribute="trailing" secondItem="wxx-tn-zeX" secondAttribute="trailing" constant="8" id="8IZ-yg-Ez5">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="wxx-tn-zeX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-8" id="JQU-cC-92u">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="wxx-tn-zeX" secondAttribute="bottom" id="Rfa-hz-xRt"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="wxx-tn-zeX"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="2R0-DY-qFH"/>
+                    <exclude reference="8IZ-yg-Ez5"/>
+                    <exclude reference="JQU-cC-92u"/>
+                    <exclude reference="Rfa-hz-xRt"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="wxx-tn-zeX"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="2R0-DY-qFH"/>
+                    <include reference="8IZ-yg-Ez5"/>
+                    <include reference="JQU-cC-92u"/>
+                    <include reference="Rfa-hz-xRt"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
