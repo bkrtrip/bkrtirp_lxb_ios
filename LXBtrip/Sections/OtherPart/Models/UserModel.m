@@ -40,7 +40,7 @@ static NSString *userPlistPath = nil;
 
 + (NSString *)getUserPropertyByKey:(NSString *)key
 {
-    NSDictionary *userDic = [self getUserInformations];
+    NSDictionary *userDic = [[self getUserInformations] objectForKey:@"RS100034"];
     
     if (userDic) {
         return [NSString stringWithFormat:@"%@", [userDic objectForKey:key]];

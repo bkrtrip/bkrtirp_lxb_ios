@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DispatchersViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DispatchSettingsViewController">
             <connections>
-                <outlet property="dispatchersTableView" destination="rYc-Oe-l7g" id="fsz-Hi-K7l"/>
+                <outlet property="dSettingsTableView" destination="wxx-tn-zeX" id="d4l-ye-HNN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,46 +16,46 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rYc-Oe-l7g">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-tn-zeX">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="Kmx-94-lCA"/>
-                        <outlet property="delegate" destination="-1" id="8Kf-o2-P5l"/>
+                        <outlet property="dataSource" destination="-1" id="GFF-51-d5x"/>
+                        <outlet property="delegate" destination="-1" id="1Wq-AW-L9v"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="rYc-Oe-l7g" secondAttribute="trailing" id="31G-jQ-9Gl"/>
-                <constraint firstItem="rYc-Oe-l7g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-46" id="POo-Mr-6LM">
+                <constraint firstItem="wxx-tn-zeX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2R0-DY-qFH"/>
+                <constraint firstAttribute="trailing" secondItem="wxx-tn-zeX" secondAttribute="trailing" constant="8" id="8IZ-yg-Ez5">
                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstAttribute="bottom" secondItem="rYc-Oe-l7g" secondAttribute="bottom" constant="46" id="UPS-JE-Ok0">
+                <constraint firstItem="wxx-tn-zeX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-8" id="JQU-cC-92u">
                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstItem="rYc-Oe-l7g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jaS-OM-cxe"/>
+                <constraint firstAttribute="bottom" secondItem="wxx-tn-zeX" secondAttribute="bottom" id="Rfa-hz-xRt"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="rYc-Oe-l7g"/>
+                    <exclude reference="wxx-tn-zeX"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="31G-jQ-9Gl"/>
-                    <exclude reference="POo-Mr-6LM"/>
-                    <exclude reference="UPS-JE-Ok0"/>
-                    <exclude reference="jaS-OM-cxe"/>
+                    <exclude reference="2R0-DY-qFH"/>
+                    <exclude reference="8IZ-yg-Ez5"/>
+                    <exclude reference="JQU-cC-92u"/>
+                    <exclude reference="Rfa-hz-xRt"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
                 <mask key="subviews">
-                    <include reference="rYc-Oe-l7g"/>
+                    <include reference="wxx-tn-zeX"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="31G-jQ-9Gl"/>
-                    <include reference="POo-Mr-6LM"/>
-                    <include reference="UPS-JE-Ok0"/>
-                    <include reference="jaS-OM-cxe"/>
+                    <include reference="2R0-DY-qFH"/>
+                    <include reference="8IZ-yg-Ez5"/>
+                    <include reference="JQU-cC-92u"/>
+                    <include reference="Rfa-hz-xRt"/>
                 </mask>
             </variation>
         </view>

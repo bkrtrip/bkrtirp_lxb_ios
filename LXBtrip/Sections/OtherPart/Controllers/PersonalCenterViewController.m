@@ -20,6 +20,7 @@
 #import "DispatchersViewController.h"
 #import "LoginViewController.h"
 #import "RPhoneNumViewController.h"//register procedure start point
+#import "DispatchSettingsViewController.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -50,7 +51,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.isAlreadyLogined = [self getUserLoginState];
-    [self getUserInformation];
+    if (self.isAlreadyLogined) {
+        [self getUserInformation];
+    }
+    
     
     [self.mineTableView registerNib:[UINib nibWithNibName:@"PSeperaterTableViewCell" bundle:nil] forCellReuseIdentifier:@"separateCell"];
     
@@ -82,7 +86,9 @@
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.tabBarController.tabBar.hidden = NO;
     
-    [self getUserInformation];
+    if (self.isAlreadyLogined) {
+        [self getUserInformation];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -96,8 +102,8 @@
 
 - (BOOL)getUserLoginState
 {
-    NSDictionary *userInfoDic = [UserModel getUserInformations];
-    if (userInfoDic) {
+    NSString *staffId = [UserModel getUserPropertyByKey:@"staff_id"];
+    if (staffId && staffId.length > 0) {
         return YES;
     }
     
@@ -227,16 +233,27 @@
     switch (indexPath.section) {
         case 2:
         {
+            //消息设置
             if (indexPath.row == 0) {
                 
             }
+            //支付设置
             else if (indexPath.row == 1) {
                 PayListViewController *viewController = [[PayListViewController alloc] initWithNibName:@"PayListViewController" bundle:nil];
                 
                 [self.navigationController pushViewController:viewController animated:YES];
             }
-            else if (indexPath.row == 3) {
+            //分销设置
+            else if (indexPath.row == 2) {
                 
+                if (!self.isAlreadyLogined) {
+                    [self showAlertViewWithTitle:nil message:@"您还未登录，请先登录" cancelButtonTitle:@"确认"];
+                    return;
+                }
+                
+                DispatchSettingsViewController *viewController = [[DispatchSettingsViewController alloc] init];
+                
+                [self.navigationController pushViewController:viewController animated:YES];
             }
         }
             break;
@@ -245,6 +262,7 @@
             
         }
             break;
+        //退出
         case 6:
         {
             if (self.isAlreadyLogined) {
@@ -322,8 +340,13 @@
 
 - (void)responseForAction:(ActionType)action
 {
-    if (action == GoToDispatchers || action == GoToSuppliers || action == GoToOrders) {
+    // || action == GoToSuppliers || action == GoToOrders
+    if (action == GoToDispatchers) {
         //TODO: 未登录不允许访问
+        if (!self.isAlreadyLogined) {
+            [self showAlertViewWithTitle:nil message:@"您还未开通企业分销服务，请进入我的－分销设置进行开通" cancelButtonTitle:@"确认"];
+            return;
+        }
     }
     
     switch (action) {
@@ -355,7 +378,7 @@
             break;
         case GoToSuppliers:
         {
-            //跳转用户订单页面(xiaozhu)
+            //跳转供应商(xiaozhu)
 
         }
             break;
@@ -388,6 +411,9 @@
     manager.requestSerializer.timeoutInterval=10;
     
     NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    if (!staffDic) {
+        return;
+    }
     
     NSString *partialUrl = [NSString stringWithFormat:@"%@myself/staffData", HOST_BASE_URL];
     NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
