@@ -10,4 +10,6 @@
 
 @interface InviteSupplierTableViewCell_Third : UITableViewCell
 
+- (void)setCellContentWithPhoneNumber:(NSString *)number;
+
 @end

@@ -33,8 +33,6 @@
     
     UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
     LoginViewController *loginViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-
     
     
     MicroShopViewController *shop = [[MicroShopViewController alloc] init];

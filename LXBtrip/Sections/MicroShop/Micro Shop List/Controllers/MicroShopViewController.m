@@ -26,8 +26,6 @@
 {
     NSString *startProvince;
     NSNumber *shopIdToDelete;
-    BOOL onLineListNeedsUpdate;
-    BOOL myListNeedsUpdate;
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -71,7 +69,7 @@
     // must override superclass
     self.automaticallyAdjustsScrollViewInsets = YES;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:self];
     
     CGFloat scrollViewYOrigin = 0.277*SCREEN_HEIGHT;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49)];
@@ -113,7 +111,6 @@
     _onlineShopCollectionView.delegate = self;
     _onlineShopCollectionView.backgroundColor = [UIColor whiteColor];
     _onlineShopCollectionView.alwaysBounceVertical = YES;
-
     [_scrollView addSubview:_onlineShopCollectionView];
     
     // online shop collection view
@@ -136,12 +133,22 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     
+    UIRefreshControl *refreshControl_online = [[UIRefreshControl alloc] init];
+    [refreshControl_online addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
+    [_onlineShopCollectionView addSubview:refreshControl_online];
+    
+    UIRefreshControl *refreshControl_myshop = [[UIRefreshControl alloc] init];
+    [refreshControl_myshop addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
+    [_myShopCollectionView addSubview:refreshControl_myshop];
+    
     [self addLongPressGestureRecognizerForMyShop];
-    [self shopListNeedsUpdate];
     
     // --TEST--
     startProvince = @"陕西";
-    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    self.selectedIndex = 0;
+    // --TEST--
+
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
     [self startLocation];
 }
@@ -176,14 +183,26 @@
     }
 }
 
+- (void)refreshCollectionViews:(id)sender
+{
+    [sender endRefreshing];
+    if (_selectedIndex == 0) {
+        [self getOnlineShops];
+        return;
+    }
+    [self getMyShops];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    if (startProvince) {
-        self.selectedIndex = _selectedIndex;
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -205,12 +224,8 @@
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
             }
             
-            if (onLineListNeedsUpdate) {
-                if (!_onlineShopsArray) {
-                    _onlineShopsArray = [[NSMutableArray alloc] init];
-                } else {
-                    [_onlineShopsArray removeAllObjects];
-                }
+            if (!_onlineShopsArray) {
+                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
                 [self getOnlineShops];
             }
         }
@@ -225,12 +240,8 @@
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
             }
             
-            if (myListNeedsUpdate) {
-                if (!_myShopsArray) {
-                    _myShopsArray = [[NSMutableArray alloc] init];
-                } else {
-                    [_myShopsArray removeAllObjects];
-                }
+            if (!_myShopsArray) {
+                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
                 [self getMyShops];
             }
         }
@@ -240,10 +251,9 @@
     }
 }
 
-- (void)shopListNeedsUpdate
+- (void)myShopListNeedsUpdate
 {
-    onLineListNeedsUpdate = YES;
-    myListNeedsUpdate = YES;
+    [self getMyShops];
 }
 
 #pragma mark - Locating part
@@ -257,11 +267,11 @@
     
     if(![CLLocationManager locationServicesEnabled]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//        [alert show];
+        [alert show];
     } else {
         if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
+            [alert show];
         }
     }
     
@@ -269,7 +279,7 @@
     {
         //设置定位权限 仅ios8有意义
         [self.locationManager requestWhenInUseAuthorization];// 前台定位
-//        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
+        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
     }
 }
 
@@ -306,18 +316,24 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//    [alert show];
+    [alert show];
 }
 
 #pragma mark - HTTP
 - (void)getOnlineShops
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getOnlineMicroShopListWithProvince:startProvince companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100002"] succeed:^{
                 if ([result[@"RS100002"] isKindOfClass:[NSArray class]]) {
+                    
+                    if (!_onlineShopsArray) {
+                        _onlineShopsArray = [[NSMutableArray alloc] init];
+                    } else {
+                        [_onlineShopsArray removeAllObjects];
+                    }
+                    
                     [result[@"RS100002"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
                         if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
@@ -336,7 +352,6 @@
                         [_onlineShopsArray addObject:tempDict];
                     }];
                     [_onlineShopCollectionView reloadData];
-                    onLineListNeedsUpdate = NO;
                 }
             } fail:^(id result) {
             }];
@@ -350,6 +365,13 @@
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100001"] succeed:^{
                 if ([result[@"RS100001"] isKindOfClass:[NSArray class]]) {
+                    
+                    if (!_onlineShopsArray) {
+                        _onlineShopsArray = [[NSMutableArray alloc] init];
+                    } else {
+                        [_onlineShopsArray removeAllObjects];
+                    }
+                    
                     [result[@"RS100001"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
                         if ([obj[@"classify_name"] isKindOfClass:[NSNull class]]?nil:obj[@"classify_name"]) {
@@ -368,7 +390,6 @@
                         [_onlineShopsArray addObject:tempDict];
                     }];
                     [_onlineShopCollectionView reloadData];
-                    onLineListNeedsUpdate = NO;
                 }
             } fail:^(id result) {
             }];
@@ -382,19 +403,23 @@
 
 - (void)getMyShops
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getMyMicroShopListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100005"] succeed:^{
                 if ([result[@"RS100005"] isKindOfClass:[NSArray class]]) {
+                    
+                    if (!_myShopsArray) {
+                        _myShopsArray = [[NSMutableArray alloc] init];
+                    } else {
+                        [_myShopsArray removeAllObjects];
+                    }
+                    
                     [result[@"RS100005"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
                         [_myShopsArray addObject:info];
                     }];
                     [_myShopCollectionView reloadData];
-                    myListNeedsUpdate = NO;
                 }
             } fail:^(id result) {
             }];
@@ -408,13 +433,18 @@
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100048"] succeed:^{
                 if ([result[@"RS100048"] isKindOfClass:[NSArray class]]) {
+                    
+                    if (!_myShopsArray) {
+                        _myShopsArray = [[NSMutableArray alloc] init];
+                    } else {
+                        [_myShopsArray removeAllObjects];
+                    }
+                    
                     [result[@"RS100048"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
                         [_myShopsArray addObject:info];
                     }];
                     [_myShopCollectionView reloadData];
-                    myListNeedsUpdate = NO;
-                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
                 }
             } fail:^(id result) {
             }];
@@ -433,8 +463,12 @@
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100006"] succeed:^{
 //            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
 //            [alert show];
-            [self shopListNeedsUpdate];
+            
             self.selectedIndex = _selectedIndex;
+            
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+            [self getMyShops];
+            
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         } fail:^(id result) {
         }];
@@ -450,22 +484,32 @@
 {
     if (collectionView == _onlineShopCollectionView) {
         return _onlineShopsArray.count;
-    } else if (collectionView == _myShopCollectionView) {
-        return 1;
-    } else {
-        return 0;
     }
+    
+    if (collectionView == _myShopCollectionView) {
+        return 1;
+    }
+    
+    return 0;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (collectionView == _onlineShopCollectionView) {
+        if (!_onlineShopsArray) {
+            return 0;
+        }
         return [[_onlineShopsArray[section] objectForKey:@"classify_template"] count];
-    } else if (collectionView == _myShopCollectionView) {
-        return _myShopsArray.count + 1;
-    } else {
-        return 0;
     }
+    
+    if (collectionView == _myShopCollectionView) {
+        if (!_myShopsArray) {
+            return 0;
+        }
+        return _myShopsArray.count + 1;
+    }
+    
+    return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

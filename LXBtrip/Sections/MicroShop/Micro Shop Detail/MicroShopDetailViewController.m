@@ -10,6 +10,7 @@
 
 @interface MicroShopDetailViewController ()
 
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIButton *addToMyShopButton;
 - (IBAction)addToMyShopButtonClicked:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *hasAddedToMyShopButton;
@@ -30,8 +31,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self getShopDetail];
     self.title = @"微店详情";
+//    self.automaticallyAdjustsScrollViewInsets = YES;
 
     if (_isMyShop == NO) {
         _addToMyShopButton.hidden = NO;
@@ -83,7 +86,11 @@
         }
         
         _shopIntroductionLabel.text = _info.shopIntroduction;
+
         _shopMonthUsageLabel.text = [NSString stringWithFormat:@"%@次", _info.shopUsageAmount];
+        
+        CGSize instructionSize = [_shopIntroductionLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 20.f - 60.f - 20.f, MAXFLOAT)];
+        [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, 580.f + instructionSize.height)];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取微店详情失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];

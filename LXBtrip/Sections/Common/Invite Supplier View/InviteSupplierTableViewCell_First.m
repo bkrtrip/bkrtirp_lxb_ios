@@ -8,16 +8,22 @@
 
 #import "InviteSupplierTableViewCell_First.h"
 
+@interface InviteSupplierTableViewCell_First()
+
+@property (strong, nonatomic) IBOutlet UILabel *invitationCodeLabel;
+
+@end
+
 @implementation InviteSupplierTableViewCell_First
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setCellContentWithInvitationCode:(NSString *)code
+{
+    if (code) {
+        _invitationCodeLabel.text = [NSString stringWithFormat:@"[邀请码：%@]", code];
+    }
 }
-
 @end

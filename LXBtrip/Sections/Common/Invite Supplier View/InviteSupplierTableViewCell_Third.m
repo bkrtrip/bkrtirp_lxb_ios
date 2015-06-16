@@ -8,16 +8,32 @@
 
 #import "InviteSupplierTableViewCell_Third.h"
 
+@interface InviteSupplierTableViewCell_Third()
+
+@property (strong, nonatomic) IBOutlet UIButton *customerServicePhoneNoButton;
+
+@end
+
 @implementation InviteSupplierTableViewCell_Third
 
 - (void)awakeFromNib {
     // Initialization code
+    [self setUnderlinedButtonWithText:@"400-9979-029"];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)setCellContentWithPhoneNumber:(NSString *)number
+{
+    [self setUnderlinedButtonWithText:number];
+}
 
-    // Configure the view for the selected state
+- (void)setUnderlinedButtonWithText:(NSString *)text
+{
+    if (text) {
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text];
+        NSRange strRange = {0,[str length]};
+        [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
+        [_customerServicePhoneNoButton setAttributedTitle:str forState:UIControlStateNormal];
+    }
 }
 
 @end

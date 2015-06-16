@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InviteSupplierTableViewCell_Fourth_Delegate <NSObject>
+
+- (void)supportClickWithQQ;
+- (void)supportClickWithWeChat;
+- (void)supportClickWithPhoneCall;
+- (void)supportClickWithShortMessage;
+
+@end
+
 @interface InviteSupplierTableViewCell_Fourth : UITableViewCell
+
+@property (nonatomic, weak) id <InviteSupplierTableViewCell_Fourth_Delegate>delegate;
 
 @end

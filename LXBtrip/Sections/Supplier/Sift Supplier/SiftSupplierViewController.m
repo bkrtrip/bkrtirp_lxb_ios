@@ -320,7 +320,7 @@
     NSArray *subArray = fourSectionsListsArrayInOrder[selectedIndex][indexPath.section];
     SiftedLine *siftline = subArray[indexPath.row];
     
-    NSDictionary *info = @{@"lineclass":LINE_CLASS[@(selectedIndex)], @"linetype":siftline.siftedLineName};
+    NSDictionary *info = @{@"line_class_index":@(selectedIndex), @"line_type":siftline.siftedLineName};
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:self userInfo:info];
     [self dismissViewControllerAnimated:YES completion:nil];
