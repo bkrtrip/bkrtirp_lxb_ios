@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -15,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AyO-nl-IUm">
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AyO-nl-IUm">
                         <rect key="frame" x="23" y="64" width="308" height="51"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="51" id="MFP-yQ-zhF"/>
@@ -119,15 +120,15 @@
                         <exclude reference="XZ7-gY-jxw"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="4io-m0-Fjx"/>
+                        <exclude reference="IyD-7U-ece"/>
+                        <exclude reference="ggN-Rd-3Ur"/>
+                        <exclude reference="xEA-or-2dU"/>
                         <exclude reference="Jdr-co-udU"/>
                         <exclude reference="gPp-cu-Ntx"/>
                         <exclude reference="wt2-nX-5ze"/>
                         <exclude reference="AVu-rP-rB1"/>
                         <exclude reference="XHX-Fz-gKk"/>
-                        <exclude reference="4io-m0-Fjx"/>
-                        <exclude reference="IyD-7U-ece"/>
-                        <exclude reference="ggN-Rd-3Ur"/>
-                        <exclude reference="xEA-or-2dU"/>
                     </mask>
                 </variation>
                 <variation key="heightClass=regular-widthClass=compact">
@@ -137,15 +138,15 @@
                         <include reference="XZ7-gY-jxw"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="4io-m0-Fjx"/>
+                        <include reference="IyD-7U-ece"/>
+                        <include reference="ggN-Rd-3Ur"/>
+                        <include reference="xEA-or-2dU"/>
                         <include reference="Jdr-co-udU"/>
                         <include reference="gPp-cu-Ntx"/>
                         <include reference="wt2-nX-5ze"/>
                         <include reference="AVu-rP-rB1"/>
                         <include reference="XHX-Fz-gKk"/>
-                        <include reference="4io-m0-Fjx"/>
-                        <include reference="IyD-7U-ece"/>
-                        <include reference="ggN-Rd-3Ur"/>
-                        <include reference="xEA-or-2dU"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

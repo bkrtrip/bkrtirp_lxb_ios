@@ -14,7 +14,165 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gt-tf-WQ4">
+                    <rect key="frame" x="26" y="169" width="35" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="39" y="116" width="35" height="30"/>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6l6-FK-5kO">
+                    <rect key="frame" x="26" y="114" width="35" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="39" y="59" width="52" height="30"/>
+                    </variation>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" tag="211" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请设置分销商的用户名，设置后不可修改" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RVY-93-Q8N">
+                    <rect key="frame" x="86" y="114" width="263" height="30"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="99" y="59" width="263" height="30"/>
+                    </variation>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" tag="212" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入分销商姓名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-68-JAj">
+                    <rect key="frame" x="86" y="169" width="263" height="30"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="99" y="116" width="263" height="30"/>
+                    </variation>
+                </textField>
+                <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="JEw-T1-OhM" userLabel="inputLine_0.png－11">
+                    <rect key="frame" x="21" y="144" width="333" height="10"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="34" y="89" width="333" height="5"/>
+                    </variation>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="peB-tp-2wK" userLabel="inputLine_0.png－22">
+                    <rect key="frame" x="21" y="199" width="333" height="10"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="34" y="146" width="333" height="5"/>
+                    </variation>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-RY-eoV">
+                    <rect key="frame" x="26" y="169" width="35" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="39" y="236" width="35" height="30"/>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="手机号码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhJ-6g-ApK">
+                    <rect key="frame" x="26" y="114" width="35" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="39" y="179" width="59" height="30"/>
+                    </variation>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" tag="213" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入分销商手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4n-en-MAh">
+                    <rect key="frame" x="86" y="114" width="263" height="30"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="99" y="179" width="263" height="30"/>
+                    </variation>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" tag="214" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请设置登录密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qgD-1X-e7n">
+                    <rect key="frame" x="86" y="169" width="263" height="30"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="99" y="236" width="263" height="30"/>
+                    </variation>
+                </textField>
+                <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jdp-Mg-q8I" userLabel="inputLine_0.png－33">
+                    <rect key="frame" x="21" y="144" width="333" height="10"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="34" y="209" width="333" height="5"/>
+                    </variation>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="44" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="bzC-MO-tiJ" userLabel="inputLine_0.png－44">
+                    <rect key="frame" x="21" y="199" width="333" height="10"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="34" y="266" width="333" height="5"/>
+                    </variation>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="确认密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RtW-4M-Kw1">
+                    <rect key="frame" x="26" y="169" width="35" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="39" y="303" width="59" height="30"/>
+                    </variation>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" tag="215" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请再次重复输入一遍密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVz-MM-Zl4">
+                    <rect key="frame" x="86" y="169" width="263" height="30"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="99" y="303" width="263" height="30"/>
+                    </variation>
+                </textField>
+                <imageView userInteractionEnabled="NO" tag="55" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="9he-09-Jp0" userLabel="inputLine_0.png55">
+                    <rect key="frame" x="21" y="199" width="333" height="10"/>
+                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="34" y="333" width="333" height="5"/>
+                    </variation>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="5gt-tf-WQ4"/>
+                    <exclude reference="6l6-FK-5kO"/>
+                    <exclude reference="RVY-93-Q8N"/>
+                    <exclude reference="eLB-68-JAj"/>
+                    <exclude reference="JEw-T1-OhM"/>
+                    <exclude reference="peB-tp-2wK"/>
+                    <exclude reference="Fz8-RY-eoV"/>
+                    <exclude reference="LhJ-6g-ApK"/>
+                    <exclude reference="T4n-en-MAh"/>
+                    <exclude reference="qgD-1X-e7n"/>
+                    <exclude reference="Jdp-Mg-q8I"/>
+                    <exclude reference="bzC-MO-tiJ"/>
+                    <exclude reference="RtW-4M-Kw1"/>
+                    <exclude reference="HVz-MM-Zl4"/>
+                    <exclude reference="9he-09-Jp0"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="5gt-tf-WQ4"/>
+                    <include reference="6l6-FK-5kO"/>
+                    <include reference="RVY-93-Q8N"/>
+                    <include reference="eLB-68-JAj"/>
+                    <include reference="JEw-T1-OhM"/>
+                    <include reference="peB-tp-2wK"/>
+                    <include reference="Fz8-RY-eoV"/>
+                    <include reference="LhJ-6g-ApK"/>
+                    <include reference="T4n-en-MAh"/>
+                    <include reference="qgD-1X-e7n"/>
+                    <include reference="Jdp-Mg-q8I"/>
+                    <include reference="bzC-MO-tiJ"/>
+                    <include reference="RtW-4M-Kw1"/>
+                    <include reference="HVz-MM-Zl4"/>
+                    <include reference="9he-09-Jp0"/>
+                </mask>
+            </variation>
         </view>
     </objects>
+    <resources>
+        <image name="inputLine_0.png" width="391" height="6"/>
+    </resources>
 </document>
