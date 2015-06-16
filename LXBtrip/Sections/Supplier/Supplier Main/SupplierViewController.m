@@ -340,7 +340,6 @@
                     [collectionViewsArray[_selectedIndex] reloadData];
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
                 }
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -386,7 +385,6 @@
                     [collectionViewsArray[_selectedIndex] reloadData];
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
                 }
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

@@ -86,9 +86,6 @@ singleton_interface(HTTPTool)
 // 关键字搜索列表页 - LXB21113
 + (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
-// 我的订单列表 - LXB41231 - 订单状态：0：未确认 1：已确认 2：已取消
-+ (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
-
 // 服务商列表 - LXB31119 - 未登录
 + (void)getServiceListWithCounty:(NSString *)country province:(NSString *)province city:(NSString *)city pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
@@ -98,6 +95,11 @@ singleton_interface(HTTPTool)
 // 服务商详情 - LXB31121
 + (void)getServiceDetailWithServiceId:(NSNumber *)serviceId success:(SuccessBlock)success fail:(FailBlock)fail;
 
+// 我的订单列表 - LXB41231 - 订单状态：0：未确认 1：已确认 2：已取消
++ (void)getMyOrderListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId status:(NSString *)status pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 取消/修改订单 - LXB43232
++ (void)modifyOrCancelMyOrderWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId orderId:(NSNumber *)orderId startDate:(NSString *)startDate returnDate:(NSString *)returnDate priceGroup:(NSString *)priceGroup contactPerson:(NSString *)person contactPhoneNo:(NSString *)phone touristGroup:(NSString *)touristGroup totalPrice:(NSString *)price status:(NSString *)status success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 获取国家 - LXB51139
 + (void)getCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;

@@ -60,7 +60,6 @@
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100021"] succeed:^{
             _alley = [[AlleyInfo alloc] initWithDict:result[@"RS100021"]];
             [_tableView reloadData];
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

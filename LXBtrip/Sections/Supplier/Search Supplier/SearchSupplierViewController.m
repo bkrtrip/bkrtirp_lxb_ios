@@ -287,7 +287,6 @@
                 }];
             }
             [_mainTableView reloadData];
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

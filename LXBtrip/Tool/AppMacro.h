@@ -193,6 +193,13 @@ typedef enum DropDownType
     Travel_Type = 2
 } DropDownType;
 
+typedef enum TouristType
+{
+    Adult = 0,
+    Kid_Bed = 1,
+    Kid_No_Bed = 2
+} TouristType;
+
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998
 #define LINE_CLASS @{@0:@"#1#283", @1:@"#1#303", @2:@"#1#492", @3:@"#1#997", @4:@"#1#998"}

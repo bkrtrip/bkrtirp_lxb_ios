@@ -379,7 +379,6 @@
                 [_mainTableView reloadData];
                 pageNum ++;
             }
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -403,7 +402,6 @@
                 }];
             }
             [_startCityTableView reloadData];
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];

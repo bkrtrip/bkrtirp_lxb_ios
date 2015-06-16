@@ -97,7 +97,6 @@
                 } else {
                     _commentNumLabel.text = @"已有评论0条";
                 }
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -121,7 +120,6 @@
                 } else {
                     _commentNumLabel.text = @"已有评论0条";
                 }
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -146,7 +144,6 @@
                 [self getCommentsList];
                 _writeCommentTextView.text = @"";
                 [_writeCommentTextView resignFirstResponder];
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -161,7 +158,6 @@
                 [alert show];
                 // refresh comments list
                 [self getCommentsList];
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

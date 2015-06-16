@@ -196,7 +196,6 @@
             [collectionViewsArray[selectedIndex] reloadData];
             // record data loaded status
             dataIsLoadedArray[selectedIndex] = @(YES);
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

@@ -150,7 +150,6 @@
                 _info.supplierProductsArray = [tempProducts mutableCopy];
                 [_tableView reloadData];
                 pageNum++;
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -181,7 +180,6 @@
                 _info.supplierProductsArray = [tempProducts mutableCopy];
                 [_tableView reloadData];
                 pageNum++;
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -233,7 +231,6 @@
             }
             // restore initial state
             popUpType = None_Type;
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
