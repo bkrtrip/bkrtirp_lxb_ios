@@ -31,11 +31,15 @@
     [self.dSettingsTableView registerNib:[UINib nibWithNibName:@"DispatchSwitchTableViewCell" bundle:nil] forCellReuseIdentifier:@"dispatchSwitchCell"];
 
     [self.dSettingsTableView registerNib:[UINib nibWithNibName:@"DispatchProfitRateTableViewCell" bundle:nil] forCellReuseIdentifier:@"dispatchProfileRateCell"];
+    
+    [self.dSettingsTableView registerNib:[UINib nibWithNibName:@"DSettingFooterTableViewCell" bundle:nil] forCellReuseIdentifier:@"dSettingFooterCell"];
 
     [self getDispatchSettingsInfo];
     
     self.title = @"分销";
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
+    
+    self.dSettingsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {

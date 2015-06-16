@@ -42,11 +42,14 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated
     
 }
+
+
 -(void)loginSystemForUser:(NSString *)name withPwd:(NSString *)pwd
 {
     __weak LoginViewController *weakSelf = self;

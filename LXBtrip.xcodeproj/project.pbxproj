@@ -29,6 +29,8 @@
 		227389FF1B2DD8F2008E328E /* DispatchSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227389FD1B2DD8F2008E328E /* DispatchSettingsViewController.xib */; };
 		22738A031B2DD91E008E328E /* DispaterInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22738A011B2DD91E008E328E /* DispaterInfoViewController.m */; };
 		22738A041B2DD91E008E328E /* DispaterInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */; };
+		2291DEFE1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2291DEFC1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m */; };
+		2291DEFF1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2291DEFD1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib */; };
 		22924CF91B2D8B1300D898CF /* WCPayHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */; };
 		22924CFA1B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */; };
 		22924CFE1B2D8C6700D898CF /* WCPayFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CFC1B2D8C6700D898CF /* WCPayFooterTableViewCell.m */; };
@@ -538,6 +540,9 @@
 		22738A001B2DD91E008E328E /* DispaterInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispaterInfoViewController.h; sourceTree = "<group>"; };
 		22738A011B2DD91E008E328E /* DispaterInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispaterInfoViewController.m; sourceTree = "<group>"; };
 		22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispaterInfoViewController.xib; sourceTree = "<group>"; };
+		2291DEFB1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSettingFooterTableViewCell.h; sourceTree = "<group>"; };
+		2291DEFC1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSettingFooterTableViewCell.m; sourceTree = "<group>"; };
+		2291DEFD1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSettingFooterTableViewCell.xib; sourceTree = "<group>"; };
 		22924CF61B2D8B1300D898CF /* WCPayHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPayHeaderTableViewCell.h; sourceTree = "<group>"; };
 		22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPayHeaderTableViewCell.m; sourceTree = "<group>"; };
 		22924CF81B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCPayHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -2241,6 +2246,9 @@
 				22924CFB1B2D8C6700D898CF /* WCPayFooterTableViewCell.h */,
 				22924CFC1B2D8C6700D898CF /* WCPayFooterTableViewCell.m */,
 				22924CFD1B2D8C6700D898CF /* WCPayFooterTableViewCell.xib */,
+				2291DEFB1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.h */,
+				2291DEFC1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m */,
+				2291DEFD1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2584,6 +2592,7 @@
 				9794A8C51B26A8280077E5C0 /* PSeperaterTableViewCell.xib in Resources */,
 				97A570871B240B8F00D48A36 /* rectangle_open@3x.png in Resources */,
 				9794A8571B26A8280077E5C0 /* TourDetailCell_Three.xib in Resources */,
+				2291DEFF1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib in Resources */,
 				97AFC1A31B15B3F6009C3CF6 /* micro_shop_banner@2x.png in Resources */,
 				975DC4421B2FCE260058B6B4 /* CreateOrderCell_Confirm.xib in Resources */,
 				973D8B4F1B1B571500CA4260 /* is_my_and_is_new@3x.png in Resources */,
@@ -2952,6 +2961,7 @@
 				9794A9231B26A86B0077E5C0 /* UIImageView+AFNetworking.m in Sources */,
 				97EB55131B288BFF006D53A9 /* AccompanyInfoCell_Company.m in Sources */,
 				97A5707C1B24024400D48A36 /* ReservePriceGroup.m in Sources */,
+				2291DEFE1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m in Sources */,
 				978DB66F1B282633008EAFDE /* TourListCell_Destination.m in Sources */,
 				9794A8301B26A8280077E5C0 /* CommentsViewController.m in Sources */,
 				9794A91B1B26A86B0077E5C0 /* AFURLConnectionOperation.m in Sources */,
