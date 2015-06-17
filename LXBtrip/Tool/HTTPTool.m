@@ -691,6 +691,62 @@ singleton_implementation(HTTPTool)
     }];
 }
 
+// 取消/修改订单 - LXB43232
++ (void)modifyOrCancelMyOrderWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId orderId:(NSNumber *)orderId startDate:(NSString *)startDate returnDate:(NSString *)returnDate priceGroup:(NSString *)priceGroup contactPerson:(NSString *)person contactPhoneNo:(NSString *)phone touristGroup:(NSString *)touristGroup totalPrice:(NSString *)price status:(NSString *)status success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    if (!companyId) {
+        return;
+    }
+    if (!staffId) {
+        return;
+    }
+    
+    NSMutableDictionary *param = [@{@"companyid":companyId, @"staffid":staffId,  @"orderid":orderId, @"status":status} mutableCopy];
+    
+    if (startDate) {
+        [param setObject:startDate forKey:@"startdate"];
+    }
+    
+    if (returnDate) {
+        [param setObject:staffId forKey:@"returndate"];
+    }
+    
+    if (priceGroup) {
+        [param setObject:priceGroup forKey:@"pricegroup"];
+    }
+    
+    if (person) {
+        [param setObject:person forKey:@"person"];
+    }
+    
+    if (phone) {
+        [param setObject:phone forKey:@"phone"];
+    }
+    
+    if (touristGroup) {
+        [param setObject:touristGroup forKey:@"touristgroup"];
+    }
+    
+    if (price) {
+        [param setObject:price forKey:@"price"];
+    }
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB43232" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"myself/upLineOrder"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
 // 服务商列表 - LXB31119 - 未登录
 + (void)getServiceListWithCounty:(NSString *)country province:(NSString *)province city:(NSString *)city pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {

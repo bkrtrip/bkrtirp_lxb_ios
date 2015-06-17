@@ -21,6 +21,7 @@
 #import "LoginViewController.h"
 #import "RPhoneNumViewController.h"//register procedure start point
 #import "DispatchSettingsViewController.h"
+#import "MyOrderListViewController.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -386,6 +387,8 @@
         case GoToOrders:
         {
             //跳转用户订单页面(xiaozhu)
+            MyOrderListViewController *orderList = [[MyOrderListViewController alloc] init];
+            [self.navigationController pushViewController:orderList animated:YES];
         }
             break;
         case GoToInfoSettings:

@@ -68,7 +68,6 @@
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100008"] succeed:^{
             _product = [[SupplierProduct alloc] initWithDict:result[@"RS100008"]];
             [_tableView reloadData];
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

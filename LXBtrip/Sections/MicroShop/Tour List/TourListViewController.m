@@ -156,7 +156,6 @@
             _info.supplierProductsArray = [productsArray mutableCopy];
             [_mainTableView reloadData];
             pageNum++;
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

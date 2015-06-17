@@ -353,7 +353,6 @@
                     }];
                     [_onlineShopCollectionView reloadData];
                 }
-            } fail:^(id result) {
             }];
         } fail:^(NSError *error) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -391,7 +390,6 @@
                     }];
                     [_onlineShopCollectionView reloadData];
                 }
-            } fail:^(id result) {
             }];
         } fail:^(NSError *error) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -421,7 +419,6 @@
                     }];
                     [_myShopCollectionView reloadData];
                 }
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -446,7 +443,6 @@
                     }];
                     [_myShopCollectionView reloadData];
                 }
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -470,7 +466,6 @@
             [self getMyShops];
             
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        } fail:^(id result) {
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

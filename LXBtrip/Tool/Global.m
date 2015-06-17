@@ -38,16 +38,15 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
 }
 
-- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed fail:(FailBlock)fail
+- (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed
 {
     if ([obj isKindOfClass:[NSDictionary class]]) {
         ErrorCodeType type = [obj[@"error_code"] intValue];
         switch (type) {
             case ERROR_CODE_ERROR: //错误
             {
-                if (succeed) {
-                    succeed(nil);
-                }
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"操作失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
             }
             case ERROR_CODE_SUCCESSFUL: //成功
             {
@@ -93,11 +92,16 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
             }
                 break;
             default:
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未知错误" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+            }
                 break;
         }
-        fail(nil);
     } else {
-        succeed(nil);
+        if (succeed) {
+            succeed(nil);
+        }
     }
 }
 

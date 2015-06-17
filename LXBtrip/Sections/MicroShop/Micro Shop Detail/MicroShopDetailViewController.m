@@ -112,7 +112,6 @@
                 _addToMyShopButton.hidden = YES;
                 _hasAddedToMyShopButton.hidden = NO;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
-            } fail:^(id result) {
             }];
         } fail:^(id result) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"添加失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
