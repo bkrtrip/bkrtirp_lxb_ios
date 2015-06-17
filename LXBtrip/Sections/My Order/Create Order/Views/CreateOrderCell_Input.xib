@@ -64,6 +64,7 @@
                 <outlet property="inputTextField" destination="f7M-mL-2LF" id="V9u-Ae-3gj"/>
                 <outlet property="inputTypeLabel" destination="XrG-t5-Hsn" id="2id-93-Cy8"/>
             </connections>
+            <point key="canvasLocation" x="164" y="297.5"/>
         </tableViewCell>
     </objects>
 </document>

@@ -14,10 +14,12 @@
 #import "AppMacro.h"
 #import "CommentsViewController.h"
 #import "TourDetailWebDetailViewController.h"
+#import "CalendarViewController.h"
 
 @interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
 {
     NSMutableDictionary *cellHeights;
+    NSInteger weekday;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -29,12 +31,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startDateChanged:) name:@"Start_Date_Changed" object:nil];
+    
     self.title = @"线路详情";
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
     
     cellHeights = [[NSMutableDictionary alloc] init];
     [cellHeights setObject:@(25.f) forKey:@"first_cell_height"];
     [self setUpTableView];
+    
+//    MarketTicketGroup *firstGrp = [_product.productMarketTicketGroup firstObject];
+//    _startDate = firstGrp.marketTime;// initial show the first date
+    NSDate *todayDate = [NSDate date];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:todayDate];
+    
+    NSInteger cellYear = [comps year];
+    NSInteger cellMonth = [comps month];
+    NSInteger cellDay = [comps day];
+    weekday = [comps weekday];
+    
+    _startDate = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)cellYear, (long)cellMonth, (long)cellDay];
+    
     [self getTourDetail];
 }
 
@@ -60,6 +80,13 @@
     //
 }
 
+- (void)startDateChanged:(NSNotification *)note
+{
+    _startDate = [note userInfo][@"start_date"];
+    weekday = [[note userInfo][@"weekday"] integerValue];
+    [_tableView reloadData];
+}
+
 - (void)getTourDetail
 {
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
@@ -75,7 +102,6 @@
         [alert show];
     }];
 }
-
 
 #pragma mark - Table view data source
 
@@ -109,7 +135,7 @@
         case 2:
         {
             TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-            [cell setCellContentWithStartDate:_startDate];
+            [cell setCellContentWithStartDate:_startDate weekDay:weekday];
             return cell;
         }
             break;
@@ -151,7 +177,21 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) {
+        CalendarViewController *calendar = [[CalendarViewController alloc] init];
+        
+        [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+            if (grp.marketAdultPrice) {
+                NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
+                NSLog(@"grp.marketTime: %@", grp.marketTime);
+                NSLog(@"-----------------");
+            }
+        }];
 
+        
+        calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
+        [self.navigationController pushViewController:calendar animated:YES];
+    }
 }
 
 #pragma mark - TourDetailCell_Four_Delegate
