@@ -10,4 +10,8 @@
 
 @interface DispaterInfoViewController : UIViewController
 
+@property (assign, nonatomic) BOOL isUpdateDispatcher;
+
+@property (retain, nonatomic) NSDictionary *dispatcherDic;
+
 @end

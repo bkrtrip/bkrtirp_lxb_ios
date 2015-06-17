@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "AppMacro.h"
 #import "FVerifyCodeViewController.h"
+#import "CustomActivityIndicator.h"
 
 @interface FPhoneNumViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumTf;
@@ -30,6 +31,8 @@
 }
 - (IBAction)goToVerification:(id)sender {
     
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"检测中..."];
+
     [self checkPhoneNumberAlreadyRegistered:self.phoneNumTf.text];
 }
 - (IBAction)cancelResetPwd:(id)sender {
@@ -49,6 +52,8 @@
     [manager POST:partialUrl parameters:@{@"phone":phoneNum}
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
          if (responseObject)
          {
              id jsonObj = [self jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -71,7 +76,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 

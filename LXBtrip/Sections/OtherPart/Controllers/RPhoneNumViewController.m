@@ -10,6 +10,7 @@
 #import "UIViewController+CommonUsed.h"
 #import "RVerifyCodeViewController.h"
 #import "AFNetworking.h"
+#import "CustomActivityIndicator.h"
 
 @interface RPhoneNumViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumTf;
@@ -30,12 +31,18 @@
 
 - (IBAction)goToVerification:(id)sender {
     
+    if (self.phoneNumTf.text.length == 0) {
+        [self showAlertViewWithTitle:@"提示" message:@"请输入手机号码。" cancelButtonTitle:@"确定"];
+        
+        return;
+    }
     if (self.phoneNumTf.text.length != 11) {
         [self showAlertViewWithTitle:@"提示" message:@"手机号输入格式不正确，请重新输入。" cancelButtonTitle:@"确定"];
         
         return;
     }
     
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"检测中..."];
     [self checkPhoneNumberAlreadyRegistered:self.phoneNumTf.text];
     
     
@@ -54,6 +61,8 @@
     [manager POST:partialUrl parameters:@{@"phone":phoneNum}
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         
          if (responseObject)
          {
              id jsonObj = [self jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -76,7 +85,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 

@@ -115,6 +115,7 @@
 
 - (void)loginSuccess
 {
+//    [self dismissViewControllerAnimated:YES completion:nil];
     self.isAlreadyLogined = YES;
     [self getUserInformation];
 //    [self updateUIForLoginState:YES];
