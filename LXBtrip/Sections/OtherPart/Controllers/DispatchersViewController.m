@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
+#import "DispaterInfoViewController.h"
 
 @interface DispatchersViewController ()<DispatcherActionDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *dispatchersTableView;
@@ -110,7 +111,9 @@
 
 - (void)rightBarButtonItemClicked:(id)sender
 {
+    DispaterInfoViewController *viewController = [[DispaterInfoViewController alloc] init];
     
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

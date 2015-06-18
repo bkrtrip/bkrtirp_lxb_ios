@@ -119,7 +119,7 @@
         return YES;
     }
     else{
-        [self stopRTimer];
+//        [self stopRTimer];
         return NO;
     }
 }
@@ -159,7 +159,7 @@
         return YES;
     }
     else{
-        [self stopFTimer];
+//        [self stopFTimer];
         return NO;
     }
 }

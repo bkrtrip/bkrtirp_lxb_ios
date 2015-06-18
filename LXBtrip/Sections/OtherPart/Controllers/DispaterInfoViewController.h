@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface DispaterInfoViewController : UIViewController
+@interface DispaterInfoViewController : NavBaseViewController
 
 @property (assign, nonatomic) BOOL isUpdateDispatcher;
 

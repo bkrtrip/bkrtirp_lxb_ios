@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "UserModel.h"
 #import "UIViewController+CommonUsed.h"
+#import "NSDictionary+GetStringValue.h"
 
 #import "PersonalCenterViewController.h"
 
@@ -76,7 +77,19 @@
              NSLog(@"%@", jsonObj);
              
              if ([jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100034"];
+                 if (resultDic && [resultDic stringValueByKey:@"error_code"].length > 0) {
+                     
+                     [weakSelf showAlertViewWithTitle:nil message:[resultDic stringValueByKey:@"error_info"] cancelButtonTitle:@"确定"];
+                     
+                     return ;
+                 }
+
+                 
                  [UserModel storeUserInformations:jsonObj];
+                 
+                 
                  
 //                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
 //                 [weakSelf performSelector:@selector(dismissSelf) onThread:[NSThread mainThread] withObject:nil waitUntilDone:NO];

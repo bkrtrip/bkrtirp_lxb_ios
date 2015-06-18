@@ -14,6 +14,10 @@
 
 - (void)updateUserInformationSuccessfully;
 
+@optional
+
+- (void)informationAlteredTo:(NSString *)changedInfor;
+
 @end
 
 
@@ -21,6 +25,17 @@ typedef enum : NSUInteger {
     ShopContactName,
     ShopName,
     DetailAdress,
+    
+    
+    //for add or update webchat payment information
+    WX_loginname,
+    WX_loginpwd,
+    WX_appid,
+    WX_appsecret,
+    WX_partner,
+    WX_paysecret
+    
+    
 } AlterInfoTypes;
 
 @interface AlterUserInfoViewController : NavBaseViewController

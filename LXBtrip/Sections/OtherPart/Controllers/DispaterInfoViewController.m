@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
+#import "CustomActivityIndicator.h"
 
 @interface DispaterInfoViewController ()<UITextFieldDelegate>
 
@@ -31,11 +32,20 @@
     
     if (self.isUpdateDispatcher) {
         self.title = @"分销商信息";
-        [self initialDispatcherInfoWithDic:self.dispatcherRepeatLoginPwdTF];
+        self.dispatcherNameTF.enabled = NO;
+
+        [self initialDispatcherInfoWithDic:self.dispatcherDic];
     }
     else  {
         self.title = @"添加";
+        
+        self.dispatcherNameTF.text = @"";
+        self.dispatcherPhoneNumTF.text = @"";
+        self.dispatcherLoginPwdTF.text = @"";
+        self.dispatcherRepeatLoginPwdTF.text = @"";
     }
+    
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"完成" image:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,12 +53,48 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)rightBarButtonItemClicked:(id)sender
+{
+    [self validateDispatchreInfo];
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"请求中..."];
+    
+    if (self.isUpdateDispatcher) {
+        NSDictionary *dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text};
+
+        [self updateDispatchrer:dispatcherDic];
+    }
+    else {
+        
+        NSDictionary *dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text};
+        
+        [self createNewDispatchrer:dispatcherDic];
+    }
+}
+
+- (void)validateDispatchreInfo
+{
+    if ((self.dispatcherLoginPwdTF.text.length > 0 || self.dispatcherRepeatLoginPwdTF.text.length > 0) && (![self.dispatcherLoginPwdTF.text isEqualToString:self.dispatcherRepeatLoginPwdTF.text])) {
+        [self showAlertViewWithTitle:nil message:@"两次密码输入不一致。" cancelButtonTitle:@"确定"];
+    }
+    
+    
+    if (self.isUpdateDispatcher) {
+        
+    }
+    else {
+        if (self.dispatcherNameTF.text == 0 || self.dispatcherPhoneNumTF.text == 0 || self.dispatcherLoginPwdTF.text == 0) {
+            [self showAlertViewWithTitle:nil message:@"所有信息为必填项，您有还有信息未填写。" cancelButtonTitle:@"确定"];
+        }
+    }
+}
+
 - (void)initialDispatcherInfoWithDic:(NSDictionary *)dispatcherDic
 {
-    self.dispatcherNameTF.text = [dispatcherDic stringValueByKey:@""];
-    self.dispatcherPhoneNumTF.text = [dispatcherDic stringValueByKey:@""];
-    self.dispatcherLoginPwdTF.text = [dispatcherDic stringValueByKey:@""];
-    self.dispatcherRepeatLoginPwdTF.text = [dispatcherDic stringValueByKey:@""];
+    self.dispatcherNameTF.text = [dispatcherDic stringValueByKey:@"staff_real_name"];
+    self.dispatcherPhoneNumTF.text = [dispatcherDic stringValueByKey:@"staff_partner_phonenum"];
+    self.dispatcherLoginPwdTF.text = @"";
+    self.dispatcherRepeatLoginPwdTF.text = @"";//[dispatcherDic stringValueByKey:@""];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -133,6 +179,105 @@
     
     return YES;
 }
+
+
+- (void)createNewDispatchrer:(NSDictionary *)dispatchreDic
+{
+    __weak DispaterInfoViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    
+    if (!staffDic) {
+        return;
+    }
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/addDistributor", HOST_BASE_URL];
+    
+    NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[staffDic stringValueByKey:@"staff_id" ], @"staffid", [staffDic stringValueByKey:@"dat_company_id"], @"companyid", [staffDic stringValueByKey:@"staff_name"], @"name", nil];// @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    [parameterDic addEntriesFromDictionary:dispatchreDic];
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100047"];
+                 
+                 if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
+                     //success
+                     
+                     [weakSelf.navigationController popViewControllerAnimated:YES];
+                 }
+             }
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+     }];
+}
+
+- (void)updateDispatchrer:(NSDictionary *)dispatchreDic
+{
+    __weak DispaterInfoViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    
+    if (!staffDic) {
+        return;
+    }
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/setDistributor", HOST_BASE_URL];
+    
+    NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[staffDic stringValueByKey:@"staff_id" ], @"staffid", [staffDic stringValueByKey:@"dat_company_id"], @"companyid", nil];// @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    [parameterDic addEntriesFromDictionary:dispatchreDic];
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100053"];
+                 
+                 if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
+                     //success
+                     
+                     [weakSelf.navigationController popViewControllerAnimated:YES];
+                 }
+             }
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+     }];
+}
+
+
 
 
 /*
