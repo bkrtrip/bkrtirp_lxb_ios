@@ -182,10 +182,6 @@
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
                     [cell setCellContentWithInputType:@"联系人：" section:2 row:0];
                     cell.delegate = self;
-//                    if ([_textFieldsIndexesArray containsObject:indexPath] == NO) {
-//                        // 联系人 index=0
-//                        [_textFieldsIndexesArray insertObject:indexPath atIndex:0];
-//                    }
                     return cell;
                 }
                     break;
@@ -195,10 +191,6 @@
                     [cell setCellContentWithInputType:@"手机号码：" section:2 row:1];
                     cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
                     cell.delegate = self;
-//                    if ([_textFieldsIndexesArray containsObject:indexPath] == NO) {
-//                        // 手机号码 index=1
-//                        [_textFieldsIndexesArray insertObject:indexPath atIndex:1];
-//                    }
                     return cell;
                 }
                     break;
@@ -216,10 +208,6 @@
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
                     [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row];
                     cell.delegate = self;
-//                    if ([_textFieldsIndexesArray containsObject:indexPath] == NO) {
-//                        // 手机号码 index=1
-//                        [_textFieldsIndexesArray insertObject:indexPath atIndex:indexPath.row + 2];
-//                    }
                     return cell;
                 }
                     break;
@@ -228,10 +216,6 @@
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
                     [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row];
                     cell.delegate = self;
-//                    if ([_textFieldsIndexesArray containsObject:indexPath] == NO) {
-//                        // 手机号码 index=1
-//                        [_textFieldsIndexesArray insertObject:indexPath atIndex:indexPath.row + 2];
-//                    }
                     return cell;
                 }
                     break;

@@ -17,4 +17,6 @@
 
 - (void)rightBarButtonItemClicked:(id)sender;
 
+- (void)backArrowClick:(id)sender;
+
 @end

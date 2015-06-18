@@ -35,7 +35,7 @@
     
     cellHeight += instructionsLabelSize.height;
     
-    if (product.productMarketTicketGroup.count > 0) {
+    if (product.productTravelTicketGroup.count > 0) {
         if (dateString) {
             NSMutableArray *temp = product.productTravelTicketGroup;
             [temp enumerateObjectsUsingBlock:^(TravelTicketGroup *grp, NSUInteger idx, BOOL *stop) {
@@ -43,17 +43,8 @@
                     _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.travelAdultPrice];
                     _childPerBedPriceLabel.text = [NSString stringWithFormat:@"￥%@/", grp.travelKidPrice];
                     _childPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.travelKidPriceNoBed];
-                } else {
-                    _adultPriceLabel.text = @"";
-                    _childPerBedPriceLabel.text = @"";
-                    _childPriceLabel.text = @"";
                 }
             }];
-        } else {
-            TravelTicketGroup *lastGrp = [product.productTravelTicketGroup lastObject];
-            _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.travelAdultPrice];
-            _childPerBedPriceLabel.text = [NSString stringWithFormat:@"￥%@/", lastGrp.travelKidPrice];
-            _childPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.travelKidPriceNoBed];
         }
     }
     return cellHeight;

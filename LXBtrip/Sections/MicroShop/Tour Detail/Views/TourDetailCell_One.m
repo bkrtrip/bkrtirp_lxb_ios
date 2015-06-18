@@ -103,17 +103,8 @@
                     _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.marketAdultPrice];
                     _kidWithBedPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.marketKidPrice];
                     _kidNoBedPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.marketKidPriceNoBed];
-                } else {
-                    _adultPriceLabel.text = @"";
-                    _kidWithBedPriceLabel.text = @"";
-                    _kidNoBedPriceLabel.text = @"";
                 }
             }];
-        } else {
-            MarketTicketGroup *lastGrp = [product.productMarketTicketGroup lastObject];
-            _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.marketAdultPrice];
-            _kidWithBedPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.marketKidPrice];
-            _kidNoBedPriceLabel.text = [NSString stringWithFormat:@"￥%@", lastGrp.marketKidPriceNoBed];
         }
     }
     return cellHeight;
