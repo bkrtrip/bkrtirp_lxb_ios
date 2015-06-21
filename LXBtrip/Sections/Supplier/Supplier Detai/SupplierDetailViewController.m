@@ -66,6 +66,7 @@
     
     self.isMinetype = _info.supplierIsMy;
     
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getSupplierDetail];
 }
 
@@ -124,8 +125,6 @@
 #pragma mark - HTTP
 - (void)getSupplierDetail
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSupplierDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] supplierId:_info.supplierId pageNum:@(pageNum) isMy:_isMinetype success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

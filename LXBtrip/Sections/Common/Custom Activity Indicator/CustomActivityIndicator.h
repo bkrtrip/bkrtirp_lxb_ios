@@ -13,8 +13,13 @@
 
 + (CustomActivityIndicator *)sharedActivityIndicator;
 
+- (void)startSimpleStyleSynchAnimating;
+- (void)stopSimpleStyleSynchAnimating;
+
+- (void)startComplexStyleSynchAnimatingWithMessage:(NSString *)message;
+- (void)stopComplexStyleSynchAnimating;
+
 - (void)startSynchAnimating;
 - (void)stopSynchAnimating;
-- (void)startSynchAnimatingWithMessage:(NSString *)message;
 
 @end
