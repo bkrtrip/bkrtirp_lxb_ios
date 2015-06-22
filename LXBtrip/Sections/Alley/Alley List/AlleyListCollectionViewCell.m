@@ -12,8 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *alleyLogoImageview;
 @property (strong, nonatomic) IBOutlet UILabel *alleyNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *alleyServiceCostLabel;
-
 @property (strong, nonatomic) IBOutlet UIButton *alleyLocationButton;
 
 @end
@@ -31,7 +29,6 @@
     }];
 
     _alleyNameLabel.text = alley.alleyName;
-    _alleyServiceCostLabel.text = [NSString stringWithFormat:@"服务费：￥%@起", alley.alleyServiceCost];
 //    [_alleyLocationButton setTitle:alley.alleyLocation forState:UIControlStateNormal];
 }
 

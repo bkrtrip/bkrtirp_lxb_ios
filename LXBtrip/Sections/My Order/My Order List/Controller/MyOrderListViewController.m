@@ -17,7 +17,8 @@
     NSInteger selectedIndex;
     NSMutableArray *ordersArray;
     NSMutableArray *isLoadingMoreArray;
-    
+    NSMutableArray *refreshControlsArray;
+
     NSMutableArray *pageNumsArray;
     NSMutableArray *tableViewsArray;
     OrderListType orderType;
@@ -62,6 +63,7 @@
     _scrollView.scrollEnabled = NO;
     [self.view addSubview:_scrollView];
     
+    refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:3];
     tableViewsArray = [[NSMutableArray alloc] initWithCapacity:3];
     for (int i = 0; i < 3; i++) {
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _scrollView.frame.size.height)];
@@ -83,6 +85,7 @@
         
         [_scrollView addSubview:tableView];
         [tableViewsArray addObject:tableView];
+        [refreshControlsArray addObject:refreshControl];
     }
     
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, SCREEN_WIDTH/3, 2)];
@@ -128,7 +131,6 @@
 
 - (void)refreshTableViews:(id)sender
 {
-    [sender endRefreshing];
     pageNumsArray[selectedIndex] = @1;
     isLoadingMoreArray[selectedIndex] = @0;
     [self getMyOrderList];
@@ -203,7 +205,8 @@
 {
     [HTTPTool getMyOrderListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] status:[NSString stringWithFormat:@"%ld", (long)selectedIndex] pageNum:pageNumsArray[selectedIndex] success:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        
+        [refreshControlsArray[selectedIndex] endRefreshing];
+
         if ([isLoadingMoreArray[selectedIndex] integerValue] == 0) {
             isLoadingMoreArray[selectedIndex] = @1;
             [ordersArray[selectedIndex] removeAllObjects];
@@ -223,6 +226,8 @@
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        [refreshControlsArray[selectedIndex] endRefreshing];
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

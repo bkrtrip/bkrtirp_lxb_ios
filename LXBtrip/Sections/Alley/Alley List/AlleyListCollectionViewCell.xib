@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="210" height="150"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHt-ve-7RL">
-                        <rect key="frame" x="59" y="0.0" width="93" height="93"/>
+                        <rect key="frame" x="55" y="0.0" width="100" height="100"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="73" id="4r0-ha-W3L"/>
                             <constraint firstAttribute="width" secondItem="oHt-ve-7RL" secondAttribute="height" multiplier="1:1" id="zq6-Ns-ztJ"/>
@@ -26,8 +26,8 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Xian Huashang Agency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-m5-OTb">
-                        <rect key="frame" x="8" y="98" width="194" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Xian Huashang Agency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-m5-OTb">
+                        <rect key="frame" x="8" y="108" width="194" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="RL7-QY-qZd"/>
                         </constraints>
@@ -35,17 +35,8 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加盟费：￥400起" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYf-LL-pMJ">
-                        <rect key="frame" x="8" y="117" width="78" height="12"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="12" id="qRb-JZ-uzU"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSb-vv-e57">
-                        <rect key="frame" x="8" y="134" width="52" height="11"/>
+                        <rect key="frame" x="79" y="130" width="52" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="w68-9u-gKz"/>
                         </constraints>
@@ -55,41 +46,48 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="5ws-Fb-aPw">
+                        <rect key="frame" x="209" y="0.0" width="1" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="ZIn-WV-rEc"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="SDe-4q-cxG">
+                        <rect key="frame" x="0.0" y="149" width="210" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="YJt-JK-0DY"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="mSb-vv-e57" firstAttribute="top" secondItem="gYf-LL-pMJ" secondAttribute="bottom" constant="5" id="DR3-FA-SjA"/>
+                <constraint firstItem="ohI-m5-OTb" firstAttribute="top" secondItem="oHt-ve-7RL" secondAttribute="bottom" constant="8" id="3Q3-OL-3yI"/>
+                <constraint firstItem="SDe-4q-cxG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="B0O-Pm-56c"/>
                 <constraint firstAttribute="centerX" secondItem="oHt-ve-7RL" secondAttribute="centerX" id="EXh-gf-UKd"/>
-                <constraint firstItem="gYf-LL-pMJ" firstAttribute="top" secondItem="ohI-m5-OTb" secondAttribute="bottom" constant="5" id="GzS-FJ-F01"/>
+                <constraint firstAttribute="trailing" secondItem="5ws-Fb-aPw" secondAttribute="trailing" id="Fwk-0y-CkT"/>
                 <constraint firstItem="ohI-m5-OTb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="NPO-0K-PdT"/>
-                <constraint firstAttribute="bottom" secondItem="mSb-vv-e57" secondAttribute="bottom" constant="5" id="Q2M-De-NWj"/>
-                <constraint firstAttribute="trailing" secondItem="oHt-ve-7RL" secondAttribute="trailing" id="UNb-00-pyy"/>
-                <constraint firstItem="mSb-vv-e57" firstAttribute="leading" secondItem="ohI-m5-OTb" secondAttribute="leading" id="ZIV-A2-bdA"/>
+                <constraint firstAttribute="bottom" secondItem="SDe-4q-cxG" secondAttribute="bottom" id="TcW-W9-2NT"/>
+                <constraint firstAttribute="bottom" secondItem="oHt-ve-7RL" secondAttribute="bottom" constant="50" id="ZkD-ip-YSi"/>
+                <constraint firstAttribute="centerX" secondItem="mSb-vv-e57" secondAttribute="centerX" id="abI-8z-CVJ"/>
                 <constraint firstAttribute="centerX" secondItem="ohI-m5-OTb" secondAttribute="centerX" id="cFI-nN-VSR"/>
-                <constraint firstItem="ohI-m5-OTb" firstAttribute="top" secondItem="oHt-ve-7RL" secondAttribute="bottom" constant="5" id="jf6-bt-Tw9"/>
-                <constraint firstItem="oHt-ve-7RL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mcw-Ww-7dq"/>
-                <constraint firstItem="ohI-m5-OTb" firstAttribute="top" secondItem="oHt-ve-7RL" secondAttribute="bottom" constant="2" id="ur2-7J-aE8"/>
-                <constraint firstItem="gYf-LL-pMJ" firstAttribute="leading" secondItem="ohI-m5-OTb" secondAttribute="leading" id="vYi-0K-Xcc"/>
+                <constraint firstAttribute="trailing" secondItem="SDe-4q-cxG" secondAttribute="trailing" id="dOh-FM-cIe"/>
+                <constraint firstItem="5ws-Fb-aPw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hbB-Ya-PCg"/>
+                <constraint firstAttribute="bottom" secondItem="5ws-Fb-aPw" secondAttribute="bottom" id="sbs-MD-dMb"/>
+                <constraint firstItem="mSb-vv-e57" firstAttribute="top" secondItem="ohI-m5-OTb" secondAttribute="bottom" constant="8" id="tAK-wv-ECc"/>
                 <constraint firstItem="oHt-ve-7RL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zWq-Ci-JCc"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="UNb-00-pyy"/>
-                    <exclude reference="mcw-Ww-7dq"/>
-                    <exclude reference="ur2-7J-aE8"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="alleyLocationButton" destination="mSb-vv-e57" id="7Nl-Ef-zbp"/>
                 <outlet property="alleyLogoImageview" destination="oHt-ve-7RL" id="Vcx-Uz-fGn"/>
                 <outlet property="alleyNameLabel" destination="ohI-m5-OTb" id="6cw-bq-Lby"/>
-                <outlet property="alleyServiceCostLabel" destination="gYf-LL-pMJ" id="1Xy-96-nKa"/>
             </connections>
-            <point key="canvasLocation" x="-47" y="216"/>
+            <point key="canvasLocation" x="-202" y="213"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="location_blue.png" width="7" height="9"/>
+        <image name="separator_hor.png" width="1" height="1"/>
+        <image name="separator_ver.png" width="1" height="1"/>
     </resources>
 </document>

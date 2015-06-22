@@ -50,10 +50,6 @@
 @property (nonatomic, copy) NSString *productCompanyContactPhone;
 
 
-
-
-//[{"market_adult_price":"2222","market_adult_person":"0","market_kid_price":"0","market_kid_person":"0","market_diff_price":"0","market_time":"2015-5-8"}]
-
 - (id)initWithDict:(NSDictionary *)dict;
 
 @end

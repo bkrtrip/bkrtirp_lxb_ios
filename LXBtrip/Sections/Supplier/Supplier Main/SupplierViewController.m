@@ -104,7 +104,7 @@
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
 
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, self.view.frame.size.height - yOrigin - 49.f)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
     [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, _scrollView.frame.size.height)];
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
@@ -267,7 +267,6 @@
 }
 
 #pragma mark - CLLocationManagerDelegate
-
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     [_locationManager stopUpdatingLocation];
@@ -460,7 +459,8 @@
         [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
         [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
         [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
-}
+    }
+    
     [self showInviteTableView];
 }
 
@@ -571,6 +571,23 @@
     }
 }
 
+#pragma mark - InviteSupplierTableViewCell_Fourth_Delegate
+- (void)supportClickWithQQ
+{
+    
+}
+- (void)supportClickWithWeChat
+{
+    
+}
+- (void)supportClickWithPhoneCall
+{
+    
+}
+- (void)supportClickWithShortMessage
+{
+    
+}
 
 #pragma mark - Actions
 - (IBAction)selectButtonClicked:(id)sender {

@@ -15,7 +15,7 @@
 {
     self = [super init];
     if (self) {
-        CGFloat itemWidth = (SCREEN_WIDTH-LIST_HOR_MARGIN_SUPPLIER*2-(NUM_OF_IMAGES_PER_ROW_SUPPLIER-1)*LIST_HOR_SPACING_SUPPLIER)/NUM_OF_IMAGES_PER_ROW_SUPPLIER;
+        CGFloat itemWidth = (SCREEN_WIDTH - LIST_HOR_MARGIN_SUPPLIER*2 - (NUM_OF_IMAGES_PER_ROW_SUPPLIER-1)*LIST_HOR_SPACING_SUPPLIER*2)/NUM_OF_IMAGES_PER_ROW_SUPPLIER;
         CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION_SUPPLIER;
         
         self.itemSize = CGSizeMake(itemWidth, itemHeight);
@@ -40,7 +40,7 @@
 {
     UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     
-    CGFloat itemWidth = (self.collectionView.frame.size.width-LIST_HOR_MARGIN_SUPPLIER*2-(NUM_OF_IMAGES_PER_ROW_SUPPLIER-1)*LIST_HOR_SPACING_SUPPLIER)/NUM_OF_IMAGES_PER_ROW_SUPPLIER;
+    CGFloat itemWidth = (SCREEN_WIDTH - LIST_HOR_MARGIN_SUPPLIER*2 - (NUM_OF_IMAGES_PER_ROW_SUPPLIER-1)*LIST_HOR_SPACING_SUPPLIER)/NUM_OF_IMAGES_PER_ROW_SUPPLIER;
     CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION_SUPPLIER;
     
     attributes.size = CGSizeMake(itemWidth, itemHeight);

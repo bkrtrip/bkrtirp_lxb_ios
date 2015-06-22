@@ -20,7 +20,6 @@
     self.cityAcronym = [dict[@"acronym_word"] isKindOfClass:[NSNull class]]?nil:dict[@"acronym_word"];
     self.cityInitail = [dict[@"initial"] isKindOfClass:[NSNull class]]?nil:dict[@"initial"];
 
-    
     return self;
 }
 
