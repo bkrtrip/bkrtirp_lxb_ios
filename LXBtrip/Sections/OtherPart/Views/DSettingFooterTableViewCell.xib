@@ -3,40 +3,140 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dSettingFooterCell" id="KGk-i7-Jjw" customClass="DSettingFooterTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="dSettingFooterCell" id="KGk-i7-Jjw" customClass="DSettingFooterTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="开通企业分销服务后，可进入我的分销商设置子帐号 !" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9BB-r1-AOi">
-                        <rect key="frame" x="20" y="13" width="292" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开通企业分销服务后，可进入我的分销商设置子帐号 !" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9BB-r1-AOi">
+                        <rect key="frame" x="76" y="13" width="236" height="21"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="SGm-Hi-e1i"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" red="0.1176470588" green="0.51372549020000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.29803921568627451" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="如有任何疑问，请及时联系客服 : 400-9979-029" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVJ-Sv-9V1">
-                        <rect key="frame" x="20" y="30" width="292" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如有任何疑问，请及时联系客服 : 400-9979-029" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVJ-Sv-9V1">
+                        <rect key="frame" x="96" y="30" width="216" height="21"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="bis-gI-zWk"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" red="0.1176470588" green="0.51372549020000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.29803921568627451" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="● 利润率举例\nAPP中" translatesAutoresizingMaskIntoConstraints="NO" id="HMP-1K-VAm">
-                        <rect key="frame" x="20" y="59" width="240" height="128"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="● 利润率举例" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIa-5V-y88">
+                        <rect key="frame" x="24" y="101" width="78" height="21"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="2ak-Nd-7XE"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APP 中某供应商的产品结算价为￥5000, 市场价为￥6000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQo-6W-Lfb">
+                        <rect key="frame" x="24" y="132" width="281" height="15"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="8l1-TE-cao"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总社同步该供应商产品后，设置的统一利润率为30%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzc-iG-fCC">
+                        <rect key="frame" x="24" y="155" width="255" height="15"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="CsT-jS-guI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="则分销商（子帐号）在登录后可见的" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wi-Qz-iKP">
+                        <rect key="frame" x="24" y="178" width="176" height="15"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="5fV-NM-Yjc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="产品结算价＝￥5000+(￥6000-￥5000)＊30%＝￥5300" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVW-Di-wKH">
+                        <rect key="frame" x="24" y="201" width="276" height="15"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Yzs-8c-wZ6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即总利润为￥1000, 总社赚￥300, 子帐号赚￥700。" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8T-oC-xcu">
+                        <rect key="frame" x="24" y="224" width="253" height="15"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Bpy-ux-tlG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evu-qn-6gY">
+                        <rect key="frame" x="20" y="250" width="96" height="21"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="fa6-Wx-a0n"/>
+                        </constraints>
+                        <attributedString key="attributedText">
+                            <fragment content="企业分销服务案例">
+                                <attributes>
+                                    <color key="NSColor" red="0.1176470588" green="0.51372549020000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="evu-qn-6gY" firstAttribute="top" secondItem="e8T-oC-xcu" secondAttribute="bottom" constant="11" id="6c8-rv-4FY"/>
+                    <constraint firstItem="NVW-Di-wKH" firstAttribute="leading" secondItem="4wi-Qz-iKP" secondAttribute="leading" id="8bQ-0U-8H7"/>
+                    <constraint firstItem="e8T-oC-xcu" firstAttribute="top" secondItem="NVW-Di-wKH" secondAttribute="bottom" constant="8" id="Bd0-0R-Dyf"/>
+                    <constraint firstItem="e8T-oC-xcu" firstAttribute="leading" secondItem="NVW-Di-wKH" secondAttribute="leading" id="S6g-CH-Bfb"/>
+                    <constraint firstItem="e8T-oC-xcu" firstAttribute="leading" secondItem="evu-qn-6gY" secondAttribute="leading" constant="4" id="T58-iP-hPU"/>
+                    <constraint firstItem="evu-qn-6gY" firstAttribute="top" secondItem="e8T-oC-xcu" secondAttribute="bottom" constant="11" id="XXS-Vs-whd"/>
+                    <constraint firstItem="dzc-iG-fCC" firstAttribute="leading" secondItem="cQo-6W-Lfb" secondAttribute="leading" id="ady-Hp-UCx"/>
+                    <constraint firstItem="EVJ-Sv-9V1" firstAttribute="top" secondItem="9BB-r1-AOi" secondAttribute="bottom" constant="-4" id="dcG-iG-ifr"/>
+                    <constraint firstItem="GIa-5V-y88" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="93" id="dsT-8a-9MV"/>
+                    <constraint firstItem="GIa-5V-y88" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="dsa-ra-2Nf"/>
+                    <constraint firstItem="4wi-Qz-iKP" firstAttribute="top" secondItem="dzc-iG-fCC" secondAttribute="bottom" constant="8" id="g9M-zc-zSE"/>
+                    <constraint firstItem="9BB-r1-AOi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="geH-0V-R7L"/>
+                    <constraint firstItem="dzc-iG-fCC" firstAttribute="top" secondItem="cQo-6W-Lfb" secondAttribute="bottom" constant="8" id="hD3-TC-cPf"/>
+                    <constraint firstItem="9BB-r1-AOi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="jhX-wV-2NC"/>
+                    <constraint firstItem="4wi-Qz-iKP" firstAttribute="leading" secondItem="dzc-iG-fCC" secondAttribute="leading" id="jr3-a5-OJL"/>
+                    <constraint firstItem="cQo-6W-Lfb" firstAttribute="top" secondItem="GIa-5V-y88" secondAttribute="bottom" constant="10" id="kBG-Aw-QT2"/>
+                    <constraint firstItem="9BB-r1-AOi" firstAttribute="trailing" secondItem="EVJ-Sv-9V1" secondAttribute="trailing" id="qIq-1N-SmZ"/>
+                    <constraint firstItem="NVW-Di-wKH" firstAttribute="top" secondItem="4wi-Qz-iKP" secondAttribute="bottom" constant="8" id="qXs-w8-gZR"/>
+                    <constraint firstItem="cQo-6W-Lfb" firstAttribute="leading" secondItem="GIa-5V-y88" secondAttribute="leading" id="zkI-ZA-qRM"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="235" y="344"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="235" y="340"/>
         </tableViewCell>
     </objects>
 </document>

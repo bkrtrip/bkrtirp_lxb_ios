@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -14,6 +14,7 @@
                 <outlet property="imageView_Open_StartCity" destination="K9M-z8-etd" id="vRQ-Dm-LCo"/>
                 <outlet property="imageView_Open_TravelType" destination="wRK-xQ-Lap" id="oKT-aX-Ekx"/>
                 <outlet property="mainTableView" destination="Gkg-7h-4zI" id="Txq-uy-7hQ"/>
+                <outlet property="noSearchResultsView" destination="FWC-ZL-gtC" id="g7h-KP-jvo"/>
                 <outlet property="searchBar" destination="cb4-UK-zaM" id="JGr-B2-lXe"/>
                 <outlet property="startCityButton" destination="HUl-a3-KeK" id="pNX-QD-9SQ"/>
                 <outlet property="startCityTableView" destination="o6C-oJ-yys" id="aqb-jE-Coa"/>
@@ -161,6 +162,24 @@
                         </mask>
                     </variation>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWC-ZL-gtC" userLabel="noSearchResultsView">
+                    <rect key="frame" x="0.0" y="113" width="320" height="455"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_search_results.png" translatesAutoresizingMaskIntoConstraints="NO" id="wcO-wT-ejj">
+                            <rect key="frame" x="107" y="50" width="106" height="100"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="7Kn-HO-Bqt"/>
+                                <constraint firstAttribute="width" secondItem="wcO-wT-ejj" secondAttribute="height" multiplier="384:360" id="cHA-Yv-B5u"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.9137254901960784" green="0.92549019607843142" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="wcO-wT-ejj" secondAttribute="centerX" id="473-xU-c2o"/>
+                        <constraint firstItem="wcO-wT-ejj" firstAttribute="top" secondItem="FWC-ZL-gtC" secondAttribute="top" constant="50" id="Baw-Nl-NNt"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="C2n-tG-P0A" userLabel="walkTypeTableView">
                     <rect key="frame" x="0.0" y="113" width="320" height="176"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -215,6 +234,7 @@
                 <constraint firstItem="Gkg-7h-4zI" firstAttribute="leading" secondItem="o6C-oJ-yys" secondAttribute="leading" id="VnO-oM-Yqa"/>
                 <constraint firstAttribute="bottom" secondItem="Gkg-7h-4zI" secondAttribute="bottom" id="W28-jE-5sK"/>
                 <constraint firstItem="Gkg-7h-4zI" firstAttribute="top" secondItem="o6C-oJ-yys" secondAttribute="top" id="ac4-Li-HE4"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="bottom" secondItem="FWC-ZL-gtC" secondAttribute="bottom" id="c1R-oY-FOX"/>
                 <constraint firstItem="Fiz-F3-IxC" firstAttribute="width" secondItem="Fiz-F3-IxC" secondAttribute="height" multiplier="17:18" id="cVW-Pd-dQS"/>
                 <constraint firstAttribute="trailing" secondItem="o6C-oJ-yys" secondAttribute="trailing" id="dO7-ZL-wmv"/>
                 <constraint firstItem="Gkg-7h-4zI" firstAttribute="trailing" secondItem="C2n-tG-P0A" secondAttribute="trailing" id="f4q-at-dKp"/>
@@ -224,10 +244,13 @@
                 <constraint firstItem="7in-eC-NH9" firstAttribute="top" secondItem="P4J-xk-y5A" secondAttribute="top" id="hmQ-uo-n3o"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="bottom" secondItem="K9M-z8-etd" secondAttribute="bottom" constant="3" id="hoC-9F-Gdy"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="bottom" secondItem="Fiz-F3-IxC" secondAttribute="bottom" constant="3" id="j5P-Yj-mQ3"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="top" secondItem="FWC-ZL-gtC" secondAttribute="top" id="k1n-iQ-CNV"/>
                 <constraint firstAttribute="bottom" secondItem="7in-eC-NH9" secondAttribute="bottom" id="oNv-HX-Gmg"/>
                 <constraint firstAttribute="trailing" secondItem="Gkg-7h-4zI" secondAttribute="trailing" id="rxu-gr-EUw"/>
                 <constraint firstItem="K9M-z8-etd" firstAttribute="width" secondItem="K9M-z8-etd" secondAttribute="height" multiplier="2:1" id="uMo-XM-12B"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="trailing" secondItem="FWC-ZL-gtC" secondAttribute="trailing" id="vEN-IB-dWD"/>
                 <constraint firstItem="C2n-tG-P0A" firstAttribute="top" secondItem="fi0-FZ-hEA" secondAttribute="bottom" id="wAU-aU-mRb"/>
+                <constraint firstItem="Gkg-7h-4zI" firstAttribute="leading" secondItem="FWC-ZL-gtC" secondAttribute="leading" id="wqP-cB-wUL"/>
                 <constraint firstItem="HUl-a3-KeK" firstAttribute="top" secondItem="fJW-rA-BO8" secondAttribute="bottom" id="yJn-wi-CtP"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -247,6 +270,7 @@
     </objects>
     <resources>
         <image name="back.png" width="7" height="13"/>
+        <image name="no_search_results.png" width="120" height="112"/>
         <image name="rectangle_close.png" width="8" height="9"/>
         <image name="rectangle_open.png" width="12" height="6"/>
     </resources>

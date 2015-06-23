@@ -56,6 +56,9 @@
 
 
 @property (strong, nonatomic) IBOutlet UIControl *darkMask;
+
+@property (strong, nonatomic) IBOutlet UIView *noSearchResultsView;
+
 @property (nonatomic, strong) AccompanyInfoView *accompanyInfoView;
 @property (nonatomic, strong) ShareView *shareView;
 
@@ -96,6 +99,7 @@
     [self setWalkTypeTableViewHidden:YES];
     [self setDestinationCityTableViewHidden:YES];
     
+    _noSearchResultsView.hidden = YES;
     pageNum = 1;
     isRefreshing = NO;
     if (_keyword.length > 0) {
@@ -359,6 +363,8 @@
             isRefreshing = NO;
         }
         
+        _noSearchResultsView.hidden = YES;
+        
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100013"] succeed:^{
             
             if ([result[@"RS100013"][@"goods_list"] isKindOfClass:[NSArray class]]) {
@@ -378,6 +384,8 @@
                 }];
                 [_mainTableView reloadData];
                 pageNum ++;
+            } else {
+                _noSearchResultsView.hidden = NO;
             }
         }];
     } fail:^(id result) {

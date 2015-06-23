@@ -40,6 +40,7 @@
                     <constraint firstAttribute="centerY" secondItem="NaN-6g-bvm" secondAttribute="centerY" constant="11.5" id="yWz-HV-b7I"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="dispatchSwitch" destination="ZQ1-Za-n7K" id="MOl-GA-X9D"/>
             </connections>

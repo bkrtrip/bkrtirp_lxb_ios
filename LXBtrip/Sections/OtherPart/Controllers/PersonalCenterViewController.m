@@ -15,6 +15,7 @@
 #import "AFNetworking.h"
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
+#import "CustomActivityIndicator.h"
 
 #import "PersonalInfoViewController.h"
 #import "DispatchersViewController.h"
@@ -22,6 +23,7 @@
 #import "RPhoneNumViewController.h"//register procedure start point
 #import "DispatchSettingsViewController.h"
 #import "MyOrderListViewController.h"
+#import "MySupplierViewController.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -346,7 +348,7 @@
     if (action == GoToDispatchers) {
         //TODO: 未登录不允许访问
         if (!self.isAlreadyLogined) {
-            [self showAlertViewWithTitle:nil message:@"您还未开通企业分销服务，请进入我的－分销设置进行开通" cancelButtonTitle:@"确认"];
+            [self showAlertViewWithTitle:nil message:@"您还未登录，请登录后使用此功能。" cancelButtonTitle:@"确认"];
             return;
         }
     }
@@ -373,15 +375,18 @@
             break;
         case GoToDispatchers:
         {
-            DispatchersViewController *viewController = [[DispatchersViewController alloc] init];
-            
-            [self.navigationController pushViewController:viewController animated:YES];
+            [self getDispatchSettingsInfo];
         }
             break;
         case GoToSuppliers:
         {
             //跳转供应商(xiaozhu)
-
+            if ([UserModel companyId]  && [UserModel staffId]) {
+                MySupplierViewController *mySupplier = [[MySupplierViewController alloc] init];
+                [self.navigationController pushViewController:mySupplier animated:YES];
+                return;
+            }
+            [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
         }
             break;
         case GoToOrders:
@@ -445,6 +450,58 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          
+     }];
+}
+
+
+- (void)getDispatchSettingsInfo
+{
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    __weak PersonalCenterViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    
+    if (!staffDic) {
+        return;
+    }
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/isOpenDistributor", HOST_BASE_URL];
+    
+    NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100054"];
+                 
+                 if (resultDic && [[resultDic stringValueByKey:@"key"] isEqualToString:@"0"]) {
+                     [self showAlertViewWithTitle:nil message:@"您还未开通企业分销服务，请进入我的－分销设置进行开通" cancelButtonTitle:@"确认"];
+                 }
+                 else if (resultDic && [[resultDic stringValueByKey:@"key"] isEqualToString:@"1"]) {
+                     
+                     DispatchersViewController *viewController = [[DispatchersViewController alloc] init];
+                     
+                     [self.navigationController pushViewController:viewController animated:YES];
+                 }
+             }
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 

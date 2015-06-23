@@ -14,12 +14,16 @@
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
 #import "DispaterInfoViewController.h"
+#import "AddDispatcherViewController.h"
+#import "CustomActivityIndicator.h"
 
 @interface DispatchersViewController ()<DispatcherActionDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *dispatchersTableView;
 
 @property (retain, nonatomic) NSMutableArray *dispatchersArray;
 @property (assign, nonatomic) int pageNum;
+@property (assign, nonatomic) BOOL isLoadingMore;
+@property (assign, nonatomic) BOOL isAllLoaded;
 
 @property (retain, nonatomic) NSDictionary *operatedDispatcherDic;
 
@@ -48,7 +52,12 @@
 
     self.title = @"我的分销商";
     
-    [self getDispathersListForPage:1];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshDispatchers:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.dispatchersTableView addSubview:refreshControl];
+    
+    [self getDispathersListForPage:self.pageNum];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,9 +72,30 @@
     self.navigationController.tabBarController.tabBar.hidden = YES;
 }
 
+- (void)refreshDispatchers:(UIRefreshControl *)sender
+{
+    [sender endRefreshing];
+
+    [self refreshDispatcherList];
+}
+
 - (void)refreshDispatcherList
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    self.pageNum = 0;
+    self.isAllLoaded = NO;
     
+    [self getDispathersListForPage:self.pageNum];
+}
+
+- (void)getMoreDispatchers
+{
+    if (!self.isAllLoaded)
+    {
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+
+        [self getDispathersListForPage:self.pageNum];
+    }
 }
 
 
@@ -80,11 +110,13 @@
     NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
     
     NSString *partialUrl = [NSString stringWithFormat:@"%@myself/distributor", HOST_BASE_URL];
-    NSDictionary *parameterDic = @{@"pagenum":[NSString stringWithFormat:@"%d", pageNum], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    NSDictionary *parameterDic = @{@"pagenum":[NSString stringWithFormat:@"%d", pageNum + 1], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
     
     [manager POST:partialUrl parameters:parameterDic
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
          if (responseObject)
          {
              id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -95,23 +127,33 @@
                  NSArray *resultArray = [jsonObj objectForKey:@"RS100023"];
                  
                  if (resultArray && [resultArray isKindOfClass:[NSArray class]]) {
+                     
+                     if (weakSelf.pageNum == 0) {
+                         [weakSelf.dispatchersArray removeAllObjects];
+                     }
+                     
+                     weakSelf.pageNum += 1;
+                     
                      [weakSelf.dispatchersArray addObjectsFromArray:resultArray];
                      [weakSelf.dispatchersTableView reloadData];
                  }
+             }
+             else if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]] && [[jsonObj stringValueByKey:@"error_code"] isEqualToString:@"90001"]) {
+                 weakSelf.isAllLoaded = YES;
              }
          }
          
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 
 
 - (void)rightBarButtonItemClicked:(id)sender
 {
-    DispaterInfoViewController *viewController = [[DispaterInfoViewController alloc] init];
+    AddDispatcherViewController *viewController = [[AddDispatcherViewController alloc] init];
     
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -152,8 +194,19 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    DispaterInfoViewController *viewController = [[DispaterInfoViewController alloc] init];
+    viewController.isUpdateDispatcher = YES;
+    viewController.dispatcherDic = [self.dispatchersArray objectAtIndex:indexPath.row];
     
+    [self.navigationController pushViewController:viewController animated:YES];
     
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.dispatchersArray.count - 1 == indexPath.row) {
+        [self getMoreDispatchers];
+    }
 }
 
 #pragma mark - dispatcherCell delegate

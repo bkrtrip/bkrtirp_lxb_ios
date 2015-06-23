@@ -36,6 +36,7 @@
     NSMutableArray *pageNumsArray;
     NSMutableArray *collectionViewsArray;
     NSMutableArray *refreshControlsArray;
+    NSMutableArray *noSuppliersArray;
 }
 
 //navigationbar part
@@ -114,6 +115,7 @@
 
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
     refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:5];
+    noSuppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
     for (int i = 0; i < 5; i++) {
         SupplierCollectionViewFlowLayout *flow = [[SupplierCollectionViewFlowLayout alloc] init];
 
@@ -126,17 +128,30 @@
         collectionView.delegate = self;
         collectionView.backgroundColor = [UIColor whiteColor];
         collectionView.alwaysBounceVertical = YES;
+        UIScrollView *scroll = (UIScrollView *)collectionView;
+        scroll.delegate = self;
         
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
         [collectionView addSubview:refreshControl];
         
-        UIScrollView *scroll = (UIScrollView *)collectionView;
-        scroll.delegate = self;
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0)];
+        bgView.backgroundColor = BG_E9ECF5;
+        CGFloat width_height_ratio = 434.f/259.f;
+        CGFloat imgHeight = 0.2*bgView.bounds.size.height;
+        CGFloat imgWidth = imgHeight*width_height_ratio;
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((bgView.bounds.size.width - imgWidth)/2.0, 0.2*bgView.bounds.size.height, imgWidth, imgHeight)];
+        imgView.backgroundColor = [UIColor clearColor];
+        imgView.image = ImageNamed(@"no_supplier");
+        [bgView addSubview:imgView];
+        // no supplier view initially hidden!
+        bgView.hidden = YES;
 
         [_scrollView addSubview:collectionView];
+        [_scrollView addSubview:bgView];
         [collectionViewsArray addObject:collectionView];
         [refreshControlsArray addObject:refreshControl];
+        [noSuppliersArray addObject:bgView];
     }
     
     // dark mask
@@ -145,7 +160,7 @@
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
-
+    
     // --TEST--
     startCity = @"西安";
     lineType = nil;
@@ -317,7 +332,9 @@
                 isLoadingMoresArray[_selectedIndex] = @1;
                 [collectionViewsArray[_selectedIndex] reloadData];
             }
-
+            
+            [noSuppliersArray[_selectedIndex] setHidden:YES];
+            
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100010"] succeed:^{
                 if ([result[@"RS100010"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100010"];
@@ -346,6 +363,10 @@
                     }];
                     [collectionViewsArray[_selectedIndex] reloadData];
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
+                } else {
+                    if ([pageNumsArray[_selectedIndex] intValue] == 1) {
+                        [noSuppliersArray[_selectedIndex] setHidden:NO];
+                    }
                 }
             }];
         } fail:^(id result) {
@@ -366,6 +387,8 @@
                 [collectionViewsArray[_selectedIndex] reloadData];
             }
 
+            [noSuppliersArray[_selectedIndex] setHidden:YES];
+            
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100009"];
@@ -394,6 +417,10 @@
                     }];
                     [collectionViewsArray[_selectedIndex] reloadData];
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
+                } else {
+                    if ([pageNumsArray[_selectedIndex] intValue] == 1) {
+                        [noSuppliersArray[_selectedIndex] setHidden:NO];
+                    }
                 }
             }];
         } fail:^(id result) {

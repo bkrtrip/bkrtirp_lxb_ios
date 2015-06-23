@@ -57,8 +57,12 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
                 break;
             case ERROR_CODE_NO_DATA: //查询无数据
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询无数据" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询无数据" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+//                [alert show];
+                
+                if (succeed) {
+                    succeed(nil);
+                }
             }
                 break;
             case ERROR_CODE_TOKEN_INVALID: //TOKEN不合法
