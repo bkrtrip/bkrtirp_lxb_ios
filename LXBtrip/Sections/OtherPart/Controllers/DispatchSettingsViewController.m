@@ -16,8 +16,9 @@
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
 #import "CustomActivityIndicator.h"
+#import "AlterUserInfoViewController.h"
 
-@interface DispatchSettingsViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface DispatchSettingsViewController ()<UITableViewDataSource, UITableViewDelegate, UpdateUserInformationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *dSettingsTableView;
 
 @property (retain, nonatomic) NSDictionary *dSettingsDic;
@@ -177,12 +178,40 @@
     return 60;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 1) {
+        AlterUserInfoViewController *viewController = [[AlterUserInfoViewController alloc] init];
+        viewController.type = DispatchRate;
+        viewController.delegate = self;
+        viewController.dispatchSettingDic = self.dSettingsDic;
+        
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
 
+#pragma mark - UpdateUserInformationDelegate
+
+- (void)informationAlteredTo:(NSString *)changedInfor forType:(AlterInfoTypes)type
+{
+    DispatchProfitRateTableViewCell *cell = (DispatchProfitRateTableViewCell *)[self.dSettingsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    double profileRate = [changedInfor doubleValue] * 100;
+    
+    cell.profitRateLabel.text = [NSString stringWithFormat:@"%.0f %%", profileRate];
+    
+    [self updateDSettingsForOpenState:@"1" rate:changedInfor];
+}
 
 - (void)switchChanged:(UISwitch *)sender
 {
     NSString *isopenState = sender.on ? @"1" : @"0";
+    NSString *rate = self.dSettingsDic ? [self.dSettingsDic stringValueByKey:@"value"] : @"0.00";
     
+    [self updateDSettingsForOpenState:isopenState rate:rate];
+}
+
+- (void)updateDSettingsForOpenState:(NSString *)openState rate:(NSString *)rate
+{
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     __weak DispatchSettingsViewController *weakSelf = self;
     
@@ -198,7 +227,7 @@
     
     NSString *partialUrl = [NSString stringWithFormat:@"%@myself/distributionSet", HOST_BASE_URL];
     
-    NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"], @"isopen":isopenState, @"value":@"0.00"};
+    NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"], @"isopen":openState, @"value":rate};
     
     [manager POST:partialUrl parameters:parameterDic
           success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -214,7 +243,7 @@
                  NSDictionary *resultDic = [jsonObj objectForKey:@"RS100027"];
                  
                  if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
-
+                     
                      [weakSelf getDispatchSettingsInfo];
                  }
              }
