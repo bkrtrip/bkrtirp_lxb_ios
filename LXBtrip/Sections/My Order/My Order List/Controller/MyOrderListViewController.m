@@ -102,6 +102,7 @@
     orderType = Order_Not_Confirm;
     pageNumsArray = [@[@1, @1, @1] mutableCopy];
     isLoadingMoreArray = [@[@0, @0, @0] mutableCopy];
+    
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getMyOrderList];
 }
@@ -197,6 +198,8 @@
 - (void)supportClickCancelOrderWithOrder:(MyOrderItem *)order
 {
     selectedOrder = order;
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self modifyOrCancelMyOrderWithStatus:@"2"];
 }
 
@@ -247,12 +250,12 @@
                                       totalPrice:[selectedOrder.orderDealPrice stringValue]
                                           status:status
                                          success:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100032"] succeed:^{
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"操作成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
             
             pageNumsArray[selectedIndex] = @1;
             isLoadingMoreArray[selectedIndex] = @0;
+            
             [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getMyOrderList];
 
@@ -261,11 +264,14 @@
             isLoadingMoreArray[2] = @0;
         }];
     } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"操作失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
 }
 
+#pragma mark - Actions
 - (IBAction)orderStatusButtonClicked:(id)sender {
     if (selectedIndex == [sender tag]) {
         return;
@@ -283,6 +289,7 @@
         if (finished) {
             selectedIndex = index;
             if ([isLoadingMoreArray[index] integerValue] == 0) {
+                
                 [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
                 [self getMyOrderList];
             }
@@ -313,8 +320,8 @@
 {
     
 }
-#pragma mark - MyOrderListTableViewCell__Invalid_Delegate
 
+#pragma mark - MyOrderListTableViewCell__Invalid_Delegate
 - (void)supportClickWithPhoneCall_Invalid
 {
     

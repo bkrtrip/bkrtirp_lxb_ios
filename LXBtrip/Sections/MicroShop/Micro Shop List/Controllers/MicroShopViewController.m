@@ -26,6 +26,8 @@
 {
     NSString *startProvince;
     NSNumber *shopIdToDelete;
+    UIRefreshControl *refreshControl_online;
+    UIRefreshControl *refreshControl_myshop;
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -134,11 +136,11 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     
-    UIRefreshControl *refreshControl_online = [[UIRefreshControl alloc] init];
+    refreshControl_online = [[UIRefreshControl alloc] init];
     [refreshControl_online addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
     [_onlineShopCollectionView addSubview:refreshControl_online];
     
-    UIRefreshControl *refreshControl_myshop = [[UIRefreshControl alloc] init];
+    refreshControl_myshop = [[UIRefreshControl alloc] init];
     [refreshControl_myshop addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
     [_myShopCollectionView addSubview:refreshControl_myshop];
     
@@ -187,7 +189,6 @@
 
 - (void)refreshCollectionViews:(id)sender
 {
-    [sender endRefreshing];
     if (_selectedIndex == 0) {
         [self getOnlineShops];
         return;
@@ -329,6 +330,8 @@
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getOnlineMicroShopListWithProvince:startProvince companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_online endRefreshing];
+            
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100002"] succeed:^{
                 if ([result[@"RS100002"] isKindOfClass:[NSArray class]]) {
                     
@@ -360,12 +363,16 @@
             }];
         } fail:^(NSError *error) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_online endRefreshing];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getOnlineMicroShopListWithProvince:startProvince success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_online endRefreshing];
+
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100001"] succeed:^{
                 if ([result[@"RS100001"] isKindOfClass:[NSArray class]]) {
                     
@@ -397,6 +404,8 @@
             }];
         } fail:^(NSError *error) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_online endRefreshing];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -408,6 +417,8 @@
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getMyMicroShopListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_myshop endRefreshing];
+            
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100005"] succeed:^{
                 if ([result[@"RS100005"] isKindOfClass:[NSArray class]]) {
                     
@@ -426,12 +437,16 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_myshop endRefreshing];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getMyMicroShopListWithSuccess:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_myshop endRefreshing];
+
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100048"] succeed:^{
                 if ([result[@"RS100048"] isKindOfClass:[NSArray class]]) {
                     
@@ -450,6 +465,8 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControl_myshop endRefreshing];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -458,18 +475,15 @@
 
 - (void)deleteMyShopWithShopId:(NSNumber *)shopId
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool deleteMyShopWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] shopId:shopId success:^(id result) {
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100006"] succeed:^{
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
+            //            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            //            [alert show];
             
             self.selectedIndex = _selectedIndex;
             
             [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getMyShops];
-            
-            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -633,6 +647,8 @@
 {
     if (shopIdToDelete) {
         [self hideDeleteActionSheet];
+        
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self deleteMyShopWithShopId:shopIdToDelete];
     }
 }

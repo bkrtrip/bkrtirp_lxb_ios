@@ -32,7 +32,7 @@
     
     NSString *logoString = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.alleyLogo];
     
-    [_alleyImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_alleyImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:ImageNamed(@"default_logo.jpg") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         ;
     }];
     _alleyNameLabel.text = info.alleyName;

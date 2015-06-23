@@ -35,6 +35,7 @@
     NSMutableArray *isLoadingMoresArray;
     NSMutableArray *pageNumsArray;
     NSMutableArray *collectionViewsArray;
+    NSMutableArray *refreshControlsArray;
 }
 
 //navigationbar part
@@ -112,6 +113,7 @@
     [self.view addSubview:_scrollView];
 
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
+    refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:5];
     for (int i = 0; i < 5; i++) {
         SupplierCollectionViewFlowLayout *flow = [[SupplierCollectionViewFlowLayout alloc] init];
 
@@ -134,6 +136,7 @@
 
         [_scrollView addSubview:collectionView];
         [collectionViewsArray addObject:collectionView];
+        [refreshControlsArray addObject:refreshControl];
     }
     
     // dark mask
@@ -153,7 +156,6 @@
 
 - (void)refreshCollectionViews:(id)sender
 {
-    [sender endRefreshing];
     pageNumsArray[_selectedIndex] = @1;
     isLoadingMoresArray[_selectedIndex] = @0;
     [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
@@ -308,7 +310,8 @@
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            
+            [refreshControlsArray[_selectedIndex] endRefreshing];
+
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
                 isLoadingMoresArray[_selectedIndex] = @1;
@@ -347,13 +350,16 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControlsArray[_selectedIndex] endRefreshing];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            
+            [refreshControlsArray[_selectedIndex] endRefreshing];
+
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
                 isLoadingMoresArray[_selectedIndex] = @1;
@@ -392,6 +398,8 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [refreshControlsArray[_selectedIndex] endRefreshing];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
