@@ -11,12 +11,16 @@
 #import "AFNetworking.h"
 #import "AppMacro.h"
 #import "FResetPwdViewController.h"
+#import "AppDelegate.h"
+#import "CustomActivityIndicator.h"
 
-@interface FVerifyCodeViewController ()<UITextFieldDelegate>
+@interface FVerifyCodeViewController ()<UITextFieldDelegate, FTimerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumLabel;
 @property (weak, nonatomic) IBOutlet UITextField *verifyCodeTf;
 @property (weak, nonatomic) IBOutlet UILabel *timeAlertLabel;
+
+@property (weak, nonatomic) UIButton *tryToGetNewVerifyCodeBtn;
 
 @property (nonatomic, retain) NSString *verificationCode;
 
@@ -27,6 +31,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setTimerDelegate];
+    
+    if (self.phoneNum != nil && self.phoneNum.length == 11) {
+        self.phoneNumLabel.text = self.phoneNum;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +54,12 @@
 }
 
 - (IBAction)getVerificationCode:(id)sender {
+    
+    self.tryToGetNewVerifyCodeBtn = (UIButton *)sender;
+
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    sharedDelegate.delegateForForgetPwd = self;
+    [sharedDelegate startFTimer];
     
     [self getVerificationCodeForPhone:self.phoneNumLabel.text];
 }
@@ -80,6 +96,52 @@
      {
          
      }];
+}
+
+
+- (void)dealloc
+{
+    [self removeTimerDelegate];
+}
+
+- (void)setTimerDelegate
+{
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    if (sharedDelegate.fTimer != nil) {
+        sharedDelegate.delegateForForgetPwd = self;
+//    }
+}
+
+- (void)removeTimerDelegate
+{
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    sharedDelegate.delegateForForgetPwd = nil;
+}
+
+#pragma mark - FTimerDelegate
+
+- (void)changeFState:(int)leftSeconds
+{
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (1 == leftSeconds) {
+        
+        self.tryToGetNewVerifyCodeBtn.hidden = NO;
+        self.timeAlertLabel.hidden = YES;
+        
+        self.timeAlertLabel.text = @"获取验证码";
+        
+        [sharedDelegate stopRTimer];
+    }
+    else{
+        //        self.tryToGetNewVerifyCodeBtn.enabled = NO;
+        self.tryToGetNewVerifyCodeBtn.hidden = YES;
+        self.timeAlertLabel.hidden = NO;
+        
+        NSString *titleStr = [NSString stringWithFormat:@"(%d)秒后点击",leftSeconds];
+        
+        self.timeAlertLabel.text = titleStr;
+    }
 }
 
 #pragma mark - UITextFieldDelegate

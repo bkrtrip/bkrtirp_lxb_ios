@@ -10,6 +10,7 @@
 #import "UIViewController+CommonUsed.h"
 #import "AFNetworking.h"
 #import "AppMacro.h"
+#import "CustomActivityIndicator.h"
 
 @interface RSetPwdViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pwdTf;
@@ -34,6 +35,7 @@
         return;
     }
     
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"设置中..."];
     [self setPassword:self.pwdTf.text forPhone:self.phoneNum];
 }
 
@@ -57,15 +59,17 @@
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  
+//                 [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"设置成功"];
+                 [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
                  [weakSelf dismissViewControllerAnimated:YES completion:nil];
              }
              
          }
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 

@@ -61,6 +61,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
 
 @property (strong, nonatomic) IBOutlet UIControl *darkMask;
+
+@property (strong, nonatomic) IBOutlet UIView *noProductView;
+
 @property (nonatomic, strong) AccompanyInfoView *accompanyInfoView;
 @property (nonatomic, strong) ShareView *shareView;
 
@@ -91,6 +94,7 @@
 
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
     
+    _noProductView.hidden = YES;
     pageNum = 1;
     [self setWalkTypeTableViewHidden:YES];
     [self setDestinationCityTableViewHidden:YES];
@@ -127,14 +131,14 @@
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool getTourListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_templateId customId:_customId startCity:startCity endCity:endCity walkType:walkType lineName:lineName pageNum:@(pageNum) success:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if (isRefreshing == YES) {
+            _info = nil;
+            [productsArray removeAllObjects];
+            isRefreshing = NO;
+        }
         id data = result[@"RS100007"];
         [[Global sharedGlobal] codeHudWithObject:data succeed:^{
-            if (isRefreshing == YES) {
-                _info = nil;
-                [productsArray removeAllObjects];
-                isRefreshing = NO;
-            }
-            
             SupplierInfo *info = [[SupplierInfo alloc] initWithDict:data];
             if (!_info) {
                 _info = info;
@@ -144,6 +148,13 @@
                     [_destinationTableView reloadData];
                 }
                 productsArray = [info.supplierProductsArray mutableCopy];
+                if (productsArray.count == 0) {
+                    _noProductView.hidden = NO;
+                    return ;
+                } else {
+                    _noProductView.hidden = YES;
+                }
+                
                 [_mainTableView reloadData];
                 pageNum++;
                 return ;

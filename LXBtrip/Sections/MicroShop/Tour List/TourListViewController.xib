@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -14,6 +14,7 @@
                 <outlet property="destinationTableView" destination="rJc-Ol-ciH" id="avB-Tw-MKQ"/>
                 <outlet property="locationButton" destination="pm6-ga-Elz" id="7ZH-mT-683"/>
                 <outlet property="mainTableView" destination="Lmw-j1-ZWh" id="mr6-mk-3xk"/>
+                <outlet property="noProductView" destination="S5W-kl-NHr" id="99C-gN-Z6o"/>
                 <outlet property="searchBar" destination="e8K-BQ-wot" id="Bbr-xT-ctL"/>
                 <outlet property="searchButton" destination="5Mf-OE-j4V" id="LGH-Ak-1aE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -198,6 +199,24 @@
                         <outlet property="delegate" destination="-1" id="VGN-vc-zbF"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5W-kl-NHr" userLabel="noProductView">
+                    <rect key="frame" x="0.0" y="155" width="320" height="413"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_product.png" translatesAutoresizingMaskIntoConstraints="NO" id="EJ2-QC-J9s">
+                            <rect key="frame" x="120" y="30" width="80" height="71"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="71" id="PpD-Um-KRq"/>
+                                <constraint firstAttribute="width" secondItem="EJ2-QC-J9s" secondAttribute="height" multiplier="242:213" id="pbv-5k-crn"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="top" secondItem="S5W-kl-NHr" secondAttribute="top" constant="30" id="fT3-GK-hsw"/>
+                        <constraint firstAttribute="centerX" secondItem="EJ2-QC-J9s" secondAttribute="centerX" id="m4H-9r-gbI"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -215,15 +234,19 @@
                 <constraint firstAttribute="bottom" secondItem="In7-aV-etP" secondAttribute="bottom" constant="10" id="Kvz-n0-MqA"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="rJc-Ol-ciH" secondAttribute="leading" id="MHO-It-R9t"/>
                 <constraint firstItem="T4p-cb-ZGg" firstAttribute="trailing" secondItem="Lmw-j1-ZWh" secondAttribute="trailing" id="MSG-JV-5HH"/>
+                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="trailing" secondItem="S5W-kl-NHr" secondAttribute="trailing" id="MfQ-NU-bXX"/>
                 <constraint firstAttribute="trailing" secondItem="hRV-ia-wRd" secondAttribute="trailing" id="Mxg-Gt-iAC"/>
                 <constraint firstItem="x4b-Gv-Tvd" firstAttribute="top" secondItem="hRV-ia-wRd" secondAttribute="bottom" id="VBI-va-ys7"/>
+                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="bottom" secondItem="S5W-kl-NHr" secondAttribute="bottom" id="YQ7-dp-bdM"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="hRV-ia-wRd" secondAttribute="bottom" id="YoQ-6q-ozL"/>
                 <constraint firstAttribute="bottom" secondItem="Lmw-j1-ZWh" secondAttribute="bottom" id="bxy-TE-lLO"/>
+                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="S5W-kl-NHr" secondAttribute="top" id="cbN-Fl-D9L"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="width" secondItem="6OM-xT-eP2" secondAttribute="width" multiplier="0.5" id="chr-ep-TGl"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="em8-hI-tBE"/>
                 <constraint firstItem="hRV-ia-wRd" firstAttribute="leading" secondItem="8gc-94-qjm" secondAttribute="trailing" id="gb5-XE-F2p"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="width" secondItem="hRV-ia-wRd" secondAttribute="width" id="h3d-Q2-0sr"/>
                 <constraint firstAttribute="trailing" secondItem="6OM-xT-eP2" secondAttribute="trailing" id="ha1-JF-wzu"/>
+                <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="S5W-kl-NHr" secondAttribute="leading" id="mWA-TZ-07Z"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="rJc-Ol-ciH" secondAttribute="top" id="mfJ-ma-oCR"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ojh-5z-sON"/>
                 <constraint firstItem="6OM-xT-eP2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wuS-Im-DBd"/>
@@ -236,7 +259,7 @@
                     <exclude reference="VBI-va-ys7"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="-472" y="24"/>
+            <point key="canvasLocation" x="-722" y="13"/>
         </view>
     </objects>
     <resources>
@@ -244,6 +267,7 @@
         <image name="calendar.png" width="29" height="23"/>
         <image name="destination.png" width="34" height="34"/>
         <image name="location_red.png" width="13" height="17"/>
+        <image name="no_product.png" width="80" height="71"/>
         <image name="to_top.png" width="47" height="47"/>
     </resources>
 </document>

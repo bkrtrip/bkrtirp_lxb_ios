@@ -105,6 +105,7 @@
     }];
 }
 
+#pragma mark - HTTP
 - (void)getAllCities
 {
     [HTTPTool getCitiesWithSuccess:^(id result) {
@@ -129,24 +130,24 @@
 - (void)getHotCities
 {
     // --TEST--
-    hotCitiesFetchSucceed = YES;
+//    hotCitiesFetchSucceed = YES;
 
-//    [HTTPTool getHotCitiesWithSuccess:^(id result) {
-//        [[Global sharedGlobal] codeHudWithObject:result[@"RS100042"] succeed:^{
-//            id data = result[@"RS100042"];
-//            if ([data isKindOfClass:[NSArray class]]) {
-//                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//                    HotCity *hotcity = [[HotCity alloc] initWithDict:obj];
-//                    [hotCitiesArray addObject:hotcity];
-//                }];
-//            }
-//            hotCitiesFetchSucceed = YES;
-//            [self shouldReloadData];
-//        }];
-//    } fail:^(id result) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取常用城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//        [alert show];
-//    }];
+    [HTTPTool getHotCitiesWithSuccess:^(id result) {
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100042"] succeed:^{
+            id data = result[@"RS100042"];
+            if ([data isKindOfClass:[NSArray class]]) {
+                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    HotCity *hotcity = [[HotCity alloc] initWithDict:obj];
+                    [hotCitiesArray addObject:hotcity];
+                }];
+            }
+            hotCitiesFetchSucceed = YES;
+            [self shouldReloadData];
+        }];
+    } fail:^(id result) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取常用城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (void)shouldReloadData

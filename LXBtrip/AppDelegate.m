@@ -18,6 +18,9 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic, assign) int rTimerInterval;
+@property (nonatomic, assign) int fTimerInterval;
+
 @end
 
 @implementation AppDelegate
@@ -79,4 +82,95 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+#pragma mark Timers work
+- (BOOL)startRTimer
+{
+    [self stopRTimer];
+    
+    self.rTimerInterval = 60;
+    self.rTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(setRState) userInfo:nil repeats:YES];
+    if (nil == self.rTimer) {
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+
+- (void)stopRTimer
+{
+    [self.rTimer invalidate];
+    self.rTimer = nil;
+//    self.delegateForRegister = nil;
+}
+
+- (BOOL) setRState
+{
+    self.rTimerInterval = self.rTimerInterval - 1;
+    
+    if (self.delegateForRegister && [self.delegateForRegister respondsToSelector:@selector(changeRState:)]) {
+        [self.delegateForRegister changeRState:self.rTimerInterval];
+        
+        if (self.rTimerInterval == 1) {
+            [self stopRTimer];
+        }
+        
+        return YES;
+    }
+    else{
+//        [self stopRTimer];
+        return NO;
+    }
+}
+
+//forget pwd procedure
+- (BOOL)startFTimer
+{
+    [self stopFTimer];
+    
+    self.fTimerInterval = 60;
+    self.fTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(setFState) userInfo:nil repeats:YES];
+    if (nil == self.fTimer) {
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+
+- (void)stopFTimer
+{
+    [self.fTimer invalidate];
+    self.fTimer = nil;
+}
+
+- (BOOL)setFState
+{
+    self.fTimerInterval = self.fTimerInterval - 1;
+    
+    if (self.delegateForForgetPwd && [self.delegateForForgetPwd respondsToSelector:@selector(changeFState:)]) {
+        [self.delegateForForgetPwd changeFState:self.fTimerInterval];
+        
+        if (self.fTimerInterval == 1) {
+            [self stopFTimer];
+        }
+        
+        return YES;
+    }
+    else{
+//        [self stopFTimer];
+        return NO;
+    }
+}
+
 @end
+
+
+
+
+
+
+
+
+

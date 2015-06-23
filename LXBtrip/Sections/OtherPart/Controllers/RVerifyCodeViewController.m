@@ -11,8 +11,9 @@
 #import "AFNetworking.h"
 #import "AppMacro.h"
 #import "RSetPwdViewController.h"
+#import "AppDelegate.h"
 
-@interface RVerifyCodeViewController ()<UITextFieldDelegate>
+@interface RVerifyCodeViewController ()<UITextFieldDelegate, RTimerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumLabel;
 @property (weak, nonatomic) IBOutlet UITextField *verifyCodeTf;
@@ -27,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setTimerDelegate];
     
     if (self.phoneNum != nil && self.phoneNum.length == 11) {
         self.phoneNumLabel.text = self.phoneNum;
@@ -47,8 +50,57 @@
     [self performSegueWithIdentifier:@"goToRSetPwd" sender:nil];
 }
 - (IBAction)getVerificationCode:(id)sender {
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    sharedDelegate.delegateForRegister = self;
+    [sharedDelegate startRTimer];
     
     [self getVerificationCodeForPhone:self.phoneNum];
+}
+
+
+- (void)dealloc
+{
+    [self removeTimerDelegate];
+}
+
+- (void)setTimerDelegate
+{
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    if (sharedDelegate.rTimer != nil) {
+        sharedDelegate.delegateForRegister = self;
+//    }
+}
+
+- (void)removeTimerDelegate
+{
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    sharedDelegate.delegateForRegister = nil;
+}
+
+#pragma mark - RTimerDelegate
+
+- (void)changeRState:(int)leftSeconds
+{
+    AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (1 == leftSeconds) {
+        
+        self.tryToGetNewVerifyCodeBtn.hidden = NO;
+        self.timeAlertLabel.hidden = YES;
+        
+        self.timeAlertLabel.text = @"获取验证码";
+        
+        [sharedDelegate stopRTimer];
+    }
+    else{
+//        self.tryToGetNewVerifyCodeBtn.enabled = NO;
+        self.tryToGetNewVerifyCodeBtn.hidden = YES;
+        self.timeAlertLabel.hidden = NO;
+
+        NSString *titleStr = [NSString stringWithFormat:@"(%d)秒后点击",leftSeconds];
+        
+        self.timeAlertLabel.text = titleStr;
+    }
 }
 
 

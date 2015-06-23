@@ -10,6 +10,7 @@
 #import "UIViewController+CommonUsed.h"
 #import "AFNetworking.h"
 #import "AppMacro.h"
+#import "CustomActivityIndicator.h"
 
 @interface FResetPwdViewController ()<UITextFieldDelegate>
 
@@ -35,6 +36,7 @@
         return;
     }
     
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"重置中..."];
     [self setPassword:self.pwdTf.text forPhone:self.phoneNum];
 }
 
@@ -51,6 +53,7 @@
     [manager POST:partialUrl parameters:@{@"name":phoneNum, @"pwd":pwd}
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+
          if (responseObject)
          {
              id jsonObj = [self jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -58,6 +61,9 @@
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  
+//                 [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"重置成功"];
+                 [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
                  [weakSelf dismissViewControllerAnimated:YES completion:nil];
 
                  /*
@@ -75,10 +81,13 @@
              
          }
          
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
      }];
 }
 

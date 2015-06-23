@@ -11,11 +11,14 @@
 #import "AFNetworking.h"
 #import "UserModel.h"
 #import "UIViewController+CommonUsed.h"
+#import "NSDictionary+GetStringValue.h"
 
 #import "PersonalCenterViewController.h"
 
+#import "CustomActivityIndicator.h"
 
-@interface LoginViewController ()<UITextFieldDelegate>
+
+@interface LoginViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberText;//登陆手机号
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;//登陆密码
@@ -53,7 +56,8 @@
 -(void)loginSystemForUser:(NSString *)name withPwd:(NSString *)pwd
 {
     __weak LoginViewController *weakSelf = self;
-    
+//    __strong LoginViewController *strongSelf = self;
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval=10;
@@ -65,23 +69,54 @@
     [manager POST:partialUrl parameters:parameters
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
          if (responseObject)
          {
              id jsonObj = [self jsonObjWithBase64EncodedJsonString:operation.responseString];
              NSLog(@"%@", jsonObj);
              
              if ([jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100034"];
+                 if (resultDic && [resultDic stringValueByKey:@"error_code"].length > 0) {
+                     
+                     [weakSelf showAlertViewWithTitle:nil message:[resultDic stringValueByKey:@"error_info"] cancelButtonTitle:@"确定"];
+                     
+                     return ;
+                 }
+
+                 
                  [UserModel storeUserInformations:jsonObj];
                  
+                 
+                 
+//                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
+//                 [weakSelf performSelector:@selector(dismissSelf) onThread:[NSThread mainThread] withObject:nil waitUntilDone:NO];
+
+//                 [weakSelf showAlertViewWithTitle:@"提示" message:@"登录成功。" cancelButtonTitle:@"确定"];
+                 
+                 if (NSClassFromString(@"UIAlertController")) {
+                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录成功。" preferredStyle:UIAlertControllerStyleAlert];
+                     
+                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                         [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                     }];
+                     
+                     [alertController addAction:cancelAction];
+                     
+                     [weakSelf presentViewController:alertController animated:YES completion:nil];
+                 }
+                 else
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"登录成功。" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                     [alertView show];
+                 }
                  
                  if (weakSelf.delegate) {
                      [weakSelf.delegate loginSuccess];
                  }
-                 
-                 [weakSelf showAlertViewWithTitle:@"提示" message:@"登录成功。" cancelButtonTitle:@"确定"];
-                 
-                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                 
+
              }
              
          }
@@ -89,8 +124,22 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
          [weakSelf showAlertViewWithTitle:@"提示" message:@"登录失败，请重试。" cancelButtonTitle:@"确定"];
      }];
+}
+
+- (void)dismissSelf
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -98,6 +147,7 @@
 {
     if (![self.phoneNumberText.text isEqualToString:@""]&&![self.passwordText.text isEqualToString:@""])
     {
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"登录中..."];
         [self loginSystemForUser:self.phoneNumberText.text withPwd:self.passwordText.text];
     }else
     {
