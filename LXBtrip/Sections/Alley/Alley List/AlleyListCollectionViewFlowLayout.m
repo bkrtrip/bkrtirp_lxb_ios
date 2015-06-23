@@ -22,7 +22,7 @@
         
         //        NSLog(@"self.itemSize: %@", NSStringFromCGSize(self.itemSize));
         // 行margin
-        self.sectionInset = UIEdgeInsetsMake(LIST_VER_MARGIN_ALLEY, LIST_HOR_MARGIN_ALLEY, LIST_VER_MARGIN_ALLEY, LIST_HOR_MARGIN_ALLEY);
+        self.sectionInset = UIEdgeInsetsMake(10.f, LIST_HOR_MARGIN_ALLEY, LIST_VER_MARGIN_ALLEY, LIST_HOR_MARGIN_ALLEY);
         // 行距
         self.minimumLineSpacing = LIST_VER_SPACING_ALLEY;
         // 间距
@@ -44,14 +44,6 @@
     CGFloat itemHeight = itemWidth/LIST_WIDTH_HEIGHT_PROPORTION_ALLEY;
     
     attributes.size = CGSizeMake(itemWidth, itemHeight);
-    return attributes;
-}
-
--(UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
-    
-    attributes.size = CGSizeMake(self.collectionView.frame.size.width, 52.f);
     return attributes;
 }
 

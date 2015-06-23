@@ -35,6 +35,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *myShopButton;
 - (IBAction)myShopButtonClicked:(id)sender;
 - (IBAction)onlineShopButtonClicked:(id)sender;
+@property (strong, nonatomic) IBOutlet UIImageView *colorBarImageView;
+
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (nonatomic, strong) MicroShopCollectionView *onlineShopCollectionView;
 @property (nonatomic, strong) MicroShopCollectionView *myShopCollectionView;
@@ -67,12 +69,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // must override superclass
-    self.automaticallyAdjustsScrollViewInsets = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:self];
     
-    CGFloat scrollViewYOrigin = 0.277*SCREEN_HEIGHT;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49)];
+    CGFloat scrollViewYOrigin = SCREEN_WIDTH/(828.f/304.f) + 52.f + 3.f;
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49.f)];
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
@@ -147,6 +148,7 @@
     startProvince = @"陕西";
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     self.selectedIndex = 0;
+    _colorBarImageView.image = ImageNamed(@"colorbar_left");
     // --TEST--
 
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
@@ -216,6 +218,7 @@
     switch (_selectedIndex) {
         case 0:
         {
+            _colorBarImageView.image = ImageNamed(@"colorbar_left");
             if (_onlineShopButton.selected == NO) {
                 _onlineShopButton.selected = YES;
                 _myShopButton.selected = NO;
@@ -232,6 +235,7 @@
             break;
         case 1:
         {
+            _colorBarImageView.image = ImageNamed(@"colorbar_right");
             if (_onlineShopButton.selected == YES) {
                 _onlineShopButton.selected = NO;
                 _myShopButton.selected = YES;
