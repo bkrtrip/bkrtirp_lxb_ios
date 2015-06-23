@@ -9,11 +9,13 @@
 #import "DispatchSettingsViewController.h"
 #import "DispatchSwitchTableViewCell.h"
 #import "DispatchProfitRateTableViewCell.h"
+#import "DSettingFooterTableViewCell.h"
 #import "AppMacro.h"
 #import "UserModel.h"
 #import "AFNetworking.h"
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
+#import "CustomActivityIndicator.h"
 
 @interface DispatchSettingsViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *dSettingsTableView;
@@ -37,7 +39,7 @@
     [self getDispatchSettingsInfo];
     
     self.title = @"分销";
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
+//    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
     
     self.dSettingsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -55,6 +57,7 @@
 
 - (void)getDispatchSettingsInfo
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     __weak DispatchSettingsViewController *weakSelf = self;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -74,6 +77,7 @@
     [manager POST:partialUrl parameters:parameterDic
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
          if (responseObject)
          {
              id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -93,7 +97,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 
@@ -111,7 +115,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([self isUserOpenDispatchFunction]) {
-        return 2;
+        return 3;
     }
     
     return 1;
@@ -133,15 +137,32 @@
             [cell.dispatchSwitch setOn:NO animated:YES];
         }
         
+        [cell.dispatchSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        if ([self isUserOpenDispatchFunction]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
+        else {
+            cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+        }
+        
         return cell;
     }
-    else {
+    else if (indexPath.row == 1) {
         DispatchProfitRateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dispatchProfileRateCell"];
         
         double profileRate = [(NSNumber *)[self.dSettingsDic stringValueByKey:@"value"] doubleValue] * 100;
 
-        cell.profitRateLabel.text = [NSString stringWithFormat:@"%.2f %%", profileRate];
+        cell.profitRateLabel.text = [NSString stringWithFormat:@"%.0f %%", profileRate];
         
+        cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+        
+        return cell;
+    }
+    else {
+        DSettingFooterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dSettingFooterCell"];
+        cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+
         return cell;
     }
     
@@ -149,18 +170,61 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 2) {
+        return 280;
+    }
+    
     return 60;
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
-    
-}
 
+- (void)switchChanged:(UISwitch *)sender
+{
+    NSString *isopenState = sender.on ? @"1" : @"0";
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    __weak DispatchSettingsViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    
+    if (!staffDic) {
+        return;
+    }
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/distributionSet", HOST_BASE_URL];
+    
+    NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"], @"isopen":isopenState, @"value":@"0.00"};
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100027"];
+                 
+                 if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
+
+                     [weakSelf getDispatchSettingsInfo];
+                 }
+             }
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+     }];
+}
 
 /*
 #pragma mark - Navigation

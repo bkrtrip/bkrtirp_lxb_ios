@@ -38,7 +38,7 @@
                         <outlet property="delegate" destination="-1" id="bOG-i4-ywe"/>
                     </connections>
                 </textField>
-                <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="3et-aw-VRQ">
+                <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputLine_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="3et-aw-VRQ">
                     <rect key="frame" x="26" y="164" width="323" height="10"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="6" id="Re2-zD-V6S">
@@ -132,6 +132,6 @@
         </view>
     </objects>
     <resources>
-        <image name="inputLine_0.png" width="391" height="6"/>
+        <image name="inputLine_1.png" width="354" height="6"/>
     </resources>
 </document>

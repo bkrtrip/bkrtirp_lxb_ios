@@ -26,6 +26,7 @@
     
     [self initailWithAlterType:self.type];
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"保存" image:nil];
+    [self.infoTF becomeFirstResponder];
 
 }
 
@@ -42,25 +43,93 @@
         case ShopContactName:
         {
             alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"contacts":self.infoTF.text};
+            
+            [self updateUserInfo:alterInfoDic];
         }
             break;
         case ShopName:
         {
             alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"wdname":self.infoTF.text};
+            
+            [self updateUserInfo:alterInfoDic];
         }
             break;
         case DetailAdress:
         {
             alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"address":self.infoTF.text};
+            
+            [self updateUserInfo:alterInfoDic];
         }
             break;
+            //webchat payment settings
+        case WX_loginname:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:WX_loginname];
+            }
             
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+        case WX_loginpwd:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:WX_loginpwd];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+        case WX_appid:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:WX_appid];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+        case WX_appsecret:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:WX_appsecret];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+        case WX_partner:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:WX_partner];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+        case WX_paysecret:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:WX_paysecret];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+        case DispatchRate:
+        {
+            if (self.delegate) {
+                [self.delegate informationAlteredTo:self.infoTF.text forType:DispatchRate];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
             
         default:
             break;
     }
     
-    [self updateUserInfo:alterInfoDic];
 }
 
 - (void)updateUserInfo:(NSDictionary *)userDic
@@ -132,6 +201,63 @@
             self.title = @"详细地址";
             
             self.infoTF.text = [self.userInfoDic stringValueByKey:@"staff_address"];
+        }
+            break;
+            //webchat payment settings
+        case WX_loginname:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"微信公众平台用户名";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_loginname"];
+        }
+            break;
+        case WX_loginpwd:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"微信密码";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_loginpwd"];
+        }
+            break;
+        case WX_appid:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"公众号appid";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_appid"];
+        }
+            break;
+        case WX_appsecret:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"公众号appsecret";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_appsecret"];
+        }
+            break;
+        case WX_partner:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"微信支付商户号";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_partner"];
+        }
+            break;
+        case WX_paysecret:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"支付密钥";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_paysecret"];
+        }
+            break;
+        case DispatchRate:
+        {
+            self.alterHintLabel.text = @"";
+            self.title = @"利润率";
+            
+            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_paysecret"];
         }
             break;
 

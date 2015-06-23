@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WCPayFooterTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *openWebchatPayBtn;
 
 @end

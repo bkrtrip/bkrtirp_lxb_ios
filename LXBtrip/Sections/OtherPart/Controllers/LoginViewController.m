@@ -61,7 +61,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval=10;
-    NSDictionary *parameters=@{@"name":name,@"pwd":pwd};
+    NSDictionary *parameters=@{@"name":name,@"pwd":pwd, @"clienttype":@"1"};
 //    NSDictionary *parameters=@{@"name":@"18602929807",@"pwd":@"654321"};
 //    NSDictionary *parameters=@{@"name":@"xahsly",@"pwd":@"qiqi63361888"};
 
@@ -167,7 +167,7 @@
     if (textField.tag == 211) {
         
         NSError *error;
-        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9a-zA-Z]" options:NSRegularExpressionCaseInsensitive error:&error];
         if (regEx && string.length > 0) {
             NSArray *matchedArray = [regEx matchesInString:string options:NSMatchingAnchored range:NSMakeRange(0, 1)];
             if (matchedArray == nil || (matchedArray && matchedArray.count == 0)) {
@@ -179,14 +179,14 @@
             
             return NO;
         }
-        
+        /*
         if (textField.text.length == 0 && (range.location == 0 && range.length == 0)) {
             NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"1" options:NSRegularExpressionCaseInsensitive error:&error];
             NSArray *matchedArray = [regEx matchesInString:string options:NSMatchingAnchored range:NSMakeRange(0, 1)];
             if (matchedArray == nil || (matchedArray && matchedArray.count == 0)) {
                 return NO;
             }
-        }
+        }*/
     }
     
     

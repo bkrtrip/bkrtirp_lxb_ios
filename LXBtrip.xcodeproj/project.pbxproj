@@ -29,6 +29,8 @@
 		227389FF1B2DD8F2008E328E /* DispatchSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227389FD1B2DD8F2008E328E /* DispatchSettingsViewController.xib */; };
 		22738A031B2DD91E008E328E /* DispaterInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22738A011B2DD91E008E328E /* DispaterInfoViewController.m */; };
 		22738A041B2DD91E008E328E /* DispaterInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */; };
+		227605281B379A6A0037A8EE /* AddDispatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227605261B379A6A0037A8EE /* AddDispatcherViewController.m */; };
+		227605291B379A6A0037A8EE /* AddDispatcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227605271B379A6A0037A8EE /* AddDispatcherViewController.xib */; };
 		2291DEFE1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2291DEFC1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m */; };
 		2291DEFF1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2291DEFD1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib */; };
 		22924CF91B2D8B1300D898CF /* WCPayHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22924CF71B2D8B1300D898CF /* WCPayHeaderTableViewCell.m */; };
@@ -544,6 +546,9 @@
 		22738A001B2DD91E008E328E /* DispaterInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispaterInfoViewController.h; sourceTree = "<group>"; };
 		22738A011B2DD91E008E328E /* DispaterInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispaterInfoViewController.m; sourceTree = "<group>"; };
 		22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispaterInfoViewController.xib; sourceTree = "<group>"; };
+		227605251B379A6A0037A8EE /* AddDispatcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDispatcherViewController.h; sourceTree = "<group>"; };
+		227605261B379A6A0037A8EE /* AddDispatcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDispatcherViewController.m; sourceTree = "<group>"; };
+		227605271B379A6A0037A8EE /* AddDispatcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddDispatcherViewController.xib; sourceTree = "<group>"; };
 		2291DEFB1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSettingFooterTableViewCell.h; sourceTree = "<group>"; };
 		2291DEFC1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSettingFooterTableViewCell.m; sourceTree = "<group>"; };
 		2291DEFD1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSettingFooterTableViewCell.xib; sourceTree = "<group>"; };
@@ -1234,6 +1239,9 @@
 				22738A001B2DD91E008E328E /* DispaterInfoViewController.h */,
 				22738A011B2DD91E008E328E /* DispaterInfoViewController.m */,
 				22738A021B2DD91E008E328E /* DispaterInfoViewController.xib */,
+				227605251B379A6A0037A8EE /* AddDispatcherViewController.h */,
+				227605261B379A6A0037A8EE /* AddDispatcherViewController.m */,
+				227605271B379A6A0037A8EE /* AddDispatcherViewController.xib */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -2841,6 +2849,7 @@
 				9794A88D1B26A8280077E5C0 /* infoIcon@2x.png in Resources */,
 				9794A8A01B26A8280077E5C0 /* headerBg@2x.png in Resources */,
 				9794A8B61B26A8280077E5C0 /* signOut@3x.png in Resources */,
+				227605291B379A6A0037A8EE /* AddDispatcherViewController.xib in Resources */,
 				97AEDBCE1B1458F10098F75B /* fixed_line_phone_hightlighted@3x.png in Resources */,
 				97D78F021B19B873003E66E7 /* service_normal@2x.png in Resources */,
 				9794A8BE1B26A8280077E5C0 /* webchatPayHelp@3x.png in Resources */,
@@ -3045,6 +3054,7 @@
 				97C7861A1B1E80AE00639576 /* HotCountry.m in Sources */,
 				8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */,
 				97CDAFD51B2C2FBE009917FB /* ReusableHeaderView_SiftSupplier.m in Sources */,
+				227605281B379A6A0037A8EE /* AddDispatcherViewController.m in Sources */,
 				97B30AC51B2D305E006F88DC /* RecentContactButton.m in Sources */,
 				9794A80B1B26A8280077E5C0 /* AlleyDetailViewController.m in Sources */,
 				97B30AC71B2D305E006F88DC /* RecentContactTableViewCell.m in Sources */,
@@ -3259,7 +3269,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78d612cc-a7b8-4d35-a47c-19ebcb481db0";
+				PROVISIONING_PROFILE = "b7578bd4-610a-4e2b-af3c-01dd856003c5";
 			};
 			name = Debug;
 		};
@@ -3281,7 +3291,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78d612cc-a7b8-4d35-a47c-19ebcb481db0";
+				PROVISIONING_PROFILE = "b7578bd4-610a-4e2b-af3c-01dd856003c5";
 			};
 			name = Release;
 		};

@@ -151,6 +151,9 @@
                 </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="openWebchatPayBtn" destination="AyO-nl-IUm" id="Z2R-u6-BGI"/>
+            </connections>
             <point key="canvasLocation" x="243" y="341"/>
         </tableViewCell>
     </objects>
