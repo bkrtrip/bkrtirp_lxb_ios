@@ -257,7 +257,7 @@
             self.alterHintLabel.text = @"";
             self.title = @"利润率";
             
-            self.infoTF.text = [self.webChatPaymentConfigDic stringValueByKey:@"wx_paysecret"];
+            self.infoTF.text = [self.dispatchSettingDic stringValueByKey:@"value"];
         }
             break;
 

@@ -15,10 +15,18 @@
 #import "AFNetworking.h"
 #import "UIViewController+CommonUsed.h"
 
-@interface PersonalInfoViewController ()<UpdateUserInformationDelegate>
+@interface PersonalInfoViewController ()<UpdateUserInformationDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *pInfoTableView;
+@property (weak, nonatomic) IBOutlet UIView *areaPickerBgView;
+@property (weak, nonatomic) IBOutlet UIPickerView *areaPickerView;
 
+@property (retain, nonatomic) NSArray *provinceArray;
+@property (retain, nonatomic) NSArray *cityArray;
+@property (retain, nonatomic) NSArray *districtArray;
+
+@property (retain, nonatomic) NSArray *corresondingCitiesArray;
+@property (retain, nonatomic) NSArray *corresondingDistrictsArray;
 
 @end
 
@@ -45,7 +53,59 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)cancelChangeArea:(id)sender {
+    self.areaPickerBgView.hidden = YES;
+}
 
+- (IBAction)confirmChangeArea:(id)sender {
+    self.areaPickerBgView.hidden = YES;
+    
+    //update province and city id
+    NSDictionary *provinceDic = [self.provinceArray objectAtIndex:[self.areaPickerView selectedRowInComponent:0]];
+    NSDictionary *cityDic = [self.corresondingCitiesArray objectAtIndex:[self.areaPickerView selectedRowInComponent:1]];
+    NSDictionary *districtDic = [self.corresondingDistrictsArray objectAtIndex:[self.areaPickerView selectedRowInComponent:2]];
+    
+    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"provinceid":[provinceDic stringValueByKey:@"province_id"], @"provincename":[provinceDic stringValueByKey:@"province_name"], @"cityid":[cityDic stringValueByKey:@"city_id"], @"cityname":[cityDic stringValueByKey:@"city_name"], @"areaid":[districtDic stringValueByKey:@"dictrict_id"], @"areaname":[districtDic stringValueByKey:@"district_name"]};
+    
+    [self updateUserInfo:alterInfoDic];
+}
+
+- (void)updateUserInfo:(NSDictionary *)userDic
+{
+    __weak PersonalInfoViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/setStaff", HOST_BASE_URL];
+    
+    [manager POST:partialUrl parameters:userDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100024"];
+                 
+                 //update user info successfully
+                 if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
+                     [weakSelf showAlertViewWithTitle:nil message:@"更新地址成功 ！" cancelButtonTitle:@"确定"];
+                 }
+             }
+             
+         }
+     
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
+}
 
 - (void)getUserInformation
 {
@@ -133,7 +193,7 @@
             {
                 cell.titleLabel.text = @"所在地";
                 if (self.userInfoDic) {
-                    NSString *address = [NSString stringWithFormat:@"%@ %@", [self.userInfoDic objectForKey:@"staff_provinc_name"], [self.userInfoDic objectForKey:@"staff_city_name"]];
+                    NSString *address = [NSString stringWithFormat:@"%@ %@", [self.userInfoDic stringValueByKey:@"staff_provinc_name"], [self.userInfoDic stringValueByKey:@"staff_city_name"]];
                     cell.contentLabel.text = address;
                 }
             }
@@ -189,7 +249,8 @@
             break;
         case 4://地址
         {
-            
+            [self getAreaDataAndShowAreaSelectionPickerView];
+            self.areaPickerBgView.hidden = NO;
         }
             break;
         case 5:
@@ -221,6 +282,199 @@
 {
     [self getUserInformation];
 }
+
+
+- (void)getAreaDataAndShowAreaSelectionPickerView
+{
+    [self getProvinceData];
+    [self getCityData];
+    [self getDistrictsData];
+}
+
+- (void)getProvinceData
+{
+    __weak PersonalInfoViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@common/province", HOST_BASE_URL];
+    
+    [manager POST:partialUrl parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSArray *resultArray = [jsonObj objectForKey:@"RS100040"];
+                 
+                 if (resultArray) {
+                     weakSelf.provinceArray = resultArray;
+                     [weakSelf.areaPickerView reloadComponent:0];
+                 }
+             }
+             
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
+}
+
+- (void)getCityData
+{
+    __weak PersonalInfoViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@common/city", HOST_BASE_URL];
+    
+    [manager POST:partialUrl parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSArray *resultArray = [jsonObj objectForKey:@"RS100041"];
+                 
+                 if (resultArray) {
+                     weakSelf.cityArray = resultArray;
+                     [weakSelf.areaPickerView reloadComponent:1];
+                 }
+             }
+             
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
+}
+
+- (void)getDistrictsData
+{
+    __weak PersonalInfoViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@common/District", HOST_BASE_URL];
+    
+    [manager POST:partialUrl parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSArray *resultArray = [jsonObj objectForKey:@"RS100057"];
+                 
+                 if (resultArray) {
+                     weakSelf.districtArray = resultArray;
+                     [weakSelf.areaPickerView reloadComponent:2];
+                 }
+             }
+             
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
+}
+
+
+#pragma mark - UIPickerViewDatasource
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (component == 0) {
+        return self.provinceArray ? self.provinceArray.count : 0;
+    }
+    else if (component == 1) {
+        NSString *provinceId = [(NSDictionary *)[self.provinceArray objectAtIndex:[pickerView selectedRowInComponent:0]] stringValueByKey:@"province_id"];
+        NSMutableArray *correspondingCity = [[NSMutableArray alloc]init];
+        for (NSDictionary *cityDic  in self.cityArray) {
+            if ([[cityDic stringValueByKey:@"province_id"] isEqualToString:provinceId]) {
+                [correspondingCity addObject:cityDic];
+            }
+        }
+        
+        self.corresondingCitiesArray = correspondingCity;
+        
+        return correspondingCity.count;
+    }
+    else {
+        NSString *cityId = [(NSDictionary *)[self.cityArray objectAtIndex:[pickerView selectedRowInComponent:1]] stringValueByKey:@"city_id"];
+        NSMutableArray *correspondingDistricts = [[NSMutableArray alloc]init];
+        for (NSDictionary *districtDic  in self.districtArray) {
+            if ([[districtDic stringValueByKey:@"city_id"] isEqualToString:cityId]) {
+                [correspondingDistricts addObject:districtDic];
+            }
+        }
+        
+        self.corresondingDistrictsArray = correspondingDistricts;
+        
+        return correspondingDistricts.count;
+    }
+}
+
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (component == 0) {
+        NSString *provinceName = [[self.provinceArray objectAtIndex:row] stringValueByKey:@"province_name"];
+        return provinceName;
+    }
+    else if (component == 1) {
+        NSString *cityName = [[self.corresondingCitiesArray objectAtIndex:row] stringValueByKey:@"city_name"];
+        return cityName;
+    }
+    else {
+        NSString *districtName = [[self.corresondingDistrictsArray objectAtIndex:row] stringValueByKey:@"district_name"];
+        return districtName;
+    }
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 3;
+}
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+//    if (component == 0) {
+//        [self.areaPickerView reloadComponent:1];
+//    }
+//    else if (component == 1) {
+//        [self.areaPickerView reloadComponent:2];
+//    }
+    [self.areaPickerView reloadAllComponents];
+}
+
 
 /*
 #pragma mark - Navigation
