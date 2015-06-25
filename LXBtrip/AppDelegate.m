@@ -16,6 +16,8 @@
 #import "LoginViewController.h"
 #import "PersonalCenterViewController.h"
 
+#import "AFAppDotNetAPIClient.h"
+
 @interface AppDelegate ()
 
 @property (nonatomic, assign) int rTimerInterval;
@@ -31,12 +33,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    
+    [AFAppDotNetAPIClient sharedClient];
     //登录界面
-    
-    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
-    LoginViewController *loginViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    
     
     MicroShopViewController *shop = [[MicroShopViewController alloc] init];
     SupplierViewController *supplier = [[SupplierViewController alloc] init];

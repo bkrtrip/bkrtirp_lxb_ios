@@ -89,6 +89,7 @@
                  
                  [UserModel storeUserInformations:jsonObj];
                  
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
                  
                  
 //                 [weakSelf dismissViewControllerAnimated:YES completion:nil];

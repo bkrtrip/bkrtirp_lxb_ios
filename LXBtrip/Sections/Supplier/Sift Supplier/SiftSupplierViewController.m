@@ -8,8 +8,6 @@
 
 #import "SiftSupplierViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "AppMacro.h"
-#import "Global.h"
 #import "SiftSupplierCollectionView.h"
 #import "SiftSupplierCollectionViewCell.h"
 #import "SiftSupplierCollectionViewFlowLayout.h"
@@ -102,7 +100,7 @@
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, self.view.frame.size.height - yOrigin - 49.f)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, self.view.frame.size.height - yOrigin - 55.f)];
     [self.view addSubview:_scrollView];
     
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -135,11 +133,26 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 20.f + 44.f + 82.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin - 55.f];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 - (void)getSiftSupplierList
@@ -199,6 +212,12 @@
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取筛选供应商失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

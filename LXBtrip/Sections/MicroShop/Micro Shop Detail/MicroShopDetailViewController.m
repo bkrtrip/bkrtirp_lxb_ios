@@ -50,11 +50,26 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 0;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - 77.f];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 - (void)getShopDetail
@@ -92,6 +107,12 @@
         CGSize instructionSize = [_shopIntroductionLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 20.f - 60.f - 20.f, MAXFLOAT)];
         [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, 580.f + instructionSize.height)];
     } fail:^(id result) {
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取微店详情失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
@@ -114,6 +135,12 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
             }];
         } fail:^(id result) {
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"添加失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];

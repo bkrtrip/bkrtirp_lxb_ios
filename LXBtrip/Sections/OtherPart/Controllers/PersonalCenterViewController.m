@@ -92,6 +92,13 @@
     if (self.isAlreadyLogined) {
         [self getUserInformation];
     }
+    [[NoNetworkView sharedNoNetworkView] hide];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NoNetworkView sharedNoNetworkView] hide];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -391,9 +398,13 @@
             break;
         case GoToOrders:
         {
-            //跳转用户订单页面(xiaozhu)
-            MyOrderListViewController *orderList = [[MyOrderListViewController alloc] init];
-            [self.navigationController pushViewController:orderList animated:YES];
+            if ([UserModel companyId] && [UserModel staffId]) {
+                //跳转用户订单页面(xiaozhu)
+                MyOrderListViewController *orderList = [[MyOrderListViewController alloc] init];
+                [self.navigationController pushViewController:orderList animated:YES];
+            } else {
+                [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+            }
         }
             break;
         case GoToInfoSettings:

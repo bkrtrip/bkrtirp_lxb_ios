@@ -9,13 +9,8 @@
 #import "CustomActivityIndicator.h"
 #import "Global.h"
 
-#define SCREENRECT [[UIScreen mainScreen] bounds]
-#define SCREENWIDTH [[UIScreen mainScreen] bounds].size.width
-#define SCREENHEIGHT [[UIScreen mainScreen] bounds].size.height
-
 #define LOADINGVIEW_WIDTH 67.0
 #define LOADINGVIEW_HEIGHT 100.0
-
 
 #define LOADING_LABEL_ORIGIN_X 0
 #define LOADING_LABEL_ORIGIN_Y 70
@@ -59,7 +54,7 @@
 
 - (id)init
 {
-    self = [super initWithFrame:SCREENRECT];
+    self = [super initWithFrame:SCREEN_RECT];
     if (self) {
         self.windowLevel = UIWindowLevelAlert;
         
@@ -107,7 +102,7 @@
     if (_loadingView != nil) {
         return _loadingView;
     }
-    _loadingView = [[UIView alloc] initWithFrame:CGRectMake((SCREENWIDTH-LOADINGVIEW_WIDTH)/2.0, (SCREENHEIGHT-LOADINGVIEW_HEIGHT)/2.0, LOADINGVIEW_WIDTH, LOADINGVIEW_HEIGHT)];
+    _loadingView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-LOADINGVIEW_WIDTH)/2.0, (SCREEN_HEIGHT-LOADINGVIEW_HEIGHT)/2.0, LOADINGVIEW_WIDTH, LOADINGVIEW_HEIGHT)];
 //    _loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
 //    _loadingView.backgroundColor = [UIColor whiteColor];
     _loadingView.layer.cornerRadius = 5.0;
@@ -122,7 +117,7 @@
         return _freezeLayer;
     }
     
-    _freezeLayer = [[UIView alloc] initWithFrame:SCREENRECT];
+    _freezeLayer = [[UIView alloc] initWithFrame:SCREEN_RECT];
 //    _freezeLayer.backgroundColor = [UIColor blackColor];
 //    _freezeLayer.alpha = 0.3;
     _freezeLayer.backgroundColor = [UIColor whiteColor];

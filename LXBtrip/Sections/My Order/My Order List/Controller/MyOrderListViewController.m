@@ -18,6 +18,7 @@
     NSMutableArray *ordersArray;
     NSMutableArray *isLoadingMoreArray;
     NSMutableArray *refreshControlsArray;
+    NSMutableArray *noOrdersArray;
 
     NSMutableArray *pageNumsArray;
     NSMutableArray *tableViewsArray;
@@ -57,7 +58,7 @@
     }];
     
     CGFloat yOrigin = 50.f;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, self.view.frame.size.height - yOrigin - 64.f)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 64.f)];
     [_scrollView setContentSize:CGSizeMake(3*SCREEN_WIDTH, _scrollView.frame.size.height)];
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
@@ -65,6 +66,7 @@
     
     refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:3];
     tableViewsArray = [[NSMutableArray alloc] initWithCapacity:3];
+    noOrdersArray = [[NSMutableArray alloc] initWithCapacity:3];
     for (int i = 0; i < 3; i++) {
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _scrollView.frame.size.height)];
         if (i == 2) {
@@ -79,13 +81,27 @@
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshTableViews:) forControlEvents:UIControlEventValueChanged];
         [tableView addSubview:refreshControl];
-        
         UIScrollView *scrollview = (UIScrollView *)tableView;
         scrollview.delegate = self;
         
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0)];
+        bgView.backgroundColor = BG_E9ECF5;
+        CGFloat width_height_ratio = 385.f/350.f;
+        CGFloat imgHeight = 0.2*bgView.bounds.size.height;
+        CGFloat imgWidth = imgHeight*width_height_ratio;
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((bgView.bounds.size.width - imgWidth)/2.0, 0.2*bgView.bounds.size.height, imgWidth, imgHeight)];
+        imgView.backgroundColor = [UIColor clearColor];
+        imgView.image = ImageNamed(@"no_order");
+        [bgView addSubview:imgView];
+        // no supplier view initially hidden!
+        bgView.hidden = YES;
+        
+        
         [_scrollView addSubview:tableView];
+        [_scrollView addSubview:bgView];
         [tableViewsArray addObject:tableView];
         [refreshControlsArray addObject:refreshControl];
+        [noOrdersArray addObject:bgView];
     }
     
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, SCREEN_WIDTH/3, 2)];
@@ -112,11 +128,26 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 50.f + 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 - (void)orderHasConfirmed
@@ -216,6 +247,8 @@
             [tableViewsArray[selectedIndex] reloadData];
         }
         
+        [noOrdersArray[selectedIndex] setHidden:YES];
+
         id data = result[@"RS100031"];
         [[Global sharedGlobal] codeHudWithObject:data succeed:^{
             if ([data isKindOfClass:[NSArray class]]) {
@@ -223,13 +256,23 @@
                     MyOrderItem *item = [[MyOrderItem alloc] initWithDict:obj];
                     [ordersArray[selectedIndex] addObject:item];
                 }];
+                
+                [tableViewsArray[selectedIndex] reloadData];
+                pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue]+1);
+            } else {
+                if ([pageNumsArray[selectedIndex] intValue] == 1) {
+                    [noOrdersArray[selectedIndex] setHidden:NO];
+                }
             }
-            [tableViewsArray[selectedIndex] reloadData];
-            pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue]+1);
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [refreshControlsArray[selectedIndex] endRefreshing];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
@@ -266,6 +309,11 @@
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
 
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"操作失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

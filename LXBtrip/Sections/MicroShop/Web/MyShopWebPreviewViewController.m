@@ -42,12 +42,33 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 #pragma mark - UIWebViewDelegate
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+    
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+        return;
+    }
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
     [alert show];
 }

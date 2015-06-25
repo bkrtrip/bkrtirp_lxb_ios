@@ -28,6 +28,8 @@
 #import "AlleyInfo.h"
 #import "UserModel.h"
 #import "CustomActivityIndicator.h"
+#import "NoNetworkView.h"
+#import "AFAppDotNetAPIClient.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 

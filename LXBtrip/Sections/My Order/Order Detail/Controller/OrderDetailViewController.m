@@ -41,11 +41,26 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 #pragma mark - Table view data source

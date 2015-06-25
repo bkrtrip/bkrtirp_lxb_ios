@@ -32,6 +32,31 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkUnavailable) name:@"NETWORK_UNAVAILABLE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkAvailable) name:@"NETWORK_AVAILABLE" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NETWORK_UNAVAILABLE" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NETWORK_AVAILABLE" object:nil];
+}
+
+- (void)networkUnavailable
+{
+    // for subclass to override
+}
+
+- (void)networkAvailable
+{
+    // for subclass to override
+    [[NoNetworkView sharedNoNetworkView] hide];
+}
+
 // for subclass to override
 - (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title image:(UIImage *)img
 {

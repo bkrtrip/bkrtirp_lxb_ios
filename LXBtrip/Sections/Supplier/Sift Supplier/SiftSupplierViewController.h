@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 LXB. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface SiftSupplierViewController : UIViewController
+@interface SiftSupplierViewController : NavBaseViewController
 
 @property (nonatomic, copy) NSString *startCity;
 

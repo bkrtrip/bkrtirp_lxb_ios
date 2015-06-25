@@ -14,9 +14,10 @@
 
 // for subclass to override
 - (void)setUpNavigationItem:(UINavigationItem *)item withRightBarItemTitle:(NSString *)title image:(UIImage *)img;
-
 - (void)rightBarButtonItemClicked:(id)sender;
-
 - (void)backArrowClick:(id)sender;
+
+- (void)networkUnavailable;
+- (void)networkAvailable;
 
 @end

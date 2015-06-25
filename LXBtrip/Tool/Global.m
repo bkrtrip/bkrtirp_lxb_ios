@@ -8,7 +8,14 @@
 
 #import "Global.h"
 
+@interface Global()
+
+@property (nonatomic, assign) BOOL networkAvailability;
+
+@end
+
 @implementation Global
+@synthesize networkAvailability = _networkAvailability;
 singleton_implementation(Global)
 
 // compare function
@@ -116,7 +123,15 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return NavC(login);
 }
 
+- (void)setNetworkAvailability:(BOOL)networkAvailability
+{
+    _networkAvailability = networkAvailability;
+}
 
+- (BOOL)networkAvailability
+{
+    return _networkAvailability;
+}
 
 
 @end

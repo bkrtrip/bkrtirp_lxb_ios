@@ -15,6 +15,7 @@
 {
     NSInteger selectedIndex; // 0~4
     NSMutableArray *tableViewsArray;
+    NSMutableArray *noSuppliersArray;
 }
 
 //专线part
@@ -66,6 +67,7 @@
     [self.view addSubview:_scrollView];
     
     tableViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
+    noSuppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
     for (int i = 0; i < 5; i++) {
         UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0)];
         [tableview registerNib:[UINib nibWithNibName:@"MySupplierTableViewCell" bundle:nil] forCellReuseIdentifier:@"MySupplierTableViewCell"];
@@ -73,8 +75,24 @@
         tableview.dataSource = self;
         tableview.delegate = self;
         tableview.tableFooterView = [[UIView alloc] init];
+        
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0)];
+        bgView.backgroundColor = BG_E9ECF5;
+        CGFloat width_height_ratio = 656.f/536.f;
+        CGFloat imgHeight = 0.4*bgView.bounds.size.height;
+        CGFloat imgWidth = imgHeight*width_height_ratio;
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((bgView.bounds.size.width - imgWidth)/2.0, 0.1*bgView.bounds.size.height, imgWidth, imgHeight)];
+        imgView.backgroundColor = [UIColor clearColor];
+        imgView.image = ImageNamed(@"no_my_supplier");
+        [bgView addSubview:imgView];
+        // no supplier view initially hidden!
+        bgView.hidden = YES;
+        
         [_scrollView addSubview:tableview];
+        [_scrollView addSubview:bgView];
+        
         [tableViewsArray addObject:tableview];
+        [noSuppliersArray addObject:bgView];
     }
     
     selectedIndex = 0;
@@ -87,6 +105,9 @@
     self.title = @"我的供应商";
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -94,9 +115,24 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 82.f + 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
+}
+
 - (void)getMySuppliers
 {
     [HTTPTool getMySuppliersWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] lineClass:LINE_CLASS[@(selectedIndex)] success:^(id result) {
+        
+        [noSuppliersArray[selectedIndex] setHidden:YES];
+
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100018"] succeed:^{
             id data = result[@"RS100018"];
             if ([data isKindOfClass:[NSDictionary class]]) {
@@ -109,6 +145,9 @@
                         [_allMySuppliersArrayUnsorted[selectedIndex] addObject:info];
                     }];
                     [self sortSuppliersUsingInitialsWithUnsortedArray:_allMySuppliersArrayUnsorted[selectedIndex]];
+                } else {
+                    [noSuppliersArray[selectedIndex] setHidden:NO];
+                    return ;
                 }
                 
                 //recently_company part
@@ -123,6 +162,12 @@
             [tableViewsArray[selectedIndex] reloadData];
         }];
     } fail:^(id result) {
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取我的供应商失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

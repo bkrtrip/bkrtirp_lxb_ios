@@ -10,8 +10,6 @@
 #import "AlleyListCollectionView.h"
 #import "AlleyListCollectionViewCell.h"
 #import "AlleyListCollectionViewFlowLayout.h"
-#import "AppMacro.h"
-#import "Global.h"
 #import "AlleyDetailViewController.h"
 
 @interface AlleyListViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
@@ -96,17 +94,35 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = SCREEN_WIDTH/(1242.f/456.f);
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin - 49.f];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -161,6 +177,12 @@
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl endRefreshing];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取服务列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
 
@@ -188,6 +210,12 @@
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl endRefreshing];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];

@@ -72,6 +72,9 @@
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
     [self registerNotification];
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -80,6 +83,17 @@
     [self unregisterNotification];
 }
 
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
+}
 
 #pragma mark - Table view data source
 
@@ -458,6 +472,12 @@
                                                  
                                              }];
                                          } fail:^(id result) {
+                                             
+                                             if ([[Global sharedGlobal] networkAvailability] == NO) {
+                                                 [self networkUnavailable];
+                                                 return ;
+                                             }
+                                             
                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"操作失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
                                              [alert show];
                                          }];

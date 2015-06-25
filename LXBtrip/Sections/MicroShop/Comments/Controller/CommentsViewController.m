@@ -45,6 +45,29 @@
     [self getCommentsList];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
+}
+
+
 - (void)setTableFooterView
 {
     UIButton *bt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 78.f)];
@@ -100,6 +123,12 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -123,6 +152,12 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -147,6 +182,12 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"发布评论失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -161,6 +202,12 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"发布评论失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];

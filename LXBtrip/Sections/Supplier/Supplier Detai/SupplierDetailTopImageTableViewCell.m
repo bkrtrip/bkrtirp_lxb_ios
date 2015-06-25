@@ -32,7 +32,7 @@
     
     NSString *logoString = [NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, info.supplierLogo];
     
-    [_supplierImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:ImageNamed(@"default_logo.jpg") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_supplierImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:ImageNamed(@"default_logo") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     }];
     _supplierNameLabel.text = info.supplierName;
     _providerLabel.text = info.supplierBrand;

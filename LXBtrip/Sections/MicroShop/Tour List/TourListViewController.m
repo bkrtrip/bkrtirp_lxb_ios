@@ -10,7 +10,6 @@
 #import "TourListTableViewCell.h"
 #import "TourListCell_Destination.h"
 #import "TourListCell_WalkType.h"
-#import "AppMacro.h"
 #import "AccompanyInfoViewController.h"
 #import "AccompanyInfoView.h"
 #import "ShareView.h"
@@ -110,11 +109,26 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 155.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - 155.f];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 - (void)hidePopUpViews
@@ -170,6 +184,12 @@
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

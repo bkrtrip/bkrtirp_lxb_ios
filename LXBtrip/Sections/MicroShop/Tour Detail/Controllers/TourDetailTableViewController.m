@@ -11,7 +11,6 @@
 #import "TourDetailCell_Two.h"
 #import "TourDetailCell_Three.h"
 #import "TourDetailCell_Four.h"
-#import "AppMacro.h"
 #import "CommentsViewController.h"
 #import "TourDetailWebDetailViewController.h"
 #import "CalendarViewController.h"
@@ -73,6 +72,9 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)rightBarButtonItemClicked:(id)sender
@@ -98,9 +100,27 @@
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 64.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 #pragma mark - Table view data source

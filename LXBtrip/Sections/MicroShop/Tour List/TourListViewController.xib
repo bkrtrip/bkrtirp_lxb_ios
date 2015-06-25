@@ -203,17 +203,23 @@
                     <rect key="frame" x="0.0" y="155" width="320" height="413"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_product.png" translatesAutoresizingMaskIntoConstraints="NO" id="EJ2-QC-J9s">
-                            <rect key="frame" x="120" y="30" width="80" height="71"/>
+                            <rect key="frame" x="113" y="40" width="94" height="83"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="71" id="PpD-Um-KRq"/>
-                                <constraint firstAttribute="width" secondItem="EJ2-QC-J9s" secondAttribute="height" multiplier="242:213" id="pbv-5k-crn"/>
+                                <constraint firstAttribute="height" constant="100" id="PpD-Um-KRq"/>
+                                <constraint firstAttribute="width" secondItem="EJ2-QC-J9s" secondAttribute="height" multiplier="421:372" id="pbv-5k-crn"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="PpD-Um-KRq"/>
+                                </mask>
+                            </variation>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="top" secondItem="S5W-kl-NHr" secondAttribute="top" constant="30" id="fT3-GK-hsw"/>
+                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="height" secondItem="S5W-kl-NHr" secondAttribute="height" multiplier="0.2" id="PdG-ac-uTF"/>
+                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="top" secondItem="S5W-kl-NHr" secondAttribute="top" constant="40" id="fT3-GK-hsw"/>
                         <constraint firstAttribute="centerX" secondItem="EJ2-QC-J9s" secondAttribute="centerX" id="m4H-9r-gbI"/>
                     </constraints>
                 </view>
@@ -249,6 +255,7 @@
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="S5W-kl-NHr" secondAttribute="leading" id="mWA-TZ-07Z"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="rJc-Ol-ciH" secondAttribute="top" id="mfJ-ma-oCR"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ojh-5z-sON"/>
+                <constraint firstItem="S5W-kl-NHr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="155" id="uhB-46-uRr"/>
                 <constraint firstItem="6OM-xT-eP2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wuS-Im-DBd"/>
                 <constraint firstItem="T4p-cb-ZGg" firstAttribute="top" secondItem="Lmw-j1-ZWh" secondAttribute="top" id="xBh-EL-Y9u"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="top" secondItem="6OM-xT-eP2" secondAttribute="bottom" id="xDL-ze-Fi3"/>
@@ -257,6 +264,7 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="VBI-va-ys7"/>
+                    <exclude reference="uhB-46-uRr"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-722" y="13"/>
@@ -267,7 +275,7 @@
         <image name="calendar.png" width="29" height="23"/>
         <image name="destination.png" width="34" height="34"/>
         <image name="location_red.png" width="13" height="17"/>
-        <image name="no_product.png" width="80" height="71"/>
+        <image name="no_product.png" width="140" height="124"/>
         <image name="to_top.png" width="47" height="47"/>
     </resources>
 </document>

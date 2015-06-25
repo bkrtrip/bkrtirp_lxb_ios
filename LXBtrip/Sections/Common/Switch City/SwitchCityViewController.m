@@ -8,7 +8,6 @@
 
 #import "SwitchCityViewController.h"
 #import "SwitchCityTableViewCell.h"
-#import "Global.h"
 
 @interface SwitchCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 {
@@ -65,11 +64,27 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = YES;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 118.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 - (void)sortCitiesUsingInitialsWithUnsortedArray:(NSArray *)array
@@ -122,6 +137,12 @@
             [self shouldReloadData];
         }];
     } fail:^(id result) {
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取所有城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
@@ -145,6 +166,12 @@
             [self shouldReloadData];
         }];
     } fail:^(id result) {
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取常用城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

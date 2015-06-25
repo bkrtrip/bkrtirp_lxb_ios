@@ -12,9 +12,7 @@
 #import "MicroShopCollectionViewCell_OnlineShop.h"
 #import "MicroShopCollectionViewCell_MyShop.h"
 #import "AddShopCollectionViewCell.h"
-#import "AppMacro.h"
 #import <CoreLocation/CoreLocation.h>
-#import "Global.h"
 #import "ReusableHeaderView_OnlineShop.h"
 #import "ReusableHeaderView_myShop.h"
 #import "YesOrNoView.h"
@@ -72,7 +70,7 @@
     [super viewDidLoad];
     // must override superclass
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:nil];
     
     CGFloat scrollViewYOrigin = SCREEN_WIDTH/(828.f/304.f) + 52.f + 3.f;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49.f)];
@@ -200,12 +198,19 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -261,6 +266,18 @@
     [self getMyShops];
 }
 
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = SCREEN_WIDTH/(828.f/304.f) + 52.f + 3.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin - 49.f];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
+}
+
 #pragma mark - Locating part
 //开始定位
 - (void)startLocation{
@@ -272,11 +289,11 @@
     
     if(![CLLocationManager locationServicesEnabled]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
+//        [alert show];
     } else {
         if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
+//            [alert show];
         }
     }
     
@@ -321,7 +338,7 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-    [alert show];
+//    [alert show];
 }
 
 #pragma mark - HTTP
@@ -365,6 +382,11 @@
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl_online endRefreshing];
 
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -406,6 +428,11 @@
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl_online endRefreshing];
 
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -438,6 +465,11 @@
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl_myshop endRefreshing];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
 
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
@@ -467,6 +499,11 @@
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl_myshop endRefreshing];
 
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -487,6 +524,12 @@
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];

@@ -8,8 +8,6 @@
 
 #import "SupplierViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "AppMacro.h"
-#import "Global.h"
 #import "SupplierCollectionView.h"
 #import "SupplierCollectionViewCell.h"
 #import "SupplierCollectionViewFlowLayout.h"
@@ -196,17 +194,36 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    if ([[Global sharedGlobal] networkAvailability] == NO) {
+        [self networkUnavailable];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Override
+- (void)networkUnavailable
+{
+    CGFloat yOrigin = 20.f + 44.f + 82.f;
+    [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin - 49.f];
+}
+
+- (void)networkAvailable
+{
+    [super networkAvailable];
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
@@ -372,7 +389,12 @@
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControlsArray[_selectedIndex] endRefreshing];
-
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -427,6 +449,11 @@
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControlsArray[_selectedIndex] endRefreshing];
 
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取供应商列表失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];

@@ -27,4 +27,7 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 
 - (UINavigationController *)loginNavViewControllerFromSb;
 
+- (void)setNetworkAvailability:(BOOL)networkAvailability;
+- (BOOL)networkAvailability;
+
 @end

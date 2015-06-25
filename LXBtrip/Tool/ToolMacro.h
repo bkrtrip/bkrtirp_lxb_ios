@@ -13,6 +13,7 @@
 #define APP_WINDOW [[UIApplication sharedApplication].windows objectAtIndex:0]
 
 //获取设备屏幕尺寸
+#define SCREEN_RECT ([UIScreen mainScreen].bounds)
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)//应用尺寸
 #define APP_WIDTH [[UIScreen mainScreen]applicationFrame].size.width

@@ -7,7 +7,6 @@
 //
 
 #import "NavBaseViewController.h"
-#import "AppMacro.h"
 
 @interface SupplierDetailViewController : NavBaseViewController
 
