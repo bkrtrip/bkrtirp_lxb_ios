@@ -26,12 +26,12 @@
     [super viewDidLoad];
     
     self.title = @"同行须知";
+    
+    AccompanyInfo_Instructions *cell = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfo_Instructions" owner:nil options:nil][0];
+    instructionCellHeight = [cell cellHeightWithInstructions:_product.productPeerNotice];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"AccompanyInfoCell_Company" bundle:nil] forCellReuseIdentifier:@"AccompanyInfoCell_Company"];
     [_tableView registerNib:[UINib nibWithNibName:@"AccompanyInfo_Instructions" bundle:nil] forCellReuseIdentifier:@"AccompanyInfo_Instructions"];
-    _tableView.backgroundColor = BG_F5F5F5;
-    UIView *footer = [[UIView alloc] init];
-    footer.backgroundColor = BG_F5F5F5;
-    _tableView.tableFooterView = footer;
 }
 
 - (void)viewWillAppear:(BOOL)animated

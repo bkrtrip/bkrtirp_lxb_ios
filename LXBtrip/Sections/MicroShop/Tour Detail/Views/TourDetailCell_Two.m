@@ -7,6 +7,7 @@
 //
 
 #import "TourDetailCell_Two.h"
+#import "Global.h"
 
 @interface TourDetailCell_Two()
 

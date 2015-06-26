@@ -36,6 +36,7 @@
     self.title = @"微店详情";
 //    self.automaticallyAdjustsScrollViewInsets = YES;
 
+    _addToMyShopButton.layer.cornerRadius = 5.f;
     if (_isMyShop == NO) {
         _addToMyShopButton.hidden = NO;
         _hasAddedToMyShopButton.hidden = YES;
@@ -121,7 +122,7 @@
 - (IBAction)addToMyShopButtonClicked:(id)sender {
     if (![UserModel companyId] || ![UserModel staffId]) {
         // go to login page
-        
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
     } else
     {
         // add to myshop

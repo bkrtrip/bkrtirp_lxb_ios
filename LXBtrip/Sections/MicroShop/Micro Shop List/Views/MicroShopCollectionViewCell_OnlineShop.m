@@ -49,6 +49,8 @@
             default:
                 break;
         }
+    } else {
+        _usedImageView.hidden = YES;
     }
 }
 

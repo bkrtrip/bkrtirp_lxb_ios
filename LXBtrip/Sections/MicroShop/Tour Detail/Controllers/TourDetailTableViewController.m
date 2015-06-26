@@ -14,6 +14,7 @@
 #import "CommentsViewController.h"
 #import "TourDetailWebDetailViewController.h"
 #import "CalendarViewController.h"
+#import "AccompanyInfoViewController.h"
 
 @interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
 {
@@ -39,20 +40,6 @@
     cellHeights = [[NSMutableDictionary alloc] init];
     [cellHeights setObject:@(25.f) forKey:@"first_cell_height"];
     [self setUpTableView];
-    
-//    MarketTicketGroup *firstGrp = [_product.productMarketTicketGroup firstObject];
-//    _startDate = firstGrp.marketTime;// initial show the first date
-    NSDate *todayDate = [NSDate date];
-    
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *comps = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:todayDate];
-    
-    NSInteger cellYear = [comps year];
-    NSInteger cellMonth = [comps month];
-    NSInteger cellDay = [comps day];
-    weekday = [comps weekday];
-    
-    _startDate = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)cellYear, (long)cellMonth, (long)cellDay];
     
     [self getTourDetail];
 }
@@ -96,6 +83,21 @@
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100008"] succeed:^{
             _product = [[SupplierProduct alloc] initWithDict:result[@"RS100008"]];
+            
+            NSString *nowDate = [self nowDateString];
+            [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+                // 多线程不一定按顺序循环
+                if ([grp.marketTime compare:nowDate] != NSOrderedAscending) {
+                    if (!_startDate) {
+                        _startDate = grp.marketTime;
+                    } else {
+                        if ([grp.marketTime compare:_startDate] == NSOrderedAscending) {
+                            _startDate = grp.marketTime;
+                        }
+                    }
+                }
+            }];
+            
             [_tableView reloadData];
         }];
     } fail:^(id result) {
@@ -214,6 +216,19 @@
     }
 }
 
+#pragma mark - TourDetailCell_Two_Delegate
+- (void)supportClickWithMoreInstructions
+{
+    AccompanyInfoViewController *info = [[AccompanyInfoViewController alloc] initWithNibName:@"AccompanyInfoViewController" bundle:nil];
+    info.product = _product;
+    [self.navigationController pushViewController:info animated:YES];
+}
+
+- (void)supportClickWithPhoneCall
+{
+    
+}
+
 #pragma mark - TourDetailCell_Four_Delegate
 - (void)supportClickWithDetail
 {
@@ -235,10 +250,22 @@
     [self.navigationController pushViewController:comment animated:YES];
 }
 
-
-
-
-
+#pragma mark - Private
+- (NSString *)nowDateString
+{
+    NSDate *todayDate = [NSDate date];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:todayDate];
+    
+    NSInteger cellYear = [comps year];
+    NSInteger cellMonth = [comps month];
+    NSInteger cellDay = [comps day];
+    weekday = [comps weekday];
+    
+    NSString *nowDate = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)cellYear, (long)cellMonth, (long)cellDay];
+    return nowDate;
+}
 
 
 

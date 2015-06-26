@@ -52,7 +52,7 @@
             [_deleteOrLockButton setImage:ImageNamed(@"lock") forState:UIControlStateNormal];
             break;
         case Is_Default:// 1：默认
-            [_deleteOrLockButton setImage:nil forState:UIControlStateNormal];
+            [_deleteOrLockButton setImage:ImageNamed(@"delete") forState:UIControlStateNormal];
             break;
         case Is_Else:// 2：其他
             [_deleteOrLockButton setImage:ImageNamed(@"delete") forState:UIControlStateNormal];

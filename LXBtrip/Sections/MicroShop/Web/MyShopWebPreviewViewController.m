@@ -24,6 +24,8 @@
     [super viewDidLoad];
     
     self.title = @"线路详情";
+    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
+
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_ShopURLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.f]];
     loadTimer = [NSTimer scheduledTimerWithTimeInterval:10.f target:self selector:@selector(stopLoading) userInfo:nil repeats:NO];
@@ -45,6 +47,11 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+}
+
+- (void)rightBarButtonItemClicked:(id)sender
+{
+    //
 }
 
 #pragma mark - Override

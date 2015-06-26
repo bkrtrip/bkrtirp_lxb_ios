@@ -30,4 +30,9 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 - (void)setNetworkAvailability:(BOOL)networkAvailability;
 - (BOOL)networkAvailability;
 
+- (BOOL)notFirstLogin;
+- (void)saveNotFirstLoginStatus;
+
+- (NSString *)replaceUnicode:(NSString *)unicodeStr;
+
 @end

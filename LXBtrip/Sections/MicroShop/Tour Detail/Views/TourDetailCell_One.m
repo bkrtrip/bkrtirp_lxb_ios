@@ -86,7 +86,13 @@
             break;
     }
     
-    _tourIDLabel.text = [NSString stringWithFormat:@"产品ID: %@", product.productTravelGoodsId];
+    if (product.productTravelGoodsId && [product.productTravelGoodsId integerValue] > 0) {
+        _tourIDLabel.hidden = NO;
+        _tourIDLabel.text = [NSString stringWithFormat:@"产品编码字段信息: %@", product.productTravelGoodsId];
+    } else {
+        _tourIDLabel.hidden = YES;
+    }
+    
     _tourNameLabel.text = product.productTravelGoodsName;
     _tourDescriptionLabel.text = product.productIntroduce;
     

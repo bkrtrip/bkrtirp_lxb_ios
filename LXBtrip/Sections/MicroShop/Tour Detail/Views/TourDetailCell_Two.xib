@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -116,8 +116,9 @@
                             <constraint firstAttribute="width" secondItem="grz-gA-gB8" secondAttribute="height" multiplier="20:36" id="xk7-d4-3mN"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Bn-GC-5uR" userLabel="more instruction Button">
-                        <rect key="frame" x="0.0" y="114" width="320" height="35"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Bn-GC-5uR" userLabel="more instruction Button">
+                        <rect key="frame" x="0.0" y="106" width="320" height="43"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -133,6 +134,7 @@
                     <constraint firstItem="uwb-x7-DWP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="6wV-ca-GNb"/>
                     <constraint firstItem="P2k-kd-84V" firstAttribute="leading" secondItem="bGd-oe-AFp" secondAttribute="trailing" id="A3b-FG-sTU"/>
                     <constraint firstAttribute="centerX" secondItem="J17-QK-Wst" secondAttribute="centerX" id="BOm-Zy-lL4"/>
+                    <constraint firstItem="5Bn-GC-5uR" firstAttribute="top" secondItem="lIC-m1-dDd" secondAttribute="bottom" id="BTR-8v-jnn"/>
                     <constraint firstItem="3pH-xW-2s4" firstAttribute="top" secondItem="ivQ-G2-0dg" secondAttribute="bottom" constant="10" id="BXs-pj-gq0"/>
                     <constraint firstItem="vTm-rs-IKO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ETe-AM-B1X"/>
                     <constraint firstItem="E3R-Qh-9WT" firstAttribute="leading" secondItem="J17-QK-Wst" secondAttribute="leading" id="Ezt-Mj-vc5"/>
@@ -153,6 +155,7 @@
                     <constraint firstAttribute="trailing" secondItem="5Bn-GC-5uR" secondAttribute="trailing" id="RA6-yI-L3t"/>
                     <constraint firstItem="ivQ-G2-0dg" firstAttribute="top" secondItem="pt9-an-OYt" secondAttribute="bottom" constant="8" id="Smd-As-y7v"/>
                     <constraint firstItem="E3R-Qh-9WT" firstAttribute="top" secondItem="5Bn-GC-5uR" secondAttribute="top" constant="1" id="TdO-Kc-t4r"/>
+                    <constraint firstAttribute="bottom" secondItem="5Bn-GC-5uR" secondAttribute="bottom" id="Toy-lH-Nku"/>
                     <constraint firstItem="lIC-m1-dDd" firstAttribute="leading" secondItem="P2k-kd-84V" secondAttribute="trailing" constant="20" id="VaI-JA-DpG"/>
                     <constraint firstItem="JoG-eb-cYO" firstAttribute="leading" secondItem="lIC-m1-dDd" secondAttribute="trailing" id="Wi9-gP-NXL"/>
                     <constraint firstItem="ivQ-G2-0dg" firstAttribute="leading" secondItem="pt9-an-OYt" secondAttribute="leading" id="XRA-oO-jxZ"/>
@@ -167,10 +170,13 @@
                     <constraint firstItem="pt9-an-OYt" firstAttribute="centerY" secondItem="ERg-YH-WoH" secondAttribute="centerY" id="sIz-A3-aRO"/>
                     <constraint firstItem="J17-QK-Wst" firstAttribute="top" secondItem="E3R-Qh-9WT" secondAttribute="bottom" constant="8" id="tnN-7l-J8Z"/>
                     <constraint firstItem="lIC-m1-dDd" firstAttribute="centerY" secondItem="3pH-xW-2s4" secondAttribute="centerY" id="vNL-d3-GrM"/>
+                    <constraint firstItem="5Bn-GC-5uR" firstAttribute="bottom" secondItem="J17-QK-Wst" secondAttribute="bottom" id="xCC-1F-k3m"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="ptw-wG-aGL"/>
+                        <exclude reference="xCC-1F-k3m"/>
+                        <exclude reference="TdO-Kc-t4r"/>
                         <exclude reference="KFn-os-DHJ"/>
                         <exclude reference="Lp8-eN-3KU"/>
                         <exclude reference="fhq-Sm-dN0"/>

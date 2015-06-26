@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -15,6 +15,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0Z-zf-695" userLabel="topBannerView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Nq-20-FdZ">
                         <rect key="frame" x="0.0" y="10" width="320" height="112"/>
                         <subviews>
@@ -31,7 +35,7 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="9PO-fb-VGF" userLabel="separator_hor">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="9PO-fb-VGF" userLabel="separator_hor">
                                 <rect key="frame" x="8" y="42" width="304" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -70,11 +74,15 @@
                         </variation>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="1Nq-20-FdZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0c0-oI-NtW"/>
+                    <constraint firstAttribute="trailing" secondItem="t0Z-zf-695" secondAttribute="trailing" id="F1X-R1-pjy"/>
                     <constraint firstItem="1Nq-20-FdZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="R2Z-yS-niA"/>
                     <constraint firstAttribute="trailing" secondItem="1Nq-20-FdZ" secondAttribute="trailing" id="Zg6-yY-4nM"/>
+                    <constraint firstItem="1Nq-20-FdZ" firstAttribute="top" secondItem="t0Z-zf-695" secondAttribute="bottom" id="dht-me-0Qn"/>
+                    <constraint firstItem="t0Z-zf-695" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="has-gS-hp3"/>
+                    <constraint firstItem="t0Z-zf-695" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lQU-ns-UJZ"/>
                     <constraint firstAttribute="bottom" secondItem="1Nq-20-FdZ" secondAttribute="bottom" id="v02-Ef-56v"/>
                 </constraints>
             </tableViewCellContentView>

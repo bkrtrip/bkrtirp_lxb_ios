@@ -7,6 +7,7 @@
 //
 
 #import "SupplierProduct.h"
+#import "Global.h"
 
 @implementation SupplierProduct
 
@@ -43,6 +44,11 @@
     
     
     self.productPeerNotice = [dict[@"peer_notice"] isKindOfClass:[NSNull class]]?nil:dict[@"peer_notice"];
+    
+    if (self.productPeerNotice) {
+        self.productPeerNotice = [[Global sharedGlobal] replaceUnicode:self.productPeerNotice];
+    }
+    
     self.productTravelApplyTime = [dict[@"travel_apply_time"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_apply_time"];
     self.productTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
     

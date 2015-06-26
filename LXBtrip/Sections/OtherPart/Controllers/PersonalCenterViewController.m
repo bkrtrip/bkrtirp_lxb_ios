@@ -342,7 +342,7 @@
 {
     //clear user infomation
     [UserModel clearUserInformation];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
     
 }
 

@@ -144,13 +144,20 @@
     
     [self addLongPressGestureRecognizerForMyShop];
     
-    // --TEST--
+    // --TEST-- 后面移到定位成功之后
     startProvince = @"陕西";
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    self.selectedIndex = 0;
-    _colorBarImageView.image = ImageNamed(@"colorbar_left");
+    if ([UserModel companyId] && [UserModel staffId]) {
+        if ([[Global sharedGlobal] notFirstLogin] == YES) {
+            self.selectedIndex = 1;
+        } else {
+            self.selectedIndex = 0;
+        }
+    } else {
+        self.selectedIndex = 0;
+    }
+    
     // --TEST--
-
     [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
     [self startLocation];
 }
@@ -225,10 +232,10 @@
         case 0:
         {
             _colorBarImageView.image = ImageNamed(@"colorbar_left");
-            if (_onlineShopButton.selected == NO) {
-                _onlineShopButton.selected = YES;
+            if (_myShopButton.selected == YES) {
                 _myShopButton.selected = NO;
             }
+            _onlineShopButton.selected = YES;
             if (_scrollView.contentOffset.x != 0) {
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
             }
@@ -244,8 +251,8 @@
             _colorBarImageView.image = ImageNamed(@"colorbar_right");
             if (_onlineShopButton.selected == YES) {
                 _onlineShopButton.selected = NO;
-                _myShopButton.selected = YES;
             }
+            _myShopButton.selected = YES;
             if (_scrollView.contentOffset.x != _scrollView.frame.size.width) {
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
             }
@@ -264,6 +271,7 @@
 - (void)myShopListNeedsUpdate
 {
     [self getMyShops];
+    [self getOnlineShops];
 }
 
 #pragma mark - Override
@@ -329,8 +337,8 @@
             }
             [_locationButton setTitle:startProvince forState:UIControlStateNormal];
             
-            // segment initial status
-            self.selectedIndex = 0;
+            // --TEST-- 移到这里
+            // ...
         }
     }];
 }

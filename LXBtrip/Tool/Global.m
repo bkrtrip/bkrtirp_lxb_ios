@@ -8,6 +8,8 @@
 
 #import "Global.h"
 
+const NSString *kNotFirstLogin = @"not_first_login";
+
 @interface Global()
 
 @property (nonatomic, assign) BOOL networkAvailability;
@@ -133,5 +135,34 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return _networkAvailability;
 }
 
+- (BOOL)notFirstLogin
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kNotFirstLogin] boolValue];
+}
+- (void)saveNotFirstLoginStatus
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:(NSString *)kNotFirstLogin];
+}
+
+//unicode编码以\u开头
+- (NSString *)replaceUnicode:(NSString *)unicodeStr
+{
+    if (!unicodeStr) {
+        return nil;
+    }
+    
+    NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u"withString:@"\\U"];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
+    NSString *tempStr3 = [[@"\""stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString* returnStr = [NSPropertyListSerialization propertyListFromData:tempData
+                                                           mutabilityOption:NSPropertyListImmutable
+                                                                     format:NULL
+                                                           errorDescription:NULL];
+//    return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
+    
+    NSString *tempStr4 = [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
+    return [tempStr4 stringByReplacingOccurrencesOfString:@"<br/>"withString:@"\n"];
+}
 
 @end
