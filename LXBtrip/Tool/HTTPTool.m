@@ -877,14 +877,14 @@ singleton_implementation(HTTPTool)
     }];
 }
 
-// 获取城市 - LXB51141
+// 获取定位城市 - LXB51155
 + (void)getCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail
 {
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
-    [manager.requestSerializer setValue:@"LXB51141" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:@"LXB51155" forHTTPHeaderField:@"AUTHCODE"];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/city"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/locationStarting"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
         }

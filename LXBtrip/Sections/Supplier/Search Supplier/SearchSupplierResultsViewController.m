@@ -20,7 +20,8 @@
 {
     NSInteger pageNum;
     NSMutableArray *searchedResultsArray;
-    NSMutableArray *starCitiesArray;
+    NSMutableArray *siftedResultsArray;
+    NSMutableArray *startCitiesArray;
     NSArray *walkTypesArray;
     NSString *walkType;
     
@@ -82,10 +83,8 @@
     [_walkTypeTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
     
     [_startCityTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
-
     
-//    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//    [self.view addSubview:_darkMask];
+    _startCityTableView.tableFooterView = [[UIView alloc] init];
 
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
@@ -105,7 +104,6 @@
     }
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getSearchedSupplierResults];
-    [self getAllCities];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,10 +146,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == _mainTableView) {
-        return searchedResultsArray.count;
+        return siftedResultsArray.count;
     }
     if (tableView == _startCityTableView) {
-        return starCitiesArray.count;
+        return startCitiesArray.count;
     }
     return walkTypesArray.count;
 }
@@ -159,14 +157,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _mainTableView) {
         TourListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TourListTableViewCell" forIndexPath:indexPath];
-        [cell setCellContentWithSupplierProduct:searchedResultsArray[indexPath.row]];
+        [cell setCellContentWithSupplierProduct:siftedResultsArray[indexPath.row]];
         cell.delegate = self;
         return cell;
     }
     
     if (tableView == _startCityTableView) {
         TourListCell_Destination *cell = [tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination" forIndexPath:indexPath];
-        [cell setCellContentWithDestination:[starCitiesArray[indexPath.row] cityName]];
+        [cell setCellContentWithDestination:startCitiesArray[indexPath.row]];
         return cell;
     }
     
@@ -198,20 +196,17 @@
         selectedCell_Destination = (TourListCell_Destination *)[_startCityTableView cellForRowAtIndexPath:indexPath];
         [selectedCell_Destination setSelected:YES];
         
-        _startCity = [starCitiesArray[indexPath.row] cityName];
-        if (indexPath.row == 0) {
-            [_startCityButton setTitle:@"出发地" forState:UIControlStateNormal];
-        } else {
-            [_startCityButton setTitle:_startCity forState:UIControlStateNormal];
-        }
+        [self siftProductsWithStartCity:startCitiesArray[indexPath.row]];
+        [_startCityButton setTitle:startCitiesArray[indexPath.row] forState:UIControlStateNormal];
+        [_mainTableView reloadData];
         [self hidePopUpViews];
         
-        pageNum = 1;
-        isRefreshing = YES;
-        _hotTheme = nil;
-        _keyword = nil;
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSearchedSupplierResults];
+//        pageNum = 1;
+//        isRefreshing = YES;
+//        _hotTheme = nil;
+//        _keyword = nil;
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//        [self getSearchedSupplierResults];
     }
     
     if (tableView == _walkTypeTableView) {
@@ -224,7 +219,7 @@
             case All_Kinds:
             {
                 walkType = nil;
-                [_walkTypeButton setTitle:@"出行方式" forState:UIControlStateNormal];
+                [_walkTypeButton setTitle:@"不限" forState:UIControlStateNormal];
             }
                 break;
             case Follow_Group:
@@ -248,15 +243,16 @@
             default:
                 break;
         }
-        
+        [self siftProductsWithWalkType:walk];
+        [_mainTableView reloadData];
         [self hidePopUpViews];
         
-        pageNum = 1;
-        isRefreshing = YES;
-        _hotTheme = nil;
-        _keyword = nil;
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSearchedSupplierResults];
+//        pageNum = 1;
+//        isRefreshing = YES;
+//        _hotTheme = nil;
+//        _keyword = nil;
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//        [self getSearchedSupplierResults];
     }
 }
 
@@ -380,14 +376,29 @@
         
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100013"] succeed:^{
             
+            NSString *startCitiesString = result[@"RS100013"][@"start_city"];
+            NSArray *temp = [startCitiesString componentsSeparatedByString:@"#"];
+            
+            if (!startCitiesArray) {
+                startCitiesArray = [[NSMutableArray alloc] init];
+                [startCitiesArray addObject:@"不限"];
+            }
+            
+            [temp enumerateObjectsUsingBlock:^(NSString *new, NSUInteger idx, BOOL *stop) {
+                __block BOOL alreadyOld = NO;
+                [startCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
+                    if ([new isEqualToString:old]) {
+                        alreadyOld = YES;
+                    }
+                }];
+                if (alreadyOld == NO) {
+                    [startCitiesArray addObject:new];
+                }
+            }];
+            
+            [_startCityTableView reloadData];
+
             if ([result[@"RS100013"][@"goods_list"] isKindOfClass:[NSArray class]]) {
-                
-//                if ([result[@"RS100013"][@"goods_list"] count] == 0) {
-//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//                    [alert show];
-//                    return ;
-//                }
-                
                 [result[@"RS100013"][@"goods_list"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     SupplierProduct *product = [[SupplierProduct alloc] initWithDict:obj];
                     if (!searchedResultsArray) {
@@ -395,6 +406,8 @@
                     }
                     [searchedResultsArray addObject:product];
                 }];
+                
+                siftedResultsArray = [searchedResultsArray mutableCopy];
                 [_mainTableView reloadData];
                 pageNum ++;
             } else {
@@ -410,34 +423,6 @@
         }
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"搜索失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }];
-}
-
-- (void)getAllCities
-{
-    [HTTPTool getCitiesWithSuccess:^(id result) {
-        [[Global sharedGlobal] codeHudWithObject:result[@"RS100041"] succeed:^{
-            id data = result[@"RS100041"];
-            if ([data isKindOfClass:[NSArray class]]) {
-                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    City *city = [[City alloc] initWithDict:obj];
-                    if (!starCitiesArray) {
-                        starCitiesArray = [[NSMutableArray alloc] init];
-                    }
-                    [starCitiesArray addObject:city];
-                }];
-            }
-            [_startCityTableView reloadData];
-        }];
-    } fail:^(id result) {
-        
-        if ([[Global sharedGlobal] networkAvailability] == NO) {
-            [self networkUnavailable];
-            return ;
-        }
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
 }
@@ -464,10 +449,6 @@
     if (_startCityTableView.hidden == YES) {
         [self setDestinationCityTableViewHidden:NO];
         _darkMask.alpha = 1.0;
-        
-        if (!starCitiesArray) {
-            [self getAllCities];
-        }
         
         if (!selectedCell_Destination) {
             selectedCell_Destination = (TourListCell_Destination *)[_startCityTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -564,5 +545,36 @@
         }
     }];
 }
+
+- (void)siftProductsWithStartCity:(NSString *)city
+{
+    if ([city isEqualToString:@"不限"]) {
+        siftedResultsArray = [searchedResultsArray mutableCopy];
+        return;
+    }
+    
+    [siftedResultsArray removeAllObjects];
+    [searchedResultsArray enumerateObjectsUsingBlock:^(SupplierProduct *product, NSUInteger idx, BOOL *stop) {
+        if ([product.productTravelStartCity isEqualToString:city]) {
+            [siftedResultsArray addObject:product];
+        }
+    }];
+}
+
+- (void)siftProductsWithWalkType:(WalkType)type
+{
+    if (type == All_Kinds) {
+        siftedResultsArray = [searchedResultsArray mutableCopy];
+        return;
+    }
+    
+    [siftedResultsArray removeAllObjects];
+    [searchedResultsArray enumerateObjectsUsingBlock:^(SupplierProduct *product, NSUInteger idx, BOOL *stop) {
+        if ([product.productWalkType integerValue] == type) {
+            [siftedResultsArray addObject:product];
+        }
+    }];
+}
+
 
 @end

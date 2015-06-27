@@ -10,12 +10,8 @@
 
 @interface City : NSObject
 
-@property (nonatomic, copy) NSNumber *cityId;//
-@property (nonatomic, copy) NSNumber *provinceId;//
-@property (nonatomic, copy) NSNumber *countryId;//
-
-@property (nonatomic, copy) NSString *cityPinYin;//
 @property (nonatomic, copy) NSString *cityName;//
+@property (nonatomic, copy) NSString *cityPinYin;//
 @property (nonatomic, copy) NSString *cityAcronym;//
 @property (nonatomic, copy) NSString *cityInitail;//
 

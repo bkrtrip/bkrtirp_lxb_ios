@@ -8,16 +8,17 @@
 
 #import "SwitchCityViewController.h"
 #import "SwitchCityTableViewCell.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface SwitchCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface SwitchCityViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 {
     NSMutableArray *allCitiesArrayUnsorted;
     NSMutableArray *allCitiesArrayInOrder;//contains initial-keyed dictionaries
     NSMutableArray *hotCitiesArray;
     NSMutableArray *sectionsArray;//contains all initials
     NSMutableArray *searchedCitiesArray;
-    BOOL hotCitiesFetchSucceed;
-    BOOL allCitiesFetchSucceed;
+    
+    NSString *startCity;
 }
 
 - (IBAction)backButtonClicked:(id)sender;
@@ -28,20 +29,21 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UITableView *searchedTableView;
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
 @end
 
 @implementation SwitchCityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self startLocation];
+
     allCitiesArrayInOrder = [[NSMutableArray alloc] init];
     allCitiesArrayUnsorted = [[NSMutableArray alloc] init];
-    hotCitiesArray = [[NSMutableArray alloc] init];
+    hotCitiesArray = [[[Global sharedGlobal] hotCityHistory] mutableCopy];
     searchedCitiesArray = [[NSMutableArray alloc] init];
     sectionsArray = [[NSMutableArray alloc] init];
-
-    [self getAllCities];
-    [self getHotCities];
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"SwitchCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"SwitchCityTableViewCell"];
     [_searchedTableView registerNib:[UINib nibWithNibName:@"SwitchCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"SwitchCityTableViewCell"];
@@ -74,18 +76,81 @@
     [super viewWillDisappear:animated];
 }
 
-
 #pragma mark - Override
 - (void)networkUnavailable
 {
     CGFloat yOrigin = 118.f;
     [[NoNetworkView sharedNoNetworkView] showWithYOrigin:yOrigin height:SCREEN_HEIGHT - yOrigin];
 }
-
 - (void)networkAvailable
 {
     [super networkAvailable];
 }
+
+#pragma mark - Locating part
+//开始定位
+- (void)startLocation{
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 1.0f;
+    [_locationManager startUpdatingLocation];
+    
+    if(![CLLocationManager locationServicesEnabled]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+        
+    } else {
+        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                        [alert show];
+        }
+    }
+    
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
+    {
+        //设置定位权限 仅ios8有意义
+        [self.locationManager requestWhenInUseAuthorization];// 前台定位
+        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
+    }
+}
+
+#pragma mark - CLLocationManagerDelegate
+//定位代理经纬度回调
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    [_locationManager stopUpdatingLocation];
+    NSLog(@"location ok");
+    
+    CLLocation *newLocation = [locations objectAtIndex:0];
+    
+    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+    
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *placemark in placemarks) {
+            
+            NSDictionary *test = [placemark addressDictionary];
+            // locality(城市)
+            NSLog(@"%@", test);
+            startCity = [test objectForKey:@"City"];
+            if ([startCity hasSuffix:@"市"]) {
+                startCity = [startCity substringWithRange:NSMakeRange(0, startCity.length-1)];
+            }
+            // --TEST-- 移到这里
+            // ...
+            [self getAllCities];
+        }
+    }];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    startCity = @"定位失败";
+    [self getAllCities];
+}
+
 
 - (void)sortCitiesUsingInitialsWithUnsortedArray:(NSArray *)array
 {
@@ -124,8 +189,8 @@
 - (void)getAllCities
 {
     [HTTPTool getCitiesWithSuccess:^(id result) {
-        [[Global sharedGlobal] codeHudWithObject:result[@"RS100041"] succeed:^{
-            id data = result[@"RS100041"];
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100055"] succeed:^{
+            id data = result[@"RS100055"];
             if ([data isKindOfClass:[NSArray class]]) {
                 [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     City *city = [[City alloc] initWithDict:obj];
@@ -133,8 +198,7 @@
                 }];
             }
             [self sortCitiesUsingInitialsWithUnsortedArray:allCitiesArrayUnsorted];
-            allCitiesFetchSucceed = YES;
-            [self shouldReloadData];
+            [_mainTableView reloadData];
         }];
     } fail:^(id result) {
         
@@ -143,51 +207,19 @@
             return ;
         }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取所有城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }];
-}
-
-- (void)getHotCities
-{
-    // --TEST--
-//    hotCitiesFetchSucceed = YES;
-
-    [HTTPTool getHotCitiesWithSuccess:^(id result) {
-        [[Global sharedGlobal] codeHudWithObject:result[@"RS100042"] succeed:^{
-            id data = result[@"RS100042"];
-            if ([data isKindOfClass:[NSArray class]]) {
-                [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    HotCity *hotcity = [[HotCity alloc] initWithDict:obj];
-                    [hotCitiesArray addObject:hotcity];
-                }];
-            }
-            hotCitiesFetchSucceed = YES;
-            [self shouldReloadData];
-        }];
-    } fail:^(id result) {
-        
-        if ([[Global sharedGlobal] networkAvailability] == NO) {
-            [self networkUnavailable];
-            return ;
-        }
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取常用城市失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }];
-}
-
-- (void)shouldReloadData
-{
-    if (hotCitiesFetchSucceed && allCitiesFetchSucceed) {
-        [_mainTableView reloadData];
-    }
 }
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == _mainTableView) {
-        return sectionsArray.count+2;
+        if (hotCitiesArray.count > 0) {
+            return sectionsArray.count + 2;
+        } else {
+            return sectionsArray.count + 1;
+        }
     }
     return 1;
 }
@@ -197,10 +229,14 @@
         if (section == 0) {
             return 1;
         }
-        if (section == 1) {
-            return hotCitiesArray.count;
+        if (hotCitiesArray.count == 0) {
+            return [[allCitiesArrayInOrder[section-1] objectForKey:sectionsArray[section-1]] count];
+        } else {
+            if (section == 1) {
+                return hotCitiesArray.count>5?5:hotCitiesArray.count;
+            }
+            return [[allCitiesArrayInOrder[section-2] objectForKey:sectionsArray[section-2]] count];
         }
-        return [[allCitiesArrayInOrder[section-2] objectForKey:sectionsArray[section-2]] count];
     }
     return searchedCitiesArray.count;
 }
@@ -210,28 +246,39 @@
         SwitchCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCityTableViewCell" forIndexPath:indexPath];
         
         if (indexPath.section == 0) {
-            [cell setCellCityWithName:_curCityName isLocationCity:YES selectedStatus:YES];
+            [cell setCellCityWithName:startCity isLocationCity:YES selectedStatus:YES];
             return cell;
         }
         
-        if (indexPath.section == 1) {
-            HotCity *hct = hotCitiesArray[indexPath.row];
-            if ([hct.hotCityValue isEqualToString:_curCityName]) {
-                [cell setCellCityWithName:hct.hotCityValue isLocationCity:NO selectedStatus:YES];
+        if (hotCitiesArray.count == 0) {
+            NSArray *temp = [allCitiesArrayInOrder[indexPath.section-1] objectForKey:sectionsArray[indexPath.section-1]];
+            City *ct = temp[indexPath.row];
+            if ([ct.cityName isEqualToString:startCity]) {
+                [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
             } else {
-                [cell setCellCityWithName:hct.hotCityValue isLocationCity:NO selectedStatus:NO];
+                [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
+            }
+            return cell;
+        } else {
+            if (indexPath.section == 1) {
+                NSString *hct = hotCitiesArray[indexPath.row];
+                if ([hct isEqualToString:startCity]) {
+                    [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
+                } else {
+                    [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
+                }
+                return cell;
+            }
+            
+            NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
+            City *ct = temp[indexPath.row];
+            if ([ct.cityName isEqualToString:startCity]) {
+                [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+            } else {
+                [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
             }
             return cell;
         }
-        
-        NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
-        City *ct = temp[indexPath.row];
-        if ([ct.cityName isEqualToString:_curCityName]) {
-            [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
-        } else {
-            [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
-        }
-        return cell;
     }
     
     // searchedTableView
@@ -256,8 +303,12 @@
 {
 //        [tableView scrollToRowAtIndexPath:selectIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
-    // 前两个section不显示
-    return index+2;
+    // 前两/一个 section不显示
+    if (hotCitiesArray.count == 0) {
+        return index+1;
+    } else {
+        return index+2;
+    }
 }
 
 #pragma mark - Table view delegate
@@ -274,12 +325,21 @@
     label.font = [UIFont systemFontOfSize:12.f];
     if (section == 0) {
         label.text = @"当前定位城市";
-    } else if (section == 1) {
+        return label;
+    }
+    
+    if (hotCitiesArray.count == 0) {
+        if (sectionsArray.count > 0) {
+            label.text = sectionsArray[section-1];
+            return label;
+        }
+    }
+    
+    if (section == 1) {
         label.text = @"常用城市";
     } else {
         label.text = sectionsArray[section-2];
     }
-    
     return label;
 }
 
@@ -289,13 +349,23 @@
     
     if (tableView == _mainTableView) {
         if (indexPath.section == 0) {
-            [self.navigationController popViewControllerAnimated:YES];
-            return;
-        } else if (indexPath.section == 1) {
-            HotCity *hct = hotCitiesArray[indexPath.row];
-            info = @{@"startcity":hct.hotCityValue};
+            if ([startCity isEqualToString:@"定位失败"]) {
+                [self.navigationController popViewControllerAnimated:YES];
+                return;
+            }
+            info = @{@"startcity":startCity};
+        }
+        
+        if (hotCitiesArray.count > 0) {
+            if (indexPath.section == 1) {
+                info = @{@"startcity":hotCitiesArray[indexPath.row]};
+            } else {
+                NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
+                City *ct = temp[indexPath.row];
+                info = @{@"startcity":ct.cityName};
+            }
         } else {
-            NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
+            NSArray *temp = [allCitiesArrayInOrder[indexPath.section-1] objectForKey:sectionsArray[indexPath.section-1]];
             City *ct = temp[indexPath.row];
             info = @{@"startcity":ct.cityName};
         }
@@ -303,6 +373,8 @@
         City *ct = searchedCitiesArray[indexPath.row];
         info = @{@"startcity":ct.cityName};
     }
+    
+    [[Global sharedGlobal] saveToHotCityHistoryWithCityName:info[@"startcity"]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SWITCH_CITY_WITH_CITY_NAME" object:self userInfo:info];
     [self.navigationController popViewControllerAnimated:YES];

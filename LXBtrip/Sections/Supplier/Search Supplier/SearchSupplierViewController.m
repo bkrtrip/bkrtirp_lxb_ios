@@ -332,11 +332,22 @@
     results.keyword = keywords;
     [self.navigationController pushViewController:results animated:YES];
     [_searchTextField resignFirstResponder];
+    
     [[Global sharedGlobal] saveToSearchHistoryWithKeyword:_searchTextField.text];
+    
     if (!searchHistoryArray) {
         searchHistoryArray = [[NSMutableArray alloc] init];
     }
-    [searchHistoryArray addObject:keywords];
+    
+    __block BOOL alreadyInCache = NO;
+    [searchHistoryArray enumerateObjectsUsingBlock:^(NSString *cache, NSUInteger idx, BOOL *stop) {
+        if ([cache isEqualToString:_searchTextField.text]) {
+            alreadyInCache = YES;
+        }
+    }];
+    if (alreadyInCache == NO) {
+        [searchHistoryArray addObject:keywords];
+    }
     [_mainTableView reloadData];
 }
 - (IBAction)backButtonClicked:(id)sender {
@@ -348,5 +359,11 @@
     [[Global sharedGlobal] clearSearchHistory];
     [searchHistoryArray removeAllObjects];
     [_mainTableView reloadData];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 @end

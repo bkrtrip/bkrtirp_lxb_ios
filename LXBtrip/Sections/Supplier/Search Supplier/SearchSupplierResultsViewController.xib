@@ -192,10 +192,10 @@
                     </connections>
                 </tableView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oJ-yys" userLabel="startCityTableView">
-                    <rect key="frame" x="0.0" y="113" width="320" height="308"/>
+                    <rect key="frame" x="0.0" y="113" width="320" height="176"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="308" id="hiR-cF-yEs"/>
+                        <constraint firstAttribute="height" constant="176" id="hiR-cF-yEs"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="LtW-FT-jOy"/>
@@ -265,7 +265,7 @@
                     <exclude reference="dO7-ZL-wmv"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="533" y="353"/>
+            <point key="canvasLocation" x="-99" y="73"/>
         </view>
     </objects>
     <resources>

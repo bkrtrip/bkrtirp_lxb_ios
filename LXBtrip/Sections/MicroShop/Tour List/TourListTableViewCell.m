@@ -37,9 +37,9 @@
     [_tourImageView sd_setImageWithURL:[NSURL URLWithString:imgString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         ;
     }];
-    _tourTitleLabel.text = product.productTravelGoodsName;
+    _tourTitleLabel.text = [NSString stringWithFormat:@"【%@出发】%@", product.productTravelStartCity ,product.productTravelGoodsName];
     _tourKeywordsLabel.text = product.productIntroduce;
-    _costLabel.text = [NSString stringWithFormat:@"￥%@ 起", product.productTravelPrice];
+    _costLabel.text = [NSString stringWithFormat:@"￥%@ 起", product.productMarketPrice];
 }
 
 - (IBAction)accompanyButtonClicked:(id)sender {

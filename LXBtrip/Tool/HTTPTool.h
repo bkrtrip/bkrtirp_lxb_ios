@@ -107,8 +107,12 @@ singleton_interface(HTTPTool)
 // 获取省份 - LXB51140
 + (void)getProvincesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
-// 获取城市 - LXB51141
+// 获取城市 - LXB51141(所有国内外城市，暂时不用)
+//+ (void)getCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 获取定位城市 - LXB51155
 + (void)getCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
 
 // 获取热门城市 - LXB51142
 + (void)getHotCitiesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;

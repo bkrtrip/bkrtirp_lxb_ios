@@ -525,6 +525,8 @@
 		97D78F091B19B873003E66E7 /* shop_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D78EF91B19B873003E66E7 /* shop_selected@3x.png */; };
 		97D78F0C1B19E326003E66E7 /* click_to_webview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D78F0A1B19E326003E66E7 /* click_to_webview@2x.png */; };
 		97D78F0D1B19E326003E66E7 /* click_to_webview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D78F0B1B19E326003E66E7 /* click_to_webview@3x.png */; };
+		97D8A45F1B3E333D00776AA7 /* MarketPriceLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D8A45E1B3E333D00776AA7 /* MarketPriceLabel.m */; };
+		97D8A4611B3E334B00776AA7 /* MarketPriceLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97D8A4601B3E334B00776AA7 /* MarketPriceLabel.xib */; };
 		97DE180E1B38392800294A48 /* alley_sub_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97DE180C1B38392800294A48 /* alley_sub_banner@2x.png */; };
 		97DE180F1B38392800294A48 /* alley_sub_banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97DE180D1B38392800294A48 /* alley_sub_banner@3x.png */; };
 		97DE18121B383D3B00294A48 /* separator_ver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97DE18101B383D3B00294A48 /* separator_ver@2x.png */; };
@@ -1253,6 +1255,9 @@
 		97D78F0A1B19E326003E66E7 /* click_to_webview@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "click_to_webview@2x.png"; sourceTree = "<group>"; };
 		97D78F0B1B19E326003E66E7 /* click_to_webview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "click_to_webview@3x.png"; sourceTree = "<group>"; };
 		97D78F0E1B19E691003E66E7 /* ToolMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
+		97D8A45D1B3E333D00776AA7 /* MarketPriceLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketPriceLabel.h; sourceTree = "<group>"; };
+		97D8A45E1B3E333D00776AA7 /* MarketPriceLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketPriceLabel.m; sourceTree = "<group>"; };
+		97D8A4601B3E334B00776AA7 /* MarketPriceLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketPriceLabel.xib; sourceTree = "<group>"; };
 		97DE180C1B38392800294A48 /* alley_sub_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_sub_banner@2x.png"; path = "Alley/alley_sub_banner@2x.png"; sourceTree = "<group>"; };
 		97DE180D1B38392800294A48 /* alley_sub_banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alley_sub_banner@3x.png"; path = "Alley/alley_sub_banner@3x.png"; sourceTree = "<group>"; };
 		97DE18101B383D3B00294A48 /* separator_ver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "separator_ver@2x.png"; path = "LXBtrip/image/Common/separator_ver@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -2207,6 +2212,9 @@
 				9794A7271B26A8280077E5C0 /* TourDetailCell_One.h */,
 				9794A7281B26A8280077E5C0 /* TourDetailCell_One.m */,
 				9794A7291B26A8280077E5C0 /* TourDetailCell_One.xib */,
+				97D8A45D1B3E333D00776AA7 /* MarketPriceLabel.h */,
+				97D8A45E1B3E333D00776AA7 /* MarketPriceLabel.m */,
+				97D8A4601B3E334B00776AA7 /* MarketPriceLabel.xib */,
 				9794A72D1B26A8280077E5C0 /* TourDetailCell_Two.h */,
 				9794A72E1B26A8280077E5C0 /* TourDetailCell_Two.m */,
 				9794A72F1B26A8280077E5C0 /* TourDetailCell_Two.xib */,
@@ -2837,6 +2845,7 @@
 				975DC4581B2FCE260058B6B4 /* OrderDetailCell_TotalAmount.xib in Resources */,
 				97D78EFE1B19B873003E66E7 /* provider_normal@2x.png in Resources */,
 				97C3B2521B1B1E8F00C729C4 /* location_white@2x.png in Resources */,
+				97D8A4611B3E334B00776AA7 /* MarketPriceLabel.xib in Resources */,
 				977DCF921B1C96F30060C7BB /* is_new@3x.png in Resources */,
 				9794A83C1B26A8280077E5C0 /* MicroShopCollectionViewCell_MyShop.xib in Resources */,
 				9779157E1B3B8072007DBC40 /* no_my_supplier@2x.png in Resources */,
@@ -3240,6 +3249,7 @@
 				9794A8501B26A8280077E5C0 /* TourDetailTableViewController.m in Sources */,
 				22924CF91B2D8B1300D898CF /* WCPayHeaderTableViewCell.m in Sources */,
 				9794A8131B26A8280077E5C0 /* AlleyDetailCell_Top.m in Sources */,
+				97D8A45F1B3E333D00776AA7 /* MarketPriceLabel.m in Sources */,
 				97CDAFE41B2C2FBE009917FB /* SupplierCollectionViewCell.m in Sources */,
 				9794A8111B26A8280077E5C0 /* AlleyDetailCell_Location.m in Sources */,
 				9794A9261B26A86B0077E5C0 /* UIWebView+AFNetworking.m in Sources */,

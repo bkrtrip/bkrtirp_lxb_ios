@@ -28,6 +28,7 @@
 @property (nonatomic, copy) NSMutableArray *productMarketTicketGroup;
 
 @property (nonatomic, copy) NSString *productPeerNotice;//
+@property (nonatomic, copy) NSString *productTravelStartCity;//
 @property (nonatomic, copy) NSNumber *productTravelApplyTime;//
 @property (nonatomic, copy) NSString *productTravelGoodsCode;//
 @property (nonatomic, copy) NSNumber *productTravelGoodsId;//

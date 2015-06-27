@@ -15,15 +15,16 @@ typedef void (^errorCode_succeed_block)();
 @interface Global : NSObject
 singleton_interface(Global)
 
-
-@property (nonatomic, copy) NSMutableArray *searchHistory;
-
 // compare function
 NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context);
 
 - (void)saveToSearchHistoryWithKeyword:(NSString *)keyword;
+- (NSMutableArray *)searchHistory;
 - (void)clearSearchHistory;
 - (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed;// 根据错误码显示HUD
+
+- (void)saveToHotCityHistoryWithCityName:(NSString *)cityName;
+- (NSMutableArray *)hotCityHistory;
 
 - (UINavigationController *)loginNavViewControllerFromSb;
 

@@ -314,7 +314,6 @@
 }
 
 #pragma mark - CLLocationManagerDelegate
-
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     [_locationManager stopUpdatingLocation];

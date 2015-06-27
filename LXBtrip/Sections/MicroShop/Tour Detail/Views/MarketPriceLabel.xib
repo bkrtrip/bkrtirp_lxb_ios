@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="MIk-YY-JbL" customClass="MarketPriceLabel">
+            <rect key="frame" x="0.0" y="0.0" width="107" height="28"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0jt-EH-YNg">
+                    <rect key="frame" x="8" y="0.0" width="91" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="0jt-EH-YNg" secondAttribute="height" multiplier="300:93" id="qGY-Lc-oFY"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sh-LA-GeP">
+                    <rect key="frame" x="46" y="5" width="15" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="0jt-EH-YNg" firstAttribute="leading" secondItem="MIk-YY-JbL" secondAttribute="leading" constant="8" id="C0M-O8-DtP"/>
+                <constraint firstAttribute="centerX" secondItem="7sh-LA-GeP" secondAttribute="centerX" id="Qc8-Gi-p3c"/>
+                <constraint firstAttribute="centerX" secondItem="0jt-EH-YNg" secondAttribute="centerX" id="kNN-ir-HXZ"/>
+                <constraint firstAttribute="centerY" secondItem="7sh-LA-GeP" secondAttribute="centerY" id="rMt-Ia-uuq"/>
+                <constraint firstAttribute="centerY" secondItem="0jt-EH-YNg" secondAttribute="centerY" id="yUR-rW-BVs"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="marketImageView" destination="0jt-EH-YNg" id="eVt-qj-fJm"/>
+                <outlet property="marketPriceLabel" destination="7sh-LA-GeP" id="iBZ-7B-2rH"/>
+            </connections>
+            <point key="canvasLocation" x="343" y="264"/>
+        </view>
+    </objects>
+</document>

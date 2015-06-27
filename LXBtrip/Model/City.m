@@ -12,10 +12,7 @@
 
 - (id)initWithDict:(NSDictionary *)dict
 {
-    self.cityId = [dict[@"city_id"] isKindOfClass:[NSNull class]]?nil:dict[@"city_id"];
-    self.cityName = [dict[@"city_name"] isKindOfClass:[NSNull class]]?nil:dict[@"city_name"];
-    self.provinceId = [dict[@"province_id"] isKindOfClass:[NSNull class]]?nil:dict[@"province_id"];
-    self.countryId = [dict[@"country_id"] isKindOfClass:[NSNull class]]?nil:dict[@"country_id"];
+    self.cityName = [dict[@"name"] isKindOfClass:[NSNull class]]?nil:dict[@"name"];
     self.cityPinYin = [dict[@"pinyin"] isKindOfClass:[NSNull class]]?nil:dict[@"pinyin"];
     self.cityAcronym = [dict[@"acronym_word"] isKindOfClass:[NSNull class]]?nil:dict[@"acronym_word"];
     self.cityInitail = [dict[@"initial"] isKindOfClass:[NSNull class]]?nil:dict[@"initial"];

@@ -38,7 +38,8 @@
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
     
     cellHeights = [[NSMutableDictionary alloc] init];
-    [cellHeights setObject:@(25.f) forKey:@"first_cell_height"];
+//    [cellHeights setObject:@(25.f) forKey:@"first_cell_height"];
+    
     [self setUpTableView];
     
     [self getTourDetail];
@@ -97,6 +98,14 @@
                     }
                 }
             }];
+            
+            TourDetailCell_One *firstCell = [[NSBundle mainBundle] loadNibNamed:@"TourDetailCell_One" owner:nil options:nil][0];
+            CGFloat cellHeight = [firstCell cellHeightWithSupplierProduct:_product startDate:_startDate];
+            [cellHeights setObject:@(cellHeight) forKey:@"first_cell_height"];
+            
+            TourDetailCell_Two *secondCell = [[NSBundle mainBundle] loadNibNamed:@"TourDetailCell_Two" owner:nil options:nil][0];
+            cellHeight = [secondCell cellHeightWithSupplierProduct:_product startDate:_startDate];
+            [cellHeights setObject:@(cellHeight) forKey:@"second_cell_height"];
             
             [_tableView reloadData];
         }];

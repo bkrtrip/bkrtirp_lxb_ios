@@ -238,10 +238,13 @@
 {
     NSDictionary *info = [note userInfo];
     lineType = info[@"line_type"];
-    pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
-    isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
+    _selectedIndex = [info[@"line_class_index"] integerValue];
+    pageNumsArray[_selectedIndex] = @1;
+    isLoadingMoresArray[_selectedIndex] = @0;
     
     self.selectedIndex = [info[@"line_class_index"] integerValue];
+    // 筛选完成后恢复lineType
+    lineType = nil;
 }
 
 - (void)switchCityWithCityName:(NSNotification *)note
@@ -670,7 +673,6 @@
 }
 - (IBAction)locationButtonClicked:(id)sender {
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
-    switchCity.curCityName = startCity;
     [self.navigationController pushViewController:switchCity animated:YES];
 }
 

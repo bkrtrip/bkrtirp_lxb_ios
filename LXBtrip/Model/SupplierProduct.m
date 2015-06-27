@@ -49,6 +49,7 @@
         self.productPeerNotice = [[Global sharedGlobal] replaceUnicode:self.productPeerNotice];
     }
     
+    self.productTravelStartCity = [dict[@"travel_start_city"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_start_city"];
     self.productTravelApplyTime = [dict[@"travel_apply_time"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_apply_time"];
     self.productTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
     

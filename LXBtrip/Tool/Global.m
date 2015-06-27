@@ -9,6 +9,8 @@
 #import "Global.h"
 
 const NSString *kNotFirstLogin = @"not_first_login";
+const NSString *kSearchHistory = @"search_history";
+const NSString *kHotCityHistory = @"hot_city_history";
 
 @interface Global()
 
@@ -21,32 +23,59 @@ const NSString *kNotFirstLogin = @"not_first_login";
 singleton_implementation(Global)
 
 // compare function
-NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
-{
+NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context) {
     return [initial_1 caseInsensitiveCompare:initial_2];
 }
 
-- (void)saveToSearchHistoryWithKeyword:(NSString *)keyword
-{
-    NSMutableArray *history = [[[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"] mutableCopy];
+// search history
+- (void)saveToSearchHistoryWithKeyword:(NSString *)keyword {
+    NSMutableArray *history = [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSearchHistory] mutableCopy];
     if (!history) {
         history = [[NSMutableArray alloc] init];
     }
-    [history addObject:keyword];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
-    [[NSUserDefaults standardUserDefaults] setObject:history forKey:@"search_history"];
+    
+    __block BOOL alreadyOld = NO;
+    [history enumerateObjectsUsingBlock:^(NSString *oldSearch, NSUInteger idx, BOOL *stop) {
+        if ([oldSearch isEqualToString:keyword]) {
+            alreadyOld = YES;
+        }
+    }];
+    if (alreadyOld == NO) {
+        [history insertObject:keyword atIndex:0]; // 确保后保存的先显示
+        [[NSUserDefaults standardUserDefaults] setObject:history forKey:(NSString *)kSearchHistory];
+    }
+}
+- (NSMutableArray *)searchHistory {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSearchHistory];
+}
+- (void)clearSearchHistory {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:(NSString *)kSearchHistory];
 }
 
-- (NSMutableArray *)searchHistory
+// hot city
+- (void)saveToHotCityHistoryWithCityName:(NSString *)cityName {
+    NSMutableArray *history = [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kHotCityHistory] mutableCopy];
+    if (!history) {
+        history = [[NSMutableArray alloc] init];
+    }
+    
+    __block BOOL alreadyOld = NO;
+    [history enumerateObjectsUsingBlock:^(NSString *oldCity, NSUInteger idx, BOOL *stop) {
+        if ([oldCity isEqualToString:cityName]) {
+            alreadyOld = YES;
+        }
+    }];
+    if (alreadyOld == NO) {
+        [history insertObject:cityName atIndex:0]; // 确保后保存的先显示
+        [[NSUserDefaults standardUserDefaults] setObject:history forKey:(NSString *)kHotCityHistory];
+    }
+}
+- (NSMutableArray *)hotCityHistory
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"search_history"];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kHotCityHistory];
 }
 
-- (void)clearSearchHistory
-{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"search_history"];
-}
-
+// 返回值判断
 - (void)codeHudWithObject:(id)obj succeed:(errorCode_succeed_block)succeed
 {
     if ([obj isKindOfClass:[NSDictionary class]]) {

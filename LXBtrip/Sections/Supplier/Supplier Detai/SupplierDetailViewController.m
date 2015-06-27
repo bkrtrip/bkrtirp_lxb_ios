@@ -294,6 +294,10 @@
 #pragma mark - TourListTableViewCell_Delegate
 - (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
+    if (![UserModel companyId] || ![UserModel staffId]) {
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return;
+    }
     
     popUpType = Share_Type;
     selectedProduct = product;
@@ -324,6 +328,11 @@
 }
 - (void)supportClickWithPreviewButtonWithProduct:(SupplierProduct *)product
 {
+    if (![UserModel companyId] || ![UserModel staffId]) {
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return;
+    }
+    
     popUpType = Preview_Type;
     selectedProduct = product;
     
@@ -352,6 +361,11 @@
 }
 - (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product
 {
+    if (![UserModel companyId] || ![UserModel staffId]) {
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return;
+    }
+    
     popUpType = Accompany_Type;
     selectedProduct = product;
     if (!_accompanyInfoView) {

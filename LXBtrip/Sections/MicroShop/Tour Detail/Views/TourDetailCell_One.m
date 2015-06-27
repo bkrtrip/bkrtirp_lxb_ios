@@ -7,6 +7,7 @@
 //
 
 #import "TourDetailCell_One.h"
+#import "MarketPriceLabel.h"
 
 @interface TourDetailCell_One()
 
@@ -17,10 +18,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *tourNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tourDescriptionLabel;
 
-@property (strong, nonatomic) IBOutlet UILabel *adultPriceLabel;
-@property (strong, nonatomic) IBOutlet UILabel *kidWithBedPriceLabel;
-
-@property (strong, nonatomic) IBOutlet UILabel *kidNoBedPriceLabel;
+@property (strong, nonatomic) MarketPriceLabel *adultPriceLabel;
+@property (strong, nonatomic) MarketPriceLabel *kidWithBedPriceLabel;
+@property (strong, nonatomic) MarketPriceLabel *kidNoBedPriceLabel;
 
 
 @end
@@ -28,7 +28,21 @@
 @implementation TourDetailCell_One
 
 - (void)awakeFromNib {
-    // Initialization code
+    if (!_adultPriceLabel) {
+        _adultPriceLabel = [[NSBundle mainBundle] loadNibNamed:@"MarketPriceLabel" owner:nil options:nil][0];
+        [self.contentView addSubview:_adultPriceLabel];
+    }
+    if (!_kidNoBedPriceLabel) {
+        _kidNoBedPriceLabel = [[NSBundle mainBundle] loadNibNamed:@"MarketPriceLabel" owner:nil options:nil][0];
+        [self.contentView addSubview:_kidNoBedPriceLabel];
+    }
+    if (!_kidWithBedPriceLabel) {
+        _kidWithBedPriceLabel = [[NSBundle mainBundle] loadNibNamed:@"MarketPriceLabel" owner:nil options:nil][0];
+        [self.contentView addSubview:_kidWithBedPriceLabel];
+    }
+    _adultPriceLabel.hidden = YES;
+    _kidNoBedPriceLabel.hidden = YES;
+    _kidWithBedPriceLabel.hidden = YES;
 }
 
 - (CGFloat)cellHeightWithSupplierProduct:(SupplierProduct *)product startDate:(NSString *)dateString
@@ -106,9 +120,30 @@
             NSMutableArray *temp = product.productMarketTicketGroup;
             [temp enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
                 if ([grp.marketTime isEqualToString:dateString]) {
-                    _adultPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.marketAdultPrice];
-                    _kidWithBedPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.marketKidPrice];
-                    _kidNoBedPriceLabel.text = [NSString stringWithFormat:@"￥%@", grp.marketKidPriceNoBed];
+                    
+                    CGFloat yOrigin = _tourDescriptionLabel.frame.origin.y + descriptionLabelSize.height + 10.f;
+                    CGFloat labelWidth = SCREEN_WIDTH/3.0;
+                    NSInteger priceNum = 0;
+                    if (grp.marketAdultPrice && [grp.marketAdultPrice integerValue] > 0) {
+                        [_adultPriceLabel setFrame:CGRectMake(priceNum*labelWidth, yOrigin, labelWidth, 28.f)];
+                        [_adultPriceLabel setMarketPriceLabelWithPriceType:Adult price:grp.marketAdultPrice];
+                        _adultPriceLabel.hidden = NO;
+                        priceNum ++;
+                    }
+                    
+                    if (grp.marketKidPrice && [grp.marketKidPrice integerValue] > 0) {
+                        [_kidWithBedPriceLabel setFrame:CGRectMake(priceNum*labelWidth, yOrigin, labelWidth, 28.f)];
+                        [_kidWithBedPriceLabel setMarketPriceLabelWithPriceType:Kid_Bed price:grp.marketKidPrice];
+                        _kidWithBedPriceLabel.hidden = NO;
+                        priceNum ++;
+                    }
+                    
+                    if (grp.marketKidPriceNoBed && [grp.marketKidPriceNoBed integerValue] > 0) {
+                        [_kidNoBedPriceLabel setFrame:CGRectMake(priceNum*labelWidth, yOrigin, labelWidth, 28.f)];
+                        [_kidNoBedPriceLabel setMarketPriceLabelWithPriceType:Kid_No_Bed price:grp.marketKidPriceNoBed];
+                        _kidNoBedPriceLabel.hidden = NO;
+                        priceNum ++;
+                    }
                 }
             }];
         }
