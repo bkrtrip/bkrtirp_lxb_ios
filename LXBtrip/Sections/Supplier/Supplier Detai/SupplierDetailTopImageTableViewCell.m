@@ -24,6 +24,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    _supplierImageView.layer.cornerRadius = _supplierImageView.frame.size.height/2.0;
+    _supplierImageView.layer.masksToBounds = YES;
 }
 
 - (void)setCellContentWithSupplierInfo:(SupplierInfo *)info
@@ -36,16 +38,6 @@
     }];
     _supplierNameLabel.text = info.supplierName;
     _providerLabel.text = info.supplierBrand;
-}
-
-
-- (IBAction)messageButtonClicked:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", _info.supplierContactPhone]]];
-}
-
-- (IBAction)phoneButtonClicked:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _info.supplierContactPhone]]];
-
 }
 
 @end

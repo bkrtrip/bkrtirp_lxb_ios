@@ -24,7 +24,13 @@
 
 - (void)rightBarButtonItemClicked:(id)sender
 {
+    if (_shopNameTextField.text.length == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请填写微店名称" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+    setContact.shopName = _shopNameTextField.text;
     [self.navigationController pushViewController:setContact animated:YES];
 }
 
@@ -33,9 +39,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
-
-
-
 
 
 

@@ -514,7 +514,7 @@
     }
     
     if (!_inviteTableView) {
-        CGFloat height = 365.f;
+        CGFloat height = 320.f;
         _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, height)];
         _inviteTableView.dataSource = self;
         _inviteTableView.delegate = self;
@@ -537,7 +537,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -546,39 +546,32 @@
         case 0:
         {
             InviteSupplierTableViewCell_First *cell = (InviteSupplierTableViewCell_First *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_First" forIndexPath:indexPath];
-            [cell setCellContentWithInvitationCode:nil];
+            [cell setCellContentWithInvitationCode:[UserModel userName]];
             return cell;
         }
             break;
         case 1:
         {
             InviteSupplierTableViewCell_Second *cell = (InviteSupplierTableViewCell_Second *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Second" forIndexPath:indexPath];
-            [cell setCellContentWithInvitationWords:@"邀请十家供应商，免费赠送定制版微店一套"];
+            [cell setCellContentWithInvitationWords:@"邀请六家供应商，免费赠送定制版微店一套"];
             return cell;
         }
             break;
         case 2:
         {
             InviteSupplierTableViewCell_Second *cell = (InviteSupplierTableViewCell_Second *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Second" forIndexPath:indexPath];
-            [cell setCellContentWithInvitationWords:@"邀请五家供应商，免费开通企业级服务功能"];
-            return cell;
-        }
-            break;
-        case 3:
-        {
-            InviteSupplierTableViewCell_Second *cell = (InviteSupplierTableViewCell_Second *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Second" forIndexPath:indexPath];
             [cell setCellContentWithInvitationWords:@"邀请三家供应商，免费定制设计海报一份"];
             return cell;
         }
             break;
-        case 4:
+        case 3:
         {
             InviteSupplierTableViewCell_Third *cell = (InviteSupplierTableViewCell_Third *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Third" forIndexPath:indexPath];
             [cell setCellContentWithPhoneNumber:nil];
             return cell;
         }
             break;
-        case 5:
+        case 4:
         {
             InviteSupplierTableViewCell_Fourth *cell = (InviteSupplierTableViewCell_Fourth *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Fourth" forIndexPath:indexPath];
             cell.delegate = self;
@@ -605,12 +598,9 @@
             return 45.f;
             break;
         case 3:
-            return 45.f;
-            break;
-        case 4:
             return 70.f;
             break;
-        case 5:
+        case 4:
             return 110.f;
             break;
         default:
@@ -621,6 +611,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.row) {
+        case 1:
+        {
+            //
+        }
+            break;
+        case 2:
+        {
+            //
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

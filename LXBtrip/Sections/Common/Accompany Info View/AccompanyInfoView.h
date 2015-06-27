@@ -20,6 +20,6 @@
 
 @property (nonatomic, weak) id <AccompanyInfoView_Delegate> delegate;
 
-- (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName introduce:(NSString *)introduce price:(NSNumber *)price instructions:(NSString *)instruction;
+- (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName productName:(NSString *)productName price:(NSNumber *)price instructions:(NSString *)instruction;
 
 @end

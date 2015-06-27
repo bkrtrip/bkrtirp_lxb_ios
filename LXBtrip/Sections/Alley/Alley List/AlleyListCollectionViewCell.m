@@ -28,7 +28,9 @@
         ;
     }];
 
-    _alleyNameLabel.text = alley.alleyName;
+    _alleyNameLabel.text = alley.alleyBrand;
+    
+//    _alleyNameLabel.text = alley.alleyName;
 //    [_alleyLocationButton setTitle:alley.alleyLocation forState:UIControlStateNormal];
 }
 

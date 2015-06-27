@@ -120,7 +120,8 @@ singleton_interface(HTTPTool)
 // 获取热门国家 - LXB51143
 + (void)getHotCountriesWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
-
+// 设置个人信息 - LXB43224
++ (void)setSelfInfoWithStaffId:(NSNumber *)staffId companyId:(NSNumber *)companyId avatarString:(NSString *)avatar contactName:(NSString *)contactName shopName:(NSString *)shopName phoneNumber:(NSString *)phoneNumber provinceId:(NSString *)provinceId provinceName:(NSString *)provinceName cityId:(NSString *)cityId cityName:(NSString *)cityName areaId:(NSString *)areaId areaName:(NSString *)areaName address:(NSString *)address success:(SuccessBlock)success fail:(FailBlock)fail;
 
 
 

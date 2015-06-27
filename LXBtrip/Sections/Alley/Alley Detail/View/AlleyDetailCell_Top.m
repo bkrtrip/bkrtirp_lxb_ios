@@ -23,7 +23,8 @@
 @implementation AlleyDetailCell_Top
 
 - (void)awakeFromNib {
-    
+    _alleyImageView.layer.cornerRadius = _alleyImageView.frame.size.height/2.0;
+    _alleyImageView.layer.masksToBounds = YES;
 }
 
 - (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
@@ -39,12 +40,4 @@
     _providerLabel.text = info.alleyBrand;
 }
 
-
-- (IBAction)messageButtonClicked:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", _alley.alleyContactPhoneNo]]];
-}
-
-- (IBAction)phoneButtonClicked:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _alley.alleyContactPhoneNo]]];
-}
 @end

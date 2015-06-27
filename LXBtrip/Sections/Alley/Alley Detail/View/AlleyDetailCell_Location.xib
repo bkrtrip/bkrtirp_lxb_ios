@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -25,14 +26,14 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcf-68-EGb">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcf-68-EGb">
                         <rect key="frame" x="98" y="14" width="214" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woV-g0-ZZd">
-                        <rect key="frame" x="98" y="38" width="66" height="15"/>
+                        <rect key="frame" x="98" y="40" width="66" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title=" 500m以内" image="location_blue.png">
                             <color key="titleColor" red="0.29803921570000003" green="0.64705882349999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -43,15 +44,21 @@
                 <constraints>
                     <constraint firstItem="woV-g0-ZZd" firstAttribute="top" secondItem="5Ei-XM-A0o" secondAttribute="bottom" constant="7" id="6dw-0p-D0B"/>
                     <constraint firstItem="Xcf-68-EGb" firstAttribute="leading" secondItem="5Ei-XM-A0o" secondAttribute="trailing" constant="8" id="Bph-lo-6ig"/>
+                    <constraint firstItem="Xcf-68-EGb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="90" id="HRd-Wy-ySm"/>
                     <constraint firstItem="5Ei-XM-A0o" firstAttribute="centerY" secondItem="Xcf-68-EGb" secondAttribute="centerY" id="Mm0-XA-cZC"/>
                     <constraint firstItem="5Ei-XM-A0o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Wc5-9L-L0C"/>
                     <constraint firstItem="5Ei-XM-A0o" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="Xmz-Ku-zRS"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="woV-g0-ZZd" secondAttribute="bottom" id="bHs-6B-tZo"/>
+                    <constraint firstItem="Xcf-68-EGb" firstAttribute="top" secondItem="5Ei-XM-A0o" secondAttribute="top" constant="1" id="hQf-Nb-rN5"/>
                     <constraint firstAttribute="trailing" secondItem="Xcf-68-EGb" secondAttribute="trailing" constant="8" id="iCB-fC-5WG"/>
                     <constraint firstItem="woV-g0-ZZd" firstAttribute="leading" secondItem="Xcf-68-EGb" secondAttribute="leading" id="p74-nr-rVe"/>
                     <constraint firstItem="woV-g0-ZZd" firstAttribute="leading" secondItem="5Ei-XM-A0o" secondAttribute="leading" constant="96" id="pUv-be-5Mz"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="Mm0-XA-cZC"/>
+                        <exclude reference="HRd-Wy-ySm"/>
+                        <exclude reference="6dw-0p-D0B"/>
                         <exclude reference="pUv-be-5Mz"/>
                     </mask>
                 </variation>

@@ -24,8 +24,13 @@
 
 - (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
 {
+    CGFloat cellHeight = 64.f;
     _locationLabel.text = info.alleyCompanyAddress;
-    return 70.f;
+    CGSize locationLabelSize = [_locationLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 98.f - 8.f, MAXFLOAT)];
+    
+    cellHeight += locationLabelSize.height>18.f?(locationLabelSize.height-18.f):0.f;
+    
+    return cellHeight;
 }
 
 

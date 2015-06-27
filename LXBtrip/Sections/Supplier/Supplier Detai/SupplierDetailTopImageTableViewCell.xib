@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -26,37 +26,6 @@
                             <constraint firstAttribute="height" constant="80" id="ohs-ar-v5H"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9O-pz-bNU" userLabel="messageButton">
-                        <rect key="frame" x="48" y="48" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="h9O-pz-bNU" secondAttribute="height" multiplier="1:1" id="EaY-X0-s8C"/>
-                            <constraint firstAttribute="height" constant="40" id="TcD-aZ-qVb"/>
-                        </constraints>
-                        <state key="normal" image="message.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="messageButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CNq-Xk-c7u"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yve-3X-V0f" userLabel="phoneButton">
-                        <rect key="frame" x="232" y="48" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="Yve-3X-V0f" secondAttribute="height" multiplier="1:1" id="VhH-jS-jj1"/>
-                            <constraint firstAttribute="height" constant="40" id="Yfg-jB-3uO"/>
-                        </constraints>
-                        <state key="normal" image="telephone.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="VhH-jS-jj1"/>
-                            </mask>
-                        </variation>
-                        <connections>
-                            <action selector="phoneButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KvR-ye-a3F"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-i9-NG8">
                         <rect key="frame" x="93" y="96" width="135" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -69,7 +38,7 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="许可证号: L-SD-CJ00019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBa-pJ-PuO">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="许可证号: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBa-pJ-PuO">
                         <rect key="frame" x="70" y="153" width="180" height="30"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -83,29 +52,18 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="bNV-Kg-o55" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4W8-ku-JfX"/>
-                    <constraint firstItem="Yve-3X-V0f" firstAttribute="width" secondItem="Yve-3X-V0f" secondAttribute="height" multiplier="1:1" id="65t-Qj-ujX"/>
-                    <constraint firstItem="h9O-pz-bNU" firstAttribute="centerY" secondItem="Yve-3X-V0f" secondAttribute="centerY" id="6wP-XT-CQd"/>
                     <constraint firstAttribute="bottom" secondItem="bNV-Kg-o55" secondAttribute="bottom" id="BYb-Qr-FMD"/>
                     <constraint firstItem="O0y-Lu-dFj" firstAttribute="top" secondItem="4Du-i9-NG8" secondAttribute="bottom" constant="8" id="HZU-bL-icB"/>
-                    <constraint firstItem="BBq-vd-oJA" firstAttribute="bottom" secondItem="h9O-pz-bNU" secondAttribute="top" constant="40" id="KEW-RG-VP6"/>
                     <constraint firstAttribute="bottomMargin" secondItem="lBa-pJ-PuO" secondAttribute="bottom" constant="8" id="LK0-rt-RX5"/>
                     <constraint firstItem="O0y-Lu-dFj" firstAttribute="centerX" secondItem="4Du-i9-NG8" secondAttribute="centerX" constant="-0.5" id="PNm-ra-FWT"/>
-                    <constraint firstItem="Yve-3X-V0f" firstAttribute="top" secondItem="BBq-vd-oJA" secondAttribute="bottom" constant="1" id="RT5-BJ-KFC"/>
                     <constraint firstAttribute="trailing" secondItem="bNV-Kg-o55" secondAttribute="trailing" id="ThV-dR-7Fv"/>
-                    <constraint firstItem="Yve-3X-V0f" firstAttribute="leading" secondItem="BBq-vd-oJA" secondAttribute="trailing" constant="32" id="Z7f-g8-48S"/>
                     <constraint firstAttribute="centerX" secondItem="lBa-pJ-PuO" secondAttribute="centerX" id="ZEs-aj-KPw"/>
                     <constraint firstItem="4Du-i9-NG8" firstAttribute="top" secondItem="BBq-vd-oJA" secondAttribute="bottom" constant="8" id="aCs-Do-Vxi"/>
                     <constraint firstItem="bNV-Kg-o55" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="d7k-ce-t50"/>
-                    <constraint firstItem="BBq-vd-oJA" firstAttribute="leading" secondItem="h9O-pz-bNU" secondAttribute="trailing" constant="32" id="jfN-aD-uxf"/>
                     <constraint firstItem="BBq-vd-oJA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="oJ9-Hn-2b8"/>
                     <constraint firstAttribute="centerX" secondItem="BBq-vd-oJA" secondAttribute="centerX" id="p9o-2Z-6Qz"/>
                     <constraint firstAttribute="centerX" secondItem="4Du-i9-NG8" secondAttribute="centerX" id="sBS-dF-PXh"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="RT5-BJ-KFC"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="certificateLabel" destination="lBa-pJ-PuO" id="wG5-so-ROX"/>
@@ -117,8 +75,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="message.png" width="38" height="38"/>
         <image name="supplier_detail_top_bg@3x.png" width="1242" height="605"/>
-        <image name="telephone.png" width="38" height="39"/>
     </resources>
 </document>

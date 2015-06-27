@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -26,37 +26,6 @@
                             <constraint firstAttribute="height" constant="80" id="L8b-1B-MD4"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7r-ag-ybO" userLabel="messageButton">
-                        <rect key="frame" x="48" y="48" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="o7r-ag-ybO" secondAttribute="height" multiplier="1:1" id="5Mj-zd-fNK"/>
-                            <constraint firstAttribute="height" constant="40" id="kyQ-aY-JqP"/>
-                        </constraints>
-                        <state key="normal" image="message.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="messageButtonClicked:" destination="AxM-Jv-zzu" eventType="touchUpInside" id="txm-dg-OJu"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FR9-vy-6ZU" userLabel="phoneButton">
-                        <rect key="frame" x="232" y="48" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="FR9-vy-6ZU" secondAttribute="height" multiplier="1:1" id="qs5-ga-OTg"/>
-                            <constraint firstAttribute="height" constant="40" id="zpX-Ob-vW7"/>
-                        </constraints>
-                        <state key="normal" image="telephone.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="qs5-ga-OTg"/>
-                            </mask>
-                        </variation>
-                        <connections>
-                            <action selector="phoneButtonClicked:" destination="AxM-Jv-zzu" eventType="touchUpInside" id="DE1-hc-kzd"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京展飞国际旅行社" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYU-0g-Bru">
                         <rect key="frame" x="93" y="96" width="135" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -82,15 +51,10 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="eYw-3e-dZn" firstAttribute="bottom" secondItem="o7r-ag-ybO" secondAttribute="top" constant="40" id="2dl-7s-zZ2"/>
-                    <constraint firstItem="FR9-vy-6ZU" firstAttribute="leading" secondItem="eYw-3e-dZn" secondAttribute="trailing" constant="32" id="7aZ-qU-xMo"/>
-                    <constraint firstItem="FR9-vy-6ZU" firstAttribute="top" secondItem="eYw-3e-dZn" secondAttribute="bottom" constant="1" id="AcG-J1-Kj7"/>
                     <constraint firstAttribute="bottom" secondItem="mj1-AS-JFC" secondAttribute="bottom" id="FrP-kG-FT2"/>
-                    <constraint firstItem="eYw-3e-dZn" firstAttribute="leading" secondItem="o7r-ag-ybO" secondAttribute="trailing" constant="32" id="Gyb-FY-qnT"/>
                     <constraint firstAttribute="centerX" secondItem="SYU-0g-Bru" secondAttribute="centerX" id="LgA-mf-CnY"/>
                     <constraint firstItem="mj1-AS-JFC" firstAttribute="leading" secondItem="839-IE-Fux" secondAttribute="leading" id="MOe-Pc-zdf"/>
                     <constraint firstItem="mj1-AS-JFC" firstAttribute="top" secondItem="839-IE-Fux" secondAttribute="top" id="RhJ-cy-duh"/>
-                    <constraint firstItem="FR9-vy-6ZU" firstAttribute="width" secondItem="FR9-vy-6ZU" secondAttribute="height" multiplier="1:1" id="TUk-5f-kog"/>
                     <constraint firstAttribute="bottomMargin" secondItem="dCl-rz-Vpi" secondAttribute="bottom" constant="8" id="WLI-Z2-rW3"/>
                     <constraint firstItem="SYU-0g-Bru" firstAttribute="top" secondItem="eYw-3e-dZn" secondAttribute="bottom" constant="8" id="YPv-Oe-kQX"/>
                     <constraint firstAttribute="trailing" secondItem="mj1-AS-JFC" secondAttribute="trailing" id="elJ-OO-YRl"/>
@@ -98,14 +62,8 @@
                     <constraint firstItem="uhl-zO-LMa" firstAttribute="top" secondItem="SYU-0g-Bru" secondAttribute="bottom" constant="8" id="jLh-hN-8Hc"/>
                     <constraint firstAttribute="centerX" secondItem="eYw-3e-dZn" secondAttribute="centerX" id="nXH-fQ-znx"/>
                     <constraint firstItem="uhl-zO-LMa" firstAttribute="centerX" secondItem="SYU-0g-Bru" secondAttribute="centerX" constant="-0.5" id="qWu-CT-l6f"/>
-                    <constraint firstItem="o7r-ag-ybO" firstAttribute="centerY" secondItem="FR9-vy-6ZU" secondAttribute="centerY" id="r4u-Xf-XEj"/>
                     <constraint firstItem="eYw-3e-dZn" firstAttribute="top" secondItem="839-IE-Fux" secondAttribute="topMargin" id="zvN-3b-FEm"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="AcG-J1-Kj7"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="alleyImageView" destination="eYw-3e-dZn" id="TXL-Yg-Xe7"/>
@@ -118,7 +76,5 @@
     </objects>
     <resources>
         <image name="alley_detail_banner.png" width="414" height="201"/>
-        <image name="message.png" width="38" height="38"/>
-        <image name="telephone.png" width="38" height="39"/>
     </resources>
 </document>

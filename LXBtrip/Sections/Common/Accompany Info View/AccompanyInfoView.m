@@ -22,12 +22,12 @@
 
 @implementation AccompanyInfoView
 
-- (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName introduce:(NSString *)introduce price:(NSNumber *)price instructions:(NSString *)instruction
+- (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName productName:(NSString *)productName price:(NSNumber *)price instructions:(NSString *)instruction
 {
     viewHeight = 163.f;
     
     _providerNameLabel.text = supplierName;
-    _tourKeywordsLabel.text = introduce;
+    _tourKeywordsLabel.text = productName;
     _calPriceLabel.text = [NSString stringWithFormat:@"￥%@起", price];
     _instructionsLabel.text = instruction;
     

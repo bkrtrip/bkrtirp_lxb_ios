@@ -35,6 +35,7 @@
 + (NSString *)staffRealName;
 + (NSString *)staffDepartmentName;
 + (NSString *)userToken;
++ (NSString *)userName;
++ (void)updateUserProperty:(NSString *)property ForKey:(NSString *)key;
 
- 
 @end

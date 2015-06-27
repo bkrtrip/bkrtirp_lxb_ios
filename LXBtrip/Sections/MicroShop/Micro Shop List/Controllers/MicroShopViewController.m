@@ -646,7 +646,7 @@
         MicroShopInfo *curShop = _myShopsArray[indexPath.row];
         if ([UserModel companyId] && [UserModel staffId]) {
             // go to set user info page
-            if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
+            if (![UserModel staffRealName]) {
                 SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
                 [self.navigationController pushViewController:setName animated:YES];
             } else {

@@ -36,4 +36,7 @@
     }
 }
 
+- (IBAction)hotLineButtonClicked:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://4009979029"]]];
+}
 @end

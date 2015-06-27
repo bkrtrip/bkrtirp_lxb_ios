@@ -931,16 +931,64 @@ singleton_implementation(HTTPTool)
     }];
 }
 
-
-
-
-
-
-
-
-
-
-
+// 设置个人信息 - LXB43224
++ (void)setSelfInfoWithStaffId:(NSString *)staffId companyId:(NSString *)companyId avatarString:(NSString *)avatar contactName:(NSString *)contactName shopName:(NSString *)shopName phoneNumber:(NSString *)phoneNumber provinceId:(NSString *)provinceId provinceName:(NSString *)provinceName cityId:(NSString *)cityId cityName:(NSString *)cityName areaId:(NSString *)areaId areaName:(NSString *)areaName address:(NSString *)address success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    if (!staffId || !companyId) {
+        return;
+    }
+    
+    NSMutableDictionary *param = [@{@"staffid":staffId, @"companyid":companyId} mutableCopy];
+    
+    if (avatar) {
+        [param setObject:avatar forKey:@"head"];
+    }
+    if (contactName) {
+        [param setObject:contactName forKey:@"contacts"];
+    }
+    if (shopName) {
+        [param setObject:shopName forKey:@"wdname"];
+    }
+    if (phoneNumber) {
+        [param setObject:phoneNumber forKey:@"phone"];
+    }
+    if (provinceId) {
+        [param setObject:provinceId forKey:@"provinceid"];
+    }
+    if (provinceName) {
+        [param setObject:provinceName forKey:@"provincename"];
+    }
+    if (cityId) {
+        [param setObject:cityId forKey:@"cityid"];
+    }
+    if (cityName) {
+        [param setObject:cityName forKey:@"cityname"];
+    }
+    if (areaId) {
+        [param setObject:areaId forKey:@"areaid"];
+    }
+    if (areaName) {
+        [param setObject:areaName forKey:@"areaname"];
+    }
+    if (address) {
+        [param setObject:address forKey:@"address"];
+    }
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB43224" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"myself/setStaff"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
 
 
 

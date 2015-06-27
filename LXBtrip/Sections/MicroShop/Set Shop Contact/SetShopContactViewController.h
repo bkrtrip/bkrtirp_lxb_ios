@@ -10,4 +10,6 @@
 
 @interface SetShopContactViewController : NavBaseViewController
 
+@property (nonatomic, copy) NSString *shopName;
+
 @end

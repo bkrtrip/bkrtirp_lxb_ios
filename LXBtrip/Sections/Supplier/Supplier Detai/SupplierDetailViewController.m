@@ -15,6 +15,7 @@
 #import "TourWebPreviewViewController.h"
 #import "SetShopNameViewController.h"
 #import "AccompanyInfoViewController.h"
+#import "TourDetailTableViewController.h"
 
 @interface SupplierDetailViewController()<UITableViewDataSource, UITableViewDelegate, YesOrNoViewDelegate, TourListTableViewCell_Delegate, ShareViewDelegate, AccompanyInfoView_Delegate, UIScrollViewDelegate>
 {
@@ -126,8 +127,8 @@
         return;
     }
     
-    // 未完成资料，合并后要修改
-    if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
+    // 未完成资料
+    if (![UserModel staffRealName]) {
         // go to open micro shop
         SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
         [self.navigationController pushViewController:setName animated:YES];
@@ -291,11 +292,29 @@
     return 138.f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row > 0) {
+        if ([UserModel staffId] && [UserModel companyId]) {
+            TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
+            SupplierProduct *curProduct = _info.supplierProductsArray[indexPath.row-1];
+            detail.product = curProduct;
+            [self.navigationController pushViewController:detail animated:YES];
+        }
+    }
+}
+
 #pragma mark - TourListTableViewCell_Delegate
 - (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
     if (![UserModel companyId] || ![UserModel staffId]) {
         [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return;
+    }
+    
+    if (![UserModel staffRealName]) {
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
         return;
     }
     
@@ -333,6 +352,12 @@
         return;
     }
     
+    if (![UserModel staffRealName]) {
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
+        return;
+    }
+    
     popUpType = Preview_Type;
     selectedProduct = product;
     
@@ -366,11 +391,17 @@
         return;
     }
     
+    if (![UserModel staffRealName]) {
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
+        return;
+    }
+    
     popUpType = Accompany_Type;
     selectedProduct = product;
     if (!_accompanyInfoView) {
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName introduce:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
+        CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productTravelGoodsName price:product.productMarketPrice instructions:product.productPeerNotice];
         
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
@@ -390,7 +421,7 @@
 }
 - (void)supportClickWithPhoneCall
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedProduct.productCompanyContactPhone]]];
 }
 - (void)supportClickWithShortMessage
 {
@@ -460,7 +491,7 @@
     }
     
     // 未完成资料，合并后要修改
-    if (![UserModel staffRealName] || ![UserModel staffDepartmentName]) {
+    if (![UserModel staffRealName]) {
         // go to open micro shop
         SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
         [self.navigationController pushViewController:setName animated:YES];

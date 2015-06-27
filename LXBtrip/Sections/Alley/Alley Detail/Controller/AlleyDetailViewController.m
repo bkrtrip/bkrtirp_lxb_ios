@@ -28,13 +28,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInstructionCellHeight:) name:@"INSTRUCTION_CELL_HTML_HAS_FINISHED_LOADING" object:nil];
+    
     _callButton.layer.cornerRadius = 5.f;
     self.title = @"服务商信息";
     cellHeights = [[NSMutableDictionary alloc] init];
     
     [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_Top" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_Top"];
-    
-//    [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_JoinNum" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_JoinNum"];
     
     [_tableView registerNib:[UINib nibWithNibName:@"AlleyDetailCell_Location" bundle:nil] forCellReuseIdentifier:@"AlleyDetailCell_Location"];
     
@@ -54,6 +55,14 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+}
+
+- (void)updateInstructionCellHeight:(NSNotification *)note
+{
+    CGFloat instructionCellHeight = [note.userInfo[@"instruction_cell_height"] floatValue];
+    [cellHeights setObject:@(instructionCellHeight) forKey:@"third_cell_height"];
+    [_tableView reloadData];
+
 }
 
 #pragma mark - Override
@@ -88,7 +97,7 @@
             cellHeight = [instructionCell cellHeightWithAlleyInfo:_alley];
             [cellHeights setObject:@(cellHeight) forKey:@"third_cell_height"];
             
-            [_tableView reloadData];
+//            [_tableView reloadData];
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];

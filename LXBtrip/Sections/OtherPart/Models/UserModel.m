@@ -113,5 +113,11 @@ static NSString *userPlistPath = nil;
     NSDictionary *userDic = [self getUserInformations];
     return [userDic[@"RS100034"][@"access_token"] objectForKey:@"token"];
 }
++ (NSString *)userName
+{
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"] objectForKey:@"staff_name"];
+}
+
 
 @end

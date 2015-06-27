@@ -45,14 +45,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = YES;
     
     _alleysArray = [[NSMutableArray alloc] init];
     
     AlleyListCollectionViewFlowLayout *flow = [[AlleyListCollectionViewFlowLayout alloc] init];
     
     CGFloat yOrigin = SCREEN_WIDTH/(1240.f/88.f) + 10.f + SCREEN_WIDTH/(1242.f/456.f);
-    _collectionView = [[AlleyListCollectionView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH + 1.f, SCREEN_HEIGHT - yOrigin) collectionViewLayout:flow];
+    _collectionView = [[AlleyListCollectionView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH + 1.f, SCREEN_HEIGHT - yOrigin - 49.f) collectionViewLayout:flow];
     
     [_collectionView registerNib:[UINib nibWithNibName:@"AlleyListCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"AlleyListCollectionViewCell"];
     
@@ -162,6 +161,7 @@
             if (isLoadingMore == NO) {
                 [_alleysArray removeAllObjects];
                 [_collectionView reloadData];
+                isLoadingMore = YES;
             }
             
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100020"] succeed:^{
