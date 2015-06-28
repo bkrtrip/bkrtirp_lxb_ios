@@ -8,14 +8,26 @@
 
 #import "MicroShopDetailViewController.h"
 
+const CGFloat Img_Width_To_Height = 730.f/760.f;
+
 @interface MicroShopDetailViewController ()
+{
+    UIImage *fullImage;
+}
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UIScrollView *fullImageScrollView;
+@property (strong, nonatomic) UIButton *dismissFullImageButton;
+
 @property (strong, nonatomic) IBOutlet UIButton *addToMyShopButton;
 - (IBAction)addToMyShopButtonClicked:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *hasAddedToMyShopButton;
 
+- (IBAction)showFullImageButtonClicked:(id)sender;
+
 @property (strong, nonatomic) IBOutlet UIImageView *shopImageView;
+@property (strong, nonatomic)  UIImageView *fullImageView;
+
 @property (strong, nonatomic) IBOutlet UILabel *shopNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *shopProviderLabel;
 @property (strong, nonatomic) IBOutlet UILabel *shopTypeLabel;
@@ -80,7 +92,16 @@
         _info = [[MicroShopInfo alloc] initWithDict:data];
         
         [_shopImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, _info.shopImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            ;
+            if (image) {
+                fullImage = [image copy];
+                
+                CGFloat imgWidth = image.size.width;
+                CGFloat cropedHeight = imgWidth/Img_Width_To_Height;
+                CGRect rect =  CGRectMake(0, 0, imgWidth, cropedHeight);//要裁剪的图片区域，按照原图的像素大小来，超过原图大小的边自动适配
+                CGImageRef cgimg = CGImageCreateWithImageInRect([image CGImage], rect);
+                _shopImageView.image = [UIImage imageWithCGImage:cgimg];
+                CGImageRelease(cgimg);//用完一定要释放，否则内存泄露
+            }
         }];
         
         _shopNameLabel.text = _info.shopName;
@@ -147,4 +168,45 @@
         }];
     }
 }
+- (IBAction)showFullImageButtonClicked:(id)sender {
+    if (!fullImage) {
+        return;
+    }
+    CGFloat fullImgWidthToHeight = fullImage.size.width/fullImage.size.height;
+    
+    if (!_fullImageScrollView) {
+        _fullImageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -44, SCREEN_WIDTH, SCREEN_HEIGHT - 20.f)];
+        _fullImageScrollView.backgroundColor = [UIColor whiteColor];
+        [_fullImageScrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_WIDTH/fullImgWidthToHeight)];
+        [self.view addSubview:_fullImageScrollView];
+    }
+    
+    if (!_fullImageView) {
+        _fullImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.f, 10.f, SCREEN_WIDTH-2*10.f, SCREEN_WIDTH/fullImgWidthToHeight - 2*10.f)];
+        _fullImageView.image = fullImage;
+        _fullImageView.contentMode = UIViewContentModeScaleToFill;
+        [_fullImageScrollView addSubview:_fullImageView];
+    }
+    
+    if (!_dismissFullImageButton) {
+        _dismissFullImageButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/fullImgWidthToHeight)];
+        _dismissFullImageButton.backgroundColor = [UIColor clearColor];
+        [_dismissFullImageButton addTarget:self action:@selector(dismissFullImage) forControlEvents:UIControlEventTouchUpInside];
+        [_fullImageScrollView addSubview:_dismissFullImageButton];
+    }
+    
+    _fullImageScrollView.hidden = NO;
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)dismissFullImage
+{
+    _fullImageScrollView.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+}
+
+
 @end
+
+
+

@@ -74,7 +74,20 @@
 {
     _startDate = [note userInfo][@"start_date"];
     weekday = [[note userInfo][@"weekday"] integerValue];
+    
+    [self calculateFirstTwoCellHeights];
     [_tableView reloadData];
+}
+
+- (void)calculateFirstTwoCellHeights
+{
+    TourDetailCell_One *firstCell = [[NSBundle mainBundle] loadNibNamed:@"TourDetailCell_One" owner:nil options:nil][0];
+    CGFloat cellHeight = [firstCell cellHeightWithSupplierProduct:_product startDate:_startDate];
+    [cellHeights setObject:@(cellHeight) forKey:@"first_cell_height"];
+    
+    TourDetailCell_Two *secondCell = [[NSBundle mainBundle] loadNibNamed:@"TourDetailCell_Two" owner:nil options:nil][0];
+    cellHeight = [secondCell cellHeightWithSupplierProduct:_product startDate:_startDate];
+    [cellHeights setObject:@(cellHeight) forKey:@"second_cell_height"];
 }
 
 - (void)getTourDetail
@@ -88,25 +101,18 @@
             NSString *nowDate = [self nowDateString];
             [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
                 // 多线程不一定按顺序循环
-                if ([grp.marketTime compare:nowDate] != NSOrderedAscending) {
+                if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:nowDate] != NSOrderedAscending) {
                     if (!_startDate) {
-                        _startDate = grp.marketTime;
-                    } else {
-                        if ([grp.marketTime compare:_startDate] == NSOrderedAscending) {
-                            _startDate = grp.marketTime;
-                        }
+                        _startDate = [grp.marketTime copy];
+                    }
+                    
+                    if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:_startDate] == NSOrderedAscending) {
+                        _startDate = [grp.marketTime copy];
                     }
                 }
             }];
             
-            TourDetailCell_One *firstCell = [[NSBundle mainBundle] loadNibNamed:@"TourDetailCell_One" owner:nil options:nil][0];
-            CGFloat cellHeight = [firstCell cellHeightWithSupplierProduct:_product startDate:_startDate];
-            [cellHeights setObject:@(cellHeight) forKey:@"first_cell_height"];
-            
-            TourDetailCell_Two *secondCell = [[NSBundle mainBundle] loadNibNamed:@"TourDetailCell_Two" owner:nil options:nil][0];
-            cellHeight = [secondCell cellHeightWithSupplierProduct:_product startDate:_startDate];
-            [cellHeights setObject:@(cellHeight) forKey:@"second_cell_height"];
-            
+            [self calculateFirstTwoCellHeights];
             [_tableView reloadData];
         }];
     } fail:^(id result) {

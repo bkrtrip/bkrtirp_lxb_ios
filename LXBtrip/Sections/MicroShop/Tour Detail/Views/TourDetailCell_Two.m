@@ -12,7 +12,7 @@
 
 const CGFloat bedImageWidth = 11.f;
 const CGFloat bedImageHeight = 11.f;
-const CGFloat adultMarketWidth = 90.f;
+const CGFloat adultMarketWidth = 82.f;
 const CGFloat adultMarketHeight = 16.f;
 const CGFloat yOrigin = 64.f;
 
@@ -42,21 +42,21 @@ const CGFloat yOrigin = 64.f;
         _adultMarketLabel = [[UILabel alloc] init];
         _adultMarketLabel.font = [UIFont boldSystemFontOfSize:14.f];
         _adultMarketLabel.textColor = TEXT_333333;
-        _adultMarketLabel.text = @"成人结算价：";
+        _adultMarketLabel.text = @"成人结算价:";
         [self.contentView addSubview:_adultMarketLabel];
     }
     if (!_kidNoBedMarketLabel) {
         _kidNoBedMarketLabel = [[UILabel alloc] init];
         _kidNoBedMarketLabel.font = [UIFont boldSystemFontOfSize:14.f];
         _kidNoBedMarketLabel.textColor = TEXT_333333;
-        _kidNoBedMarketLabel.text = @"儿童结算价：";
+        _kidNoBedMarketLabel.text = @"儿童结算价:";
         [self.contentView addSubview:_kidNoBedMarketLabel];
     }
     if (!_kidWithBedMarketLabel) {
         _kidWithBedMarketLabel = [[UILabel alloc] init];
         _kidWithBedMarketLabel.font = [UIFont boldSystemFontOfSize:14.f];
         _kidWithBedMarketLabel.textColor = TEXT_333333;
-        _kidWithBedMarketLabel.text = @"儿童结算价：";
+        _kidWithBedMarketLabel.text = @"儿童结算价:";
         [self.contentView addSubview:_kidWithBedMarketLabel];
     }
     

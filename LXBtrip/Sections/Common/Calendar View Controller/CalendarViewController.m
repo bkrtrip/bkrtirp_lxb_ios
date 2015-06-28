@@ -72,30 +72,30 @@
 
 - (void)backArrowClick:(id)sender
 {
-    if (_currentDay) {
-        NSDate *date = _currentDay.date;
-        NSDateComponents *comps = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:date];
-        
-        NSInteger cellYear = [comps year];
-        NSInteger cellMonth = [comps month];
-        NSInteger cellDay = [comps day];
-        NSInteger weekday = [comps weekday];
-        
-        [_priceGroupsArray enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
-            NSString *time = grp.marketTime;
-            NSArray *temp = [time componentsSeparatedByString:@"-"];
-            if (([temp[0] integerValue] == cellYear)
-                && ([temp[1] integerValue] == cellMonth)
-                && ([temp[2] integerValue] == cellDay)) {
-                if (grp.marketAdultPrice && [grp.marketAdultPrice integerValue]!=0) {
-                    NSDictionary *info = @{@"start_date":grp.marketTime, @"weekday":@(weekday)};
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"Start_Date_Changed" object:self userInfo:info];
-                    return ;
-                }
-            }
-        }];
-
-    }
+//    if (_currentDay) {
+//        NSDate *date = _currentDay.date;
+//        NSDateComponents *comps = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:date];
+//        
+//        NSInteger cellYear = [comps year];
+//        NSInteger cellMonth = [comps month];
+//        NSInteger cellDay = [comps day];
+//        NSInteger weekday = [comps weekday];
+//        
+//        [_priceGroupsArray enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+//            NSString *time = grp.marketTime;
+//            NSArray *temp = [time componentsSeparatedByString:@"-"];
+//            if (([temp[0] integerValue] == cellYear)
+//                && ([temp[1] integerValue] == cellMonth)
+//                && ([temp[2] integerValue] == cellDay)) {
+//                if (grp.marketAdultPrice && [grp.marketAdultPrice integerValue]!=0) {
+//                    NSDictionary *info = @{@"start_date":grp.marketTime, @"weekday":@(weekday)};
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"Start_Date_Changed" object:self userInfo:info];
+//                    return ;
+//                }
+//            }
+//        }];
+//
+//    }
     [super backArrowClick:sender];
 }
 
@@ -319,6 +319,39 @@
         if (dateInDifferentMonth) {
             [self slideTransitionViewInDirection:[dateDay.date timeIntervalSinceDate:self.firstOfCurrentMonth]];
         }
+    }
+    
+    __block BOOL selectDayIsValid = NO;
+    
+    if (_currentDay) {
+        NSDate *date = _currentDay.date;
+        NSDateComponents *comps = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:date];
+        
+        NSInteger cellYear = [comps year];
+        NSInteger cellMonth = [comps month];
+        NSInteger cellDay = [comps day];
+        NSInteger weekday = [comps weekday];
+        
+        [_priceGroupsArray enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+            NSString *time = grp.marketTime;
+            NSArray *temp = [time componentsSeparatedByString:@"-"];
+            if (([temp[0] integerValue] == cellYear)
+                && ([temp[1] integerValue] == cellMonth)
+                && ([temp[2] integerValue] == cellDay)) {
+                if (grp.marketAdultPrice && [grp.marketAdultPrice integerValue]!=0) {
+                    selectDayIsValid = YES;
+                    NSDictionary *info = @{@"start_date":grp.marketTime, @"weekday":@(weekday)};
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"Start_Date_Changed" object:self userInfo:info];
+                }
+            }
+        }];
+    }
+    
+    if (selectDayIsValid == NO) {
+        [self.currentDay setSelected:NO];
+        return;
+    } else {
+        [self backArrowClick:nil];
     }
 }
 

@@ -18,6 +18,9 @@ singleton_interface(Global)
 // compare function
 NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context);
 
+NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context);
+
+
 - (void)saveToSearchHistoryWithKeyword:(NSString *)keyword;
 - (NSMutableArray *)searchHistory;
 - (void)clearSearchHistory;
@@ -35,7 +38,8 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 - (void)saveNotFirstLoginStatus;
 
 - (NSString *)replaceUnicode:(NSString *)unicodeStr;
-
 - (NSString *)weekDayFromDateString:(NSString *)dateString;
+- (NSComparisonResult)compareDateStringOne:(NSString *)one withDateStringTwo:(NSString *)two;
+
 
 @end

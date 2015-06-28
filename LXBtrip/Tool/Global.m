@@ -27,6 +27,11 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return [initial_1 caseInsensitiveCompare:initial_2];
 }
 
+NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context) {
+    return [order_2.orderStartDate caseInsensitiveCompare:order_1.orderStartDate];
+}
+
+
 // search history
 - (void)saveToSearchHistoryWithKeyword:(NSString *)keyword {
     NSMutableArray *history = [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSearchHistory] mutableCopy];
@@ -233,6 +238,37 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     }
 }
 
+- (NSComparisonResult)compareDateStringOne:(NSString *)one withDateStringTwo:(NSString *)two
+{
+    NSArray *oneComponents = [one componentsSeparatedByString:@"-"];
+    NSArray *twoComponents = [two componentsSeparatedByString:@"-"];
+    
+    if ([oneComponents[0] integerValue] > [twoComponents[0] integerValue]) {
+        return NSOrderedDescending;
+    }
+    
+    if ([oneComponents[0] integerValue] < [twoComponents[0] integerValue]) {
+        return NSOrderedAscending;
+    }
+    
+    if ([oneComponents[1] integerValue] > [twoComponents[1] integerValue]) {
+        return NSOrderedDescending;
+    }
+    
+    if ([oneComponents[1] integerValue] < [twoComponents[1] integerValue]) {
+        return NSOrderedAscending;
+    }
+    
+    if ([oneComponents[2] integerValue] > [twoComponents[2] integerValue]) {
+        return NSOrderedDescending;
+    }
+    
+    if ([oneComponents[2] integerValue] < [twoComponents[2] integerValue]) {
+        return NSOrderedAscending;
+    }
+    
+    return NSOrderedSame;
+}
 
 
 @end

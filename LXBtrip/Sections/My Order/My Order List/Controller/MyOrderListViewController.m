@@ -257,6 +257,8 @@
                     [ordersArray[selectedIndex] addObject:item];
                 }];
                 
+                ordersArray[selectedIndex] = [[self sortByTimeDescendingWithOrders:ordersArray[selectedIndex]] mutableCopy];
+                
                 [tableViewsArray[selectedIndex] reloadData];
                 pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue]+1);
             } else {
@@ -389,16 +391,16 @@
         [dict setObject:group.adultNum forKey:@"adult_person"];
     }
     if (group.kidPrice) {
-        [dict setObject:group.kidPrice forKey:@"kid_price"];
+        [dict setObject:group.kidPrice forKey:@"kid_nbed_price"];
     }
     if (group.kidBedPrice) {
-        [dict setObject:group.kidBedPrice forKey:@"kid_bed_price"];
+        [dict setObject:group.kidBedPrice forKey:@"kid_price"];
     }
     if (group.kidNum) {
-        [dict setObject:group.kidNum forKey:@"kid_person"];
+        [dict setObject:group.kidNum forKey:@"kid_nbed_person"];
     }
     if (group.kidBedNum) {
-        [dict setObject:group.kidBedNum forKey:@"kid_bed_person"];
+        [dict setObject:group.kidBedNum forKey:@"kid_person"];
     }
     if (group.diffPrice) {
         [dict setObject:group.diffPrice forKey:@"diff_price"];
@@ -451,5 +453,15 @@
     }
     return jsonString;
 }
+
+- (NSArray *)sortByTimeDescendingWithOrders:(NSArray *)orders
+{
+    return [orders sortedArrayUsingFunction:sortOrder context:NULL];
+/*
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderStartDate" ascending:NO];
+    return [orders sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+*/
+}
+
 
 @end
