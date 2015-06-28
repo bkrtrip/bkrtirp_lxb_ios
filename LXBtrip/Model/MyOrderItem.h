@@ -28,7 +28,7 @@
 @property (nonatomic, strong) NSMutableArray *orderTouristGroup;
 
 @property (nonatomic, copy) NSString *orderTravelGoodsCode;//
-@property (nonatomic, copy) NSString *orderTravelGoodsId;//
+@property (nonatomic, copy) NSNumber *orderTravelGoodsId;//
 @property (nonatomic, copy) NSString *orderTravelGoodsName;//
 @property (nonatomic, copy) NSString *orderTravelGoodsImg;//
 

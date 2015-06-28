@@ -18,6 +18,6 @@
 @interface CreateOrderCell_Price : UITableViewCell
 
 @property (nonatomic, weak) id <CreateOrderCell_Price_Delegate>delegate;
-- (void)setCellContentWithOrder:(MyOrderItem *)order touristType:(TouristType)type;
+- (void)setCellContentWithOrder:(MyOrderItem *)order touristType:(TouristType)type shouldShowGraySeparator:(BOOL)showSeparator;
 
 @end

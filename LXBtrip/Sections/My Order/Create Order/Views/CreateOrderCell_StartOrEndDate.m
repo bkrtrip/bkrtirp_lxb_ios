@@ -7,6 +7,7 @@
 //
 
 #import "CreateOrderCell_StartOrEndDate.h"
+#import "Global.h"
 
 @interface CreateOrderCell_StartOrEndDate()
 
@@ -22,10 +23,12 @@
     // Initialization code
 }
 
-- (void)setCellContentWithTitle:(NSString *)title date:(NSString *)date
+- (void)setCellContentWithTitle:(NSString *)title date:(NSString *)date dateColor:(UIColor *)color
 {
     _startOrEndTitleLabel.text = title;
-    _startOrEndDateLabel.text = date;
+    _startOrEndDateLabel.text = [NSString stringWithFormat:@"%@ %@", date, [[Global sharedGlobal] weekDayFromDateString:date]];
+    _startOrEndDateLabel.textColor = color;
 }
+
 
 @end

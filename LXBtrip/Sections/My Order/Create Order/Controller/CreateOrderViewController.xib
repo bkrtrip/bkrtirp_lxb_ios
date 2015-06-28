@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateOrderViewController">
             <connections>
                 <outlet property="tableView" destination="0jA-80-We3" id="qC7-Mh-haJ"/>
+                <outlet property="totalCostLabel" destination="o4p-oe-rNc" id="r6S-Be-mnJ"/>
                 <outlet property="view" destination="j9q-Vx-dXh" id="I13-ye-LcU"/>
             </connections>
         </placeholder>
@@ -17,23 +19,82 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jA-80-We3">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="512"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="9dz-93-dsA"/>
                         <outlet property="delegate" destination="-1" id="PV0-iP-OX8"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RuR-4h-Q5t">
+                    <rect key="frame" x="0.0" y="512" width="320" height="56"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单金额：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-Ak-oIe">
+                            <rect key="frame" x="8" y="20" width="70" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥12400" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4p-oe-rNc">
+                            <rect key="frame" x="78" y="20" width="54" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ne9-Lb-sxj">
+                            <rect key="frame" x="159" y="0.0" width="159" height="56"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title=" 确认参团" image="confirm_order.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="confirmOrderButtonClicked:" destination="-1" eventType="touchUpInside" id="knj-Ch-jY7"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="o4p-oe-rNc" firstAttribute="leading" secondItem="d6y-Ak-oIe" secondAttribute="trailing" id="2Oj-uO-hvI"/>
+                        <constraint firstAttribute="height" constant="56" id="5we-lk-QKy"/>
+                        <constraint firstAttribute="centerY" secondItem="d6y-Ak-oIe" secondAttribute="centerY" id="JEt-0E-ujW"/>
+                        <constraint firstAttribute="width" secondItem="Ne9-Lb-sxj" secondAttribute="width" multiplier="2" id="N1z-CZ-XpN"/>
+                        <constraint firstAttribute="centerY" secondItem="Ne9-Lb-sxj" secondAttribute="centerY" id="Pqc-6f-2l6"/>
+                        <constraint firstItem="o4p-oe-rNc" firstAttribute="centerY" secondItem="d6y-Ak-oIe" secondAttribute="centerY" id="VBc-Jr-LIr"/>
+                        <constraint firstAttribute="trailing" secondItem="o4p-oe-rNc" secondAttribute="trailing" constant="37" id="bw9-5c-Hyr"/>
+                        <constraint firstAttribute="trailing" secondItem="Ne9-Lb-sxj" secondAttribute="trailing" id="eAP-qE-Jf6"/>
+                        <constraint firstAttribute="centerY" secondItem="o4p-oe-rNc" secondAttribute="centerY" id="mAt-Oj-LQx"/>
+                        <constraint firstItem="d6y-Ak-oIe" firstAttribute="leading" secondItem="RuR-4h-Q5t" secondAttribute="leading" constant="8" id="ojo-Vu-CTm"/>
+                        <constraint firstAttribute="height" secondItem="Ne9-Lb-sxj" secondAttribute="height" id="p1H-JX-H0u"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="bw9-5c-Hyr"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="RuR-4h-Q5t" firstAttribute="top" secondItem="0jA-80-We3" secondAttribute="bottom" id="386-jN-gga"/>
+                <constraint firstAttribute="bottom" secondItem="RuR-4h-Q5t" secondAttribute="bottom" id="MLa-IV-wp2"/>
+                <constraint firstAttribute="trailing" secondItem="RuR-4h-Q5t" secondAttribute="trailing" id="OhN-FE-Mf8"/>
                 <constraint firstItem="0jA-80-We3" firstAttribute="top" secondItem="j9q-Vx-dXh" secondAttribute="top" id="ZtJ-pw-at1"/>
                 <constraint firstItem="0jA-80-We3" firstAttribute="leading" secondItem="j9q-Vx-dXh" secondAttribute="leading" id="b19-3I-gav"/>
                 <constraint firstAttribute="trailing" secondItem="0jA-80-We3" secondAttribute="trailing" id="pWG-Ll-oNu"/>
                 <constraint firstAttribute="bottom" secondItem="0jA-80-We3" secondAttribute="bottom" id="sYM-fK-WHY"/>
+                <constraint firstItem="RuR-4h-Q5t" firstAttribute="leading" secondItem="j9q-Vx-dXh" secondAttribute="leading" id="ymb-iW-wiV"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="sYM-fK-WHY"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="111" y="389"/>
         </view>
     </objects>
+    <resources>
+        <image name="confirm_order.png" width="20" height="27"/>
+    </resources>
 </document>

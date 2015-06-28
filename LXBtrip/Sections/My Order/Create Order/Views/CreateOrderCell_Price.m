@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *plusButton;
 @property (strong, nonatomic) IBOutlet UILabel *personNumLabel;
 
+@property (strong, nonatomic) IBOutlet UIView *graySeparatorView;
 @property (strong, nonatomic) IBOutlet UILabel *diffPriceLabel;
 @end
 
@@ -30,7 +31,7 @@
     // Initialization code
 }
 
-- (void)setCellContentWithOrder:(MyOrderItem *)order touristType:(TouristType)type
+- (void)setCellContentWithOrder:(MyOrderItem *)order touristType:(TouristType)type shouldShowGraySeparator:(BOOL)showSeparator
 {
     touristType = type;
     
@@ -82,10 +83,14 @@
     if ([_personNumLabel.text isEqualToString:@"0"]) {
         _minusButton.enabled = NO;
         _personNumLabel.backgroundColor = [UIColor whiteColor];
+        _personNumLabel.textColor = TEXT_333333;
     } else {
         _minusButton.enabled = YES;
         _personNumLabel.backgroundColor = RED_FF0075;
+        _personNumLabel.textColor = [UIColor whiteColor];
     }
+    
+    _graySeparatorView.hidden = !showSeparator;
 }
 
 - (IBAction)minusButtonClicked:(id)sender {
@@ -94,9 +99,11 @@
     if ([_personNumLabel.text isEqualToString:@"0"]) {
         _minusButton.enabled = NO;
         _personNumLabel.backgroundColor = [UIColor whiteColor];
+        _personNumLabel.textColor = TEXT_333333;
     } else {
         _minusButton.enabled = YES;
         _personNumLabel.backgroundColor = RED_FF0075;
+        _personNumLabel.textColor = [UIColor whiteColor];
     }
     
     if ([self.delegate respondsToSelector:@selector(supportClickPlusOrMinusWithDeltaNum:touristType:)]) {

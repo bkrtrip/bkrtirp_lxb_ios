@@ -10,6 +10,6 @@
 
 @interface CreateOrderCell_StartOrEndDate : UITableViewCell
 
-- (void)setCellContentWithTitle:(NSString *)title date:(NSString *)date;
+- (void)setCellContentWithTitle:(NSString *)title date:(NSString *)date dateColor:(UIColor *)color;
 
 @end

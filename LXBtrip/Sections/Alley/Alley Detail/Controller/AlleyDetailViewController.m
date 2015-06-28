@@ -8,7 +8,6 @@
 
 #import "AlleyDetailViewController.h"
 #import "AlleyDetailCell_Top.h"
-#import "AlleyDetailCell_JoinNum.h"
 #import "AlleyDetailCell_Location.h"
 #import "AlleyDetailCell_Instruction.h"
 #import "AppMacro.h"

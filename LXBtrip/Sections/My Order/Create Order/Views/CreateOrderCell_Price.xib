@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -115,6 +115,7 @@
                             <constraint firstItem="zdq-X9-hW8" firstAttribute="trailing" secondItem="jH0-ng-8at" secondAttribute="trailing" id="dsX-K6-Gr9"/>
                             <constraint firstItem="zdq-X9-hW8" firstAttribute="leading" secondItem="z7e-bD-rms" secondAttribute="trailing" id="e21-5e-tXB"/>
                             <constraint firstItem="z7e-bD-rms" firstAttribute="leading" secondItem="FV3-wH-YtV" secondAttribute="trailing" id="eYx-mX-tc0"/>
+                            <constraint firstItem="hx2-nk-MTj" firstAttribute="top" secondItem="FgO-Tn-ipb" secondAttribute="top" constant="67" id="evk-7l-1gu"/>
                             <constraint firstItem="zdq-X9-hW8" firstAttribute="height" secondItem="jH0-ng-8at" secondAttribute="height" id="hUL-PP-dq5"/>
                             <constraint firstItem="0H6-OE-oih" firstAttribute="leading" secondItem="Grs-6X-hIB" secondAttribute="trailing" constant="8" id="moH-so-sZy"/>
                             <constraint firstItem="jH0-ng-8at" firstAttribute="height" secondItem="z7e-bD-rms" secondAttribute="height" constant="2" id="nNU-Ev-C7u"/>
@@ -128,6 +129,7 @@
                                 <exclude reference="5EY-17-0Vm"/>
                                 <exclude reference="QK3-TF-3vn"/>
                                 <exclude reference="UGJ-IC-6LG"/>
+                                <exclude reference="F88-sA-PPV"/>
                                 <exclude reference="JPV-5k-Je9"/>
                                 <exclude reference="8O3-nu-ZMK"/>
                                 <exclude reference="KyW-2S-n1d"/>
@@ -147,15 +149,22 @@
                 <constraints>
                     <constraint firstItem="FgO-Tn-ipb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="1" id="3sC-wt-R5G"/>
                     <constraint firstItem="2aC-uY-2x0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="82" id="9xw-zx-Kyq"/>
+                    <constraint firstAttribute="bottom" secondItem="2aC-uY-2x0" secondAttribute="bottom" id="YcH-Dm-UHa"/>
                     <constraint firstItem="FgO-Tn-ipb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pvr-fl-mhH"/>
                     <constraint firstAttribute="trailing" secondItem="2aC-uY-2x0" secondAttribute="trailing" id="quM-Ny-Ygo"/>
                     <constraint firstAttribute="trailing" secondItem="FgO-Tn-ipb" secondAttribute="trailing" constant="1" id="rEX-CK-vmF"/>
                     <constraint firstAttribute="bottom" secondItem="FgO-Tn-ipb" secondAttribute="bottom" id="vRO-Lq-1qY"/>
                     <constraint firstItem="2aC-uY-2x0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xmD-AP-eLx"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="9xw-zx-Kyq"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="diffPriceLabel" destination="hx2-nk-MTj" id="8Jv-Ik-64n"/>
+                <outlet property="graySeparatorView" destination="2aC-uY-2x0" id="uaI-NJ-fO7"/>
                 <outlet property="minusButton" destination="FV3-wH-YtV" id="sC8-lB-ZEU"/>
                 <outlet property="personNumLabel" destination="z7e-bD-rms" id="0O7-cc-lk3"/>
                 <outlet property="plusButton" destination="zdq-X9-hW8" id="def-uv-yUe"/>

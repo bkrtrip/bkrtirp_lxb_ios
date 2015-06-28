@@ -50,14 +50,25 @@
     [item.orderReservePriceGroup.kidBedNum integerValue]*[item.orderReservePriceGroup.kidBedPrice floatValue];
     
     if (adultTotalPrice == 0) {
-        _adultPriceLabel.text = @"成人:￥0.00";
+        _adultPriceLabel.hidden = YES;
     } else {
-        _adultPriceLabel.text = [NSString stringWithFormat:@"成人:￥%@ * %.2f", item.orderReservePriceGroup.adultNum, [item.orderReservePriceGroup.adultPrice floatValue]];
+        _adultPriceLabel.hidden = NO;
+        _adultPriceLabel.text = [NSString stringWithFormat:@"成人:￥%@*%.2f", item.orderReservePriceGroup.adultNum, [item.orderReservePriceGroup.adultPrice floatValue]];
     }
     
-    _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%.2f", kidTotalPrice];
+    if (kidTotalPrice == 0) {
+        _childPriceLabel.hidden = YES;
+    } else {
+        _childPriceLabel.hidden = NO;
+        _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%.2f", kidTotalPrice];
+    }
     
-    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + kidTotalPrice];
+    if (adultTotalPrice + kidTotalPrice == 0) {
+        _totalPriceLabel.hidden = YES;
+    } else {
+        _totalPriceLabel.hidden = NO;
+        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + kidTotalPrice];
+    }
 }
 
 

@@ -36,4 +36,6 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
 
 - (NSString *)replaceUnicode:(NSString *)unicodeStr;
 
+- (NSString *)weekDayFromDateString:(NSString *)dateString;
+
 @end

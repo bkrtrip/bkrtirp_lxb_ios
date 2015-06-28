@@ -9,18 +9,23 @@
 #import "CreateOrderViewController.h"
 #import "CreateOrderCell_OrderId.h"
 #import "CreateOrderCell_BookHeader.h"
-#import "CreateOrderCell_Confirm.h"
 #import "CreateOrderCell_Input.h"
 #import "CreateOrderCell_Price.h"
 #import "CreateOrderCell_StartOrEndDate.h"
+#import "TourDetailTableViewController.h"
 
-@interface CreateOrderViewController ()<UITableViewDataSource, UITableViewDelegate, CreateOrderCell_Confirm_Delegate, CreateOrderCell_Price_Delegate, CreateOrderCell_Input_Delegate>
+@interface CreateOrderViewController ()<UITableViewDataSource, UITableViewDelegate, CreateOrderCell_Price_Delegate, CreateOrderCell_Input_Delegate>
 {
     CGFloat keyBoardHeight;
     NSInteger touristsNumPlusTow;
     NSIndexPath *editingCellIndexPath;
+    NSInteger priceGroupNum;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UILabel *totalCostLabel;
+
+- (IBAction)confirmOrderButtonClicked:(id)sender;
+
 @property (copy, nonatomic) NSMutableArray *textFieldsIndexesArray;
 @property (copy, nonatomic) NSString *contactName;
 @property (copy, nonatomic) NSString *contactPhone;
@@ -35,7 +40,6 @@
     self.title = @"线路订单";
     [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_OrderId" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_OrderId"];
     [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_BookHeader" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_BookHeader"];
-    [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_Confirm" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_Confirm"];
     [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_Input" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_Input"];
     [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_Price" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_Price"];
     [_tableView registerNib:[UINib nibWithNibName:@"CreateOrderCell_StartOrEndDate" bundle:nil] forCellReuseIdentifier:@"CreateOrderCell_StartOrEndDate"];
@@ -64,6 +68,8 @@
     for (int i = 0; i < touristsNumPlusTow; i++) {
         [_textFieldsIndexesArray addObject:[NSIndexPath indexPathForRow:i inSection:3]];
     }
+    
+    _totalCostLabel.text = [NSString stringWithFormat:@"￥%@", _item.orderDealPrice];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,7 +104,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -107,16 +113,26 @@
             return 1;
             break;
         case 1:
-            return 6;
+        {
+            NSInteger least = 3;
+            if (_item.orderReservePriceGroup.adultPrice && [_item.orderReservePriceGroup.adultPrice integerValue] > 0) {
+                least++;
+            }
+            if (_item.orderReservePriceGroup.kidBedPrice && [_item.orderReservePriceGroup.kidBedPrice integerValue] > 0) {
+                least++;
+            }
+            if (_item.orderReservePriceGroup.kidPrice && [_item.orderReservePriceGroup.kidPrice integerValue] > 0) {
+                least++;
+            }
+            priceGroupNum = least-3;
+            return least;
+        }
             break;
         case 2:
             return 2;
             break;
         case 3:
             return touristsNumPlusTow;
-            break;
-        case 4:
-            return 1;
             break;
         default:
             return 0;
@@ -147,21 +163,32 @@
                 case 1:
                 {
                     CreateOrderCell_StartOrEndDate *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_StartOrEndDate" forIndexPath:indexPath];
-                    [cell setCellContentWithTitle:@"出发日期" date:_item.orderStartDate];
+                    [cell setCellContentWithTitle:@"出发日期" date:_item.orderStartDate dateColor:RED_FF0075];
                     return cell;
                 }
                     break;
                 case 2:
                 {
                     CreateOrderCell_StartOrEndDate *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_StartOrEndDate" forIndexPath:indexPath];
-                    [cell setCellContentWithTitle:@"返程日期" date:_item.orderReturnDate];
+                    [cell setCellContentWithTitle:@"返程日期" date:_item.orderReturnDate dateColor:TEXT_333333];
                     return cell;
                 }
                     break;
                 case 3:
                 {
                     CreateOrderCell_Price *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Price" forIndexPath:indexPath];
-                    [cell setCellContentWithOrder:_item touristType:Adult];
+                    BOOL shouldShowSeparator = NO;
+                    if (priceGroupNum+3-1 == 3) {
+                        cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
+                        shouldShowSeparator = YES;
+                    }
+                    if (_item.orderReservePriceGroup.adultPrice && [_item.orderReservePriceGroup.adultPrice integerValue] > 0) {
+                        [cell setCellContentWithOrder:_item touristType:Adult shouldShowGraySeparator:shouldShowSeparator];
+                    } else if (_item.orderReservePriceGroup.kidBedPrice && [_item.orderReservePriceGroup.kidBedPrice integerValue] > 0) {
+                        [cell setCellContentWithOrder:_item touristType:Kid_Bed shouldShowGraySeparator:shouldShowSeparator];
+                    } else if (_item.orderReservePriceGroup.kidPrice && [_item.orderReservePriceGroup.kidPrice integerValue] > 0) {
+                        [cell setCellContentWithOrder:_item touristType:Kid_No_Bed shouldShowGraySeparator:shouldShowSeparator];
+                    }
                     cell.delegate = self;
                     return cell;
                 }
@@ -169,7 +196,22 @@
                 case 4:
                 {
                     CreateOrderCell_Price *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Price" forIndexPath:indexPath];
-                    [cell setCellContentWithOrder:_item touristType:Kid_Bed];
+                    BOOL shouldShowSeparator = NO;
+                    if (priceGroupNum+3-1 == 4) {
+                        cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
+                        shouldShowSeparator = YES;
+                    }
+                    if (_item.orderReservePriceGroup.adultPrice && [_item.orderReservePriceGroup.adultPrice integerValue] > 0) {
+                        if (_item.orderReservePriceGroup.kidBedPrice && [_item.orderReservePriceGroup.kidBedPrice integerValue] > 0) {
+                            [cell setCellContentWithOrder:_item touristType:Kid_Bed shouldShowGraySeparator:shouldShowSeparator];
+                        } else if (_item.orderReservePriceGroup.kidPrice && [_item.orderReservePriceGroup.kidPrice integerValue] > 0) {
+                            [cell setCellContentWithOrder:_item touristType:Kid_No_Bed shouldShowGraySeparator:shouldShowSeparator];
+                        }
+                    } else if (_item.orderReservePriceGroup.kidBedPrice && [_item.orderReservePriceGroup.kidBedPrice integerValue] > 0) {
+                        if (_item.orderReservePriceGroup.kidPrice && [_item.orderReservePriceGroup.kidPrice integerValue] > 0) {
+                            [cell setCellContentWithOrder:_item touristType:Kid_No_Bed shouldShowGraySeparator:shouldShowSeparator];
+                        }
+                    }
                     cell.delegate = self;
                     return cell;
                 }
@@ -177,8 +219,18 @@
                 case 5:
                 {
                     CreateOrderCell_Price *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Price" forIndexPath:indexPath];
-                    [cell setCellContentWithOrder:_item touristType:Kid_No_Bed];
-                    cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
+                    BOOL shouldShowSeparator = NO;
+                    if (priceGroupNum+3-1 == 5) {
+                        cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
+                        shouldShowSeparator = YES;
+                    }
+                    if (_item.orderReservePriceGroup.adultPrice && [_item.orderReservePriceGroup.adultPrice integerValue] > 0) {
+                        if (_item.orderReservePriceGroup.kidBedPrice && [_item.orderReservePriceGroup.kidBedPrice integerValue] > 0) {
+                            if (_item.orderReservePriceGroup.kidPrice && [_item.orderReservePriceGroup.kidPrice integerValue] > 0) {
+                                [cell setCellContentWithOrder:_item touristType:Kid_No_Bed shouldShowGraySeparator:shouldShowSeparator];
+                            }
+                        }
+                    }
                     cell.delegate = self;
                     return cell;
                 }
@@ -238,15 +290,6 @@
             }
         }
             break;
-        case 4:
-        {
-            CreateOrderCell_Confirm *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Confirm" forIndexPath:indexPath];
-            [cell setCellContentWithOrder:_item];
-            cell.delegate = self;
-            return cell;
-        }
-            break;
-            
         default:
             break;
     }
@@ -259,17 +302,22 @@
 {
     switch (indexPath.section) {
         case 0:
-            return 106.f;
+            return 65.f;
             break;
         case 1:
         {
-            switch (indexPath.row) {
-                case 5:
+            if (_item.orderReservePriceGroup.diffPrice && [_item.orderReservePriceGroup.diffPrice integerValue] > 0) {
+                if (priceGroupNum+3-1 == indexPath.row) {
                     return 93.f;
-                    break;
-                default:
+                } else {
                     return 57.f;
-                    break;
+                }
+            } else {
+                if (priceGroupNum+3-1 == indexPath.row) {
+                    return 67.f;
+                } else {
+                    return 57.f;
+                }
             }
         }
             break;
@@ -290,9 +338,6 @@
             }
         }
             break;
-        case 4:
-            return 57.f;
-            break;
         default:
             break;
     }
@@ -300,12 +345,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-}
-
-#pragma mark - CreateOrderCell_Confirm_Delegate
-- (void)supportClickConfirmModification
-{
-    [self modifyOrder];
+    if (indexPath.section == 0) {
+        TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
+        SupplierProduct *product = [[SupplierProduct alloc] init];
+        product.productTravelGoodsId = _item.orderTravelGoodsId;
+        product.productTravelGoodsCode = _item.orderTravelGoodsCode;
+        detail.product = product;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 #pragma mark - CreateOrderCell_Price_Delegate
@@ -319,16 +366,19 @@
             case Adult:
             {
                 _item.orderReservePriceGroup.adultNum = [@([_item.orderReservePriceGroup.adultNum integerValue] - 1) stringValue];
+                _item.orderDealPrice = @([_item.orderDealPrice floatValue] - [_item.orderReservePriceGroup.adultPrice floatValue]);
             }
                 break;
             case Kid_Bed:
             {
                 _item.orderReservePriceGroup.kidBedNum = [@([_item.orderReservePriceGroup.kidBedNum integerValue] - 1) stringValue];
+                _item.orderDealPrice = @([_item.orderDealPrice floatValue] - [_item.orderReservePriceGroup.kidBedPrice floatValue]);
             }
                 break;
             case Kid_No_Bed:
             {
                 _item.orderReservePriceGroup.kidNum = [@([_item.orderReservePriceGroup.kidNum integerValue] - 1) stringValue];
+                _item.orderDealPrice = @([_item.orderDealPrice floatValue] - [_item.orderReservePriceGroup.kidPrice floatValue]);
             }
                 break;
             default:
@@ -353,16 +403,19 @@
             case Adult:
             {
                 _item.orderReservePriceGroup.adultNum = [@([_item.orderReservePriceGroup.adultNum integerValue] + 1) stringValue];
+                _item.orderDealPrice = @([_item.orderDealPrice floatValue] + [_item.orderReservePriceGroup.adultPrice floatValue]);
             }
                 break;
             case Kid_Bed:
             {
                 _item.orderReservePriceGroup.kidBedNum = [@([_item.orderReservePriceGroup.kidBedNum integerValue] + 1) stringValue];
+                _item.orderDealPrice = @([_item.orderDealPrice floatValue] + [_item.orderReservePriceGroup.kidBedPrice floatValue]);
             }
                 break;
             case Kid_No_Bed:
             {
                 _item.orderReservePriceGroup.kidNum = [@([_item.orderReservePriceGroup.kidNum integerValue] + 1) stringValue];
+                _item.orderDealPrice = @([_item.orderDealPrice floatValue] + [_item.orderReservePriceGroup.kidPrice floatValue]);
             }
                 break;
             default:
@@ -379,8 +432,10 @@
         NSIndexPath *lastPath = [NSIndexPath indexPathForRow:touristsNumPlusTow-1 inSection:3];
         [_textFieldsIndexesArray addObject:lastButTwoPath];
         [_textFieldsIndexesArray addObject:lastPath];
-        [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:lastPath, lastButTwoPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
+        [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:lastButTwoPath, lastPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
     }
+    
+    _totalCostLabel.text = [NSString stringWithFormat:@"￥%@", _item.orderDealPrice];
 }
 
 #pragma mark - CreateOrderCell_Input_Delegate
@@ -606,18 +661,20 @@
 {
     //    NSLog(@"hide...");
     NSDictionary* info = [aNotification userInfo];
-    CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     [UIView animateWithDuration:duration animations:^{
         [_tableView setFrame:CGRectMake(_tableView.frame.origin.x,
                                             _tableView.frame.origin.y,
                                             _tableView.bounds.size.width,
-                                            self.view.frame.size.height)];
+                                            self.view.frame.size.height - 56.f)];
         // 滚到最下面
-        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:4] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:touristsNumPlusTow-1 inSection:3] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }];
 }
 
 
+- (IBAction)confirmOrderButtonClicked:(id)sender {
+    [self modifyOrder];
+}
 @end

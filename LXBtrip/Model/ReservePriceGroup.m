@@ -15,10 +15,13 @@
     self.adultPrice = [dict[@"adult_price"] isKindOfClass:[NSNull class]]?nil:dict[@"adult_price"];
     self.adultNum = [dict[@"adult_person"] isKindOfClass:[NSNull class]]?nil:dict[@"adult_person"];
     
-    self.kidPrice = [dict[@"kid_price"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_price"];
-    self.kidBedPrice = [dict[@"kid_bed_price"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_bed_price"];
-    self.kidNum = [dict[@"kid_person"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_person"];
-    self.kidBedNum = [dict[@"kid_bed_person"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_bed_person"];
+    // kid no bed
+    self.kidPrice = [dict[@"kid_nbed_price"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_nbed_price"];
+    self.kidNum = [dict[@"kid_nbed_person"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_nbed_person"];
+
+    // kid with bed
+    self.kidBedPrice = [dict[@"kid_price"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_bed_price"];
+    self.kidBedNum = [dict[@"kid_person"] isKindOfClass:[NSNull class]]?nil:dict[@"kid_bed_person"];
 
     self.diffPrice = [dict[@"diff_price"] isKindOfClass:[NSNull class]]?nil:dict[@"diff_price"];
 

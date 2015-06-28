@@ -194,4 +194,45 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return [tempStr4 stringByReplacingOccurrencesOfString:@"<br/>"withString:@"\n"];
 }
 
+- (NSString *)weekDayFromDateString:(NSString *)dateString
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date = [formatter dateFromString:dateString];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:date];
+    
+    NSInteger cellWeekDay = [comps weekday];
+
+    switch (cellWeekDay) {
+        case 1:
+            return @"周日";
+            break;
+        case 2:
+            return @"周一";
+            break;
+        case 3:
+            return @"周二";
+            break;
+        case 4:
+            return @"周三";
+            break;
+        case 5:
+            return @"周四";
+            break;
+        case 6:
+            return @"周五";
+            break;
+        case 7:
+            return @"周六";
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
+
+
+
 @end
