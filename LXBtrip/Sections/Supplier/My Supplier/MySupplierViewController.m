@@ -7,11 +7,10 @@
 //
 
 #import "MySupplierViewController.h"
-#import "RecentContactTableViewCell.h"
 #import "MySupplierTableViewCell.h"
 #import "SupplierDetailViewController.h"
 
-@interface MySupplierViewController () <RecentContactTableViewCell_Delegate, UITableViewDataSource, UITableViewDelegate>
+@interface MySupplierViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     NSInteger selectedIndex; // 0~4
     NSMutableArray *tableViewsArray;
@@ -40,7 +39,6 @@
 @property (nonatomic, copy) NSMutableArray *allSectionsArray;
 @property (nonatomic, copy) NSMutableArray *allMySuppliersArrayUnsorted;
 @property (nonatomic, copy) NSMutableArray *allMySuppliersArrayInOrder;
-@property (nonatomic, copy) NSMutableArray *allRecentSuppliersArray;
 
 @end
 
@@ -52,7 +50,6 @@
     _allSectionsArray = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
     _allMySuppliersArrayUnsorted = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
     _allMySuppliersArrayInOrder = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
-    _allRecentSuppliersArray = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
     
     CGFloat yOrigin = 82.f;
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
@@ -71,7 +68,6 @@
     for (int i = 0; i < 5; i++) {
         UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0)];
         [tableview registerNib:[UINib nibWithNibName:@"MySupplierTableViewCell" bundle:nil] forCellReuseIdentifier:@"MySupplierTableViewCell"];
-        [tableview registerNib:[UINib nibWithNibName:@"RecentContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"RecentContactTableViewCell"];
         tableview.dataSource = self;
         tableview.delegate = self;
         tableview.tableFooterView = [[UIView alloc] init];
@@ -149,15 +145,6 @@
                     [noSuppliersArray[selectedIndex] setHidden:NO];
                     return ;
                 }
-                
-                //recently_company part
-                id recentSuppliersData = data[@"recently_company"];
-                if ([recentSuppliersData isKindOfClass:[NSArray class]]) {
-                    [recentSuppliersData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        SupplierInfo *info= [[SupplierInfo alloc] initWithDict:obj];
-                        [_allRecentSuppliersArray[selectedIndex] addObject:info];
-                    }];
-                }
             }
             [tableViewsArray[selectedIndex] reloadData];
         }];
@@ -210,31 +197,21 @@
 #pragma mark - UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [_allMySuppliersArrayInOrder[selectedIndex] count] + (_allRecentSuppliersArray.count>0?1:0);
+    return [_allMySuppliersArrayInOrder[selectedIndex] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }
     if ([_allMySuppliersArrayInOrder[selectedIndex] count] > 0) {
-        return [[_allMySuppliersArrayInOrder[selectedIndex][section-1] objectForKey:_allSectionsArray[selectedIndex][section-1]] count];
+        return [[_allMySuppliersArrayInOrder[selectedIndex][section] objectForKey:_allSectionsArray[selectedIndex][section]] count];
     } else
         return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        RecentContactTableViewCell *cell = (RecentContactTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"RecentContactTableViewCell" forIndexPath:indexPath];
-        [cell setCellContentWithSupplierInfos:_allRecentSuppliersArray[selectedIndex]];
-        cell.delegate = self;
-        return cell;
-    }
-    
     MySupplierTableViewCell *cell = (MySupplierTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MySupplierTableViewCell" forIndexPath:indexPath];
-    NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section-1] objectForKey:_allSectionsArray[selectedIndex][indexPath.section-1]];
+    NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
     [cell setCellContentWithSupplierInfo:subArray[indexPath.row]];
     return cell;
 }
@@ -248,22 +225,18 @@
 // 点击目录
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    // 最近联系section不显示
-    return index+1;
+    return index;
 }
 
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section > 0) {
-        // jump to detail
-        SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
-        NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section-1] objectForKey:_allSectionsArray[selectedIndex][indexPath.section-1]];
-        SupplierInfo *curInfo = subArray[indexPath.row];
-        detail.info = curInfo;
-        [self.navigationController pushViewController:detail animated:YES];
-    }
+    SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
+    NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
+    SupplierInfo *curInfo = subArray[indexPath.row];
+    detail.info = curInfo;
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -277,32 +250,14 @@
     label.textColor = TEXT_666666;
     label.backgroundColor = BG_F5F5F5;
     label.font = [UIFont systemFontOfSize:12.f];
-    if (section == 0) {
-        label.text = @"最近联系";
-    } else {
-        label.text = _allSectionsArray[selectedIndex][section-1];
-    }
+    label.text = _allSectionsArray[selectedIndex][section];
     
     return label;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 95.f;
-    }
     return 58.f;
 }
-
-#pragma mark - RecentContactTableViewCell_Delegate
-- (void)supportClickWithRecentContactSupplierIndex:(NSInteger)index
-{
-    SupplierInfo *selectedInfo = _allRecentSuppliersArray[selectedIndex][index];
-    // go to supplier's page
-    SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
-    detail.info = selectedInfo;
-    [self.navigationController pushViewController:detail animated:YES];
-}
-
 
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
     selectedIndex = 0;
