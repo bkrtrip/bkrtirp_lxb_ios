@@ -3462,7 +3462,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ddc1e0d2-9ddf-4adb-a7a9-551eff9bca76";
+				PROVISIONING_PROFILE = "78d612cc-a7b8-4d35-a47c-19ebcb481db0";
 			};
 			name = Debug;
 		};
@@ -3485,7 +3485,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ddc1e0d2-9ddf-4adb-a7a9-551eff9bca76";
+				PROVISIONING_PROFILE = "78d612cc-a7b8-4d35-a47c-19ebcb481db0";
 			};
 			name = Release;
 		};

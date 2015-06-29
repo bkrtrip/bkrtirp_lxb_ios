@@ -26,6 +26,7 @@
     NSNumber *shopIdToDelete;
     UIRefreshControl *refreshControl_online;
     UIRefreshControl *refreshControl_myshop;
+    MicroShopInfo *selectedShop;
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -43,7 +44,7 @@
 
 @property (strong, nonatomic) UIControl *darkMask;
 @property (nonatomic, strong) YesOrNoView *yesOrNoView;
-@property (strong, nonatomic) UILabel *changeStatusLabel;
+@property (strong, nonatomic) UIButton *changeStatusButton;
 
 @property (nonatomic, copy) NSMutableArray *onlineShopsArray;
 @property (nonatomic, copy) NSMutableArray *myShopsArray;
@@ -92,14 +93,17 @@
     [self.view addSubview:_yesOrNoView];
     
     // change status label
-    _changeStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.15*SCREEN_WIDTH, 0.4*SCREEN_HEIGHT, 0.7*SCREEN_WIDTH, 55.f)];
-    _changeStatusLabel.backgroundColor = [UIColor whiteColor];
-    _changeStatusLabel.text = @"默认";
-    _changeStatusLabel.textColor = TEXT_333333;
-    _changeStatusLabel.font = [UIFont systemFontOfSize:14.f];
-    _changeStatusLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_changeStatusLabel];
-    _changeStatusLabel.hidden = YES;
+    _changeStatusButton = [[UIButton alloc] initWithFrame:CGRectMake(0.15*SCREEN_WIDTH, 0.4*SCREEN_HEIGHT, 0.7*SCREEN_WIDTH, 55.f)];
+    _changeStatusButton.backgroundColor = [UIColor whiteColor];
+    [_changeStatusButton setTitle:@"默认" forState:UIControlStateNormal];
+    [_changeStatusButton setTitle:@"默认" forState:UIControlStateDisabled];
+
+    [_changeStatusButton setTitleColor:TEXT_333333 forState:UIControlStateNormal];
+    [_changeStatusButton setTitleColor:TEXT_CCCCD2 forState:UIControlStateDisabled];
+    _changeStatusButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+    [_changeStatusButton addTarget:self action:@selector(changeShopLockStatus) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_changeStatusButton];
+    _changeStatusButton.hidden = YES;
     
     // online shop collection view
     MicroShopFlowLayout *flow_Online = [[MicroShopFlowLayout alloc] init];
@@ -178,18 +182,31 @@
         if(indexPath == nil)
             return ;
         //add your code here
-        MicroShopInfo *selInfo = _myShopsArray[indexPath.row];
-        TemplateDefaultStatus status = [selInfo.shopIsDefault intValue];
+        selectedShop = _myShopsArray[indexPath.row];
+        NSInteger lockStatus = [selectedShop.shopIsLock intValue];
         
-        if (status == Is_Default) {
-            _changeStatusLabel.textColor = TEXT_333333;
+        if (lockStatus == 0) {
+            [_changeStatusButton setEnabled:YES];;
         } else {
-            _changeStatusLabel.textColor = TEXT_CCCCD2;
+            [_changeStatusButton setEnabled:NO];;
         }
         _darkMask.alpha = 1.f;
-        _changeStatusLabel.hidden = NO;
-
+        _changeStatusButton.hidden = NO;
     }
+}
+
+- (void)changeShopLockStatus
+{
+    [HTTPTool lockMicroshopWithShopId:selectedShop.shopId companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100044"] succeed:^{
+            [self getMyShops];
+            _changeStatusButton.hidden = YES;
+            _darkMask.alpha = 0;
+        }];
+    } fail:^(id result) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"锁定微店失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (void)refreshCollectionViews:(id)sender
@@ -707,7 +724,7 @@
 - (void)hideDeleteActionSheet
 {
     [UIView animateWithDuration:0.4 animations:^{
-        _changeStatusLabel.hidden = YES;
+        _changeStatusButton.hidden = YES;
         _darkMask.alpha = 0;
         [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.containerView.frame.size.height)];
     } completion:^(BOOL finished) {
