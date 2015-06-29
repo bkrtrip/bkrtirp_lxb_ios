@@ -109,14 +109,14 @@ const CGFloat Img_Width_To_Height = 730.f/760.f;
         
         TemplateType templateType = [_info.shopType intValue];
         switch (templateType) {
-            case Exclusive_Shop:// 专卖
-                _shopTypeLabel.text = @"专卖";
+            case Exclusive_Shop:// 专卖（供应商为您专门定制的产品和微店）
+                _shopTypeLabel.text = @"专卖（供应商为您专门定制的产品和微店）";
                 break;
-            case Template_By_LXB:// 模板（旅小宝提供）
-                _shopTypeLabel.text = @"模板（旅小宝提供）";
+            case Template_By_LXB:// 模板（可自由选择供应商的产品同步到我的微店）
+                _shopTypeLabel.text = @"模板（可自由选择供应商的产品同步到我的微店）";
                 break;
-            case Template_By_Supplier:// 模板（供应商提供）
-                _shopTypeLabel.text = @"模板（供应商提供）";
+            case Template_By_Supplier:// 模板（可自由选择供应商的产品同步到我的微店）
+                _shopTypeLabel.text = @"模板（可自由选择供应商的产品同步到我的微店）";
                 break;
             default:
                 break;

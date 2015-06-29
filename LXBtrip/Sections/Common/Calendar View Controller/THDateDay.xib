@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -26,23 +26,34 @@
                         <action selector="dateButtonTapped:" destination="3" eventType="touchUpInside" id="22"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgd-Bw-8aw">
-                    <rect key="frame" x="1" y="23" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgd-Bw-8aw">
+                    <rect key="frame" x="0.0" y="25" width="44" height="14"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                     <color key="textColor" red="0.12941176469999999" green="0.73333333329999995" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="Bgd-Bw-8aw" secondAttribute="bottom" id="DPu-7t-5Jp"/>
+                <constraint firstItem="Bgd-Bw-8aw" firstAttribute="top" secondItem="4" secondAttribute="bottom" constant="-14" id="TFQ-0I-n8f"/>
+                <constraint firstItem="Bgd-Bw-8aw" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="WBU-BX-WnP"/>
+                <constraint firstAttribute="trailing" secondItem="Bgd-Bw-8aw" secondAttribute="trailing" id="bTL-sA-iqg"/>
                 <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="fgA-xb-hYT"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="j89-2c-qJI"/>
+                <constraint firstItem="Bgd-Bw-8aw" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="j9X-y4-kOX"/>
                 <constraint firstItem="4" firstAttribute="top" secondItem="3" secondAttribute="top" id="mL0-Fg-qyV"/>
                 <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" id="q4G-Jn-tZp"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="DPu-7t-5Jp"/>
+                    <exclude reference="TFQ-0I-n8f"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="dateButton" destination="4" id="21"/>
                 <outlet property="priceLabel" destination="Bgd-Bw-8aw" id="eHe-Um-6cN"/>

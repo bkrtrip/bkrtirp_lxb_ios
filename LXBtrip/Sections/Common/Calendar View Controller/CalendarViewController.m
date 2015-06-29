@@ -147,7 +147,10 @@
     NSDate * date = [_calendar dateByAddingComponents:offsetComponents toDate:self.firstOfCurrentMonth options:0];
     [offsetComponents setDay:1];
     UIView * container = self.calendarDaysView;
-    CGRect containerFrame = container.frame;
+//    CGRect containerFrame = container.frame;
+    
+    CGFloat yOrigin = 57.f + 33.f + 8.f;
+    CGRect containerFrame = CGRectMake(0, yOrigin, SCREEN_WIDTH, 284.f);
     int areaWidth = containerFrame.size.width;
     int areaHeight = containerFrame.size.height;
     int cellWidth = areaWidth/7;

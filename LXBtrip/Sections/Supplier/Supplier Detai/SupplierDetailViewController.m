@@ -295,12 +295,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row > 0) {
-        if ([UserModel staffId] && [UserModel companyId]) {
-            TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
-            SupplierProduct *curProduct = _info.supplierProductsArray[indexPath.row-1];
-            detail.product = curProduct;
-            [self.navigationController pushViewController:detail animated:YES];
-        }
+        TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
+        SupplierProduct *curProduct = _info.supplierProductsArray[indexPath.row-1];
+        detail.product = curProduct;
+        [self.navigationController pushViewController:detail animated:YES];
     }
 }
 

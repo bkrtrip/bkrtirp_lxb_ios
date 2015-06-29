@@ -36,6 +36,10 @@
 // 服务器地址
 #define HOST_BASE_URL @"http://api.bkrtrip.com/"
 #define HOST_IMG_BASE_URL @"http://www.lrtrip.com/image"
+#define MICRO_SHOP_INSTRUCTIONS_URL @"http://mobile.bkrtrip.com/com/about"
+#define INVITE_SIX_GIVE_SHOP_URL @"http://mobile.bkrtrip.com/view/other/line/customiz.html"
+#define INVITE_THREE_GIVE_POSTER_URL @"http://mobile.bkrtrip.com/view/other/line/poster.html"
+
 
 // NavBasedViewController
 #define MainNavTitleColor RGB(255, 255, 255)
@@ -121,9 +125,9 @@ typedef enum ErrorCodeType
 
 typedef enum TemplateType
 {
-    Exclusive_Shop = 0, // 专卖
-    Template_By_LXB = 1, // 模板（旅小宝提供）
-    Template_By_Supplier = 2, // 模板（供应商提供）
+    Exclusive_Shop = 0, // 专卖（供应商为您专门定制的产品和微店）
+    Template_By_LXB = 1, // 模板（可自由选择供应商的产品同步到我的微店）
+    Template_By_Supplier = 2, // 模板（（可自由选择供应商的产品同步到我的微店）
 } TemplateType;
 
 typedef enum TemplateDefaultStatus

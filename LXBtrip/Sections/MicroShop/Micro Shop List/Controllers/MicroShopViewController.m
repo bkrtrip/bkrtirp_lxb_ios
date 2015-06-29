@@ -31,7 +31,6 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (strong, nonatomic) IBOutlet UIButton *locationButton;
 @property (strong, nonatomic) IBOutlet UIButton *onlineShopButton;
 @property (strong, nonatomic) IBOutlet UIButton *myShopButton;
 - (IBAction)myShopButtonClicked:(id)sender;
@@ -73,7 +72,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:nil];
     
-    CGFloat scrollViewYOrigin = SCREEN_WIDTH/(828.f/304.f) + 52.f + 3.f;
+    CGFloat scrollViewYOrigin = 20.f + 52.f + 3.f;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49.f)];
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
@@ -148,22 +147,8 @@
     
     [self addLongPressGestureRecognizerForMyShop];
     
-    // --TEST-- 后面移到定位成功之后
-    startProvince = @"陕西";
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    if ([UserModel companyId] && [UserModel staffId]) {
-        if ([[Global sharedGlobal] notFirstLogin] == YES) {
-            self.selectedIndex = 1;
-        } else {
-            self.selectedIndex = 0;
-        }
-    } else {
-        self.selectedIndex = 0;
-    }
-    
-    // --TEST--
-    [_locationButton setTitle:@"正在定位..." forState:UIControlStateNormal];
-    [self startLocation];
+    // initial status
+    _selectedIndex = 0;
 }
 
 - (void)addLongPressGestureRecognizerForMyShop
@@ -192,6 +177,7 @@
         }
         _darkMask.alpha = 1.f;
         _changeStatusButton.hidden = NO;
+        self.tabBarController.tabBar.hidden = YES;
     }
 }
 
@@ -202,6 +188,7 @@
             [self getMyShops];
             _changeStatusButton.hidden = YES;
             _darkMask.alpha = 0;
+            self.tabBarController.tabBar.hidden = NO;
         }];
     } fail:^(id result) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"锁定微店失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -211,6 +198,10 @@
 
 - (void)refreshCollectionViews:(id)sender
 {
+    if (!startProvince) {
+        [self startLocation];
+        return;
+    }
     if (_selectedIndex == 0) {
         [self getOnlineShops];
         return;
@@ -225,6 +216,9 @@
     self.tabBarController.tabBar.hidden = NO;
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
+    }
+    if (!startProvince) {
+        [self startLocation];
     }
 }
 
@@ -306,6 +300,9 @@
 #pragma mark - Locating part
 //开始定位
 - (void)startLocation{
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -314,11 +311,11 @@
     
     if(![CLLocationManager locationServicesEnabled]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//        [alert show];
+        [alert show];
     } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
+        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
+            [alert show];
         }
     }
     
@@ -333,6 +330,7 @@
 #pragma mark - CLLocationManagerDelegate
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     [_locationManager stopUpdatingLocation];
     NSLog(@"location ok");
     
@@ -351,18 +349,27 @@
             if ([startProvince hasSuffix:@"省"]) {
                 startProvince = [startProvince substringWithRange:NSMakeRange(0, startProvince.length-1)];
             }
-            [_locationButton setTitle:startProvince forState:UIControlStateNormal];
             
             // --TEST-- 移到这里
-            // ...
+            if ([UserModel companyId] && [UserModel staffId]) {
+                if ([[Global sharedGlobal] notFirstLogin] == YES) {
+                    self.selectedIndex = 1;
+                } else {
+                    self.selectedIndex = 0;
+                }
+            } else {
+                self.selectedIndex = 0;
+            }
+
         }
     }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//    [alert show];
+    [alert show];
 }
 
 #pragma mark - HTTP
@@ -545,6 +552,7 @@
             
             [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getMyShops];
+            [self getOnlineShops];
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -626,6 +634,7 @@
     }
     
     ReusableHeaderView_myShop *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_myShop" forIndexPath:indexPath];
+    header.delegate = self;
     return header;
 
 }
@@ -669,6 +678,7 @@
             } else {
                 // go to webview
                 MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
+                web.title = @"线路详情";
                 web.ShopURLString = [_myShopsArray[indexPath.row] shopPreviewURLString];
                 [self.navigationController pushViewController:web animated:YES];
             }
@@ -687,6 +697,10 @@
 - (void)supportClickWithInstructions
 {
     // go to webview
+    MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
+    web.title = @"微商运营指导";
+    web.ShopURLString = MICRO_SHOP_INSTRUCTIONS_URL;
+    [self.navigationController pushViewController:web animated:YES];
 }
 #pragma mark - MicroShopCollectionViewCell_MyShop_Delegate
 - (void)supportClickWithDeleteShopId:(NSNumber *)shopId

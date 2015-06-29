@@ -15,6 +15,9 @@ singleton_implementation(HTTPTool)
 // 获取在线微店列表 - LXB1111 - 未登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province success:(SuccessBlock)success fail:(FailBlock)fail
 {
+    if (!province) {
+        return;
+    }
     NSMutableDictionary *param = [@{@"province":province} mutableCopy];
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
@@ -35,6 +38,9 @@ singleton_implementation(HTTPTool)
 // 获取在线微店列表 - LXB1122 - 已登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
+    if (!province) {
+        return;
+    }
     NSMutableDictionary *param = [@{@"province":province} mutableCopy];
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];
@@ -203,7 +209,7 @@ singleton_implementation(HTTPTool)
     }];
 }
 
-//线路详情页 - LXB1128
+//线路详情页 - LXB1128 - 已登录
 + (void)getTourDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId lineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail
 {
     NSMutableDictionary *param = [@{@"templateid":templateId, @"code":code} mutableCopy];
@@ -224,6 +230,27 @@ singleton_implementation(HTTPTool)
     [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
 
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"mstore/lineDetails"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+//线路详情页 - LXB21114 - 未登录
++ (void)getTourDetailWithLineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSDictionary *param = @{@"code":code};
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB21114" forHTTPHeaderField:@"AUTHCODE"];
+    [manager.requestSerializer setValue:[UserModel userToken] forHTTPHeaderField:@"TOKEN"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/lineDetails"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
         }
@@ -447,7 +474,7 @@ singleton_implementation(HTTPTool)
     } else
         return;
     
-    if (lineType) {
+    if (lineType && lineType.length > 0) {
         [param setObject:lineType forKey:@"linetype"];
     }
     

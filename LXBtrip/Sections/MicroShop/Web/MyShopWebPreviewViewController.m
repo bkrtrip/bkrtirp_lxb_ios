@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"线路详情";
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
 
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];

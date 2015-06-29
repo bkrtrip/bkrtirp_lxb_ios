@@ -7,7 +7,6 @@
 //
 
 #import "TourDetailCell_Two.h"
-#import "Global.h"
 
 
 const CGFloat bedImageWidth = 11.f;
@@ -40,21 +39,21 @@ const CGFloat yOrigin = 64.f;
     // Title
     if (!_adultMarketLabel) {
         _adultMarketLabel = [[UILabel alloc] init];
-        _adultMarketLabel.font = [UIFont boldSystemFontOfSize:14.f];
+        _adultMarketLabel.font = [UIFont boldSystemFontOfSize:13.f];
         _adultMarketLabel.textColor = TEXT_333333;
         _adultMarketLabel.text = @"成人结算价:";
         [self.contentView addSubview:_adultMarketLabel];
     }
     if (!_kidNoBedMarketLabel) {
         _kidNoBedMarketLabel = [[UILabel alloc] init];
-        _kidNoBedMarketLabel.font = [UIFont boldSystemFontOfSize:14.f];
+        _kidNoBedMarketLabel.font = [UIFont boldSystemFontOfSize:13.f];
         _kidNoBedMarketLabel.textColor = TEXT_333333;
         _kidNoBedMarketLabel.text = @"儿童结算价:";
         [self.contentView addSubview:_kidNoBedMarketLabel];
     }
     if (!_kidWithBedMarketLabel) {
         _kidWithBedMarketLabel = [[UILabel alloc] init];
-        _kidWithBedMarketLabel.font = [UIFont boldSystemFontOfSize:14.f];
+        _kidWithBedMarketLabel.font = [UIFont boldSystemFontOfSize:13.f];
         _kidWithBedMarketLabel.textColor = TEXT_333333;
         _kidWithBedMarketLabel.text = @"儿童结算价:";
         [self.contentView addSubview:_kidWithBedMarketLabel];
@@ -63,19 +62,19 @@ const CGFloat yOrigin = 64.f;
     // Price
     if (!_adultPriceLabel) {
         _adultPriceLabel = [[UILabel alloc] init];
-        _adultPriceLabel.font = [UIFont systemFontOfSize:14.f];
+        _adultPriceLabel.font = [UIFont systemFontOfSize:13.f];
         _adultPriceLabel.textColor = RED_FF0075;
         [self.contentView addSubview:_adultPriceLabel];
     }
     if (!_childPerBedPriceLabel) {
         _childPerBedPriceLabel = [[UILabel alloc] init];
-        _childPerBedPriceLabel.font = [UIFont systemFontOfSize:14.f];
+        _childPerBedPriceLabel.font = [UIFont systemFontOfSize:13.f];
         _childPerBedPriceLabel.textColor = RED_FF0075;
         [self.contentView addSubview:_childPerBedPriceLabel];
     }
     if (!_childPriceLabel) {
         _childPriceLabel = [[UILabel alloc] init];
-        _childPriceLabel.font = [UIFont systemFontOfSize:14.f];
+        _childPriceLabel.font = [UIFont systemFontOfSize:13.f];
         _childPriceLabel.textColor = RED_FF0075;
         [self.contentView addSubview:_childPriceLabel];
     }

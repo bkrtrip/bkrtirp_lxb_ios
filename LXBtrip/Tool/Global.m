@@ -195,8 +195,23 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
                                                            errorDescription:NULL];
 //    return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
     
-    NSString *tempStr4 = [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
-    return [tempStr4 stringByReplacingOccurrencesOfString:@"<br/>"withString:@"\n"];
+//    NSString *tempStr4 = [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
+    NSString *returnStr1 = [returnStr stringByReplacingOccurrencesOfString:@"<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>"withString:@"\n"];
+    NSString *returnStr2 = [returnStr1 stringByReplacingOccurrencesOfString:@"<br/><br/><br/><br/><br/><br/><br/><br/>"withString:@"\n"];
+    NSString *returnStr3 = [returnStr2 stringByReplacingOccurrencesOfString:@"<br/><br/><br/><br/>"withString:@"\n"];
+    NSString *returnStr4 = [returnStr3 stringByReplacingOccurrencesOfString:@"<br/><br/>"withString:@"\n"];
+    
+    NSString *finalStr = [returnStr4 stringByReplacingOccurrencesOfString:@"<br/>"withString:@"\n"];
+    
+    NSRange range = [finalStr rangeOfString:@"5："];
+    if (range.length > 0) {
+        NSString *subStr = [finalStr substringWithRange:NSMakeRange(range.location-1, 1)];
+        if ([subStr isEqualToString:@"。"]) {
+            finalStr = [[finalStr substringToIndex:range.location] stringByAppendingFormat:@"\n%@", [finalStr substringFromIndex:range.location]];
+        }
+    }
+
+    return finalStr;
 }
 
 - (NSString *)weekDayFromDateString:(NSString *)dateString

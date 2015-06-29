@@ -21,20 +21,19 @@
 #import "InviteSupplierTableViewCell_Second.h"
 #import "InviteSupplierTableViewCell_Third.h"
 #import "InviteSupplierTableViewCell_Fourth.h"
-
+#import "MyShopWebPreviewViewController.h"
 
 @interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
     NSString *startCity;
     NSString *lineClass;
-    NSString *lineType;
 
-    
     NSMutableArray *isLoadingMoresArray;
     NSMutableArray *pageNumsArray;
     NSMutableArray *collectionViewsArray;
     NSMutableArray *refreshControlsArray;
     NSMutableArray *noSuppliersArray;
+    NSMutableArray *lineTypesArray;
 }
 
 //navigationbar part
@@ -105,12 +104,17 @@
     [self.view addSubview:_underLineLabel];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
-    [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, _scrollView.frame.size.height)];
+    [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollEnabled = NO;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
 
+    lineTypesArray = [[NSMutableArray alloc] initWithCapacity:5];
+    for (int i = 0; i < 5; i++) {
+        NSString *lineType = @"";
+        [lineTypesArray addObject:lineType];
+    }
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
     refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:5];
     noSuppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -118,10 +122,11 @@
         SupplierCollectionViewFlowLayout *flow = [[SupplierCollectionViewFlowLayout alloc] init];
 
         SupplierCollectionView *collectionView = [[SupplierCollectionView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0) collectionViewLayout:flow];
+        
         [collectionView registerNib:[UINib nibWithNibName:@"SupplierCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SupplierCollectionViewCell"];
         
         [collectionView registerNib:[UINib nibWithNibName:@"ReusableHeaderView_Supplier" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_Supplier"];
-        
+
         collectionView.dataSource = self;
         collectionView.delegate = self;
         collectionView.backgroundColor = [UIColor whiteColor];
@@ -158,20 +163,13 @@
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
-    
-    // --TEST--
-    startCity = @"西安";
-    lineType = nil;
-    _selectedIndex = 0;
-
-    [self refreshSupplierList];
 }
 
 - (void)refreshCollectionViews:(id)sender
 {
     pageNumsArray[_selectedIndex] = @1;
     isLoadingMoresArray[_selectedIndex] = @0;
-    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
 }
 
 - (void)refreshSupplierList
@@ -187,7 +185,7 @@
     isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
     
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -197,6 +195,9 @@
     self.tabBarController.tabBar.hidden = NO;
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
+    }
+    if (!startCity) {
+        [self startLocation];
     }
 }
 
@@ -226,6 +227,78 @@
     [super networkAvailable];
 }
 
+#pragma mark - Locating part
+//开始定位
+- (void)startLocation{
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 1.0f;
+    [_locationManager startUpdatingLocation];
+    
+    if(![CLLocationManager locationServicesEnabled]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
+    {
+        //设置定位权限 仅ios8有意义
+        [self.locationManager requestWhenInUseAuthorization];// 前台定位
+        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
+    }
+}
+
+#pragma mark - CLLocationManagerDelegate
+//定位代理经纬度回调
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+    [_locationManager stopUpdatingLocation];
+    NSLog(@"location ok");
+    
+    CLLocation *newLocation = [locations objectAtIndex:0];
+    
+    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+    
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *placemark in placemarks) {
+            
+            NSDictionary *test = [placemark addressDictionary];
+            // locality(城市)
+            NSLog(@"%@", test);
+            startCity = [test objectForKey:@"City"];
+            if ([startCity hasSuffix:@"市"]) {
+                startCity = [startCity substringWithRange:NSMakeRange(0, startCity.length-1)];
+            }
+            NSLog(@"Actual start city: ------ %@", startCity);
+            // --TEST--
+//            startCity = @"西安";
+            // --TEST--
+            [_locationButton setTitle:startCity forState:UIControlStateNormal];
+
+            
+            _selectedIndex = 0;
+            [self refreshSupplierList];
+        }
+    }];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+    [alert show];
+}
+
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
     _selectedIndex = selectedIndex;
@@ -237,14 +310,12 @@
 - (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
 {
     NSDictionary *info = [note userInfo];
-    lineType = info[@"line_type"];
     _selectedIndex = [info[@"line_class_index"] integerValue];
+    lineTypesArray[_selectedIndex] = info[@"line_type"];
     pageNumsArray[_selectedIndex] = @1;
     isLoadingMoresArray[_selectedIndex] = @0;
     
     self.selectedIndex = [info[@"line_class_index"] integerValue];
-    // 筛选完成后恢复lineType
-    lineType = nil;
 }
 
 - (void)switchCityWithCityName:(NSNotification *)note
@@ -277,75 +348,16 @@
     }];
 }
 
-//开始定位
-- (void)startLocation{
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 1.0f;
-    [_locationManager startUpdatingLocation];
-    
-    if(![CLLocationManager locationServicesEnabled]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
-    {
-        //设置定位权限 仅ios8有意义
-        [self.locationManager requestWhenInUseAuthorization];// 前台定位
-        //        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
-    }
-}
-
-#pragma mark - CLLocationManagerDelegate
-//定位代理经纬度回调
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [_locationManager stopUpdatingLocation];
-    NSLog(@"location ok");
-    
-    CLLocation *newLocation = [locations objectAtIndex:0];
-    
-    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
-    
-    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark *placemark in placemarks) {
-            
-            NSDictionary *test = [placemark addressDictionary];
-            // locality(城市)
-            NSLog(@"%@", test);
-            NSString *cityString = [test objectForKey:@"State"];
-            if ([cityString hasSuffix:@"省"]) {
-                cityString = [cityString substringWithRange:NSMakeRange(0, cityString.length-1)];
-            }
-            [_locationButton setTitle:cityString forState:UIControlStateNormal];
-            
-            startCity = cityString;
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-        }
-    }];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-    [alert show];
-}
-
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
-            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [refreshControlsArray[_selectedIndex] endRefreshing];
+            
+            if (!(SCREEN_HEIGHT > 568.0) || ([pageNumsArray[_selectedIndex] integerValue] != 1)) {
+                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+                [refreshControlsArray[_selectedIndex] endRefreshing];
+            }
 
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
@@ -381,9 +393,19 @@
                         }
                         [_suppliersArray[_selectedIndex] addObject:tempDict];
                     }];
-                    [collectionViewsArray[_selectedIndex] reloadData];
+                    
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
+                    
+                    if (SCREEN_HEIGHT > 568.0 && [pageNumsArray[_selectedIndex] integerValue] == 2) {
+                        [self getSupplierListWithStartCity:city LineClass:class lineType:type];
+                        return ;
+                    }
+                    
+                    [collectionViewsArray[_selectedIndex] reloadData];
+                    
                 } else {
+                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+                    [refreshControlsArray[_selectedIndex] endRefreshing];
                     if ([pageNumsArray[_selectedIndex] intValue] == 1) {
                         [noSuppliersArray[_selectedIndex] setHidden:NO];
                     }
@@ -403,8 +425,11 @@
         }];
     } else {
         [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
-            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [refreshControlsArray[_selectedIndex] endRefreshing];
+            
+            if (!(SCREEN_HEIGHT > 568.0) || ([pageNumsArray[_selectedIndex] integerValue] != 1)) {
+                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+                [refreshControlsArray[_selectedIndex] endRefreshing];
+            }
 
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
@@ -440,9 +465,19 @@
                         }
                         [_suppliersArray[_selectedIndex] addObject:tempDict];
                     }];
-                    [collectionViewsArray[_selectedIndex] reloadData];
+                    
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
+                    
+                    if (SCREEN_HEIGHT > 568.0 && [pageNumsArray[_selectedIndex] integerValue] == 2) {
+                        [self getSupplierListWithStartCity:city LineClass:class lineType:type];
+                        return ;
+                    }
+                    
+                    [collectionViewsArray[_selectedIndex] reloadData];
+
                 } else {
+                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+                    [refreshControlsArray[_selectedIndex] endRefreshing];
                     if ([pageNumsArray[_selectedIndex] intValue] == 1) {
                         [noSuppliersArray[_selectedIndex] setHidden:NO];
                     }
@@ -614,17 +649,27 @@
     switch (indexPath.row) {
         case 1:
         {
-            //
+            // go to webview
+            MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
+            web.title = @"邀请供应商";
+            web.ShopURLString = INVITE_SIX_GIVE_SHOP_URL;
+            [self.navigationController pushViewController:web animated:YES];
         }
             break;
         case 2:
         {
-            //
+            // go to webview
+            MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
+            web.title = @"邀请供应商";
+            web.ShopURLString = INVITE_THREE_GIVE_POSTER_URL;
+            [self.navigationController pushViewController:web animated:YES];
         }
             break;
         default:
             break;
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self hideInviteTableView];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -635,7 +680,7 @@
         if (fabs(delta) < 10) {
             isLoadingMoresArray[_selectedIndex] = @1;
             [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
         }
     }
 }
@@ -685,18 +730,43 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
+    if ([lineTypesArray[0] length] > 0) {
+        lineTypesArray[0] = @"";
+        pageNumsArray[0] = @1;
+        isLoadingMoresArray[0] = @0;
+    }
     self.selectedIndex = 0;
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
+    if ([lineTypesArray[1] length] > 0) {
+        lineTypesArray[1] = @"";
+        pageNumsArray[1] = @1;
+        isLoadingMoresArray[1] = @0;
+    }
     self.selectedIndex = 1;
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
+    if ([lineTypesArray[2] length] > 0) {
+        lineTypesArray[2] = @"";
+        pageNumsArray[2] = @1;
+        isLoadingMoresArray[2] = @0;
+    }
     self.selectedIndex = 2;
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
+    if ([lineTypesArray[3] length] > 0) {
+        lineTypesArray[3] = @"";
+        pageNumsArray[3] = @1;
+        isLoadingMoresArray[3] = @0;
+    }
     self.selectedIndex = 3;
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
+    if ([lineTypesArray[4] length] > 0) {
+        lineTypesArray[4] = @"";
+        pageNumsArray[4] = @1;
+        isLoadingMoresArray[4] = @0;
+    }
     self.selectedIndex = 4;
 }
 
@@ -713,7 +783,7 @@
     
     if ([isLoadingMoresArray[index] integerValue] == 0) {
         [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
     }
 }
 @end

@@ -38,8 +38,11 @@ singleton_interface(HTTPTool)
 //线路列表页 - LXB1127
 + (void)getTourListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId customId:(NSString *)customId startCity:(NSString *)startCity endCity:(NSString *)endCity walkType:(NSString *)walkType lineName:(NSString *)lineName pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
-//线路详情页 - LXB1128
+//线路详情页 - LXB1128 - 已登录
 + (void)getTourDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId lineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail;
+
+//线路详情页 - LXB21114 - 未登录
++ (void)getTourDetailWithLineCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail;
 
 //评论列表 - LXB51158 - 未登录
 + (void)getReviewsListWithLineCode:(NSString *)code pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
