@@ -12,6 +12,9 @@ const NSString *kNotFirstLogin = @"not_first_login";
 const NSString *kSearchHistory = @"search_history";
 const NSString *kHotCityHistory = @"hot_city_history";
 
+const NSString *kLocationProvince = @"location_province";
+const NSString *kLocationCity = @"location_city";
+
 @interface Global()
 
 @property (nonatomic, assign) BOOL networkAvailability;
@@ -285,5 +288,21 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
     return NSOrderedSame;
 }
 
+- (NSString *)locationProvince
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kLocationProvince];
+}
+- (NSString *)locationCity
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kLocationCity];
+}
+- (void)upDateLocationProvince:(NSString *)newProvince
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newProvince forKey:(NSString *)kLocationProvince];
+}
+- (void)upDateLocationCity:(NSString *)newCity
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newCity forKey:(NSString *)kLocationCity];
+}
 
 @end

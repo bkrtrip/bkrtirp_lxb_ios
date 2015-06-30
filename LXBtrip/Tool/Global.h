@@ -41,5 +41,9 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 - (NSString *)weekDayFromDateString:(NSString *)dateString;
 - (NSComparisonResult)compareDateStringOne:(NSString *)one withDateStringTwo:(NSString *)two;
 
+- (NSString *)locationProvince;
+- (NSString *)locationCity;
+- (void)upDateLocationProvince:(NSString *)newProvince;
+- (void)upDateLocationCity:(NSString *)newCity;
 
 @end

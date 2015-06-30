@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainTabBarViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 #import "MicroShopViewController.h"
 #import "SupplierViewController.h"
@@ -18,10 +19,16 @@
 
 #import "AFAppDotNetAPIClient.h"
 
-@interface AppDelegate ()
+#import "AppMacro.h"
+#import "Global.h"
+
+@interface AppDelegate ()<CLLocationManagerDelegate>
 
 @property (nonatomic, assign) int rTimerInterval;
 @property (nonatomic, assign) int fTimerInterval;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic, copy) NSString *locationProvince;
+@property (nonatomic, copy) NSString *locationCity;
 
 @end
 
@@ -70,6 +77,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self startLocation];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -159,6 +167,94 @@
     else{
 //        [self stopFTimer];
         return NO;
+    }
+}
+
+
+#pragma mark - Location Part
+//开始定位
+- (void)startLocation{
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 1.0f;
+    [_locationManager startUpdatingLocation];
+    
+    if(![CLLocationManager locationServicesEnabled]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
+    {
+        //设置定位权限 仅ios8有意义
+        [self.locationManager requestWhenInUseAuthorization];// 前台定位
+        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
+    }
+}
+
+#pragma mark - CLLocationManagerDelegate
+//定位代理经纬度回调
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+    [_locationManager stopUpdatingLocation];
+    NSLog(@"location ok");
+    
+    CLLocation *newLocation = [locations objectAtIndex:0];
+    
+    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+    
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *placemark in placemarks) {
+            
+            NSDictionary *test = [placemark addressDictionary];
+            // locality(城市)
+            NSLog(@"%@", test);
+            NSString *newProvince = [test objectForKey:@"State"];
+            if ([newProvince hasSuffix:@"省"]) {
+                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
+            }
+            
+            NSString *newCity = [test objectForKey:@"City"];
+            if ([newCity hasSuffix:@"市"]) {
+                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
+            }
+            NSLog(@"newCity: ------ %@", newCity);
+            NSLog(@"newProvince: ------ %@", newProvince);
+            if (![_locationProvince isEqualToString:newProvince]) {
+                _locationProvince = newProvince;
+                [[Global sharedGlobal] upDateLocationProvince:_locationProvince];
+                [[NSNotificationCenter defaultCenter] postNotificationName:PROVINCE_CHANGED object:self];//省份改变
+            }
+            if (![_locationCity isEqualToString:newCity]) {
+                _locationCity = newCity;
+                [[Global sharedGlobal] upDateLocationProvince:_locationCity];
+                [[NSNotificationCenter defaultCenter] postNotificationName:CITY_CHANGED object:self];//城市改变
+            }
+        }
+    }];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    CLError err = [[error domain] intValue];
+    if (err == kCLErrorLocationUnknown) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
     }
 }
 

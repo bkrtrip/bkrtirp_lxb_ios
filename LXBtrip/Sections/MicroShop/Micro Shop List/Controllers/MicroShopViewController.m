@@ -22,11 +22,12 @@
 
 @interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
 {
-    NSString *startProvince;
+    NSString *locationProvince;
     NSNumber *shopIdToDelete;
     UIRefreshControl *refreshControl_online;
     UIRefreshControl *refreshControl_myshop;
     MicroShopInfo *selectedShop;
+//    BOOL locateQuiteMode;
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -71,6 +72,7 @@
     // must override superclass
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(provinceChanged) name:PROVINCE_CHANGED object:nil];
     
     CGFloat scrollViewYOrigin = 20.f + 52.f + 3.f;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewYOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - scrollViewYOrigin - 49.f)];
@@ -148,7 +150,8 @@
     [self addLongPressGestureRecognizerForMyShop];
     
     // initial status
-    _selectedIndex = 0;
+    self.selectedIndex = 0;
+    locationProvince = [[Global sharedGlobal] locationProvince];
 }
 
 - (void)addLongPressGestureRecognizerForMyShop
@@ -198,7 +201,7 @@
 
 - (void)refreshCollectionViews:(id)sender
 {
-    if (!startProvince) {
+    if (!locationProvince) {
         [self startLocation];
         return;
     }
@@ -217,8 +220,31 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
-    if (!startProvince) {
+    
+    // 判断省份位置是否从别处更新，刷新列表
+    if (![locationProvince isEqualToString:[[Global sharedGlobal] locationProvince]]) {
+        locationProvince = [[Global sharedGlobal] locationProvince];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PROVINCE_CHANGED" object:self];
+        return;
+    }
+    
+    // 未存储位置信息时，开始定位
+    if (!locationProvince) {
+//        locateQuiteMode = NO;
         [self startLocation];
+    } else {
+        if ([UserModel companyId] && [UserModel staffId]) {
+            if ([[Global sharedGlobal] notFirstLogin] == YES) {
+                self.selectedIndex = 1;
+            } else {
+                self.selectedIndex = 0;
+            }
+        } else {
+            self.selectedIndex = 0;
+        }
+        
+//        locateQuiteMode = YES;
+//        [self startLocation]; // 更新位置,检查是否与存储位置相同
     }
 }
 
@@ -251,10 +277,10 @@
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
             }
             
-            if (!_onlineShopsArray) {
-                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getOnlineShops];
-            }
+//            if (!_onlineShopsArray) {
+//                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//                [self getOnlineShops];
+//            }
         }
             break;
         case 1:
@@ -268,10 +294,10 @@
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
             }
             
-            if (!_myShopsArray) {
-                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getMyShops];
-            }
+//            if (!_myShopsArray) {
+//                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//                [self getMyShops];
+//            }
         }
             break;
         default:
@@ -279,10 +305,16 @@
     }
 }
 
+#pragma mark - Notification Handlers
 - (void)myShopListNeedsUpdate
 {
     [self getMyShops];
     [self getOnlineShops];
+}
+
+- (void)provinceChanged
+{
+    [self refreshCollectionViews:nil];
 }
 
 #pragma mark - Override
@@ -345,12 +377,27 @@
             NSDictionary *test = [placemark addressDictionary];
             // locality(城市)
             NSLog(@"%@", test);
-            startProvince = [test objectForKey:@"State"];
-            if ([startProvince hasSuffix:@"省"]) {
-                startProvince = [startProvince substringWithRange:NSMakeRange(0, startProvince.length-1)];
+            NSString *newProvince = [test objectForKey:@"State"];
+            if ([newProvince hasSuffix:@"省"]) {
+                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
             }
             
-            // --TEST-- 移到这里
+            NSString *newCity = [test objectForKey:@"City"];
+            if ([newCity hasSuffix:@"市"]) {
+                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
+            }
+            NSLog(@"newCity: ------ %@", newCity);
+            NSLog(@"newProvince: ------ %@", newProvince);
+            if (![locationProvince isEqualToString:newProvince]) {
+                [[Global sharedGlobal] upDateLocationProvince:newProvince];
+                locationProvince = newProvince;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"PROVINCE_CHANGED" object:self];//省份改变后，刷新列表
+            }
+            if (![[[Global sharedGlobal] locationCity] isEqualToString:newCity]) {
+                [[Global sharedGlobal] upDateLocationProvince:newCity];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CITY_CHANGED" object:self];//城市改变后，通知其他controller.
+            }
+            
             if ([UserModel companyId] && [UserModel staffId]) {
                 if ([[Global sharedGlobal] notFirstLogin] == YES) {
                     self.selectedIndex = 1;
@@ -360,23 +407,29 @@
             } else {
                 self.selectedIndex = 0;
             }
-
         }
     }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-    [alert show];
+    CLError err = [[error domain] intValue];
+    if (err != kCLErrorLocationUnknown) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - HTTP
 - (void)getOnlineShops
 {
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool getOnlineMicroShopListWithProvince:startProvince companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
+        [HTTPTool getOnlineMicroShopListWithProvince:locationProvince companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl_online endRefreshing];
             
@@ -422,7 +475,7 @@
             [alert show];
         }];
     } else {
-        [HTTPTool getOnlineMicroShopListWithProvince:startProvince success:^(id result) {
+        [HTTPTool getOnlineMicroShopListWithProvince:locationProvince success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControl_online endRefreshing];
 

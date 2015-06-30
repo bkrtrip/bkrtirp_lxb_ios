@@ -25,6 +25,7 @@
 
 @interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
+    NSString *locationCity;
     NSString *startCity;
     NSString *lineClass;
 
@@ -163,6 +164,11 @@
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
+    
+    locationCity = [[Global sharedGlobal] locationCity];
+    if (!locationCity) {
+        [self startLocation];
+    }
 }
 
 - (void)refreshCollectionViews:(id)sender
@@ -196,7 +202,7 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
-    if (!startCity) {
+    if (!locationCity) {
         [self startLocation];
     }
 }
@@ -275,11 +281,12 @@
             NSDictionary *test = [placemark addressDictionary];
             // locality(城市)
             NSLog(@"%@", test);
-            startCity = [test objectForKey:@"City"];
-            if ([startCity hasSuffix:@"市"]) {
-                startCity = [startCity substringWithRange:NSMakeRange(0, startCity.length-1)];
+            locationCity = [test objectForKey:@"City"];
+            if ([locationCity hasSuffix:@"市"]) {
+                locationCity = [locationCity substringWithRange:NSMakeRange(0, locationCity.length-1)];
             }
-            NSLog(@"Actual start city: ------ %@", startCity);
+            NSLog(@"Actual start city: ------ %@", locationCity);
+            startCity = [locationCity copy];
             // --TEST--
 //            startCity = @"西安";
             // --TEST--
@@ -294,9 +301,16 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-    [alert show];
+    CLError err = [[error domain] intValue];
+    if (err != kCLErrorLocationUnknown) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
@@ -722,6 +736,7 @@
 }
 - (IBAction)locationButtonClicked:(id)sender {
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
+    switchCity.locationCity = locationCity;
     [self.navigationController pushViewController:switchCity animated:YES];
 }
 

@@ -40,6 +40,8 @@
 #define INVITE_SIX_GIVE_SHOP_URL @"http://mobile.bkrtrip.com/view/other/line/customiz.html"
 #define INVITE_THREE_GIVE_POSTER_URL @"http://mobile.bkrtrip.com/view/other/line/poster.html"
 
+#define PROVINCE_CHANGED @"PROVINCE_CHANGED"
+#define CITY_CHANGED @"CITY_CHANGED"
 
 // NavBasedViewController
 #define MainNavTitleColor RGB(255, 255, 255)

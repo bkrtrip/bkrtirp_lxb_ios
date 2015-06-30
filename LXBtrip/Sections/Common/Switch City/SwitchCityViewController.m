@@ -17,8 +17,6 @@
     NSMutableArray *hotCitiesArray;
     NSMutableArray *sectionsArray;//contains all initials
     NSMutableArray *searchedCitiesArray;
-    
-    NSString *startCity;
 }
 
 - (IBAction)backButtonClicked:(id)sender;
@@ -69,6 +67,11 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+    if (!_locationCity) {
+        [self startLocation];
+    } else {
+        [self getAllCities];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -90,6 +93,9 @@
 #pragma mark - Locating part
 //开始定位
 - (void)startLocation{
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -98,12 +104,11 @@
     
     if(![CLLocationManager locationServicesEnabled]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-        
+        [alert show];
     } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
+        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                        [alert show];
+            [alert show];
         }
     }
     
@@ -118,6 +123,7 @@
 #pragma mark - CLLocationManagerDelegate
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     [_locationManager stopUpdatingLocation];
     NSLog(@"location ok");
     
@@ -130,14 +136,13 @@
         for (CLPlacemark *placemark in placemarks) {
             
             NSDictionary *test = [placemark addressDictionary];
-            // locality(城市)
+            //
             NSLog(@"%@", test);
-            startCity = [test objectForKey:@"City"];
-            if ([startCity hasSuffix:@"市"]) {
-                startCity = [startCity substringWithRange:NSMakeRange(0, startCity.length-1)];
+            _locationCity = [test objectForKey:@"City"];
+            if ([_locationCity hasSuffix:@"市"]) {
+                _locationCity = [_locationCity substringWithRange:NSMakeRange(0, _locationCity.length-1)];
             }
-            // --TEST-- 移到这里
-            // ...
+            
             [self getAllCities];
         }
     }];
@@ -145,10 +150,16 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+    CLError err = [[error domain] intValue];
+    if (err != kCLErrorLocationUnknown) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
-    startCity = @"定位失败";
-    [self getAllCities];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 
@@ -246,14 +257,14 @@
         SwitchCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCityTableViewCell" forIndexPath:indexPath];
         
         if (indexPath.section == 0) {
-            [cell setCellCityWithName:startCity isLocationCity:YES selectedStatus:YES];
+            [cell setCellCityWithName:_locationCity isLocationCity:YES selectedStatus:YES];
             return cell;
         }
         
         if (hotCitiesArray.count == 0) {
             NSArray *temp = [allCitiesArrayInOrder[indexPath.section-1] objectForKey:sectionsArray[indexPath.section-1]];
             City *ct = temp[indexPath.row];
-            if ([ct.cityName isEqualToString:startCity]) {
+            if ([ct.cityName isEqualToString:_locationCity]) {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
             } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
@@ -262,7 +273,7 @@
         } else {
             if (indexPath.section == 1) {
                 NSString *hct = hotCitiesArray[indexPath.row];
-                if ([hct isEqualToString:startCity]) {
+                if ([hct isEqualToString:_locationCity]) {
                     [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
                 } else {
                     [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
@@ -272,7 +283,7 @@
             
             NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
             City *ct = temp[indexPath.row];
-            if ([ct.cityName isEqualToString:startCity]) {
+            if ([ct.cityName isEqualToString:_locationCity]) {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
             } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
@@ -349,11 +360,11 @@
     
     if (tableView == _mainTableView) {
         if (indexPath.section == 0) {
-            if ([startCity isEqualToString:@"定位失败"]) {
+            if (!_locationCity) {
                 [self.navigationController popViewControllerAnimated:YES];
                 return;
             }
-            info = @{@"startcity":startCity};
+            info = @{@"startcity":_locationCity};
         }
         
         if (hotCitiesArray.count > 0) {
