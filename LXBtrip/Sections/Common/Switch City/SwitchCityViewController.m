@@ -8,15 +8,16 @@
 
 #import "SwitchCityViewController.h"
 #import "SwitchCityTableViewCell.h"
-#import <CoreLocation/CoreLocation.h>
 
-@interface SwitchCityViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface SwitchCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 {
     NSMutableArray *allCitiesArrayUnsorted;
     NSMutableArray *allCitiesArrayInOrder;//contains initial-keyed dictionaries
     NSMutableArray *hotCitiesArray;
     NSMutableArray *sectionsArray;//contains all initials
     NSMutableArray *searchedCitiesArray;
+    
+    NSString *locationCity;
 }
 
 - (IBAction)backButtonClicked:(id)sender;
@@ -27,15 +28,14 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UITableView *searchedTableView;
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-
 @end
 
 @implementation SwitchCityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self startLocation];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SwitchCity) name:CITY_CHANGED object:nil];
 
     allCitiesArrayInOrder = [[NSMutableArray alloc] init];
     allCitiesArrayUnsorted = [[NSMutableArray alloc] init];
@@ -57,6 +57,8 @@
     _searchedTableView.hidden = YES;
     _mainTableView.hidden = NO;
     _cancelButton.hidden = YES;
+    
+    locationCity = [[Global sharedGlobal] locationCity];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,16 +69,19 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
-    if (!_locationCity) {
-        [self startLocation];
-    } else {
-        [self getAllCities];
-    }
+    
+    [self getAllCities];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)cityChanged_SwitchCity
+{
+    locationCity = [[Global sharedGlobal] locationCity];
+    [_mainTableView reloadData];
 }
 
 #pragma mark - Override
@@ -89,79 +94,6 @@
 {
     [super networkAvailable];
 }
-
-#pragma mark - Locating part
-//开始定位
-- (void)startLocation{
-    
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 1.0f;
-    [_locationManager startUpdatingLocation];
-    
-    if(![CLLocationManager locationServicesEnabled]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
-    {
-        //设置定位权限 仅ios8有意义
-        [self.locationManager requestWhenInUseAuthorization];// 前台定位
-        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
-    }
-}
-
-#pragma mark - CLLocationManagerDelegate
-//定位代理经纬度回调
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-    [_locationManager stopUpdatingLocation];
-    NSLog(@"location ok");
-    
-    CLLocation *newLocation = [locations objectAtIndex:0];
-    
-    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
-    
-    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark *placemark in placemarks) {
-            
-            NSDictionary *test = [placemark addressDictionary];
-            //
-            NSLog(@"%@", test);
-            _locationCity = [test objectForKey:@"City"];
-            if ([_locationCity hasSuffix:@"市"]) {
-                _locationCity = [_locationCity substringWithRange:NSMakeRange(0, _locationCity.length-1)];
-            }
-            
-            [self getAllCities];
-        }
-    }];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    CLError err = [[error domain] intValue];
-    if (err != kCLErrorLocationUnknown) {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
 
 - (void)sortCitiesUsingInitialsWithUnsortedArray:(NSArray *)array
 {
@@ -257,15 +189,17 @@
         SwitchCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCityTableViewCell" forIndexPath:indexPath];
         
         if (indexPath.section == 0) {
-            [cell setCellCityWithName:_locationCity isLocationCity:YES selectedStatus:YES];
+            [cell setCellCityWithName:locationCity?locationCity:@"" isLocationCity:YES selectedStatus:YES];
             return cell;
         }
         
         if (hotCitiesArray.count == 0) {
             NSArray *temp = [allCitiesArrayInOrder[indexPath.section-1] objectForKey:sectionsArray[indexPath.section-1]];
             City *ct = temp[indexPath.row];
-            if ([ct.cityName isEqualToString:_locationCity]) {
-                [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+            if (locationCity) {
+                if ([ct.cityName isEqualToString:locationCity]) {
+                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+                }
             } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
             }
@@ -273,8 +207,10 @@
         } else {
             if (indexPath.section == 1) {
                 NSString *hct = hotCitiesArray[indexPath.row];
-                if ([hct isEqualToString:_locationCity]) {
-                    [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
+                if (locationCity) {
+                    if ([hct isEqualToString:locationCity]) {
+                        [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
+                    }
                 } else {
                     [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
                 }
@@ -283,8 +219,10 @@
             
             NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
             City *ct = temp[indexPath.row];
-            if ([ct.cityName isEqualToString:_locationCity]) {
-                [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+            if (locationCity) {
+                if ([ct.cityName isEqualToString:locationCity]) {
+                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+                }
             } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
             }
@@ -360,11 +298,11 @@
     
     if (tableView == _mainTableView) {
         if (indexPath.section == 0) {
-            if (!_locationCity) {
+            if (!locationCity) {
                 [self.navigationController popViewControllerAnimated:YES];
                 return;
             }
-            info = @{@"startcity":_locationCity};
+            info = @{@"startcity":locationCity};
         }
         
         if (hotCitiesArray.count > 0) {

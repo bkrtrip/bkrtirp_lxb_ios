@@ -12,7 +12,6 @@
 #import "MicroShopCollectionViewCell_OnlineShop.h"
 #import "MicroShopCollectionViewCell_MyShop.h"
 #import "AddShopCollectionViewCell.h"
-#import <CoreLocation/CoreLocation.h>
 #import "ReusableHeaderView_OnlineShop.h"
 #import "ReusableHeaderView_myShop.h"
 #import "YesOrNoView.h"
@@ -20,17 +19,14 @@
 #import "SetShopNameViewController.h"
 #import "MyShopWebPreviewViewController.h"
 
-@interface MicroShopViewController ()<CLLocationManagerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
+@interface MicroShopViewController ()<UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
 {
     NSString *locationProvince;
     NSNumber *shopIdToDelete;
     UIRefreshControl *refreshControl_online;
     UIRefreshControl *refreshControl_myshop;
     MicroShopInfo *selectedShop;
-//    BOOL locateQuiteMode;
 }
-
-@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) IBOutlet UIButton *onlineShopButton;
 @property (strong, nonatomic) IBOutlet UIButton *myShopButton;
@@ -152,6 +148,16 @@
     // initial status
     self.selectedIndex = 0;
     locationProvince = [[Global sharedGlobal] locationProvince];
+    
+    if ([UserModel companyId] && [UserModel staffId]) {
+        if ([[Global sharedGlobal] notFirstLogin] == YES) {
+            self.selectedIndex = 1;
+        } else {
+            self.selectedIndex = 0;
+        }
+    } else {
+        self.selectedIndex = 0;
+    }
 }
 
 - (void)addLongPressGestureRecognizerForMyShop
@@ -201,13 +207,12 @@
 
 - (void)refreshCollectionViews:(id)sender
 {
-    if (!locationProvince) {
-        [self startLocation];
-        return;
-    }
     if (_selectedIndex == 0) {
-        [self getOnlineShops];
-        return;
+        if (locationProvince) {
+            [self getOnlineShops];
+        } else {
+            [sender endRefreshing];
+        }
     }
     [self getMyShops];
 }
@@ -220,41 +225,12 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
-    
-    // 判断省份位置是否从别处更新，刷新列表
-    if (![locationProvince isEqualToString:[[Global sharedGlobal] locationProvince]]) {
-        locationProvince = [[Global sharedGlobal] locationProvince];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PROVINCE_CHANGED" object:self];
-        return;
-    }
-    
-    // 未存储位置信息时，开始定位
-    if (!locationProvince) {
-//        locateQuiteMode = NO;
-        [self startLocation];
-    } else {
-        if ([UserModel companyId] && [UserModel staffId]) {
-            if ([[Global sharedGlobal] notFirstLogin] == YES) {
-                self.selectedIndex = 1;
-            } else {
-                self.selectedIndex = 0;
-            }
-        } else {
-            self.selectedIndex = 0;
-        }
-        
-//        locateQuiteMode = YES;
-//        [self startLocation]; // 更新位置,检查是否与存储位置相同
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    if ([[Global sharedGlobal] networkAvailability] == NO) {
-        [self networkUnavailable];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -277,10 +253,12 @@
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
             }
             
-//            if (!_onlineShopsArray) {
-//                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-//                [self getOnlineShops];
-//            }
+            if (!_onlineShopsArray) {
+                if (locationProvince) {
+                    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                    [self getOnlineShops];
+                }
+            }
         }
             break;
         case 1:
@@ -294,10 +272,10 @@
                 [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
             }
             
-//            if (!_myShopsArray) {
-//                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-//                [self getMyShops];
-//            }
+            if (!_myShopsArray) {
+                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                [self getMyShops];
+            }
         }
             break;
         default:
@@ -314,7 +292,10 @@
 
 - (void)provinceChanged
 {
-    [self refreshCollectionViews:nil];
+    locationProvince = [[Global sharedGlobal] locationProvince];
+    if (locationProvince) {
+        [self getOnlineShops];
+    }
 }
 
 #pragma mark - Override
@@ -327,102 +308,6 @@
 - (void)networkAvailable
 {
     [super networkAvailable];
-}
-
-#pragma mark - Locating part
-//开始定位
-- (void)startLocation{
-    
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 1.0f;
-    [_locationManager startUpdatingLocation];
-    
-    if(![CLLocationManager locationServicesEnabled]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
-    {
-        //设置定位权限 仅ios8有意义
-        [self.locationManager requestWhenInUseAuthorization];// 前台定位
-        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
-    }
-}
-
-#pragma mark - CLLocationManagerDelegate
-//定位代理经纬度回调
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-    [_locationManager stopUpdatingLocation];
-    NSLog(@"location ok");
-    
-    CLLocation *newLocation = [locations objectAtIndex:0];
-    
-    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
-    
-    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark *placemark in placemarks) {
-            
-            NSDictionary *test = [placemark addressDictionary];
-            // locality(城市)
-            NSLog(@"%@", test);
-            NSString *newProvince = [test objectForKey:@"State"];
-            if ([newProvince hasSuffix:@"省"]) {
-                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
-            }
-            
-            NSString *newCity = [test objectForKey:@"City"];
-            if ([newCity hasSuffix:@"市"]) {
-                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
-            }
-            NSLog(@"newCity: ------ %@", newCity);
-            NSLog(@"newProvince: ------ %@", newProvince);
-            if (![locationProvince isEqualToString:newProvince]) {
-                [[Global sharedGlobal] upDateLocationProvince:newProvince];
-                locationProvince = newProvince;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"PROVINCE_CHANGED" object:self];//省份改变后，刷新列表
-            }
-            if (![[[Global sharedGlobal] locationCity] isEqualToString:newCity]) {
-                [[Global sharedGlobal] upDateLocationProvince:newCity];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"CITY_CHANGED" object:self];//城市改变后，通知其他controller.
-            }
-            
-            if ([UserModel companyId] && [UserModel staffId]) {
-                if ([[Global sharedGlobal] notFirstLogin] == YES) {
-                    self.selectedIndex = 1;
-                } else {
-                    self.selectedIndex = 0;
-                }
-            } else {
-                self.selectedIndex = 0;
-            }
-        }
-    }];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    CLError err = [[error domain] intValue];
-    if (err != kCLErrorLocationUnknown) {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }
 }
 
 #pragma mark - HTTP

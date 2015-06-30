@@ -15,10 +15,10 @@ singleton_implementation(HTTPTool)
 // 获取在线微店列表 - LXB1111 - 未登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    if (!province) {
-        return;
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] init];
+    if (province) {
+        [param setObject:province forKey:@"province"];
     }
-    NSMutableDictionary *param = [@{@"province":province} mutableCopy];
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
@@ -38,19 +38,18 @@ singleton_implementation(HTTPTool)
 // 获取在线微店列表 - LXB1122 - 已登录
 + (void)getOnlineMicroShopListWithProvince:(NSString *)province companyId:(NSNumber *)companyId staffId:(NSNumber *)staffId success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    if (!province) {
+    if (!companyId) {
         return;
     }
-    NSMutableDictionary *param = [@{@"province":province} mutableCopy];
-    if (companyId) {
-        [param setObject:companyId forKey:@"companyid"];
-    } else
+    if (!staffId) {
         return;
+    }
     
-    if (staffId) {
-        [param setObject:staffId forKey:@"staffid"];
-    } else
-        return;
+    NSMutableDictionary *param = [@{@"companyid":companyId, @"staffid":staffId} mutableCopy];
+    
+    if (province) {
+        [param setObject:province forKey:@"province"];
+    }
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
@@ -462,23 +461,21 @@ singleton_implementation(HTTPTool)
 // 专线/地接 - 已登录 - LXB21210
 + (void)getSuppliersListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId StartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param = [@{@"startcity":startCity, @"lineclass":lineClass,  @"pagenum":pageNum} mutableCopy];
-    
-    if (companyId) {
-        [param setObject:companyId forKey:@"companyid"];
-    } else
+    if (!companyId) {
         return;
-    
-    if (staffId) {
-        [param setObject:staffId forKey:@"staffid"];
-    } else
+    }
+    if (!staffId) {
         return;
+    }
+    if (!startCity) {
+        return;
+    }
+    
+    NSMutableDictionary *param = [@{@"companyid":companyId, @"staffid":staffId, @"startcity":startCity, @"lineclass":lineClass, @"pagenum":pageNum} mutableCopy];
     
     if (lineType && lineType.length > 0) {
         [param setObject:lineType forKey:@"linetype"];
     }
-    
-
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];

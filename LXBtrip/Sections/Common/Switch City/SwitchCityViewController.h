@@ -10,6 +10,4 @@
 
 @interface SwitchCityViewController : NavBaseViewController
 
-@property (nonatomic, copy) NSString *locationCity;
-
 @end

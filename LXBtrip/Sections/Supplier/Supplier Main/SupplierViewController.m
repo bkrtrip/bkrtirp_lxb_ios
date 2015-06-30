@@ -7,7 +7,6 @@
 //
 
 #import "SupplierViewController.h"
-#import <CoreLocation/CoreLocation.h>
 #import "SupplierCollectionView.h"
 #import "SupplierCollectionViewCell.h"
 #import "SupplierCollectionViewFlowLayout.h"
@@ -23,7 +22,7 @@
 #import "InviteSupplierTableViewCell_Fourth.h"
 #import "MyShopWebPreviewViewController.h"
 
-@interface SupplierViewController () <CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
+@interface SupplierViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
     NSString *locationCity;
     NSString *startCity;
@@ -67,8 +66,6 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *underLineLabel;
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-
 @property (nonatomic, copy) NSMutableArray *suppliersArray;
 
 @property (nonatomic, assign) NSInteger selectedIndex; // 0~4
@@ -98,6 +95,8 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SupplierList) name:CITY_CHANGED object:nil];
+
     CGFloat yOrigin = 20.f + 44.f + 82.f;
     
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
@@ -166,32 +165,74 @@
     [self.view addSubview:_darkMask];
     
     locationCity = [[Global sharedGlobal] locationCity];
-    if (!locationCity) {
-        [self startLocation];
+    startCity = [locationCity copy];
+    if (startCity) {
+        [_locationButton setTitle:startCity forState:UIControlStateNormal];
+        _selectedIndex = 0;
+        [self refreshSupplierList];
     }
 }
 
 - (void)refreshCollectionViews:(id)sender
 {
-    pageNumsArray[_selectedIndex] = @1;
-    isLoadingMoresArray[_selectedIndex] = @0;
-    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+    if (startCity) {
+        pageNumsArray[_selectedIndex] = @1;
+        isLoadingMoresArray[_selectedIndex] = @0;
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+    } else {
+        [sender endRefreshing];
+    }
 }
 
+#pragma mark - Notification Handler
 - (void)refreshSupplierList
 {
-    _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
-    for (int i = 0; i < 5; i++) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [_suppliersArray addObject:array];
+    if (startCity) {
+        _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
+        for (int i = 0; i < 5; i++) {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            [_suppliersArray addObject:array];
+        }
+        
+        lineClass = LINE_CLASS[@(_selectedIndex)];
+        pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
+        isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
+        
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
     }
+}
+
+- (void)switchCityWithCityName:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
+    startCity = info[@"startcity"];
     
-    lineClass = LINE_CLASS[@(_selectedIndex)];
-    pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
-    isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
+    [self refreshSupplierList];
+}
+
+// passed back from SiftSupplierController
+- (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    _selectedIndex = [info[@"line_class_index"] integerValue];
+    lineTypesArray[_selectedIndex] = info[@"line_type"];
+    pageNumsArray[_selectedIndex] = @1;
+    isLoadingMoresArray[_selectedIndex] = @0;
     
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+    self.selectedIndex = [info[@"line_class_index"] integerValue];
+}
+
+- (void)cityChanged_SupplierList
+{
+    locationCity = [[Global sharedGlobal] locationCity];
+    if (locationCity) {
+        startCity = [locationCity copy];
+        [_locationButton setTitle:startCity forState:UIControlStateNormal];
+        _selectedIndex = 0;
+        [self refreshSupplierList];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -202,18 +243,12 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
-    if (!locationCity) {
-        [self startLocation];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    if ([[Global sharedGlobal] networkAvailability] == NO) {
-        [self networkUnavailable];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -233,112 +268,11 @@
     [super networkAvailable];
 }
 
-#pragma mark - Locating part
-//开始定位
-- (void)startLocation{
-    
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 1.0f;
-    [_locationManager startUpdatingLocation];
-    
-    if(![CLLocationManager locationServicesEnabled]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
-    {
-        //设置定位权限 仅ios8有意义
-        [self.locationManager requestWhenInUseAuthorization];// 前台定位
-        [_locationManager requestAlwaysAuthorization];// 前后台同时定位
-    }
-}
-
-#pragma mark - CLLocationManagerDelegate
-//定位代理经纬度回调
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-    [_locationManager stopUpdatingLocation];
-    NSLog(@"location ok");
-    
-    CLLocation *newLocation = [locations objectAtIndex:0];
-    
-    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
-    
-    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark *placemark in placemarks) {
-            
-            NSDictionary *test = [placemark addressDictionary];
-            // locality(城市)
-            NSLog(@"%@", test);
-            locationCity = [test objectForKey:@"City"];
-            if ([locationCity hasSuffix:@"市"]) {
-                locationCity = [locationCity substringWithRange:NSMakeRange(0, locationCity.length-1)];
-            }
-            NSLog(@"Actual start city: ------ %@", locationCity);
-            startCity = [locationCity copy];
-            // --TEST--
-//            startCity = @"西安";
-            // --TEST--
-            [_locationButton setTitle:startCity forState:UIControlStateNormal];
-
-            
-            _selectedIndex = 0;
-            [self refreshSupplierList];
-        }
-    }];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    CLError err = [[error domain] intValue];
-    if (err != kCLErrorLocationUnknown) {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"网络状态不佳，正在尝试重新定位" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
     _selectedIndex = selectedIndex;
     lineClass = LINE_CLASS[@(_selectedIndex)];
     [self scrollToVisibleWithSelectedIndex:_selectedIndex];
-}
-
-// passed back from SiftSupplierController
-- (void)siftSupplierWithLineClassAndLineType:(NSNotification *)note
-{
-    NSDictionary *info = [note userInfo];
-    _selectedIndex = [info[@"line_class_index"] integerValue];
-    lineTypesArray[_selectedIndex] = info[@"line_type"];
-    pageNumsArray[_selectedIndex] = @1;
-    isLoadingMoresArray[_selectedIndex] = @0;
-    
-    self.selectedIndex = [info[@"line_class_index"] integerValue];
-}
-
-- (void)switchCityWithCityName:(NSNotification *)note
-{
-    NSDictionary *info = [note userInfo];
-    [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
-    startCity = info[@"startcity"];
-    
-    [self refreshSupplierList];
 }
 
 - (void)hideInviteTableView
@@ -736,7 +670,6 @@
 }
 - (IBAction)locationButtonClicked:(id)sender {
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
-    switchCity.locationCity = locationCity;
     [self.navigationController pushViewController:switchCity animated:YES];
 }
 
@@ -797,8 +730,10 @@
     }];
     
     if ([isLoadingMoresArray[index] integerValue] == 0) {
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+        if (startCity) {
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+        }
     }
 }
 @end
