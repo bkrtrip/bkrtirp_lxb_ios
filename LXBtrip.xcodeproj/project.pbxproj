@@ -544,6 +544,10 @@
 		97F886581B39639700E0E25E /* no_product@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886561B39639700E0E25E /* no_product@3x.png */; };
 		97F8865B1B3963A300E0E25E /* no_search_results@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886591B3963A300E0E25E /* no_search_results@2x.png */; };
 		97F8865C1B3963A300E0E25E /* no_search_results@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F8865A1B3963A300E0E25E /* no_search_results@3x.png */; };
+		B75AB7F81B4203F800CE735E /* NotificationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */; };
+		B75AB7F91B4203F800CE735E /* NotificationCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B75AB7F71B4203F800CE735E /* NotificationCenterViewController.xib */; };
+		B75AB7FD1B420BC500CE735E /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B75AB7FB1B420BC500CE735E /* NotificationTableViewCell.m */; };
+		B75AB7FE1B420BC500CE735E /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B75AB7FC1B420BC500CE735E /* NotificationTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1270,6 +1274,12 @@
 		97F886561B39639700E0E25E /* no_product@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_product@3x.png"; path = "LXBtrip/image/Common/no_product@3x.png"; sourceTree = SOURCE_ROOT; };
 		97F886591B3963A300E0E25E /* no_search_results@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@2x.png"; path = "Supplier/no_search_results@2x.png"; sourceTree = "<group>"; };
 		97F8865A1B3963A300E0E25E /* no_search_results@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@3x.png"; path = "Supplier/no_search_results@3x.png"; sourceTree = "<group>"; };
+		B75AB7F51B4203F800CE735E /* NotificationCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCenterViewController.h; sourceTree = "<group>"; };
+		B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCenterViewController.m; sourceTree = "<group>"; };
+		B75AB7F71B4203F800CE735E /* NotificationCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCenterViewController.xib; sourceTree = "<group>"; };
+		B75AB7FA1B420BC500CE735E /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
+		B75AB7FB1B420BC500CE735E /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
+		B75AB7FC1B420BC500CE735E /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1330,6 +1340,9 @@
 				227605251B379A6A0037A8EE /* AddDispatcherViewController.h */,
 				227605261B379A6A0037A8EE /* AddDispatcherViewController.m */,
 				227605271B379A6A0037A8EE /* AddDispatcherViewController.xib */,
+				B75AB7F51B4203F800CE735E /* NotificationCenterViewController.h */,
+				B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */,
+				B75AB7F71B4203F800CE735E /* NotificationCenterViewController.xib */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -2414,6 +2427,9 @@
 				2291DEFB1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.h */,
 				2291DEFC1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.m */,
 				2291DEFD1B2EBD3400AB8E35 /* DSettingFooterTableViewCell.xib */,
+				B75AB7FA1B420BC500CE735E /* NotificationTableViewCell.h */,
+				B75AB7FB1B420BC500CE735E /* NotificationTableViewCell.m */,
+				B75AB7FC1B420BC500CE735E /* NotificationTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2929,6 +2945,7 @@
 				9794A6951B26A81D0077E5C0 /* LaunchScreen.xib in Resources */,
 				979E099E1B22D8D90062D9AD /* border_two_rect@2x.png in Resources */,
 				9793A51F1B10E33D00182006 /* section_header_indicator@2x.png in Resources */,
+				B75AB7FE1B420BC500CE735E /* NotificationTableViewCell.xib in Resources */,
 				978700F51B31175600597BA4 /* THDateDay.xib in Resources */,
 				97CDAFDE1B2C2FBE009917FB /* SupplierDetailTopImageTableViewCell.xib in Resources */,
 				975DC44A1B2FCE260058B6B4 /* CreateOrderCell_StartOrEndDate.xib in Resources */,
@@ -3024,6 +3041,7 @@
 				97CDAF721B2BDD4A009917FB /* review_red@2x.png in Resources */,
 				2260D7A61B27A46B000F6856 /* DispatchSwitchTableViewCell.xib in Resources */,
 				9794A88D1B26A8280077E5C0 /* infoIcon@2x.png in Resources */,
+				B75AB7F91B4203F800CE735E /* NotificationCenterViewController.xib in Resources */,
 				9794A8A01B26A8280077E5C0 /* headerBg@2x.png in Resources */,
 				9794A8B61B26A8280077E5C0 /* signOut@3x.png in Resources */,
 				227605291B379A6A0037A8EE /* AddDispatcherViewController.xib in Resources */,
@@ -3167,6 +3185,7 @@
 				97B30AC31B2D305E006F88DC /* MySupplierViewController.m in Sources */,
 				2260D7AA1B27A799000F6856 /* DispatchProfitRateTableViewCell.m in Sources */,
 				9794A8851B26A8280077E5C0 /* LoginViewController.m in Sources */,
+				B75AB7F81B4203F800CE735E /* NotificationCenterViewController.m in Sources */,
 				9794A88A1B26A8280077E5C0 /* RVerifyCodeViewController.m in Sources */,
 				97CDAFDD1B2C2FBE009917FB /* SupplierDetailTopImageTableViewCell.m in Sources */,
 				97C786171B1E804200639576 /* HotCity.m in Sources */,
@@ -3278,6 +3297,7 @@
 				9794A8181B26A8280077E5C0 /* AlleyListCollectionViewFlowLayout.m in Sources */,
 				97CDAFDB1B2C2FBE009917FB /* SiftSupplierViewController.m in Sources */,
 				8E5C69921AFAFC5B004A0CC3 /* AppDelegate.m in Sources */,
+				B75AB7FD1B420BC500CE735E /* NotificationTableViewCell.m in Sources */,
 				9794A87E1B26A8280077E5C0 /* NavBaseViewController.m in Sources */,
 				977DCFD31B1D31C80060C7BB /* TravelTicketGroup.m in Sources */,
 				975DC4491B2FCE260058B6B4 /* CreateOrderCell_StartOrEndDate.m in Sources */,

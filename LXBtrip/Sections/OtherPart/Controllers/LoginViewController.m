@@ -99,7 +99,7 @@
 
 //                 [weakSelf showAlertViewWithTitle:@"提示" message:@"登录成功。" cancelButtonTitle:@"确定"];
                  
-                 if (NSClassFromString(@"UIAlertController")) {
+                 /*if (NSClassFromString(@"UIAlertController")) {
                      UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录成功。" preferredStyle:UIAlertControllerStyleAlert];
                      
                      UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -115,6 +115,9 @@
                      UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"登录成功。" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil];
                      [alertView show];
                  }
+                  */
+                 
+                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
                  
                  if (weakSelf.delegate) {
                      [weakSelf.delegate loginSuccess];
@@ -178,10 +181,10 @@
             }
         }
         
-        if (range.location == 11 && range.length == 0) {
-            
-            return NO;
-        }
+//        if (range.location == 11 && range.length == 0) {
+//            
+//            return NO;
+//        }
         /*
         if (textField.text.length == 0 && (range.location == 0 && range.length == 0)) {
             NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"1" options:NSRegularExpressionCaseInsensitive error:&error];

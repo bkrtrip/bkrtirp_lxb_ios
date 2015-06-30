@@ -24,6 +24,7 @@
 #import "DispatchSettingsViewController.h"
 #import "MyOrderListViewController.h"
 #import "MySupplierViewController.h"
+#import "NotificationCenterViewController.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -246,6 +247,9 @@
         {
             //消息设置
             if (indexPath.row == 0) {
+                NotificationCenterViewController *viewController = [[NotificationCenterViewController alloc] init];
+                
+                [self.navigationController pushViewController:viewController animated:YES];
                 
             }
             //支付设置
