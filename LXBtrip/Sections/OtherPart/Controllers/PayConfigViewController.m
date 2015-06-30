@@ -216,6 +216,9 @@
             else {
                 [cell setcontentInformation:@"未设置"];
             }
+            
+            cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
             break;
             
@@ -245,6 +248,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 1) {
+        
+        if (indexPath.row == 5) {
+            return;
+        }
         
         AlterUserInfoViewController *viewController = [[AlterUserInfoViewController alloc] init];
         viewController.delegate = self;
@@ -276,11 +283,11 @@
                 viewController.type = WX_partner;
             }
                 break;
-            case 5:
-            {
-                viewController.type = WX_paysecret;
-            }
-                break;
+//            case 5:
+//            {
+//                viewController.type = WX_paysecret;
+//            }
+//                break;
                 
                 
             default:
@@ -355,6 +362,12 @@
 {
     if (!self.isOpenedWXPay) {
         //all information required
+        if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_loginname"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_loginpwd"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_appid"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_appsecret"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_partner"].length == 0) {
+            
+            [self showAlertViewWithTitle:nil message:@"您有未填写的微信支付信息，请填写完整后再提交。" cancelButtonTitle:@"确定"];
+            return;
+        }
+        
     }
     
     [self createWebchatPaymentConfigWithInfo:self.webChatPaymentConfigDic];

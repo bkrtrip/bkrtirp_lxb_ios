@@ -154,6 +154,7 @@
     if (![self.phoneNumberText.text isEqualToString:@""]&&![self.passwordText.text isEqualToString:@""])
     {
 //        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"登录中..."];
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self loginSystemForUser:self.phoneNumberText.text withPwd:self.passwordText.text];
     }else
     {

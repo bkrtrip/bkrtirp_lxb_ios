@@ -544,6 +544,8 @@
 		97F886581B39639700E0E25E /* no_product@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886561B39639700E0E25E /* no_product@3x.png */; };
 		97F8865B1B3963A300E0E25E /* no_search_results@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886591B3963A300E0E25E /* no_search_results@2x.png */; };
 		97F8865C1B3963A300E0E25E /* no_search_results@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F8865A1B3963A300E0E25E /* no_search_results@3x.png */; };
+		AEDD97931B434BE1000071A4 /* WebContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEDD97911B434BE1000071A4 /* WebContentViewController.m */; };
+		AEDD97941B434BE1000071A4 /* WebContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEDD97921B434BE1000071A4 /* WebContentViewController.xib */; };
 		B75AB7F81B4203F800CE735E /* NotificationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */; };
 		B75AB7F91B4203F800CE735E /* NotificationCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B75AB7F71B4203F800CE735E /* NotificationCenterViewController.xib */; };
 		B75AB7FD1B420BC500CE735E /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B75AB7FB1B420BC500CE735E /* NotificationTableViewCell.m */; };
@@ -1274,6 +1276,9 @@
 		97F886561B39639700E0E25E /* no_product@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_product@3x.png"; path = "LXBtrip/image/Common/no_product@3x.png"; sourceTree = SOURCE_ROOT; };
 		97F886591B3963A300E0E25E /* no_search_results@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@2x.png"; path = "Supplier/no_search_results@2x.png"; sourceTree = "<group>"; };
 		97F8865A1B3963A300E0E25E /* no_search_results@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@3x.png"; path = "Supplier/no_search_results@3x.png"; sourceTree = "<group>"; };
+		AEDD97901B434BE1000071A4 /* WebContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentViewController.h; sourceTree = "<group>"; };
+		AEDD97911B434BE1000071A4 /* WebContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentViewController.m; sourceTree = "<group>"; };
+		AEDD97921B434BE1000071A4 /* WebContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebContentViewController.xib; sourceTree = "<group>"; };
 		B75AB7F51B4203F800CE735E /* NotificationCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCenterViewController.h; sourceTree = "<group>"; };
 		B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCenterViewController.m; sourceTree = "<group>"; };
 		B75AB7F71B4203F800CE735E /* NotificationCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCenterViewController.xib; sourceTree = "<group>"; };
@@ -1343,6 +1348,9 @@
 				B75AB7F51B4203F800CE735E /* NotificationCenterViewController.h */,
 				B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */,
 				B75AB7F71B4203F800CE735E /* NotificationCenterViewController.xib */,
+				AEDD97901B434BE1000071A4 /* WebContentViewController.h */,
+				AEDD97911B434BE1000071A4 /* WebContentViewController.m */,
+				AEDD97921B434BE1000071A4 /* WebContentViewController.xib */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -2970,6 +2978,7 @@
 				978700F01B3112E900597BA4 /* CalendarViewController.xib in Resources */,
 				97AFC1821B1574F6009C3CF6 /* QQ@2x.png in Resources */,
 				9794A82C1B26A8280077E5C0 /* SwitchCityViewController.xib in Resources */,
+				AEDD97941B434BE1000071A4 /* WebContentViewController.xib in Resources */,
 				977DCFB11B1C9C130060C7BB /* message@2x.png in Resources */,
 				9793A5201B10E33D00182006 /* section_header_indicator@3x.png in Resources */,
 				97AEDBCB1B1458F10098F75B /* cell_phone_normal@2x.png in Resources */,
@@ -3236,6 +3245,7 @@
 				973D8B431B1B548600CA4260 /* SupplierInfo.m in Sources */,
 				9794A8C21B26A8280077E5C0 /* PHeaderTableViewCell.m in Sources */,
 				975DC43F1B2FCE260058B6B4 /* CreateOrderCell_BookHeader.m in Sources */,
+				AEDD97931B434BE1000071A4 /* WebContentViewController.m in Sources */,
 				9770EEA71B252DBC004FDA7A /* AlleyInfo.m in Sources */,
 				9794A8291B26A8280077E5C0 /* SwitchCityTableViewCell.m in Sources */,
 				9794A91D1B26A86B0077E5C0 /* AFURLResponseSerialization.m in Sources */,

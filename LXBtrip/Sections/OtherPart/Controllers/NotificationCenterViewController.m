@@ -14,6 +14,7 @@
 #import "NSDictionary+GetStringValue.h"
 #import "UIViewController+CommonUsed.h"
 #import "CustomActivityIndicator.h"
+#import "WebContentViewController.h"
 
 @interface NotificationCenterViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *notificationTableView;
@@ -86,6 +87,13 @@
 //                         
 //                         weakSelf.pageNum += 1;
                          
+//                         for (NSDictionary *dic in resultArray) {
+//                             //1001:sys   1002:route
+//                             if ([[dic stringValueByKey:@""] isEqualToString:@"1001"]) {
+//                                 [self.notificationsArray addObject:dic];
+//                             }
+//                         }
+                         
                          [weakSelf.notificationsArray addObjectsFromArray:resultArray];
                          [weakSelf.notificationTableView reloadData];
                      }
@@ -152,11 +160,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    DispaterInfoViewController *viewController = [[DispaterInfoViewController alloc] init];
-//    viewController.isUpdateDispatcher = YES;
-//    viewController.dispatcherDic = [self.dispatchersArray objectAtIndex:indexPath.row];
-//    
-//    [self.navigationController pushViewController:viewController animated:YES];
+    WebContentViewController *viewController = [[WebContentViewController alloc] init];
+    viewController.contentUrl = [[self.notificationsArray objectAtIndex:indexPath.row] stringValueByKey:@"msg_url"];
+    
+    [self.navigationController pushViewController:viewController animated:YES];
     
 }
 
