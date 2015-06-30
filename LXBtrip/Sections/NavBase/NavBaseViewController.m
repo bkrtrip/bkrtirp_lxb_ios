@@ -23,10 +23,12 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     // left back arrow
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(-20, 0, 40, 44)];
+    leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftBtn setImage:ImageNamed(@"back") forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(backArrowClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+
     
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:MainNavTitleFont};
     self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];

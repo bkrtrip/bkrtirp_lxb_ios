@@ -27,12 +27,9 @@
     }
 }
 
-- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
+- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
 {
-    CGFloat cellHeight = 38.f;
     [_instructionsWebView loadHTMLString:info.alleyServiceNotice baseURL:nil];
-    
-    return cellHeight;
 }
 
 #pragma mark - UIWebViewDelegate
@@ -41,7 +38,9 @@
     CGFloat webViewHeight = webView.scrollView.contentSize.height;
     [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, webViewHeight)];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"INSTRUCTION_CELL_HTML_HAS_FINISHED_LOADING" object:self userInfo:@{@"instruction_cell_height":@(webViewHeight+38.f)}];
+    if ([self.delegate respondsToSelector:@selector(instructionCellFinishedLoadingWithHeight:)]) {
+        [self.delegate instructionCellFinishedLoadingWithHeight:webViewHeight+38.f];
+    }
 }
 
 @end

@@ -496,6 +496,11 @@
         return ;
     }
     
+    if (![UserModel companyId] || ![UserModel staffId]) {
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return;
+    }
+    
     if (!_inviteTableView) {
         CGFloat height = 320.f;
         _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, height)];

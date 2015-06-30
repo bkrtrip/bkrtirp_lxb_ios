@@ -30,8 +30,11 @@
 
     _alleyNameLabel.text = alley.alleyBrand;
     
-//    _alleyNameLabel.text = alley.alleyName;
-//    [_alleyLocationButton setTitle:alley.alleyLocation forState:UIControlStateNormal];
+    if (alley.alleyDistance > 1000.f) {
+        [_alleyLocationButton setTitle:[NSString stringWithFormat:@"%.1f千米以内", alley.alleyDistance/1000.f] forState:UIControlStateNormal];
+    } else {
+        [_alleyLocationButton setTitle:[NSString stringWithFormat:@"%.0f米以内", alley.alleyDistance] forState:UIControlStateNormal];
+    }
 }
 
 

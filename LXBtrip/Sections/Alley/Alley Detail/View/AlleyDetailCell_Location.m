@@ -22,9 +22,15 @@
     // Initialization code
 }
 
-- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info
+- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info distance:(CGFloat)distance
 {
     CGFloat cellHeight = 64.f;
+    if (distance > 1000.f) {
+        [_locationButton setTitle:[NSString stringWithFormat:@"%.1f千米以内", distance/1000.f] forState:UIControlStateNormal];
+    } else {
+        [_locationButton setTitle:[NSString stringWithFormat:@"%.0f米以内", distance] forState:UIControlStateNormal];
+    }
+    
     _locationLabel.text = info.alleyCompanyAddress;
     CGSize locationLabelSize = [_locationLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 98.f - 8.f, MAXFLOAT)];
     

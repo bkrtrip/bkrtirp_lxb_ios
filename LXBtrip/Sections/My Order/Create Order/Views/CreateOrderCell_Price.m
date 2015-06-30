@@ -111,6 +111,7 @@
     }
 }
 - (IBAction)plusButtonClicked:(id)sender {
+    _personNumLabel.textColor = [UIColor whiteColor];
     _personNumLabel.text = [@([_personNumLabel.text integerValue]+1) stringValue];
     
     if (_minusButton.enabled == NO) {

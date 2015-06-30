@@ -11,5 +11,6 @@
 @interface AlleyDetailViewController : NavBaseViewController
 
 @property (strong, nonatomic) AlleyInfo *alley;
+@property (assign, nonatomic) CGFloat distance;
 
 @end

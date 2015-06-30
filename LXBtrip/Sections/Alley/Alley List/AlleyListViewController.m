@@ -147,7 +147,9 @@
 {
     // jump to detail
     AlleyDetailViewController *detail = [[AlleyDetailViewController alloc] init];
-    detail.alley = _alleysArray[indexPath.row];
+    AlleyInfo *alley = _alleysArray[indexPath.row];
+    detail.alley = alley;
+    detail.distance = alley.alleyDistance;
     [self.navigationController pushViewController:detail animated:YES];
 }
 
@@ -170,6 +172,8 @@
                         AlleyInfo *alley = [[AlleyInfo alloc] initWithDict:obj];
                         [_alleysArray addObject:alley];
                     }];
+                    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"alleyDistance" ascending:YES];
+                    _alleysArray = [[_alleysArray sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
                 }
                 [_collectionView reloadData];
                 pageNum++;
@@ -203,6 +207,8 @@
                         AlleyInfo *alley = [[AlleyInfo alloc] initWithDict:obj];
                         [_alleysArray addObject:alley];
                     }];
+                    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"alleyDistance" ascending:YES];
+                    _alleysArray = [[_alleysArray sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
                 }
                 [_collectionView reloadData];
                 pageNum++;

@@ -13,7 +13,7 @@
 #import "OrderDetailCell_TouristsInfo.h"
 #import "CreateOrderCell_BookHeader.h"
 #import "CreateOrderCell_OrderId.h"
-
+#import "TourDetailTableViewController.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -159,7 +159,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (indexPath.section == 0) {
+        TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
+        SupplierProduct *product = [[SupplierProduct alloc] init];
+        product.productTravelGoodsId = _item.orderTravelGoodsId;
+        product.productTravelGoodsCode = _item.orderTravelGoodsCode;
+        detail.product = product;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 @end

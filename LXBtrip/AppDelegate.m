@@ -34,7 +34,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -61,7 +60,7 @@
     self.window.rootViewController = tabController;
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];    
     return YES;
 }
 
@@ -184,14 +183,18 @@
     [_locationManager startUpdatingLocation];
     
     if(![CLLocationManager locationServicesEnabled]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    } else {
-        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
-        }
+        });
     }
+//    else {
+//        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 旅小宝" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+//            [alert show];
+//        }
+//    }
     
     if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
     {
@@ -212,6 +215,9 @@
     
     NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
     
+    // 更新经纬度
+    [[Global sharedGlobal] upDateLocationCoordinate:newLocation];
+    
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark *placemark in placemarks) {
@@ -220,14 +226,14 @@
             // locality(城市)
             NSLog(@"%@", test);
             NSString *newProvince = [test objectForKey:@"State"];
-            if ([newProvince hasSuffix:@"省"]) {
-                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
-            }
+//            if ([newProvince hasSuffix:@"省"]) {
+//                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
+//            }
             
             NSString *newCity = [test objectForKey:@"City"];
-            if ([newCity hasSuffix:@"市"]) {
-                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
-            }
+//            if ([newCity hasSuffix:@"市"]) {
+//                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
+//            }
             NSLog(@"newCity: ------ %@", newCity);
             NSLog(@"newProvince: ------ %@", newProvince);
             if (![_locationProvince isEqualToString:newProvince]) {
@@ -248,7 +254,13 @@
 {
     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     CLError err = [[error domain] intValue];
-    if (err != kCLErrorLocationUnknown) {
+    
+    if (err == kCLErrorDenied) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"请开启定位:设置 > 隐私 > 位置 > 定位服务 下 旅小宝" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    if ((err != kCLErrorLocationUnknown) && (err != kCLErrorDenied)) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }

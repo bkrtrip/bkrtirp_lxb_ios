@@ -15,6 +15,10 @@ const NSString *kHotCityHistory = @"hot_city_history";
 const NSString *kLocationProvince = @"location_province";
 const NSString *kLocationCity = @"location_city";
 
+const NSString *kLocationLatitude = @"latitude";
+const NSString *kLocationLongitude = @"longitude";
+
+
 @interface Global()
 
 @property (nonatomic, assign) BOOL networkAvailability;
@@ -303,6 +307,19 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 - (void)upDateLocationCity:(NSString *)newCity
 {
     [[NSUserDefaults standardUserDefaults] setObject:newCity forKey:(NSString *)kLocationCity];
+}
+- (CLLocation *)locationCoordinate
+{
+    CGFloat lat = [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kLocationLatitude] floatValue];
+    CGFloat lon = [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kLocationLongitude] floatValue];
+    return [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+}
+- (void)upDateLocationCoordinate:(CLLocation *)coordinate
+{
+    CGFloat lat = coordinate.coordinate.latitude;
+    CGFloat lon = coordinate.coordinate.longitude;
+    [[NSUserDefaults standardUserDefaults] setObject:@(lat) forKey:(NSString *)kLocationLatitude];
+    [[NSUserDefaults standardUserDefaults] setObject:@(lon) forKey:(NSString *)kLocationLongitude];
 }
 
 @end

@@ -70,11 +70,11 @@
                                 <action selector="myButtonClicked:" destination="-1" eventType="touchUpInside" id="KJO-4b-IzB"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ac4-qz-Akw">
-                            <rect key="frame" x="0.0" y="8" width="53" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ac4-qz-Akw">
+                            <rect key="frame" x="0.0" y="0.0" width="70" height="44"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="Zzc-gt-Nc2"/>
-                                <constraint firstAttribute="width" constant="53" id="bmA-Bl-pNI"/>
+                                <constraint firstAttribute="height" constant="50" id="Zzc-gt-Nc2"/>
+                                <constraint firstAttribute="width" constant="70" id="bmA-Bl-pNI"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="zCP-5v-F72"/>
                                 <constraint firstAttribute="width" secondItem="ac4-qz-Akw" secondAttribute="height" multiplier="1:1" id="zqn-kl-GIH"/>
                             </constraints>
@@ -85,6 +85,7 @@
                             </state>
                             <variation key="default">
                                 <mask key="constraints">
+                                    <exclude reference="Zzc-gt-Nc2"/>
                                     <exclude reference="zCP-5v-F72"/>
                                     <exclude reference="zqn-kl-GIH"/>
                                 </mask>
@@ -118,9 +119,10 @@
                         <constraint firstItem="JJ4-yj-cey" firstAttribute="centerY" secondItem="TB4-5c-A91" secondAttribute="centerY" id="Q8j-Zv-DiZ"/>
                         <constraint firstItem="JJ4-yj-cey" firstAttribute="leading" secondItem="TB4-5c-A91" secondAttribute="leading" id="WKP-Ti-bhh"/>
                         <constraint firstAttribute="centerY" secondItem="vfk-Hy-hDc" secondAttribute="centerY" constant="-1" id="XBi-MF-sVW"/>
+                        <constraint firstItem="ac4-qz-Akw" firstAttribute="height" secondItem="Y0X-Ed-KdM" secondAttribute="height" id="ZNE-Gd-kSc"/>
                         <constraint firstItem="T2i-HV-eEw" firstAttribute="leading" secondItem="TB4-5c-A91" secondAttribute="trailing" id="gQd-Qr-VBd"/>
                         <constraint firstItem="T2i-HV-eEw" firstAttribute="width" secondItem="TB4-5c-A91" secondAttribute="width" id="l6d-vO-2qR"/>
-                        <constraint firstAttribute="centerY" secondItem="ac4-qz-Akw" secondAttribute="centerY" constant="-1" id="lfI-oV-ada"/>
+                        <constraint firstAttribute="centerY" secondItem="ac4-qz-Akw" secondAttribute="centerY" id="lfI-oV-ada"/>
                         <constraint firstItem="TB4-5c-A91" firstAttribute="width" secondItem="JJ4-yj-cey" secondAttribute="width" multiplier="0.5" id="xSw-YP-2ND"/>
                     </constraints>
                 </view>

@@ -51,13 +51,11 @@ static NSString *userPlistPath = nil;
 
 + (void)updateUserProperty:(NSString *)property ForKey:(NSString *)key
 {
-    NSDictionary *userDic = [self getUserInformations];
-    if (userDic) {
-        NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:userDic];
-        [mutableDic setObject:property forKey:key];
-        
-        [mutableDic writeToFile:[self getUserPlistPath] atomically:NO];
-    }
+    NSMutableDictionary *userDic1 = [[self getUserInformations] mutableCopy];
+    NSMutableDictionary *userDic2 = [userDic1 objectForKey:@"RS100034"];
+    [userDic2 setObject:property forKey:key];
+    [userDic1 setObject:userDic2 forKey:@"RS100034"];
+    [userDic1 writeToFile:[self getUserPlistPath] atomically:NO];
 }
 
 + (void)clearUserInformation

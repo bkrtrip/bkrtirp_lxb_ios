@@ -58,7 +58,7 @@
     pageNum = 1;
     popUpType = None_Type;
     
-    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
@@ -183,7 +183,7 @@
                     return ;
                 }
                 
-                if (!_info) {
+                if (_info.supplierProductsArray.count == 0) {
                     _info = tempInfo;
                     [_tableView reloadData];
                     pageNum++;
@@ -565,6 +565,7 @@
     popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
+        self.navigationController.navigationBar.hidden = NO;
         [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -579,6 +580,7 @@
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
+        self.navigationController.navigationBar.hidden = YES;
         [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
     }];
 }

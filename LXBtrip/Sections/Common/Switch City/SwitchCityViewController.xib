@@ -29,8 +29,11 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="677-9b-kT1" userLabel="backButton">
-                                    <rect key="frame" x="8" y="11" width="7" height="22"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="677-9b-kT1" userLabel="backButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="yuZ-4A-NgW"/>
+                                    </constraints>
                                     <state key="normal" image="back.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -43,8 +46,9 @@
                             <constraints>
                                 <constraint firstAttribute="centerY" secondItem="1o3-Wo-BIX" secondAttribute="centerY" id="1uX-Fk-jUN"/>
                                 <constraint firstAttribute="height" constant="44" id="2E6-rs-SnH"/>
+                                <constraint firstItem="677-9b-kT1" firstAttribute="height" secondItem="0GL-Dp-jGN" secondAttribute="height" id="Fer-7J-1Nl"/>
                                 <constraint firstAttribute="centerY" secondItem="677-9b-kT1" secondAttribute="centerY" id="O0j-Ox-XFB"/>
-                                <constraint firstItem="677-9b-kT1" firstAttribute="leading" secondItem="0GL-Dp-jGN" secondAttribute="leading" constant="8" id="hdw-RE-cDd"/>
+                                <constraint firstItem="677-9b-kT1" firstAttribute="leading" secondItem="0GL-Dp-jGN" secondAttribute="leading" id="hdw-RE-cDd"/>
                                 <constraint firstAttribute="centerX" secondItem="1o3-Wo-BIX" secondAttribute="centerX" id="oIO-pw-QCe"/>
                             </constraints>
                         </view>

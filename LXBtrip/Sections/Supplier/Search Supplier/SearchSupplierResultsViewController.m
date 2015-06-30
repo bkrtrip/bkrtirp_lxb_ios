@@ -198,6 +198,11 @@
         
         [self siftProductsWithStartCity:startCitiesArray[indexPath.row]];
         [_startCityButton setTitle:startCitiesArray[indexPath.row] forState:UIControlStateNormal];
+        if (siftedResultsArray.count == 0) {
+            _noSearchResultsView.hidden = NO;
+        } else {
+            _noSearchResultsView.hidden = YES;
+        }
         [_mainTableView reloadData];
         [self hidePopUpViews];
         
@@ -244,6 +249,11 @@
                 break;
         }
         [self siftProductsWithWalkType:walk];
+        if (siftedResultsArray.count == 0) {
+            _noSearchResultsView.hidden = NO;
+        } else {
+            _noSearchResultsView.hidden = YES;
+        }
         [_mainTableView reloadData];
         [self hidePopUpViews];
         

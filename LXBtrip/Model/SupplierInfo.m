@@ -16,7 +16,8 @@
     self.supplierName = [dict[@"company_name"] isKindOfClass:[NSNull class]]?nil:dict[@"company_name"];
     self.supplierBrand = [dict[@"company_brand"] isKindOfClass:[NSNull class]]?nil:dict[@"company_brand"];
     self.supplierLogo = [dict[@"company_logo"] isKindOfClass:[NSNull class]]?nil:dict[@"company_logo"];
-    
+    self.alleyCompanyBusinessLicense = [dict[@"company_business_license"] isKindOfClass:[NSNull class]]?nil:dict[@"company_business_license"];
+
     self.supplierContactPhone = [dict[@"company_contactcallphone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contactcallphone"];
 
 

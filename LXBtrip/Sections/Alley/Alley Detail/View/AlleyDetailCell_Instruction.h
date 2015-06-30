@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "AppMacro.h"
 
+@protocol AlleyDetailCell_Instruction_Delegate <NSObject>
+
+- (void)instructionCellFinishedLoadingWithHeight:(CGFloat)height;
+
+@end
+
 @interface AlleyDetailCell_Instruction : UITableViewCell
 
-- (CGFloat)cellHeightWithAlleyInfo:(AlleyInfo *)info;
+@property (nonatomic, weak) id <AlleyDetailCell_Instruction_Delegate> delegate;
+- (void)setCellContentWithAlleyInfo:(AlleyInfo *)info;
 
 @end

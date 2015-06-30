@@ -199,6 +199,8 @@
             if (locationCity) {
                 if ([ct.cityName isEqualToString:locationCity]) {
                     [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+                } else {
+                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
                 }
             } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
@@ -210,6 +212,8 @@
                 if (locationCity) {
                     if ([hct isEqualToString:locationCity]) {
                         [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
+                    } else {
+                        [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
                     }
                 } else {
                     [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
@@ -222,6 +226,8 @@
             if (locationCity) {
                 if ([ct.cityName isEqualToString:locationCity]) {
                     [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+                } else {
+                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
                 }
             } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
@@ -303,9 +309,7 @@
                 return;
             }
             info = @{@"startcity":locationCity};
-        }
-        
-        if (hotCitiesArray.count > 0) {
+        } else if (hotCitiesArray.count > 0) {
             if (indexPath.section == 1) {
                 info = @{@"startcity":hotCitiesArray[indexPath.row]};
             } else {

@@ -11,7 +11,7 @@
 
 @protocol MyOrderListTableViewCell__Invalid_Delegate <NSObject>
 
-- (void)supportClickWithPhoneCall_Invalid;
+- (void)supportClickWithPhoneCall_InvalidWithOrder:(MyOrderItem *)order;
 
 @end
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppMacro.h"
+#import <CoreLocation/CoreLocation.h>
 
 typedef void (^errorCode_succeed_block)();
 
@@ -45,5 +46,7 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 - (NSString *)locationCity;
 - (void)upDateLocationProvince:(NSString *)newProvince;
 - (void)upDateLocationCity:(NSString *)newCity;
+- (CLLocation *)locationCoordinate;
+- (void)upDateLocationCoordinate:(CLLocation *)coordinate;
 
 @end

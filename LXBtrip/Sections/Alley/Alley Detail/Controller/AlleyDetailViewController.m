@@ -12,7 +12,7 @@
 #import "AlleyDetailCell_Instruction.h"
 #import "AppMacro.h"
 
-@interface AlleyDetailViewController () < UITableViewDataSource, UITableViewDelegate>
+@interface AlleyDetailViewController () < UITableViewDataSource, UITableViewDelegate, AlleyDetailCell_Instruction_Delegate>
 {
     NSMutableDictionary *cellHeights;
 }
@@ -27,9 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInstructionCellHeight:) name:@"INSTRUCTION_CELL_HTML_HAS_FINISHED_LOADING" object:nil];
-    
+        
     _callButton.layer.cornerRadius = 5.f;
     self.title = @"服务商信息";
     cellHeights = [[NSMutableDictionary alloc] init];
@@ -56,12 +54,11 @@
     }
 }
 
-- (void)updateInstructionCellHeight:(NSNotification *)note
+#pragma mark - AlleyDetailCell_Instruction_Delegate
+- (void)instructionCellFinishedLoadingWithHeight:(CGFloat)height
 {
-    CGFloat instructionCellHeight = [note.userInfo[@"instruction_cell_height"] floatValue];
-    [cellHeights setObject:@(instructionCellHeight) forKey:@"third_cell_height"];
+    [cellHeights setObject:@(height) forKey:@"third_cell_height"];
     [_tableView reloadData];
-
 }
 
 #pragma mark - Override
@@ -86,17 +83,11 @@
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100021"] succeed:^{
             _alley = [[AlleyInfo alloc] initWithDict:result[@"RS100021"]];
             
-            // calculate location cell height
             AlleyDetailCell_Location *locationCell = [[NSBundle mainBundle]loadNibNamed:@"AlleyDetailCell_Location" owner:nil options:nil][0];
-            CGFloat cellHeight = [locationCell cellHeightWithAlleyInfo:_alley];
+            CGFloat cellHeight = [locationCell cellHeightWithAlleyInfo:_alley distance:_distance];
             [cellHeights setObject:@(cellHeight) forKey:@"second_cell_height"];
             
-            // calculate instruction cell height
-            AlleyDetailCell_Instruction *instructionCell = [[NSBundle mainBundle]loadNibNamed:@"AlleyDetailCell_Instruction" owner:nil options:nil][0];
-            cellHeight = [instructionCell cellHeightWithAlleyInfo:_alley];
-            [cellHeights setObject:@(cellHeight) forKey:@"third_cell_height"];
-            
-//            [_tableView reloadData];
+            [_tableView reloadData];
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -132,17 +123,10 @@
             return cell;
         }
             break;
-//        case 1:
-//        {
-//            AlleyDetailCell_JoinNum *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_JoinNum" forIndexPath:indexPath];
-//            [cell setCellContentWithAlleyInfo:_alley];
-//            return cell;
-//        }
-//            break;
         case 1:
         {
             AlleyDetailCell_Location *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_Location" forIndexPath:indexPath];
-            CGFloat cellHeight = [cell cellHeightWithAlleyInfo:_alley];
+            CGFloat cellHeight = [cell cellHeightWithAlleyInfo:_alley distance:_distance];
             [cellHeights setObject:@(cellHeight) forKey:@"second_cell_height"];
             return cell;
         }
@@ -150,8 +134,8 @@
         case 2:
         {
             AlleyDetailCell_Instruction *cell = [tableView dequeueReusableCellWithIdentifier:@"AlleyDetailCell_Instruction" forIndexPath:indexPath];
-            CGFloat cellHeight = [cell cellHeightWithAlleyInfo:_alley];
-            [cellHeights setObject:@(cellHeight) forKey:@"third_cell_height"];
+            [cell setCellContentWithAlleyInfo:_alley];
+            cell.delegate = self;
             return cell;
         }
             break;
@@ -169,9 +153,7 @@
         case 0:
             return 200.f;
             break;
-//        case 1:
-//            return 70.f;
-//            break;
+
         case 1:
             return [cellHeights[@"second_cell_height"] floatValue];
             break;

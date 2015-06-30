@@ -9,7 +9,9 @@
 #import "MyOrderListTableViewCell__Invalid.h"
 
 @interface MyOrderListTableViewCell__Invalid()
-
+{
+    MyOrderItem *order;
+}
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *contactNameLabel;
 
@@ -30,6 +32,8 @@
 
 - (void)setCellContentWithMyOrderItem:(MyOrderItem *)item
 {
+    order = item;
+    
     [_orderImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL, item.orderTravelGoodsImg]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     }];
     
@@ -43,19 +47,30 @@
     [item.orderReservePriceGroup.kidBedNum integerValue]*[item.orderReservePriceGroup.kidBedPrice floatValue];
     
     if (adultTotalPrice == 0) {
-        _adultPriceLabel.text = @"成人:￥0.00";
+        _adultPriceLabel.hidden = YES;
     } else {
-        _adultPriceLabel.text = [NSString stringWithFormat:@"成人:￥%@ * %.2f", item.orderReservePriceGroup.adultNum, [item.orderReservePriceGroup.adultPrice floatValue]];
+        _adultPriceLabel.hidden = NO;
+        _adultPriceLabel.text = [NSString stringWithFormat:@"成人:￥%@*%.2f", item.orderReservePriceGroup.adultNum, [item.orderReservePriceGroup.adultPrice floatValue]];
     }
     
-    _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%.2f", kidTotalPrice];
+    if (kidTotalPrice == 0) {
+        _childPriceLabel.hidden = YES;
+    } else {
+        _childPriceLabel.hidden = NO;
+        _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%.2f", kidTotalPrice];
+    }
     
-    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + kidTotalPrice];
+    if (adultTotalPrice + kidTotalPrice == 0) {
+        _totalPriceLabel.hidden = YES;
+    } else {
+        _totalPriceLabel.hidden = NO;
+        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + kidTotalPrice];
+    }
 }
 
 - (IBAction)callButtonClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(supportClickWithPhoneCall_Invalid)]) {
-        [self.delegate supportClickWithPhoneCall_Invalid];
+    if ([self.delegate respondsToSelector:@selector(supportClickWithPhoneCall_InvalidWithOrder:)]) {
+        [self.delegate supportClickWithPhoneCall_InvalidWithOrder:order];
     }
 }
 

@@ -38,6 +38,12 @@
     }];
     _alleyNameLabel.text = info.alleyName;
     _providerLabel.text = info.alleyBrand;
+    if (info.alleyCompanyBusinessLicense) {
+        _certificateLabel.text = [NSString stringWithFormat:@"许可证号: %@", info.alleyCompanyBusinessLicense];
+        _certificateLabel.hidden = NO;
+    } else {
+        _certificateLabel.hidden = YES;
+    }
 }
 
 @end

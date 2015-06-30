@@ -77,6 +77,7 @@
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.backgroundColor = BG_F5F5F5;
         
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshTableViews:) forControlEvents:UIControlEventValueChanged];
@@ -185,6 +186,7 @@
         MyOrderListTableViewCell__Invalid *cell = [tableView dequeueReusableCellWithIdentifier:@"MyOrderListTableViewCell__Invalid" forIndexPath:indexPath];
         MyOrderItem *item = ordersArray[selectedIndex][indexPath.row];
         [cell setCellContentWithMyOrderItem:item];
+        cell.delegate = self;
         return cell;
     }
     
@@ -206,18 +208,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (selectedIndex == 1) {
-        OrderDetailViewController *detail = [[OrderDetailViewController alloc] init];
-        detail.item = ordersArray[selectedIndex][indexPath.row];
-        [self.navigationController pushViewController:detail animated:YES];
-        return;
-    }
     if (selectedIndex == 0) {
         CreateOrderViewController *create = [[CreateOrderViewController alloc] init];
         create.item = ordersArray[selectedIndex][indexPath.row];
         [self.navigationController pushViewController:create animated:YES];
         return;
     }
+    
+    OrderDetailViewController *detail = [[OrderDetailViewController alloc] init];
+    detail.item = ordersArray[selectedIndex][indexPath.row];
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 #pragma mark - MyOrderListTableViewCell__Unconfirmed_Confirmed_Delegate
@@ -232,6 +232,13 @@
     
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self modifyOrCancelMyOrderWithStatus:@"2"];
+}
+
+#pragma mark - MyOrderListTableViewCell__Invalid_Delegate
+- (void)supportClickWithPhoneCall_InvalidWithOrder:(MyOrderItem *)order
+{
+    selectedOrder = order;
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedOrder.orderContactPhone]]];
 }
 
 #pragma mark - HTTP
@@ -359,24 +366,6 @@
     }
 }
 
-
-#pragma mark - MyOrderListTableViewCell__Unconfirmed_Confirmed_Delegate
-- (void)supportClickWithCancelOrder
-{
-    
-}
-
-- (void)supportClickWithPhoneCall
-{
-    
-}
-
-#pragma mark - MyOrderListTableViewCell__Invalid_Delegate
-- (void)supportClickWithPhoneCall_Invalid
-{
-    
-}
-
 #pragma mark - Private
 - (NSString *)jsonStringFromReservePriceGroup:(ReservePriceGroup *)group
 {
@@ -457,10 +446,6 @@
 - (NSArray *)sortByTimeDescendingWithOrders:(NSArray *)orders
 {
     return [orders sortedArrayUsingFunction:sortOrder context:NULL];
-/*
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderStartDate" ascending:NO];
-    return [orders sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-*/
 }
 
 

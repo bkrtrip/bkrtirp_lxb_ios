@@ -7,6 +7,8 @@
 //
 
 #import "AlleyInfo.h"
+#import <CoreLocation/CoreLocation.h>
+#import "Global.h"
 
 @implementation AlleyInfo
 
@@ -14,10 +16,10 @@
 {
     self.alleyId = [dict[@"company_id"] isKindOfClass:[NSNull class]]?nil:dict[@"company_id"];
     self.alleyName = [dict[@"company_name"] isKindOfClass:[NSNull class]]?nil:dict[@"company_name"];
-
     self.alleyLogo = [dict[@"company_logo"] isKindOfClass:[NSNull class]]?nil:dict[@"company_logo"];
-    
     self.alleyBrand = [dict[@"company_brand"] isKindOfClass:[NSNull class]]?nil:dict[@"company_brand"];
+    self.alleyCompanyBusinessLicense = [dict[@"company_business_license"] isKindOfClass:[NSNull class]]?nil:dict[@"company_business_license"];
+    
     self.alleyServiceNotice = [dict[@"service_notice"] isKindOfClass:[NSNull class]]?nil:dict[@"service_notice"];
     self.alleyContactPhoneNo = [dict[@"company_contactcallphone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contactcallphone"];
 
@@ -25,6 +27,14 @@
 
     self.alleyServiceCost = [dict[@"service_cost"] isKindOfClass:[NSNull class]]?nil:dict[@"service_cost"];
     self.alleyLocation = [dict[@"company_coordinate"] isKindOfClass:[NSNull class]]?nil:dict[@"company_coordinate"];
+    
+    // calculate distance, in metres
+    NSArray *coordinatesArray = [self.alleyLocation componentsSeparatedByString:@","];
+    NSString *spotLongi = coordinatesArray[0];
+    NSString *spotLati = coordinatesArray[1];
+    CLLocation *spotCoordinate = [[CLLocation alloc] initWithLatitude:[spotLati floatValue] longitude:[spotLongi floatValue]];
+    self.alleyDistance = [spotCoordinate distanceFromLocation:[[Global sharedGlobal] locationCoordinate]];
+    
     self.alleyServiceCreateDate = [dict[@"company_createdate"] isKindOfClass:[NSNull class]]?nil:dict[@"company_createdate"];
     self.alleyJoinNum = [dict[@"join_num"] isKindOfClass:[NSNull class]]?nil:dict[@"join_num"];
     self.alleyJoinStatus = [dict[@"join_status"] isKindOfClass:[NSNull class]]?nil:dict[@"join_status"];

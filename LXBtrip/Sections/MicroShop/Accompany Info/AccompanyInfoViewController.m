@@ -11,7 +11,7 @@
 #import "AccompanyInfo_Instructions.h"
 
 
-@interface AccompanyInfoViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface AccompanyInfoViewController () <UITableViewDataSource, UITableViewDelegate, AccompanyInfoCell_Company_Delegate>
 {
     CGFloat instructionCellHeight;
 }
@@ -68,6 +68,7 @@
     if (indexPath.row == 0) {
         AccompanyInfoCell_Company *cell = [tableView dequeueReusableCellWithIdentifier:@"AccompanyInfoCell_Company" forIndexPath:indexPath];
         [cell setCellContentWithSupplierName:_product.productCompanyName];
+        cell.delegate = self;
         return cell;
     }
     
@@ -83,6 +84,11 @@
         return 57.f;
     }
     return instructionCellHeight;
+}
+
+- (void)supportClickWithPhoneCall
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _product.productCompanyContactPhone]]];
 }
 
 @end

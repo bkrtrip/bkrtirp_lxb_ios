@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "CompanyTemplate.h"
 
 @interface AlleyInfo : NSObject
@@ -14,10 +15,12 @@
 @property (nonatomic, copy) NSNumber *alleyId;//
 @property (nonatomic, copy) NSString *alleyName;//
 @property (nonatomic, copy) NSString *alleyLogo;//
+@property (nonatomic, copy) NSString *alleyCompanyBusinessLicense;
 
 @property (nonatomic, copy) NSString *alleyBrand;//
 @property (nonatomic, copy) NSNumber *alleyServiceCost;//加盟服务费起
 @property (nonatomic, copy) NSString *alleyLocation;//
+@property (nonatomic, assign) CGFloat alleyDistance;
 
 @property (nonatomic, copy) NSMutableArray *alleyCompanyTemplates;//本月加盟数
 @property (nonatomic, copy) NSString *alleyCompanyAddress;

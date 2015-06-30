@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSNumber *supplierId;
 @property (nonatomic, copy) NSString *supplierBrand;
 @property (nonatomic, copy) NSString *supplierLogo;
+@property (nonatomic, copy) NSString *alleyCompanyBusinessLicense;
+
 @property (nonatomic, copy) NSString *supplierLineType;
 @property (nonatomic, copy) NSString *supplierLineTypeLetter;
 

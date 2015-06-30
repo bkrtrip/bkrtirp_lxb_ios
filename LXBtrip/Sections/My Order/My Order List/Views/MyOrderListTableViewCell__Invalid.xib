@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atX-dA-hCT">
-                        <rect key="frame" x="5" y="5" width="310" height="132"/>
+                        <rect key="frame" x="5" y="10" width="310" height="132"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="团期：2014.10.10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkH-5u-cdZ">
                                 <rect key="frame" x="5" y="20" width="91" height="14"/>
@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3n-qA-Sqs" userLabel="callButton">
-                                <rect key="frame" x="285" y="17" width="25" height="20"/>
+                                <rect key="frame" x="275" y="17" width="25" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="J3n-qA-Sqs" secondAttribute="height" multiplier="85:69" id="7e5-QV-0cd"/>
                                     <constraint firstAttribute="height" constant="20" id="HNJ-TO-SJf"/>
@@ -61,14 +61,14 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成人:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFj-GE-7SP">
-                                <rect key="frame" x="86" y="85" width="23" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="成人:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFj-GE-7SP">
+                                <rect key="frame" x="86" y="86" width="23" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="儿童:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-U7-Ebd">
-                                <rect key="frame" x="267" y="85" width="23" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="儿童:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-U7-Ebd">
+                                <rect key="frame" x="267" y="86" width="23" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -103,7 +103,7 @@
                             <constraint firstItem="2nu-4j-u6t" firstAttribute="centerY" secondItem="QME-6u-wS1" secondAttribute="centerY" constant="0.5" id="Ymz-c8-IsM"/>
                             <constraint firstItem="rSq-Th-hGX" firstAttribute="centerY" secondItem="fkH-5u-cdZ" secondAttribute="centerY" id="Ynp-W8-dsP"/>
                             <constraint firstItem="GfC-Bh-B1k" firstAttribute="leading" secondItem="QME-6u-wS1" secondAttribute="leading" id="cNr-MF-8nW"/>
-                            <constraint firstAttribute="trailing" secondItem="J3n-qA-Sqs" secondAttribute="trailing" id="cpN-Pj-Xgm"/>
+                            <constraint firstAttribute="trailing" secondItem="J3n-qA-Sqs" secondAttribute="trailing" constant="10" id="cpN-Pj-Xgm"/>
                             <constraint firstItem="cW6-fJ-5Gc" firstAttribute="top" secondItem="jr6-Mu-nbk" secondAttribute="bottom" constant="5" id="cz8-7D-IGI"/>
                             <constraint firstItem="jr6-Mu-nbk" firstAttribute="top" secondItem="atX-dA-hCT" secondAttribute="top" constant="50" id="d9O-Ad-jCe"/>
                             <constraint firstItem="cW6-fJ-5Gc" firstAttribute="leading" secondItem="fkH-5u-cdZ" secondAttribute="leading" id="e6l-5s-3PC"/>
@@ -116,9 +116,9 @@
                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="atX-dA-hCT" firstAttribute="leading" secondItem="bcT-1r-XCn" secondAttribute="leading" constant="5" id="5B8-K4-KPq"/>
-                    <constraint firstAttribute="bottom" secondItem="atX-dA-hCT" secondAttribute="bottom" constant="5" id="5iW-HL-gnP"/>
+                    <constraint firstAttribute="bottom" secondItem="atX-dA-hCT" secondAttribute="bottom" id="5iW-HL-gnP"/>
                     <constraint firstAttribute="trailing" secondItem="atX-dA-hCT" secondAttribute="trailing" constant="5" id="JvP-oJ-Faf"/>
-                    <constraint firstItem="atX-dA-hCT" firstAttribute="top" secondItem="bcT-1r-XCn" secondAttribute="top" constant="5" id="o0P-1O-nOJ"/>
+                    <constraint firstItem="atX-dA-hCT" firstAttribute="top" secondItem="bcT-1r-XCn" secondAttribute="top" constant="10" id="o0P-1O-nOJ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
