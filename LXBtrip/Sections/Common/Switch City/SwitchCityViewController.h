@@ -9,5 +9,7 @@
 #import "NavBaseViewController.h"
 
 @interface SwitchCityViewController : NavBaseViewController
+@property (nonatomic, assign) BOOL isFromSupplierList;
+@property (nonatomic, assign) BOOL isFromTourList;
 
 @end

@@ -69,23 +69,25 @@
 
     [self.view addSubview:_collectionView];
     
-    
-    // --TEST--
-    curCity = @"西安";
-    curProvince = @"陕西";
+    curCity = [[Global sharedGlobal] locationCity];
+    curProvince = [[Global sharedGlobal] locationProvince];
     curCountry = @"中国";
-    
-    pageNum = 1;
-    isLoadingMore = YES;
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    [self getAlleyList];
+
+    if (curCity && curProvince) {
+        pageNum = 1;
+        isLoadingMore = NO;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getAlleyList];
+    }
 }
 
 - (void)refreshCollectionView:(id)sender
 {
-    pageNum = 1; // 1 is initial status
-    isLoadingMore = NO;
-    [self getAlleyList];
+    if (curCity && curProvince) {
+        pageNum = 1;
+        isLoadingMore = NO;
+        [self getAlleyList];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -175,8 +177,14 @@
                     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"alleyDistance" ascending:YES];
                     _alleysArray = [[_alleysArray sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
                 }
-                [_collectionView reloadData];
                 pageNum++;
+
+                if (SCREEN_HEIGHT > 480.0 && pageNum == 2) {
+                    [self getAlleyList];
+                    return ;
+                }
+
+                [_collectionView reloadData];
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -199,6 +207,7 @@
             if (isLoadingMore == NO) {
                 [_alleysArray removeAllObjects];
                 [_collectionView reloadData];
+                isLoadingMore = YES;
             }
             
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100019"] succeed:^{
@@ -210,8 +219,13 @@
                     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"alleyDistance" ascending:YES];
                     _alleysArray = [[_alleysArray sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
                 }
-                [_collectionView reloadData];
                 pageNum++;
+
+                if (SCREEN_HEIGHT > 480.0 && pageNum == 2) {
+                    [self getAlleyList];
+                    return ;
+                }
+                [_collectionView reloadData];
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -234,7 +248,7 @@
     if ([scrollView isKindOfClass:[UICollectionView class]]) {
         CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
         if (fabs(delta) < 10) {
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getAlleyList];
         }
     }

@@ -678,7 +678,7 @@
     [UIView animateWithDuration:0.4 animations:^{
         _changeStatusButton.hidden = YES;
         _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.containerView.frame.size.height)];
+        [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
             self.tabBarController.tabBar.hidden = NO;
@@ -691,7 +691,7 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.tabBarController.tabBar.hidden = YES;
         _darkMask.alpha = 1;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, -_yesOrNoView.containerView.frame.size.height)];
+        [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT - _yesOrNoView.containerView.frame.size.height, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
     }];
 }
 

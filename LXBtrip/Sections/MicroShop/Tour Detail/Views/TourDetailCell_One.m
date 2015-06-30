@@ -102,7 +102,7 @@
     
     if (product.productTravelGoodsId && [product.productTravelGoodsId integerValue] > 0) {
         _tourIDLabel.hidden = NO;
-        _tourIDLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsId];
+        _tourIDLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsCode];
     } else {
         _tourIDLabel.hidden = YES;
     }

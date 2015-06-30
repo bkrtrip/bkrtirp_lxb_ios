@@ -42,6 +42,9 @@
 
 #define PROVINCE_CHANGED @"PROVINCE_CHANGED"
 #define CITY_CHANGED @"CITY_CHANGED"
+#define SWITCH_CITY_SUPPLIER_LIST @"SWITCH_CITY_WITH_CITY_NAME_SUPPLIER_LIST"
+#define SWITCH_CITY_TOUR_LIST @"SWITCH_CITY_WITH_CITY_NAME_TOUR_LIST"
+
 
 // NavBasedViewController
 #define MainNavTitleColor RGB(255, 255, 255)
@@ -110,6 +113,9 @@
 
 // 4CA5FF - BLUE
 #define TEXT_4CA5FF [UIColor colorWithRed:76/255.f green:165/255.f blue:255/255.f alpha:1]
+
+#define TEXT_FF0075 [UIColor colorWithRed:255/255.f green:0/255.f blue:117/255.f alpha:1]
+
 
 //  code	常用返回码
 typedef enum ErrorCodeType

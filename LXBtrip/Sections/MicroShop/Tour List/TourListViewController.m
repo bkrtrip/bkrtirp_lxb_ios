@@ -15,6 +15,7 @@
 #import "ShareView.h"
 #import "TourWebPreviewViewController.h"
 #import "TourDetailTableViewController.h"
+#import "SwitchCityViewController.h"
 
 @interface TourListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TourListTableViewCell_Delegate, UIScrollViewDelegate, AccompanyInfoView_Delegate, ShareViewDelegate>
 {
@@ -74,6 +75,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_TourList) name:CITY_CHANGED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_TOUR_LIST object:nil];
+
     // Do any additional setup after loading the view from its nib.
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
@@ -81,6 +85,7 @@
     
     _searchButton.layer.cornerRadius = 5.f;
     [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     
@@ -93,15 +98,8 @@
 
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
     
-    _noProductView.hidden = YES;
-    pageNum = 1;
-    [self setWalkTypeTableViewHidden:YES];
-    [self setDestinationCityTableViewHidden:YES];
-    
-    // --TEST--
-    isRefreshing = NO;
-    startCity = @"西安";
-    [self getTourList];
+    // 初始化和此方法相同
+    [self cityChanged_TourList];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,6 +129,33 @@
     [super networkAvailable];
 }
 
+#pragma mark - Notification Handler
+- (void)cityChanged_TourList
+{
+    _noProductView.hidden = YES;
+    pageNum = 1;
+    [self setWalkTypeTableViewHidden:YES];
+    [self setDestinationCityTableViewHidden:YES];
+    
+    isRefreshing = YES;
+    startCity = [[Global sharedGlobal] locationCity];
+    if (startCity) {
+        [_locationButton setTitle:startCity forState:UIControlStateNormal];
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getTourList];
+    }
+}
+
+- (void)switchCityWithCityName:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    startCity = info[@"startcity"];
+    [_locationButton setTitle:startCity forState:UIControlStateNormal];
+    
+    [self getTourList];
+}
+
+
 - (void)hidePopUpViews
 {
     [self setDestinationCityTableViewHidden:YES];
@@ -142,7 +167,6 @@
 
 - (void)getTourList
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool getTourListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] templateId:_templateId customId:_customId startCity:startCity endCity:endCity walkType:walkType lineName:lineName pageNum:@(pageNum) success:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         
@@ -271,6 +295,7 @@
         
         pageNum = 1;
         isRefreshing = YES;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getTourList];
     }
     
@@ -318,12 +343,30 @@
 }
 
 - (IBAction)locationButtonClicked:(id)sender {
+    // go to switch city
+    SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
+    switchCity.isFromTourList = YES;
+    switchCity.isFromSupplierList = NO;
+    [self.navigationController pushViewController:switchCity animated:YES];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)searchButtonClicked:(id)sender {
+    if (_searchBar.text && _searchBar.text.length > 0) {
+        
+        endCity = _searchBar.text;
+        _noProductView.hidden = YES;
+        pageNum = 1;
+        [self setWalkTypeTableViewHidden:YES];
+        [self setDestinationCityTableViewHidden:YES];
+        
+        isRefreshing = YES;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getTourList];
+    }
+    [self.view endEditing:YES];
 }
 - (IBAction)destinationButtonClicked:(id)sender {
     [self setWalkTypeTableViewHidden:YES];
@@ -357,6 +400,29 @@
 
 - (IBAction)toTopButtonClicked:(id)sender {
     [_mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self searchButtonClicked:nil];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText   // called when text changes (including clear)
+{
+    if (!searchBar.text || searchBar.text.length == 0) {
+        endCity = nil;
+        [self.view endEditing:YES];
+        
+        _noProductView.hidden = YES;
+        pageNum = 1;
+        [self setWalkTypeTableViewHidden:YES];
+        [self setDestinationCityTableViewHidden:YES];
+        
+        isRefreshing = YES;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getTourList];
+    }
 }
 
 #pragma mark - TourListTableViewCell_Delegate
@@ -470,6 +536,11 @@
             [self getTourList];
         }
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 
 #pragma mark - Private methods

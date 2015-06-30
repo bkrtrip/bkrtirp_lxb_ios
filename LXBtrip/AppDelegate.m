@@ -173,9 +173,6 @@
 #pragma mark - Location Part
 //开始定位
 - (void)startLocation{
-    
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -207,7 +204,6 @@
 #pragma mark - CLLocationManagerDelegate
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     [_locationManager stopUpdatingLocation];
     NSLog(@"location ok");
     
@@ -252,7 +248,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     CLError err = [[error domain] intValue];
     
     if (err == kCLErrorDenied) {

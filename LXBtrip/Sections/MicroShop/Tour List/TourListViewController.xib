@@ -62,7 +62,7 @@
                                         <action selector="backButtonClicked:" destination="-1" eventType="touchUpInside" id="wAy-FJ-50l"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pm6-ga-Elz">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pm6-ga-Elz">
                                     <rect key="frame" x="257" y="7" width="53" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="53" id="Md4-v1-TMD"/>
@@ -71,9 +71,7 @@
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="i0k-X0-Pjp"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <inset key="titleEdgeInsets" minX="-35" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title=" 西安" image="location_red.png">
+                                    <state key="normal" image="location_red.png">
                                         <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -100,7 +98,7 @@
                                 <constraint firstItem="2Mc-EP-lc3" firstAttribute="leading" secondItem="al6-Qk-57q" secondAttribute="leading" id="tg4-ob-hRv"/>
                             </constraints>
                         </view>
-                        <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="搜索本地当季低价热门产品" translatesAutoresizingMaskIntoConstraints="NO" id="e8K-BQ-wot">
+                        <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="想去的线路名称或目的地" translatesAutoresizingMaskIntoConstraints="NO" id="e8K-BQ-wot">
                             <rect key="frame" x="0.0" y="54" width="260" height="44"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -267,7 +265,7 @@
                     <exclude reference="uhB-46-uRr"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="-722" y="13"/>
+            <point key="canvasLocation" x="-1182" y="14"/>
         </view>
     </objects>
     <resources>

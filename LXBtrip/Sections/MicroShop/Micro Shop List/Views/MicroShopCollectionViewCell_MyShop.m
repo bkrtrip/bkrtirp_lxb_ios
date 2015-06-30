@@ -63,7 +63,7 @@
 }
 
 - (IBAction)deleteOrLockButtonClicked:(id)sender {
-    if (defaultStatus == Is_Else) {
+    if (defaultStatus != Is_Locked) {
         if ([self.delegate respondsToSelector:@selector(supportClickWithDeleteShopId:)]) {
             [self.delegate supportClickWithDeleteShopId:_shopInfo.shopId];
         }

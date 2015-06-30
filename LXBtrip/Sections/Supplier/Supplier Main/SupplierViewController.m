@@ -91,7 +91,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:@"MY_SHOP_HAS_UPDATED" object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:@"SWITCH_CITY_WITH_CITY_NAME" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
     
@@ -632,7 +632,7 @@
         CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
         if (fabs(delta) < 10) {
             isLoadingMoresArray[_selectedIndex] = @1;
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
         }
     }
@@ -675,6 +675,8 @@
 }
 - (IBAction)locationButtonClicked:(id)sender {
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
+    switchCity.isFromTourList = NO;
+    switchCity.isFromSupplierList = YES;
     [self.navigationController pushViewController:switchCity animated:YES];
 }
 

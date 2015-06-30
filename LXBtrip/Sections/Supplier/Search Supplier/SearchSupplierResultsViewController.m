@@ -443,7 +443,7 @@
     if (scrollView == _mainTableView) {
         CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
         if (fabs(delta) < 10) {
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getSearchedSupplierResults];
         }
     }

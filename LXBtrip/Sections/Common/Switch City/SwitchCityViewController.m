@@ -131,7 +131,9 @@
 #pragma mark - HTTP
 - (void)getAllCities
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool getCitiesWithSuccess:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100055"] succeed:^{
             id data = result[@"RS100055"];
             if ([data isKindOfClass:[NSArray class]]) {
@@ -144,7 +146,7 @@
             [_mainTableView reloadData];
         }];
     } fail:^(id result) {
-        
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         if ([[Global sharedGlobal] networkAvailability] == NO) {
             [self networkUnavailable];
             return ;
@@ -329,7 +331,11 @@
     
     [[Global sharedGlobal] saveToHotCityHistoryWithCityName:info[@"startcity"]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SWITCH_CITY_WITH_CITY_NAME" object:self userInfo:info];
+    if (_isFromSupplierList) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_CITY_SUPPLIER_LIST object:self userInfo:info];
+    } else if (_isFromTourList) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_CITY_TOUR_LIST object:self userInfo:info];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

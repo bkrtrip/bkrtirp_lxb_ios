@@ -420,10 +420,12 @@
 - (void)supportClickWithPhoneCall
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedProduct.productCompanyContactPhone]]];
+    [self hideAccompanyInfoViewWithCompletionBlock:nil];
 }
 - (void)supportClickWithShortMessage
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [self hideAccompanyInfoViewWithCompletionBlock:nil];
 }
 
 #pragma mark - ShareViewDelegate
@@ -566,7 +568,8 @@
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
         self.navigationController.navigationBar.hidden = NO;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
+//        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
             if (block) {
@@ -581,7 +584,9 @@
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         self.navigationController.navigationBar.hidden = YES;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
+//        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
+        
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }
 
