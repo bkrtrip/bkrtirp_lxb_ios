@@ -8,7 +8,7 @@
 
 #import "MicroShopDetailViewController.h"
 
-const CGFloat Img_Width_To_Height = 730.f/760.f;
+const CGFloat Img_Width_To_Height = 430.f/760.f;
 
 @interface MicroShopDetailViewController ()
 {

@@ -87,6 +87,8 @@
         pageNum = 1;
         isLoadingMore = NO;
         [self getAlleyList];
+    } else {
+        [sender endRefreshing];
     }
 }
 
