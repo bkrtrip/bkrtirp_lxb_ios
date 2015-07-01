@@ -343,7 +343,7 @@
 
 - (void)supportClickWithPhoneCall
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _product.productCompanyContactPhone]]];
+    [[Global sharedGlobal] callWithPhoneNumber:_product.productCompanyContactPhone];
 }
 
 #pragma mark - TourDetailCell_Four_Delegate

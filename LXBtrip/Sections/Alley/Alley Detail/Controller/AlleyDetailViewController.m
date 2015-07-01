@@ -170,6 +170,6 @@
 }
 
 - (IBAction)callButtonClicked:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _alley.alleyContactPhoneNo]]];
+    [[Global sharedGlobal] callWithPhoneNumber:_alley.alleyContactPhoneNo];
 }
 @end

@@ -27,6 +27,9 @@
                 <constraint firstItem="IqW-X4-yWH" firstAttribute="leading" secondItem="mnr-E1-sMw" secondAttribute="leading" constant="13" id="Q0W-jf-5Js"/>
                 <constraint firstAttribute="centerY" secondItem="IqW-X4-yWH" secondAttribute="centerY" id="wTr-MU-9CM"/>
             </constraints>
+            <connections>
+                <outlet property="instructionButton" destination="IqW-X4-yWH" id="uvx-yP-Pyb"/>
+            </connections>
             <point key="canvasLocation" x="211" y="295"/>
         </collectionReusableView>
     </objects>

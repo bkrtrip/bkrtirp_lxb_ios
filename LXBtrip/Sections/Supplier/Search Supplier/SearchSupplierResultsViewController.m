@@ -316,11 +316,11 @@
 }
 - (void)supportClickWithPhoneCall
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [[Global sharedGlobal] callWithPhoneNumber:selectedProduct.productCompanyContactPhone];
 }
 - (void)supportClickWithShortMessage
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [[Global sharedGlobal] sendShortTextWithPhoneNumber:selectedProduct.productCompanyContactPhone];
 }
 
 #pragma mark - ShareViewDelegate

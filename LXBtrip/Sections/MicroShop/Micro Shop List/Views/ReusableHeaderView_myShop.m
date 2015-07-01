@@ -7,10 +7,12 @@
 //
 
 #import "ReusableHeaderView_myShop.h"
+#import "Global.h"
+#import "AppMacro.h"
 
 @interface ReusableHeaderView_myShop()
 
-
+@property (strong, nonatomic) IBOutlet UIButton *instructionButton;
 
 @end
 
@@ -18,6 +20,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [[Global sharedGlobal] setUnderlinedWithText:@"微商运营指导" button:_instructionButton  color:TEXT_4CA5FF];
 }
 
 - (IBAction)MicroShopInstructionButtonClicked:(id)sender {

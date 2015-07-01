@@ -48,5 +48,10 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 - (void)upDateLocationCity:(NSString *)newCity;
 - (CLLocation *)locationCoordinate;
 - (void)upDateLocationCoordinate:(CLLocation *)coordinate;
+- (void)callWithPhoneNumber:(NSString *)phoneNumber;
+- (void)sendShortTextWithPhoneNumber:(NSString *)phoneNumber;
+
+- (void)setUnderlinedWithText:(NSString *)text button:(UIButton *)button color:(UIColor *)color;
+
 
 @end

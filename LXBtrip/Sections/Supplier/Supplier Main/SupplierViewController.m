@@ -555,7 +555,6 @@
         case 3:
         {
             InviteSupplierTableViewCell_Third *cell = (InviteSupplierTableViewCell_Third *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_Third" forIndexPath:indexPath];
-            [cell setCellContentWithPhoneNumber:nil];
             return cell;
         }
             break;

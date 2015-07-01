@@ -7,6 +7,8 @@
 //
 
 #import "InviteSupplierTableViewCell_Third.h"
+#import "Global.h"
+#import "AppMacro.h"
 
 @interface InviteSupplierTableViewCell_Third()
 
@@ -18,25 +20,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    [self setUnderlinedButtonWithText:@"400-9979-029"];
-}
-
-- (void)setCellContentWithPhoneNumber:(NSString *)number
-{
-    [self setUnderlinedButtonWithText:number];
-}
-
-- (void)setUnderlinedButtonWithText:(NSString *)text
-{
-    if (text) {
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text];
-        NSRange strRange = {0,[str length]};
-        [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
-        [_customerServicePhoneNoButton setAttributedTitle:str forState:UIControlStateNormal];
-    }
+    [[Global sharedGlobal] setUnderlinedWithText:@"400-9979-029" button:_customerServicePhoneNoButton color:TEXT_4CA5FF];
 }
 
 - (IBAction)hotLineButtonClicked:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://4009979029"]]];
+    [[Global sharedGlobal] callWithPhoneNumber:@"400-9979-029"];
 }
 @end

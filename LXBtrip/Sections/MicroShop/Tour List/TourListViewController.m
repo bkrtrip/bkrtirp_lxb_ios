@@ -482,12 +482,11 @@
 }
 - (void)supportClickWithPhoneCall
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedProduct.productCompanyContactPhone]]];
-    [self hideAccompanyInfoViewWithCompletionBlock:nil];
+    [[Global sharedGlobal] callWithPhoneNumber:selectedProduct.productCompanyContactPhone];    [self hideAccompanyInfoViewWithCompletionBlock:nil];
 }
 - (void)supportClickWithShortMessage
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [[Global sharedGlobal] sendShortTextWithPhoneNumber:selectedProduct.productCompanyContactPhone];
     [self hideAccompanyInfoViewWithCompletionBlock:nil];
 }
 

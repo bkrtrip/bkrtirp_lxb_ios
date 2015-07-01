@@ -327,4 +327,45 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
     [[NSUserDefaults standardUserDefaults] setObject:@(lon) forKey:(NSString *)kLocationLongitude];
 }
 
+// call
+- (void)callWithPhoneNumber:(NSString *)phoneNumber
+{
+    NSString *urlString = [NSString stringWithFormat:@"tel://%@", phoneNumber];
+    NSString* webStringURL = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:webStringURL];
+    if (url && url.absoluteString.length > 0) {
+        [[UIApplication sharedApplication] openURL:url];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话号码格式错误" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+// SMS
+- (void)sendShortTextWithPhoneNumber:(NSString *)phoneNumber
+{
+    NSString *urlString = [NSString stringWithFormat:@"sms:%@", phoneNumber];
+    NSString* webStringURL = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:webStringURL];
+    if (url && url.absoluteString.length > 0) {
+        [[UIApplication sharedApplication] openURL:url];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话号码格式错误" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+// Underline
+- (void)setUnderlinedWithText:(NSString *)text button:(UIButton *)button color:(UIColor *)color
+{
+    if (text) {
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text];
+        NSRange strRange = {0,[str length]};
+        [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
+        [str addAttribute:NSForegroundColorAttributeName value:color range:strRange];
+        [button setAttributedTitle:str forState:UIControlStateNormal];
+    }
+}
+
+
 @end

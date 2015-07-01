@@ -224,7 +224,7 @@
 - (void)supportClickPhoneCallWithOrder:(MyOrderItem *)order
 {
     selectedOrder = order;
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedOrder.orderContactPhone]]];
+    [[Global sharedGlobal] callWithPhoneNumber:selectedOrder.orderContactPhone];
 }
 - (void)supportClickCancelOrderWithOrder:(MyOrderItem *)order
 {
@@ -238,7 +238,7 @@
 - (void)supportClickWithPhoneCall_InvalidWithOrder:(MyOrderItem *)order
 {
     selectedOrder = order;
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedOrder.orderContactPhone]]];
+    [[Global sharedGlobal] callWithPhoneNumber:selectedOrder.orderContactPhone];
 }
 
 #pragma mark - HTTP

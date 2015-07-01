@@ -116,7 +116,6 @@
 
 #define TEXT_FF0075 [UIColor colorWithRed:255/255.f green:0/255.f blue:117/255.f alpha:1]
 
-
 //  code	常用返回码
 typedef enum ErrorCodeType
 {
