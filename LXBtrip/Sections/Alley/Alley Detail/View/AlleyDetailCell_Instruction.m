@@ -29,7 +29,9 @@
 
 - (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
 {
-    [_instructionsWebView loadHTMLString:info.alleyServiceNotice baseURL:nil];
+    NSString *formattedHTMLString = [NSString stringWithFormat:@"<!DOCTYPE html><html><head style=\"p{font-size:10;font-weight:normal;color=#999999 !important};\"></head><body>%@</body></html>", info.alleyServiceNotice];
+//    [_instructionsWebView loadHTMLString:info.alleyServiceNotice baseURL:nil];
+    [_instructionsWebView loadHTMLString:formattedHTMLString baseURL:nil];
 }
 
 #pragma mark - UIWebViewDelegate
