@@ -53,7 +53,7 @@
         return;
     }
     
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"请求中..."];
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     
     NSDictionary *dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text, @"name":self.dispatcherLoginUNTF.text};
     
@@ -228,7 +228,7 @@
             return YES;
         }
         
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"请求中..."];
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         
         NSDictionary *dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text, @"name":self.dispatcherLoginUNTF.text};
         

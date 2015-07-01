@@ -173,6 +173,9 @@
             else {
                 [(PHeaderTableViewCell *)cell needUserToSignin:YES];
             }
+            
+            cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+            
             break;
         case 2:
         {
@@ -186,7 +189,7 @@
             }
             else if (indexPath.row == 2) {
                 [(PCommonTableViewCell *)cell initailCellWithType:Dispatch];
-                cell.separatorInset = UIEdgeInsetsZero;
+                cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
             }
         }
             break;
@@ -199,7 +202,7 @@
             }
             else if (indexPath.row == 1) {
                 [(PCommonTableViewCell *)cell initailCellWithType:About];
-                cell.separatorInset = UIEdgeInsetsZero;
+                cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
             }
         }
             break;
@@ -208,13 +211,13 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
             
             [(PCommonTableViewCell *)cell initailCellWithType:SignOut];
-            cell.separatorInset = UIEdgeInsetsZero;
+            cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
         }
             break;
             
         default:
             cell = [tableView dequeueReusableCellWithIdentifier:@"separateCell"];
-            cell.separatorInset = UIEdgeInsetsZero;
+            cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
             break;
     }
     
@@ -282,8 +285,6 @@
         {
             if (self.isAlreadyLogined) {
                 [self confirmLogOutWithAlert];
-                
-                [self updateUIForLoginState:NO];
             }
         }
             break;
@@ -348,6 +349,7 @@
     [UserModel clearUserInformation];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
     
+    [self updateUIForLoginState:NO];
 }
 
 
@@ -359,7 +361,12 @@
     if (action == GoToDispatchers) {
         //TODO: 未登录不允许访问
         if (!self.isAlreadyLogined) {
-            [self showAlertViewWithTitle:nil message:@"您还未登录，请登录后使用此功能。" cancelButtonTitle:@"确认"];
+            UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
+            UIViewController *viewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"loginControllerNavController"];
+            ((LoginViewController *)(((UINavigationController *)viewController).viewControllers.firstObject)).delegate = self;
+            
+            [self presentViewController:viewController animated:YES completion:nil];
+            
             return;
         }
     }
