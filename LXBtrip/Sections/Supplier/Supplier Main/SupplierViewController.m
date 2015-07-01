@@ -89,7 +89,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:@"MY_SHOP_HAS_UPDATED" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:MY_SHOP_HAS_UPDATED object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
 

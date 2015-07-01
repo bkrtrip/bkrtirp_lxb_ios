@@ -213,7 +213,7 @@
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100017"] succeed:^{
             self.isMinetype = [@(![_isMinetype boolValue]) stringValue];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"MY_SHOP_HAS_UPDATED" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:MY_SHOP_HAS_UPDATED object:self];
             
             switch (popUpType) {
                 case None_Type:

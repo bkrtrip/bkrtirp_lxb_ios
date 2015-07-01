@@ -36,6 +36,7 @@
 
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+- (IBAction)falseSearchButtonClicked:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIButton *startCityButton;
 @property (strong, nonatomic) IBOutlet UIButton *walkTypeButton;
@@ -64,12 +65,6 @@
 @end
 
 @implementation SearchSupplierResultsViewController
-
-- (void)awakeFromNib
-{
-    _searchBar.userInteractionEnabled = NO;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -485,6 +480,11 @@
     }
 }
 
+
+- (IBAction)falseSearchButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - Private
 - (void)setDestinationCityTableViewHidden:(BOOL)hidden
 {
@@ -511,7 +511,6 @@
         [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-//            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }
@@ -521,7 +520,6 @@
 
 - (void)showAccompanyInfoView
 {
-//    [self.view insertSubview:_darkMask aboveSubview:_walkTypeTableView];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
@@ -531,7 +529,6 @@
 // show/hide ShareView
 - (void)showShareView
 {
-//    [self.view insertSubview:_darkMask aboveSubview:_walkTypeTableView];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
@@ -548,7 +545,6 @@
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-//            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }
@@ -585,6 +581,5 @@
         }
     }];
 }
-
 
 @end

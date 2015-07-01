@@ -15,6 +15,7 @@
     NSInteger selectedIndex; // 0~4
     NSMutableArray *tableViewsArray;
     NSMutableArray *noSuppliersArray;
+    BOOL listNeedsRefreshing;
 }
 
 //专线part
@@ -37,8 +38,7 @@
 @property (nonatomic, strong) UILabel *underLineLabel;
 
 @property (nonatomic, copy) NSMutableArray *allSectionsArray;
-@property (nonatomic, copy) NSMutableArray *allMySuppliersArrayUnsorted;
-@property (nonatomic, copy) NSMutableArray *allMySuppliersArrayInOrder;
+@property (nonatomic, copy) NSMutableArray *allMySuppliersArray;
 
 @end
 
@@ -47,9 +47,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mySupplierListHasChanged) name:MY_SHOP_HAS_UPDATED object:nil];
+    
     _allSectionsArray = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
-    _allMySuppliersArrayUnsorted = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
-    _allMySuppliersArrayInOrder = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
+    _allMySuppliersArray = [[NSMutableArray alloc] initWithObjects:[@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], [@[] mutableCopy], nil];
     
     CGFloat yOrigin = 82.f;
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
@@ -92,6 +93,7 @@
     }
     
     selectedIndex = 0;
+    listNeedsRefreshing = NO;
     [self getMySuppliers];
 }
 
@@ -111,6 +113,12 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)mySupplierListHasChanged
+{
+    listNeedsRefreshing = YES;
+    [self getMySuppliers];
+}
+
 #pragma mark - Override
 - (void)networkUnavailable
 {
@@ -128,19 +136,52 @@
     [HTTPTool getMySuppliersWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] lineClass:LINE_CLASS[@(selectedIndex)] success:^(id result) {
         
         [noSuppliersArray[selectedIndex] setHidden:YES];
-
+        if (listNeedsRefreshing == YES) {
+            [_allMySuppliersArray[selectedIndex] removeAllObjects];
+            listNeedsRefreshing = NO;
+        }
+        
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100018"] succeed:^{
             id data = result[@"RS100018"];
             if ([data isKindOfClass:[NSDictionary class]]) {
                 
+                NSMutableArray *tempUngrouped = [[NSMutableArray alloc] init];
                 //my_supplier part
                 id mySuppliersData = data[@"my_supplier"];
                 if ([mySuppliersData isKindOfClass:[NSArray class]]) {
                     [mySuppliersData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         SupplierInfo *info= [[SupplierInfo alloc] initWithDict:obj];
-                        [_allMySuppliersArrayUnsorted[selectedIndex] addObject:info];
+                        // 需要手动指定，返回参数中没有，“我的供应商”自然肯定是“我的”
+                        info.supplierIsMy = @"0";
+                        [tempUngrouped addObject:info];
                     }];
-                    [self sortSuppliersUsingInitialsWithUnsortedArray:_allMySuppliersArrayUnsorted[selectedIndex]];
+                    // 重新根据字母排序
+                    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"supplierLineTypeLetter" ascending:YES];
+                    tempUngrouped = [[tempUngrouped sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
+                    
+                    [tempUngrouped enumerateObjectsUsingBlock:^(SupplierInfo *info, NSUInteger idx, BOOL *stop) {
+                        __block BOOL inOldSection = NO;
+                        [_allSectionsArray[selectedIndex] enumerateObjectsUsingBlock:^(NSString *initial, NSUInteger idx, BOOL *stop) {
+                            if ([initial isEqualToString:info.supplierLineTypeLetter]) {
+                                inOldSection = YES;
+                            }
+                        }];
+                        if (inOldSection == NO) {
+                            [_allSectionsArray[selectedIndex] addObject:info.supplierLineTypeLetter];
+                        }
+                    }];
+                    
+                    [_allSectionsArray[selectedIndex] enumerateObjectsUsingBlock:^(NSString *initial, NSUInteger idx, BOOL *stop) {
+                        NSMutableArray *tempUnit = [[NSMutableArray alloc] init];
+                        [tempUngrouped enumerateObjectsUsingBlock:^(SupplierInfo *info, NSUInteger idx, BOOL *stop) {
+                            if ([initial isEqualToString:info.supplierLineTypeLetter]) {
+                                [tempUnit addObject:info];
+                            }
+                        }];
+                        NSDictionary *tempUnitDict = @{initial:tempUnit};
+                        [_allMySuppliersArray[selectedIndex] addObject:tempUnitDict];
+                    }];
+                
                 } else {
                     [noSuppliersArray[selectedIndex] setHidden:NO];
                     return ;
@@ -160,50 +201,16 @@
     }];
 }
 
-- (void)sortSuppliersUsingInitialsWithUnsortedArray:(NSArray *)array
-{
-    NSMutableArray *tempParent = [[NSMutableArray alloc] init];
-    // create unsorted keys array and values array separately
-    [array enumerateObjectsUsingBlock:^(SupplierInfo *obj, NSUInteger idx, BOOL *stop) {
-        if ([_allSectionsArray[selectedIndex] containsObject:obj.supplierLineTypeLetter]) {
-            NSInteger index = [_allSectionsArray[selectedIndex] indexOfObject:obj.supplierLineTypeLetter];
-            NSMutableArray *tempSon = tempParent[index];
-            if (![tempSon containsObject:obj]) {
-                [tempSon addObject:obj];
-            }
-        } else {
-            [_allSectionsArray[selectedIndex] addObject:obj.supplierLineTypeLetter];
-            NSMutableArray *tempNewSon = [[NSMutableArray alloc] init];
-            [tempNewSon addObject:obj];
-            [tempParent addObject:tempNewSon];
-        }
-    }];
-    
-    // sort initials array
-    _allSectionsArray[selectedIndex] = [[_allSectionsArray[selectedIndex] sortedArrayUsingFunction:initialSort context:NULL] mutableCopy];
-    
-    // create final initial-keyed dictionaries' array
-    [_allSectionsArray[selectedIndex] enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL *stop) {
-        [tempParent enumerateObjectsUsingBlock:^(NSArray *arr, NSUInteger idx, BOOL *stop) {
-            if ([[arr[0] supplierLineTypeLetter] isEqualToString:str]) {
-                NSDictionary *temp = @{str:arr};
-                [_allMySuppliersArrayInOrder[selectedIndex] addObject:temp];
-            }
-        }];
-    }];
-}
-
-
 #pragma mark - UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [_allMySuppliersArrayInOrder[selectedIndex] count];
+    return [_allSectionsArray[selectedIndex] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([_allMySuppliersArrayInOrder[selectedIndex] count] > 0) {
-        return [[_allMySuppliersArrayInOrder[selectedIndex][section] objectForKey:_allSectionsArray[selectedIndex][section]] count];
+    if ([_allMySuppliersArray[selectedIndex] count] > section) {
+        return [[_allMySuppliersArray[selectedIndex][section] objectForKey:_allSectionsArray[selectedIndex][section]] count];
     } else
         return 0;
 }
@@ -211,7 +218,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MySupplierTableViewCell *cell = (MySupplierTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MySupplierTableViewCell" forIndexPath:indexPath];
-    NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
+    NSArray *subArray = [_allMySuppliersArray[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
     [cell setCellContentWithSupplierInfo:subArray[indexPath.row]];
     return cell;
 }
@@ -233,7 +240,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
-    NSArray *subArray = [_allMySuppliersArrayInOrder[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
+    NSArray *subArray = [_allMySuppliersArray[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
     SupplierInfo *curInfo = subArray[indexPath.row];
     detail.info = curInfo;
     [self.navigationController pushViewController:detail animated:YES];
@@ -290,7 +297,7 @@
             [_underLineLabel setFrame:CGRectMake(SCREEN_WIDTH/2.0 + (index-3)*(SCREEN_WIDTH/2.0)/2, _underLineLabel.frame.origin.y, (SCREEN_WIDTH/2.0)/2, _underLineLabel.frame.size.height)];
         }
     }];
-    if ([_allMySuppliersArrayInOrder[index] count] == 0) {
+    if ([_allMySuppliersArray[index] count] == 0) {
         [self getMySuppliers];
     }
 }

@@ -46,6 +46,9 @@
     [_mainTableView registerNib:[UINib nibWithNibName:@"SwitchCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"SwitchCityTableViewCell"];
     [_searchedTableView registerNib:[UINib nibWithNibName:@"SwitchCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"SwitchCityTableViewCell"];
     
+    _mainTableView.tableFooterView = [[UIView alloc] init];
+    _searchedTableView.tableFooterView = [[UIView alloc] init];
+    
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 30.f)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _searchBar.placeholder = @"请输入城市名称";
@@ -258,8 +261,6 @@
 // 点击目录
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-//        [tableView scrollToRowAtIndexPath:selectIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
     // 前两/一个 section不显示
     if (hotCitiesArray.count == 0) {
         return index+1;
@@ -271,33 +272,39 @@
 #pragma mark - Table view delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 23.f;
+    if (tableView == _mainTableView) {
+        return 23.f;
+    }
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *label = [[UILabel alloc] init];
-    label.textColor = TEXT_666666;
-    label.backgroundColor = BG_F5F5F5;
-    label.font = [UIFont systemFontOfSize:12.f];
-    if (section == 0) {
-        label.text = @"当前定位城市";
-        return label;
-    }
-    
-    if (hotCitiesArray.count == 0) {
-        if (sectionsArray.count > 0) {
-            label.text = sectionsArray[section-1];
+    if (tableView == _mainTableView) {
+        UILabel *label = [[UILabel alloc] init];
+        label.textColor = TEXT_666666;
+        label.backgroundColor = BG_F5F5F5;
+        label.font = [UIFont systemFontOfSize:12.f];
+        if (section == 0) {
+            label.text = @"当前定位城市";
             return label;
         }
+        
+        if (hotCitiesArray.count == 0) {
+            if (sectionsArray.count > 0) {
+                label.text = sectionsArray[section-1];
+                return label;
+            }
+        }
+        
+        if (section == 1) {
+            label.text = @"常用城市";
+        } else {
+            label.text = sectionsArray[section-2];
+        }
+        return label;
     }
-    
-    if (section == 1) {
-        label.text = @"常用城市";
-    } else {
-        label.text = sectionsArray[section-2];
-    }
-    return label;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -339,12 +346,36 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([_searchBar isFirstResponder]) {
+        [_searchBar resignFirstResponder];
+        
+        if (_searchBar.text.length == 0) {
+            [searchedCitiesArray removeAllObjects];
+            [_searchedTableView reloadData];
+            
+            _searchedTableView.hidden = YES;
+            _mainTableView.hidden = NO;
+        }
+    }
+}
+
 #pragma mark - UISearchBarDelegate
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [UIView animateWithDuration:0.1 animations:^{
         [self changeSearchBarWidthWithDeltaValue:(- _cancelButton.frame.size.width)];
         _cancelButton.hidden = NO;
+    }];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [UIView animateWithDuration:0.1 animations:^{
+        [self changeSearchBarWidthWithDeltaValue:(+ _cancelButton.frame.size.width)];
+        _cancelButton.hidden = YES;
     }];
 }
 
@@ -360,72 +391,42 @@
         [_searchedTableView reloadData];
         return;
     }
-    
-    // length==1 search initial
-    if (searchText.length == 1) {
-        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-            if ([obj.cityInitail compare:searchText options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+
+    // check 首字母缩写
+    [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
+        if (searchText.length <= obj.cityAcronym.length) {
+            if ([obj.cityAcronym compare:searchText options:NSCaseInsensitiveSearch range:NSMakeRange(0, searchText.length)] == NSOrderedSame) {
                 if (![searchedCitiesArray containsObject:obj]) {
                     [searchedCitiesArray addObject:obj];
                 }
             }
-        }];
-        
-        [_searchedTableView reloadData];
-    }
-    // length==2 search acronym_word
-    else if (searchText.length >= 2) {
-        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-            if (obj.cityAcronym.length < searchText.length) {
-                return ;
-            } else {
-                NSString *subString = [obj.cityAcronym substringToIndex:searchText.length];
-                if ([searchText compare:subString options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-                    if (![searchedCitiesArray containsObject:obj]) {
-                        [searchedCitiesArray addObject:obj];
-                    }
+        }
+    }];
+    
+    // check 城市名
+    [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
+        if (searchText.length <= obj.cityName.length) {
+            if ([obj.cityName compare:searchText options:NSLiteralSearch range:NSMakeRange(0, searchText.length)] == NSOrderedSame) {
+                if (![searchedCitiesArray containsObject:obj]) {
+                    [searchedCitiesArray addObject:obj];
                 }
             }
-        }];
-        
-        [_searchedTableView reloadData];
-    }
+        }
+    }];
+    
+    // check 全拼
+    [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
+        if (searchText.length <= obj.cityPinYin.length) {
+            if ([obj.cityPinYin compare:searchText options:NSCaseInsensitiveSearch range:NSMakeRange(0, searchText.length)] == NSOrderedSame) {
+                if (![searchedCitiesArray containsObject:obj]) {
+                    [searchedCitiesArray addObject:obj];
+                }
+            }
+        }
+    }];
+    
+    [_searchedTableView reloadData];
 }
-
-//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-//{
-//    // length==1 search initial
-//    if (searchBar.text.length == 1) {
-//        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-//            if ([obj.cityInitail compare:searchBar.text options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-//                if (![searchedCitiesArray containsObject:obj]) {
-//                    [searchedCitiesArray addObject:obj];
-//                    [_searchedTableView reloadData];
-//                }
-//            }
-//        }];
-//    }
-//    // length==2 search acronym_word
-//    else if (searchBar.text.length >= 2) {
-//        [allCitiesArrayUnsorted enumerateObjectsUsingBlock:^(City *obj, NSUInteger idx, BOOL *stop) {
-//            if (obj.cityInitail.length <= searchBar.text.length) {
-//                if ([searchBar.text compare:obj.cityInitail options:NSCaseInsensitiveSearch range:NSMakeRange(0, searchBar.text.length)] == NSOrderedSame) {
-//                    if (![searchedCitiesArray containsObject:obj]) {
-//                        [searchedCitiesArray addObject:obj];
-//                        [_searchedTableView reloadData];
-//                    }
-//                }
-//            } else {
-//                if ([obj.cityInitail compare:searchBar.text options:NSCaseInsensitiveSearch range:NSMakeRange(0, obj.cityInitail.length)] == NSOrderedSame) {
-//                    if (![searchedCitiesArray containsObject:obj]) {
-//                        [searchedCitiesArray addObject:obj];
-//                        [_searchedTableView reloadData];
-//                    }
-//                }
-//            }
-//        }];
-//    }
-//}
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
@@ -444,11 +445,6 @@
     
     [searchedCitiesArray removeAllObjects];
     [_searchedTableView reloadData];
-
-    [UIView animateWithDuration:0.1 animations:^{
-        [self changeSearchBarWidthWithDeltaValue:(+ _cancelButton.frame.size.width)];
-        _cancelButton.hidden = YES;
-    }];
     
     _searchedTableView.hidden = YES;
     _mainTableView.hidden = NO;

@@ -18,6 +18,7 @@ singleton_interface(Global)
 
 // compare function
 NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context);
+NSInteger sortFirstLetter(NSString * letter_1, NSString * letter_2, void *context);
 NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context);
 
 

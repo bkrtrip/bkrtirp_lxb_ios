@@ -33,12 +33,19 @@ singleton_implementation(Global)
 NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context) {
     return [initial_1 caseInsensitiveCompare:initial_2];
 }
-
+NSInteger sortFirstLetter(NSString * letter_1, NSString * letter_2, void *context) {
+    NSInteger diff = [letter_1 integerValue] - [letter_2 integerValue];
+    if (diff > 0) {
+        return NSOrderedDescending;
+    } else if (diff < 0) {
+        return NSOrderedAscending;
+    } else {
+        return NSOrderedSame;
+    }
+}
 NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context) {
     return [order_2.orderLineNo caseInsensitiveCompare:order_1.orderLineNo];
 }
-
-
 
 // search history
 - (void)saveToSearchHistoryWithKeyword:(NSString *)keyword {
