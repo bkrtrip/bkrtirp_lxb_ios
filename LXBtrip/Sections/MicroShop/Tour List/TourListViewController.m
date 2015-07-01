@@ -60,7 +60,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *destinationTableView;
 @property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
 
-@property (strong, nonatomic) IBOutlet UIControl *darkMask;
+@property (strong, nonatomic) UIControl *darkMask;
 
 @property (strong, nonatomic) IBOutlet UIView *noProductView;
 
@@ -78,11 +78,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_TourList) name:CITY_CHANGED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_TOUR_LIST object:nil];
 
-    // Do any additional setup after loading the view from its nib.
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
-    
+    [self.view addSubview:_darkMask];
+
     _searchButton.layer.cornerRadius = 5.f;
     [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     
@@ -372,6 +373,7 @@
     [self setWalkTypeTableViewHidden:YES];
     if (_destinationTableView.hidden == YES) {
         [self setDestinationCityTableViewHidden:NO];
+        [self.view insertSubview:_darkMask belowSubview:_destinationTableView];
         _darkMask.alpha = 1.0;
         if (!selectedCell_Destination) {
             selectedCell_Destination = (TourListCell_Destination *)[_destinationTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -379,6 +381,7 @@
         }
     } else {
         [self setDestinationCityTableViewHidden:YES];
+        [self.view insertSubview:_darkMask aboveSubview:_noProductView];
         _darkMask.alpha = 0;
     }
 }
@@ -387,6 +390,7 @@
     [self setDestinationCityTableViewHidden:YES];
     if (_walkTypeTableView.hidden == YES) {
         [self setWalkTypeTableViewHidden:NO];
+        [self.view insertSubview:_darkMask belowSubview:_walkTypeTableView];
         _darkMask.alpha = 1.0;
         if (!selectedCell_WalkType) {
             selectedCell_WalkType = (TourListCell_WalkType *)[_walkTypeTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -394,6 +398,7 @@
         }
     } else {
         [self setWalkTypeTableViewHidden:YES];
+        [self.view insertSubview:_darkMask aboveSubview:_noProductView];
         _darkMask.alpha = 0;
     }
 }
@@ -456,10 +461,13 @@
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
         CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
         
-         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+         [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
          [self.view addSubview:_accompanyInfoView];
     }
+    
+    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
+    [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
     [self showAccompanyInfoView];
 }
 
@@ -474,11 +482,13 @@
 }
 - (void)supportClickWithPhoneCall
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", selectedProduct.productCompanyContactPhone]]];
+    [self hideAccompanyInfoViewWithCompletionBlock:nil];
 }
 - (void)supportClickWithShortMessage
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", selectedProduct.productCompanyContactPhone]]];
+    [self hideAccompanyInfoViewWithCompletionBlock:nil];
 }
 
 #pragma mark - ShareViewDelegate
@@ -557,15 +567,15 @@
 // show/hide accompanyInfoView
 - (void)hideAccompanyInfoViewWithCompletionBlock:(void (^)())block
 {
-    if (_accompanyInfoView.frame.origin.y == SCREEN_HEIGHT) {
+    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+    if (_accompanyInfoView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }
@@ -575,17 +585,17 @@
 
 - (void)showAccompanyInfoView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTypeTableView];
+    [self.view insertSubview:_darkMask aboveSubview:_noProductView];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }
 
 // show/hide ShareView
 - (void)showShareView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTypeTableView];
+    [self.view insertSubview:_darkMask aboveSubview:_noProductView];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
@@ -602,7 +612,6 @@
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }

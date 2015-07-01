@@ -213,15 +213,6 @@
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100017"] succeed:^{
             self.isMinetype = [@(![_isMinetype boolValue]) stringValue];
             
-//            NSString *title;
-//            if ([_isMinetype intValue] == 1) {
-//                title = @"取消同步成功";
-//            } else if ([_isMinetype intValue] == 0) {
-//                title = @"同步成功";
-//            }
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
-            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MY_SHOP_HAS_UPDATED" object:self];
             
             switch (popUpType) {
@@ -401,10 +392,13 @@
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
         CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productTravelGoodsName price:product.productMarketPrice instructions:product.productPeerNotice];
         
-        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+        [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
         [self.view addSubview:_accompanyInfoView];
     }
+    
+    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productTravelGoodsName price:product.productMarketPrice instructions:product.productPeerNotice];
+    [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
     [self showAcompanyInfoView];
 }
 

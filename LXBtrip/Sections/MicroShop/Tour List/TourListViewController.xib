@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TourListViewController">
             <connections>
-                <outlet property="darkMask" destination="x4b-Gv-Tvd" id="m2Y-xV-9Fj"/>
                 <outlet property="destinationButton" destination="8gc-94-qjm" id="tNH-OT-Wnh"/>
                 <outlet property="destinationTableView" destination="rJc-Ol-ciH" id="avB-Tw-MKQ"/>
                 <outlet property="locationButton" destination="pm6-ga-Elz" id="7ZH-mT-683"/>
@@ -35,10 +34,42 @@
                         <outlet property="delegate" destination="-1" id="fu1-fa-uF2"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4b-Gv-Tvd" userLabel="dark mask" customClass="UIControl">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="In7-aV-etP" userLabel="toTopButton">
+                    <rect key="frame" x="280" y="528" width="30" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="In7-aV-etP" secondAttribute="height" multiplier="1:1" id="CVO-fY-B9u"/>
+                        <constraint firstAttribute="height" constant="30" id="kBe-U0-alZ"/>
+                    </constraints>
+                    <state key="normal" image="to_top.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="toTopButtonClicked:" destination="-1" eventType="touchUpInside" id="R1d-eT-ka3"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rJc-Ol-ciH" userLabel="destinationTableView">
+                    <rect key="frame" x="0.0" y="155" width="320" height="264"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="264" id="LUe-2f-6FI"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="iES-mS-HVO"/>
+                        <outlet property="delegate" destination="-1" id="Fgv-rs-owu"/>
+                    </connections>
+                </tableView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="T4p-cb-ZGg" userLabel="walkTableView">
+                    <rect key="frame" x="0.0" y="155" width="320" height="176"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="176" id="QL1-Ro-qN5"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="e2b-RT-cvo"/>
+                        <outlet property="delegate" destination="-1" id="VGN-vc-zbF"/>
+                    </connections>
+                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6OM-xT-eP2">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
                     <subviews>
@@ -161,42 +192,6 @@
                         <action selector="walkTypeButtonClicked:" destination="-1" eventType="touchUpInside" id="dE3-Qv-bPp"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="In7-aV-etP" userLabel="toTopButton">
-                    <rect key="frame" x="280" y="528" width="30" height="30"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="In7-aV-etP" secondAttribute="height" multiplier="1:1" id="CVO-fY-B9u"/>
-                        <constraint firstAttribute="height" constant="30" id="kBe-U0-alZ"/>
-                    </constraints>
-                    <state key="normal" image="to_top.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="toTopButtonClicked:" destination="-1" eventType="touchUpInside" id="R1d-eT-ka3"/>
-                    </connections>
-                </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rJc-Ol-ciH" userLabel="destinationTableView">
-                    <rect key="frame" x="0.0" y="155" width="320" height="264"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="264" id="LUe-2f-6FI"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="iES-mS-HVO"/>
-                        <outlet property="delegate" destination="-1" id="Fgv-rs-owu"/>
-                    </connections>
-                </tableView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="T4p-cb-ZGg" userLabel="walkTableView">
-                    <rect key="frame" x="0.0" y="155" width="320" height="176"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="176" id="QL1-Ro-qN5"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="e2b-RT-cvo"/>
-                        <outlet property="delegate" destination="-1" id="VGN-vc-zbF"/>
-                    </connections>
-                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5W-kl-NHr" userLabel="noProductView">
                     <rect key="frame" x="0.0" y="155" width="320" height="413"/>
                     <subviews>
@@ -226,21 +221,16 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="In7-aV-etP" secondAttribute="trailing" constant="10" id="2RM-4g-2Zf"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="height" secondItem="hRV-ia-wRd" secondAttribute="height" id="6eR-y7-WLk"/>
-                <constraint firstAttribute="trailing" secondItem="x4b-Gv-Tvd" secondAttribute="trailing" id="82v-HV-7hb"/>
                 <constraint firstItem="6OM-xT-eP2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9Vv-AT-YPC"/>
                 <constraint firstAttribute="trailing" secondItem="Lmw-j1-ZWh" secondAttribute="trailing" id="Agt-sW-MWw"/>
                 <constraint firstItem="8gc-94-qjm" firstAttribute="centerY" secondItem="hRV-ia-wRd" secondAttribute="centerY" id="BJ7-pP-bKx"/>
-                <constraint firstAttribute="bottom" secondItem="x4b-Gv-Tvd" secondAttribute="bottom" id="CcL-kd-gU6"/>
-                <constraint firstItem="x4b-Gv-Tvd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DA3-42-5hx"/>
                 <constraint firstItem="T4p-cb-ZGg" firstAttribute="leading" secondItem="Lmw-j1-ZWh" secondAttribute="leading" id="HNL-Ei-Usn"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="trailing" secondItem="rJc-Ol-ciH" secondAttribute="trailing" id="JsW-AT-sfq"/>
-                <constraint firstItem="x4b-Gv-Tvd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ksh-YJ-g9T"/>
                 <constraint firstAttribute="bottom" secondItem="In7-aV-etP" secondAttribute="bottom" constant="10" id="Kvz-n0-MqA"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="leading" secondItem="rJc-Ol-ciH" secondAttribute="leading" id="MHO-It-R9t"/>
                 <constraint firstItem="T4p-cb-ZGg" firstAttribute="trailing" secondItem="Lmw-j1-ZWh" secondAttribute="trailing" id="MSG-JV-5HH"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="trailing" secondItem="S5W-kl-NHr" secondAttribute="trailing" id="MfQ-NU-bXX"/>
                 <constraint firstAttribute="trailing" secondItem="hRV-ia-wRd" secondAttribute="trailing" id="Mxg-Gt-iAC"/>
-                <constraint firstItem="x4b-Gv-Tvd" firstAttribute="top" secondItem="hRV-ia-wRd" secondAttribute="bottom" id="VBI-va-ys7"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="bottom" secondItem="S5W-kl-NHr" secondAttribute="bottom" id="YQ7-dp-bdM"/>
                 <constraint firstItem="Lmw-j1-ZWh" firstAttribute="top" secondItem="hRV-ia-wRd" secondAttribute="bottom" id="YoQ-6q-ozL"/>
                 <constraint firstAttribute="bottom" secondItem="Lmw-j1-ZWh" secondAttribute="bottom" id="bxy-TE-lLO"/>
@@ -261,7 +251,6 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="VBI-va-ys7"/>
                     <exclude reference="uhB-46-uRr"/>
                 </mask>
             </variation>
