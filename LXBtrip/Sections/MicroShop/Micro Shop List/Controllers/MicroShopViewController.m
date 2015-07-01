@@ -26,6 +26,7 @@
     UIRefreshControl *refreshControl_online;
     UIRefreshControl *refreshControl_myshop;
     MicroShopInfo *selectedShop;
+    NSTimer *timer;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *onlineShopButton;
@@ -146,75 +147,13 @@
     [self addLongPressGestureRecognizerForMyShop];
     
     // initial status
-    self.selectedIndex = 0;
     locationProvince = [[Global sharedGlobal] locationProvince];
-    
-    if ([UserModel companyId] && [UserModel staffId]) {
-        if ([[Global sharedGlobal] notFirstLogin] == YES) {
-            self.selectedIndex = 1;
-        } else {
-            self.selectedIndex = 0;
-        }
+    if (!locationProvince) {
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        timer = [NSTimer scheduledTimerWithTimeInterval:3.f target:self selector:@selector(fetchDefaultWholeCountryData) userInfo:nil repeats:NO];
     } else {
-        self.selectedIndex = 0;
+        [self fetchDefaultWholeCountryData];
     }
-}
-
-- (void)addLongPressGestureRecognizerForMyShop
-{
-    UILongPressGestureRecognizer *longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
-    longPressGr.minimumPressDuration = 1.0;
-    [_myShopCollectionView addGestureRecognizer:longPressGr];
-}
-
--(void)longPressToDo:(UILongPressGestureRecognizer *)gesture
-{
-    if(gesture.state == UIGestureRecognizerStateBegan)
-    {
-        CGPoint point = [gesture locationInView:_myShopCollectionView];
-        NSIndexPath * indexPath = [_myShopCollectionView indexPathForItemAtPoint:point];
-        if(indexPath == nil)
-            return ;
-        //add your code here
-        selectedShop = _myShopsArray[indexPath.row];
-        NSInteger lockStatus = [selectedShop.shopIsLock intValue];
-        
-        if (lockStatus == 0) {
-            [_changeStatusButton setEnabled:YES];;
-        } else {
-            [_changeStatusButton setEnabled:NO];;
-        }
-        _darkMask.alpha = 1.f;
-        _changeStatusButton.hidden = NO;
-        self.tabBarController.tabBar.hidden = YES;
-    }
-}
-
-- (void)changeShopLockStatus
-{
-    [HTTPTool lockMicroshopWithShopId:selectedShop.shopId companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
-        [[Global sharedGlobal] codeHudWithObject:result[@"RS100044"] succeed:^{
-            [self getMyShops];
-            _changeStatusButton.hidden = YES;
-            _darkMask.alpha = 0;
-            self.tabBarController.tabBar.hidden = NO;
-        }];
-    } fail:^(id result) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"锁定微店失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }];
-}
-
-- (void)refreshCollectionViews:(id)sender
-{
-    if (_selectedIndex == 0) {
-        if (locationProvince) {
-            [self getOnlineShops];
-        } else {
-            [sender endRefreshing];
-        }
-    }
-    [self getMyShops];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -238,49 +177,108 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)setSelectedIndex:(NSInteger)selectedIndex
+#pragma mark - LongPressGestureRecognizer part
+- (void)addLongPressGestureRecognizerForMyShop
 {
-    _selectedIndex = selectedIndex;
-    switch (_selectedIndex) {
-        case 0:
-        {
-            _colorBarImageView.image = ImageNamed(@"colorbar_left");
-            if (_myShopButton.selected == YES) {
-                _myShopButton.selected = NO;
-            }
-            _onlineShopButton.selected = YES;
-            if (_scrollView.contentOffset.x != 0) {
-                [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
-            }
-            
-            if (!_onlineShopsArray) {
-                if (locationProvince) {
-                    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                    [self getOnlineShops];
-                }
-            }
+    UILongPressGestureRecognizer *longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
+    longPressGr.minimumPressDuration = 1.0;
+    [_myShopCollectionView addGestureRecognizer:longPressGr];
+}
+-(void)longPressToDo:(UILongPressGestureRecognizer *)gesture
+{
+    if(gesture.state == UIGestureRecognizerStateBegan)
+    {
+        CGPoint point = [gesture locationInView:_myShopCollectionView];
+        NSIndexPath * indexPath = [_myShopCollectionView indexPathForItemAtPoint:point];
+        if(indexPath == nil)
+            return ;
+        //add your code here
+        selectedShop = _myShopsArray[indexPath.row];
+        NSInteger lockStatus = [selectedShop.shopIsLock intValue];
+        
+        if (lockStatus == 0) {
+            [_changeStatusButton setEnabled:YES];;
+        } else {
+            [_changeStatusButton setEnabled:NO];;
         }
-            break;
-        case 1:
-        {
-            _colorBarImageView.image = ImageNamed(@"colorbar_right");
-            if (_onlineShopButton.selected == YES) {
-                _onlineShopButton.selected = NO;
-            }
-            _myShopButton.selected = YES;
-            if (_scrollView.contentOffset.x != _scrollView.frame.size.width) {
-                [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
-            }
-            
-            if (!_myShopsArray) {
-                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getMyShops];
-            }
-        }
-            break;
-        default:
-            break;
+        _darkMask.alpha = 1.f;
+        _changeStatusButton.hidden = NO;
+        self.tabBarController.tabBar.hidden = YES;
     }
+}
+
+#pragma mark - NSTimer part
+- (void)fetchDefaultWholeCountryData
+{
+    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
+    locationProvince = [[Global sharedGlobal] locationProvince];
+    if (!locationProvince) {
+        locationProvince = @"全国";
+        [[Global sharedGlobal] upDateLocationProvince:locationProvince];
+    }
+    if ([UserModel companyId] && [UserModel staffId]) {
+        if ([[Global sharedGlobal] notFirstLogin] == YES) {
+            self.selectedIndex = 1;
+        } else {
+            self.selectedIndex = 0;
+        }
+    } else {
+        self.selectedIndex = 0;
+    }
+}
+
+#pragma mark - Actions
+- (void)changeShopLockStatus
+{
+    [HTTPTool lockMicroshopWithShopId:selectedShop.shopId companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100044"] succeed:^{
+            [self getMyShops];
+            _changeStatusButton.hidden = YES;
+            _darkMask.alpha = 0;
+            self.tabBarController.tabBar.hidden = NO;
+        }];
+    } fail:^(id result) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"锁定微店失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+- (void)refreshCollectionViews:(id)sender
+{
+    if (_selectedIndex == 0) {
+        if (locationProvince) {
+            [self getOnlineShops];
+        } else {
+            [sender endRefreshing];
+        }
+    }
+    [self getMyShops];
+}
+
+- (void)deleteMyShopWithShopId:(NSNumber *)shopId
+{
+    [HTTPTool deleteMyShopWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] shopId:shopId success:^(id result) {
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100006"] succeed:^{
+            //            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            //            [alert show];
+            
+            self.selectedIndex = _selectedIndex;
+            
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+            [self getMyShops];
+            [self getOnlineShops];
+        }];
+    } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 #pragma mark - Notification Handlers
@@ -479,32 +477,6 @@
     }
 }
 
-- (void)deleteMyShopWithShopId:(NSNumber *)shopId
-{
-    [HTTPTool deleteMyShopWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] shopId:shopId success:^(id result) {
-        [[Global sharedGlobal] codeHudWithObject:result[@"RS100006"] succeed:^{
-            //            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板成功" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            //            [alert show];
-            
-            self.selectedIndex = _selectedIndex;
-            
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getMyShops];
-            [self getOnlineShops];
-        }];
-    } fail:^(id result) {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        
-        if ([[Global sharedGlobal] networkAvailability] == NO) {
-            [self networkUnavailable];
-            return ;
-        }
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除模板失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }];
-}
-
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -578,7 +550,6 @@
 }
 
 #pragma mark - UICollectionViewDelegate
-
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     return CGSizeMake(collectionView.frame.size.width, 50.f);
@@ -605,9 +576,7 @@
         return;
     }
     
-    
     if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
-        MicroShopInfo *curShop = _myShopsArray[indexPath.row];
         if ([UserModel companyId] && [UserModel staffId]) {
             // go to set user info page
             if (![UserModel staffRealName]) {
@@ -673,6 +642,51 @@
 }
 
 #pragma mark - Private methods
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    _selectedIndex = selectedIndex;
+    switch (_selectedIndex) {
+        case 0:
+        {
+            _colorBarImageView.image = ImageNamed(@"colorbar_left");
+            if (_myShopButton.selected == YES) {
+                _myShopButton.selected = NO;
+            }
+            _onlineShopButton.selected = YES;
+            if (_scrollView.contentOffset.x != 0) {
+                [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, 0, 0) animated:YES];
+            }
+            
+            if (!_onlineShopsArray) {
+                if (locationProvince) {
+                    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                    [self getOnlineShops];
+                }
+            }
+        }
+            break;
+        case 1:
+        {
+            _colorBarImageView.image = ImageNamed(@"colorbar_right");
+            if (_onlineShopButton.selected == YES) {
+                _onlineShopButton.selected = NO;
+            }
+            _myShopButton.selected = YES;
+            if (_scrollView.contentOffset.x != _scrollView.frame.size.width) {
+                [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, _scrollView.frame.size.width, 0) animated:YES];
+            }
+            
+            if (!_myShopsArray) {
+                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                [self getMyShops];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)hideDeleteActionSheet
 {
     [UIView animateWithDuration:0.4 animations:^{

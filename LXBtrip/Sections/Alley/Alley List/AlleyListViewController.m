@@ -72,9 +72,6 @@
     curCity = [[Global sharedGlobal] locationCity];
     curProvince = [[Global sharedGlobal] locationProvince];
     curCountry = @"中国";
-    
-    curProvince = @"陕西";
-    curCity = @"西安";
 
     if (curCity && curProvince) {
         pageNum = 1;
