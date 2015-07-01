@@ -2746,6 +2746,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 8E5C69801AFAFC5B004A0CC3;
 			productRefGroup = 8E5C698A1AFAFC5B004A0CC3 /* Products */;
@@ -3481,6 +3482,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LXBtrip/PrefixHeader.pch";
 				INFOPLIST_FILE = LXBtrip/Info.plist;
@@ -3490,6 +3496,15 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/3rd/我要用的资料/博看通/博看通/XMPP/libidn",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/Sina",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/YiXin",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/Sina",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ddc1e0d2-9ddf-4adb-a7a9-551eff9bca76";
@@ -3504,6 +3519,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LXBtrip/PrefixHeader.pch";
 				INFOPLIST_FILE = LXBtrip/Info.plist;
@@ -3513,6 +3533,15 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/3rd/我要用的资料/博看通/博看通/XMPP/libidn",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/Sina",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/YiXin",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/Sina",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ddc1e0d2-9ddf-4adb-a7a9-551eff9bca76";

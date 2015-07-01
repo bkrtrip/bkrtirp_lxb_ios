@@ -21,6 +21,7 @@
 
 #import "AppMacro.h"
 #import "Global.h"
+//#import "UMSocial.h"
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
 
@@ -36,6 +37,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+//    [UMSocialData setAppKey:@"5593e07a67e58e880a003a64"];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

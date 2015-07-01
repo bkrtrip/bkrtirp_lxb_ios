@@ -338,10 +338,12 @@
                                 MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
                                 [tempArray2 addObject:info];
                             }];
+                            tempArray2 = [[self sortOnlineShopsSectionByOrderNoAscendingWithSection:tempArray2] mutableCopy];
                             [tempDict setObject:tempArray2 forKey:@"classify_template"];
                         }
                         [_onlineShopsArray addObject:tempDict];
                     }];
+                    
                     [_onlineShopCollectionView reloadData];
                 }
             }];
@@ -384,6 +386,7 @@
                                 MicroShopInfo *info = [[MicroShopInfo alloc] initWithDict:obj];
                                 [tempArray2 addObject:info];
                             }];
+                            tempArray2 = [[self sortOnlineShopsSectionByOrderNoAscendingWithSection:tempArray2] mutableCopy];
                             [tempDict setObject:tempArray2 forKey:@"classify_template"];
                         }
                         [_onlineShopsArray addObject:tempDict];
@@ -707,6 +710,12 @@
         _darkMask.alpha = 1;
         [_yesOrNoView setFrame:CGRectMake(0, SCREEN_HEIGHT - _yesOrNoView.containerView.frame.size.height, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
     }];
+}
+
+- (NSArray *)sortOnlineShopsSectionByOrderNoAscendingWithSection:(NSArray *)section
+{
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"shopOrderNum" ascending:YES];
+    return [[section sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
 }
 
 @end

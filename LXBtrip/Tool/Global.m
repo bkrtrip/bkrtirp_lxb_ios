@@ -34,10 +34,6 @@ NSInteger initialSort(NSString * initial_1, NSString * initial_2, void *context)
     return [initial_1 caseInsensitiveCompare:initial_2];
 }
 
-//NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context) {
-//    return [order_2.orderStartDate caseInsensitiveCompare:order_1.orderStartDate];
-//}
-
 NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context) {
     return [order_2.orderLineNo caseInsensitiveCompare:order_1.orderLineNo];
 }
