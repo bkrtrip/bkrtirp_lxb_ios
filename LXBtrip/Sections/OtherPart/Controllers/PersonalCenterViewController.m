@@ -25,6 +25,7 @@
 #import "MyOrderListViewController.h"
 #import "MySupplierViewController.h"
 #import "NotificationCenterViewController.h"
+#import "WebContentViewController.h"
 
 @interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
@@ -277,7 +278,21 @@
             break;
         case 4:
         {
+            //http://mobile.bkrtrip.com/view/other/line/version.html
+            //http://mobile.bkrtrip.com/view/other/line/help.html
+            //http://mobile.bkrtrip.com/com/about
             
+            WebContentViewController *viewController = [[WebContentViewController alloc] init];
+            if (indexPath.row == 0) {
+                viewController.contentUrl = @"http://mobile.bkrtrip.com/view/other/line/help.html";
+                viewController.title = @"帮助";
+            }
+            else if (indexPath.row == 1) {
+                viewController.contentUrl = @"http://mobile.bkrtrip.com/view/other/line/version.html";
+                viewController.title = @"关于旅小宝";
+            }
+            
+            [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
         //退出

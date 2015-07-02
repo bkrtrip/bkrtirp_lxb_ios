@@ -77,11 +77,20 @@
              NSLog(@"%@", jsonObj);
              
              if ([jsonObj isKindOfClass:[NSDictionary class]]) {
-                 
+                 /*
+                  RS100034 =     {
+                  "error_code" = 40001;
+                  "error_info" = "account does not exist.";
+                  };
+                  */
                  NSDictionary *resultDic = [jsonObj objectForKey:@"RS100034"];
                  if (resultDic && [resultDic stringValueByKey:@"error_code"].length > 0) {
-                     
-                     [weakSelf showAlertViewWithTitle:nil message:[resultDic stringValueByKey:@"error_info"] cancelButtonTitle:@"确定"];
+                     if ([[resultDic stringValueByKey:@"error_info"] isEqualToString:@"account does not exist."]) {
+                         [weakSelf showAlertViewWithTitle:nil message:@"您输入的账号不存在，请重新输入。" cancelButtonTitle:@"确定"];
+                     }
+                     else {
+                         [weakSelf showAlertViewWithTitle:nil message:[resultDic stringValueByKey:@"error_info"] cancelButtonTitle:@"确定"];
+                     }
                      
                      return ;
                  }
