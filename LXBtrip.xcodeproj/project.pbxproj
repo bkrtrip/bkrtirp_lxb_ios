@@ -572,6 +572,7 @@
 		97F886581B39639700E0E25E /* no_product@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886561B39639700E0E25E /* no_product@3x.png */; };
 		97F8865B1B3963A300E0E25E /* no_search_results@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886591B3963A300E0E25E /* no_search_results@2x.png */; };
 		97F8865C1B3963A300E0E25E /* no_search_results@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F8865A1B3963A300E0E25E /* no_search_results@3x.png */; };
+		AED4D09D1B44AF4B00FE9227 /* defaultIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AED4D09C1B44AF4B00FE9227 /* defaultIcon.jpg */; };
 		AEDD97931B434BE1000071A4 /* WebContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEDD97911B434BE1000071A4 /* WebContentViewController.m */; };
 		AEDD97941B434BE1000071A4 /* WebContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEDD97921B434BE1000071A4 /* WebContentViewController.xib */; };
 		B75AB7F81B4203F800CE735E /* NotificationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75AB7F61B4203F800CE735E /* NotificationCenterViewController.m */; };
@@ -1352,6 +1353,7 @@
 		97F886561B39639700E0E25E /* no_product@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_product@3x.png"; path = "LXBtrip/image/Common/no_product@3x.png"; sourceTree = SOURCE_ROOT; };
 		97F886591B3963A300E0E25E /* no_search_results@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@2x.png"; path = "Supplier/no_search_results@2x.png"; sourceTree = "<group>"; };
 		97F8865A1B3963A300E0E25E /* no_search_results@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@3x.png"; path = "Supplier/no_search_results@3x.png"; sourceTree = "<group>"; };
+		AED4D09C1B44AF4B00FE9227 /* defaultIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = defaultIcon.jpg; sourceTree = "<group>"; };
 		AEDD97901B434BE1000071A4 /* WebContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentViewController.h; sourceTree = "<group>"; };
 		AEDD97911B434BE1000071A4 /* WebContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentViewController.m; sourceTree = "<group>"; };
 		AEDD97921B434BE1000071A4 /* WebContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebContentViewController.xib; sourceTree = "<group>"; };
@@ -2430,6 +2432,7 @@
 		9794A7931B26A8280077E5C0 /* UserCenter */ = {
 			isa = PBXGroup;
 			children = (
+				AED4D09C1B44AF4B00FE9227 /* defaultIcon.jpg */,
 				2260D7B11B27ADFD000F6856 /* dDial@2x.png */,
 				2260D7B21B27ADFD000F6856 /* dShare@2x.png */,
 				9794A7941B26A8280077E5C0 /* about@2x.png */,
@@ -3080,6 +3083,7 @@
 				9794A8A21B26A8280077E5C0 /* help@2x.png in Resources */,
 				975DC4461B2FCE260058B6B4 /* CreateOrderCell_OrderId.xib in Resources */,
 				97B30AC61B2D305E006F88DC /* RecentContactButton.xib in Resources */,
+				AED4D09D1B44AF4B00FE9227 /* defaultIcon.jpg in Resources */,
 				9794A8241B26A8280077E5C0 /* InviteSupplierTableViewCell_Second.xib in Resources */,
 				97C032041B248202000385B8 /* substract_gray@2x.png in Resources */,
 				97CDAFD41B2C2FBE009917FB /* SearchSupplierViewController.xib in Resources */,

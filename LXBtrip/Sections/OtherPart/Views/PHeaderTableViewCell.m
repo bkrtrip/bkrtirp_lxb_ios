@@ -66,7 +66,7 @@
         
         NSString *photoURL = [userInfoDic stringValueByKey:PHOTO_URL];
         if (PHOTO_URL.length > 0) {
-            [self.userPhotoImgView sd_setImageWithURL:[NSURL URLWithString:photoURL] placeholderImage:nil];
+            [self.userPhotoImgView sd_setImageWithURL:[NSURL URLWithString:photoURL] placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"]];
         }
     }
     else {

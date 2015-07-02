@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavBaseViewController.h"
 
-@interface WebContentViewController : UIViewController
+@interface WebContentViewController : NavBaseViewController
 
 @property (nonatomic, retain) NSString *contentUrl;
 

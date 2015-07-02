@@ -57,7 +57,7 @@
     
     [self.dispatchersTableView addSubview:refreshControl];
     
-    [self getDispathersListForPage:self.pageNum];
+//    [self getDispathersListForPage:self.pageNum];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +70,8 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.tabBarController.tabBar.hidden = YES;
+    
+    [self refreshDispatcherList];
 }
 
 - (void)refreshDispatchers:(UIRefreshControl *)sender
@@ -124,9 +126,9 @@
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  
-                 NSArray *resultArray = [jsonObj objectForKey:@"RS100023"];
+                 id resultObj = [jsonObj objectForKey:@"RS100023"];
                  
-                 if (resultArray && [resultArray isKindOfClass:[NSArray class]]) {
+                 if (resultObj && [resultObj isKindOfClass:[NSArray class]]) {
                      
                      if (weakSelf.pageNum == 0) {
                          [weakSelf.dispatchersArray removeAllObjects];
@@ -134,12 +136,12 @@
                      
                      weakSelf.pageNum += 1;
                      
-                     [weakSelf.dispatchersArray addObjectsFromArray:resultArray];
+                     [weakSelf.dispatchersArray addObjectsFromArray:resultObj];
                      [weakSelf.dispatchersTableView reloadData];
                  }
-             }
-             else if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]] && [[jsonObj stringValueByKey:@"error_code"] isEqualToString:@"90001"]) {
-                 weakSelf.isAllLoaded = YES;
+                 else if (resultObj && [resultObj isKindOfClass:[NSDictionary class]] && [[resultObj stringValueByKey:@"error_code"] isEqualToString:@"90001"]) {
+                     weakSelf.isAllLoaded = YES;
+                 }
              }
          }
          

@@ -559,17 +559,20 @@
         return;
     }
     
-    //YesOrNoView不需要
-//    popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
         [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.hidden = NO;
+        }
     }];
 }
 - (void)showYesOrNoView
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
+        self.navigationController.navigationBar.hidden = YES;
         [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, - _yesOrNoView.frame.size.height)];
     }];
 }
@@ -586,6 +589,10 @@
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.hidden = NO;
+        }
     }];
 }
 - (void)showShareView
@@ -601,6 +608,7 @@
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
+        self.navigationController.navigationBar.hidden = YES;
     }];
 }
 
@@ -616,10 +624,10 @@
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
         self.navigationController.navigationBar.hidden = NO;
-//        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
+            self.navigationController.navigationBar.hidden = NO;
             if (block) {
                 block();
             }
@@ -631,9 +639,7 @@
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        self.navigationController.navigationBar.hidden = YES;
-//        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
-        
+        self.navigationController.navigationBar.hidden = YES;        
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }

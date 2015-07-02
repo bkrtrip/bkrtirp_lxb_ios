@@ -129,7 +129,7 @@
     NotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell"];
     
     NSDictionary *sysMsgDic = [self.notificationsArray objectAtIndex:indexPath.row];
-    cell.titleLabel.text = [sysMsgDic stringValueByKey:@"msg_title"];
+    cell.titleLabel.text = [sysMsgDic stringValueByKey:@"msg_content"];
 //    cell.dateLabel.text = [sysMsgDic stringValueByKey:@"msg_date"];
     
     double timeInterval = [(NSNumber *)[sysMsgDic stringValueByKey:@"msg_date"] doubleValue] / 1000;
@@ -162,6 +162,7 @@
     
     WebContentViewController *viewController = [[WebContentViewController alloc] init];
     viewController.contentUrl = [[self.notificationsArray objectAtIndex:indexPath.row] stringValueByKey:@"msg_url"];
+    viewController.title = [[self.notificationsArray objectAtIndex:indexPath.row] stringValueByKey:@"msg_title"];
     
     [self.navigationController pushViewController:viewController animated:YES];
     
