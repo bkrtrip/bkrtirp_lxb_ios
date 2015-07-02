@@ -640,13 +640,13 @@
 #pragma mark - InviteSupplierTableViewCell_Fourth_Delegate
 - (void)supportClickWithQQ
 {
-    
+    [self hideInviteTableView];
+    [[Global sharedGlobal] shareViaQQWithURLString:SHARE_DEFAULT_URL content:@"旅小宝邀您参与" image:nil location:nil presentedController:self shareType:QQ_Share_Session];
 }
 - (void)supportClickWithWeChat
 {
     [self hideInviteTableView];
-    NSString *shareURL = @"http://www.bkrtrip.com/";
-    [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:@"旅小宝邀您参与" image:nil location:nil presentedController:self];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:SHARE_DEFAULT_URL content:@"旅小宝邀您参与" image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
 - (void)supportClickWithPhoneCall
 {

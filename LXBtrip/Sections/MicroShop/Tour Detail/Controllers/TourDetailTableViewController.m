@@ -19,7 +19,6 @@
 @interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
 {
     NSMutableDictionary *cellHeights;
-    NSInteger weekday;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -71,8 +70,6 @@
 - (void)startDateChanged:(NSNotification *)note
 {
     _startDate = [note userInfo][@"start_date"];
-    weekday = [[note userInfo][@"weekday"] integerValue];
-    
     [self calculateFirstTwoCellHeights];
     [_tableView reloadData];
 }
@@ -102,14 +99,17 @@
                 
                 NSString *nowDate = [self nowDateString];
                 [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
-                    // 多线程不一定按顺序循环
-                    if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:nowDate] != NSOrderedAscending) {
-                        if (!_startDate) {
-                            _startDate = [grp.marketTime copy];
-                        }
-                        
-                        if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:_startDate] == NSOrderedAscending) {
-                            _startDate = [grp.marketTime copy];
+                    if ([grp.marketAdultPrice integerValue]>0 || [grp.marketKidPrice integerValue]>0 || [grp.marketKidPriceNoBed integerValue]>0) {
+                        // 多线程不一定按顺序循环
+                        if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:nowDate] != NSOrderedAscending) {
+                            if (!_startDate) {
+                                _startDate = [grp.marketTime copy];
+                                return ;
+                            }
+                            
+                            if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:_startDate] == NSOrderedAscending) {
+                                _startDate = [grp.marketTime copy];
+                            }
                         }
                     }
                 }];
@@ -213,7 +213,7 @@
             case 2:
             {
                 TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-                [cell setCellContentWithStartDate:_startDate weekDay:weekday];
+                [cell setCellContentWithStartDate:_startDate];
                 return cell;
             }
                 break;
@@ -241,7 +241,7 @@
             case 1:
             {
                 TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-                [cell setCellContentWithStartDate:_startDate weekDay:weekday];
+                [cell setCellContentWithStartDate:_startDate];
                 return cell;
             }
                 break;
@@ -378,7 +378,6 @@
     NSInteger cellYear = [comps year];
     NSInteger cellMonth = [comps month];
     NSInteger cellDay = [comps day];
-    weekday = [comps weekday];
     
     NSString *nowDate = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)cellYear, (long)cellMonth, (long)cellDay];
     return nowDate;

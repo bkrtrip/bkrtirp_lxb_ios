@@ -11,6 +11,6 @@
 
 @interface TourDetailCell_Three : UITableViewCell
 
-- (void)setCellContentWithStartDate:(NSString *)startDate weekDay:(NSInteger)weekday;
+- (void)setCellContentWithStartDate:(NSString *)startDate;
 
 @end

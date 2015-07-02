@@ -372,18 +372,67 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 
 #pragma mark - Share part
 // Wechat
-- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController
+- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(WechatShareType)type
 {
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = shareURL;
-    
     if (!image) {
         image = ImageNamed(@"share_icon");
     }
-    [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
-        if (response.responseCode == UMSResponseCodeSuccess) {
+    switch (type) {
+        case Wechat_Share_Session:
+        {
+            [UMSocialData defaultData].extConfig.wechatSessionData.url = shareURL;
+            
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                }
+            }];
         }
-    }];
+            break;
+        case Wechat_Share_Timeline:
+        {
+            [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareURL;
+            
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                }
+            }];
+        }
+        default:
+            break;
+    }
 }
+
+// QQ
+- (void)shareViaQQWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(QQShareType)type
+{
+    if (!image) {
+        image = ImageNamed(@"share_icon");
+    }
+    switch (type) {
+        case QQ_Share_Session:
+        {
+            [UMSocialData defaultData].extConfig.qqData.url = shareURL;
+            
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                }
+            }];
+        }
+            break;
+        case QQ_Share_QZone://Qzone分享文字与图片缺一不可，否则会出现错误码10001
+        {
+            [UMSocialData defaultData].extConfig.qzoneData.url = shareURL;
+            
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                }
+            }];
+        }
+        default:
+            break;
+    }
+}
+
 
 
 @end

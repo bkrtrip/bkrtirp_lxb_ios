@@ -49,12 +49,13 @@
 
 // Share Ids and Keys
 #define UMSOCIAL_APP_KEY @"5593e07a67e58e880a003a64"
-
 #define SHARE_DEFAULT_URL @"http://www.bkrtrip.com/"
-
+// Wechat
 #define WECHAT_APP_ID @"wx44f84b030229c600"
 #define WECHAT_APP_KEY @"6fca45e7abcf5e8ca6836aae937380dc"
-
+// QQ
+#define QQ_APP_ID @"1104451849"
+#define QQ_APP_KEY @"OQpIdYzQaogprsBV"
 
 // NavBasedViewController
 #define MainNavTitleColor RGB(255, 255, 255)
@@ -225,6 +226,17 @@ typedef enum TouristType
     Kid_No_Bed = 2
 } TouristType;
 
+typedef enum WechatShareType
+{
+    Wechat_Share_Session = 0,
+    Wechat_Share_Timeline = 1,
+} WechatShareType;
+
+typedef enum QQShareType
+{
+    QQ_Share_Session = 0,
+    QQ_Share_QZone = 1,
+} QQShareType;
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998
 #define LINE_CLASS @{@0:@"#1#283", @1:@"#1#303", @2:@"#1#492", @3:@"#1#997", @4:@"#1#998"}

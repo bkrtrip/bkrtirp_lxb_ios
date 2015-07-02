@@ -12,6 +12,7 @@
 
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
 
 typedef void (^errorCode_succeed_block)();
 
@@ -57,6 +58,10 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 
 #pragma mark - Share part
 // Wechat
-- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController;
+- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(WechatShareType)type;
+
+// QQ
+- (void)shareViaQQWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(QQShareType)type;
+
 
 @end

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -82,8 +81,8 @@
             <connections>
                 <outlet property="scrollView" destination="JbE-MH-EGE" id="Yax-ay-WOX"/>
                 <outlet property="tourDescriptionLabel" destination="332-w2-L3H" id="Ydl-ds-mtR"/>
-                <outlet property="tourIDLabel" destination="e9B-yz-Sh9" id="kAu-Jb-lEB"/>
                 <outlet property="tourNameLabel" destination="Lhp-uN-9Oi" id="amt-X6-ng7"/>
+                <outlet property="tourTravelGoodsCodePriLabel" destination="e9B-yz-Sh9" id="XID-pN-cm3"/>
                 <outlet property="walkTypeImageView" destination="MQd-Lw-OiC" id="jsI-Rs-GDw"/>
             </connections>
             <point key="canvasLocation" x="-58" y="-55.5"/>

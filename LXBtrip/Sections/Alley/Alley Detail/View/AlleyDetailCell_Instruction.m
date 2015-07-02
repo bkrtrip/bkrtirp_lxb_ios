@@ -29,8 +29,7 @@
 
 - (void)setCellContentWithAlleyInfo:(AlleyInfo *)info
 {
-    NSString *formattedHTMLString = [NSString stringWithFormat:@"<!DOCTYPE html><html><head style=\"p{font-size:10;font-weight:normal;color=#999999 !important};\"></head><body>%@</body></html>", info.alleyServiceNotice];
-//    [_instructionsWebView loadHTMLString:info.alleyServiceNotice baseURL:nil];
+    NSString *formattedHTMLString = [NSString stringWithFormat:@"<html><head><style>body{background-color:#ffffff;padding:15;margin:0;font-family:HelveticaNeue-Light;color:#999999;font-size:12px;} b{font-size:12px;font-weight:normal;color:#333333;}</style></head><body><div>%@</div></body></html>", info.alleyServiceNotice];
     [_instructionsWebView loadHTMLString:formattedHTMLString baseURL:nil];
 }
 

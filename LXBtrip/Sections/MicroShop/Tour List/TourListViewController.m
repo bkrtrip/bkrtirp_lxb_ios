@@ -381,7 +381,6 @@
         }
     } else {
         [self setDestinationCityTableViewHidden:YES];
-        [self.view insertSubview:_darkMask aboveSubview:_noProductView];
         _darkMask.alpha = 0;
     }
 }
@@ -390,7 +389,7 @@
     [self setDestinationCityTableViewHidden:YES];
     if (_walkTypeTableView.hidden == YES) {
         [self setWalkTypeTableViewHidden:NO];
-        [self.view insertSubview:_darkMask belowSubview:_walkTypeTableView];
+        [self.view insertSubview:_darkMask belowSubview:_destinationTableView];
         _darkMask.alpha = 1.0;
         if (!selectedCell_WalkType) {
             selectedCell_WalkType = (TourListCell_WalkType *)[_walkTypeTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -398,7 +397,6 @@
         }
     } else {
         [self setWalkTypeTableViewHidden:YES];
-        [self.view insertSubview:_darkMask aboveSubview:_noProductView];
         _darkMask.alpha = 0;
     }
 }
@@ -505,19 +503,44 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self];
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
     }
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    }
 }
 
 - (void)supportClickWithQZoneWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
-}
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+    }}
 
 - (void)supportClickWithShortMessageWithShareObject:(id)obj
 {
@@ -542,6 +565,19 @@
 - (void)supportClickWithFriendsWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+    }
 }
 
 - (void)supportClickWithCancel
@@ -597,7 +633,7 @@
 
 - (void)showAccompanyInfoView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_noProductView];
+    [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
@@ -607,7 +643,7 @@
 // show/hide ShareView
 - (void)showShareView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_noProductView];
+    [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];

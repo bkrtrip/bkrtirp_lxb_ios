@@ -23,6 +23,7 @@
 #import "Global.h"
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
 
@@ -42,6 +43,8 @@
     [UMSocialData setAppKey:UMSOCIAL_APP_KEY];
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:WECHAT_APP_ID appSecret:WECHAT_APP_KEY url:SHARE_DEFAULT_URL];
+    //设置分享到QQ/Qzone的应用Id，和分享url 链接
+    [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:SHARE_DEFAULT_URL];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

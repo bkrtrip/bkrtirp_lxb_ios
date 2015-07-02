@@ -31,7 +31,10 @@
 @property (nonatomic, copy) NSString *productTravelStartCity;//
 @property (nonatomic, copy) NSNumber *productTravelApplyTime;//
 @property (nonatomic, copy) NSString *productTravelGoodsCode;//
+
 @property (nonatomic, copy) NSNumber *productTravelGoodsId;//
+@property (nonatomic, copy) NSString *productTravelGoodsCodePri;
+
 @property (nonatomic, copy) NSNumber *productTravelGoodsCompanyId;//
 @property (nonatomic, copy) NSString *productTravelGoodsImg1;//
 @property (nonatomic, copy) NSString *productTravelGoodsImg2;//
