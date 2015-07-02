@@ -494,6 +494,19 @@
 - (void)supportClickWithWeChatWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self];
+    }
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj

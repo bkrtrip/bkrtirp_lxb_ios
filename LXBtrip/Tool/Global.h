@@ -10,8 +10,10 @@
 #import "AppMacro.h"
 #import <CoreLocation/CoreLocation.h>
 
-typedef void (^errorCode_succeed_block)();
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
 
+typedef void (^errorCode_succeed_block)();
 
 @interface Global : NSObject
 singleton_interface(Global)
@@ -53,5 +55,8 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 
 - (void)setUnderlinedWithText:(NSString *)text button:(UIButton *)button color:(UIColor *)color;
 
+#pragma mark - Share part
+// Wechat
+- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController;
 
 @end

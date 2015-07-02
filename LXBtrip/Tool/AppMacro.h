@@ -40,11 +40,20 @@
 #define INVITE_SIX_GIVE_SHOP_URL @"http://mobile.bkrtrip.com/view/other/line/customiz.html"
 #define INVITE_THREE_GIVE_POSTER_URL @"http://mobile.bkrtrip.com/view/other/line/poster.html"
 
+// Notification Names
 #define PROVINCE_CHANGED @"PROVINCE_CHANGED"
 #define CITY_CHANGED @"CITY_CHANGED"
 #define SWITCH_CITY_SUPPLIER_LIST @"SWITCH_CITY_WITH_CITY_NAME_SUPPLIER_LIST"
 #define SWITCH_CITY_TOUR_LIST @"SWITCH_CITY_WITH_CITY_NAME_TOUR_LIST"
 #define MY_SHOP_HAS_UPDATED @"MY_SHOP_HAS_UPDATED"
+
+// Share Ids and Keys
+#define UMSOCIAL_APP_KEY @"5593e07a67e58e880a003a64"
+
+#define SHARE_DEFAULT_URL @"http://www.bkrtrip.com/"
+
+#define WECHAT_APP_ID @"wx44f84b030229c600"
+#define WECHAT_APP_KEY @"6fca45e7abcf5e8ca6836aae937380dc"
 
 
 // NavBasedViewController

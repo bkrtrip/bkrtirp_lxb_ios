@@ -16,6 +16,7 @@
 #import "SetShopNameViewController.h"
 #import "AccompanyInfoViewController.h"
 #import "TourDetailTableViewController.h"
+#import "UMSocialWechatHandler.h"
 
 @interface SupplierDetailViewController()<UITableViewDataSource, UITableViewDelegate, YesOrNoViewDelegate, TourListTableViewCell_Delegate, ShareViewDelegate, AccompanyInfoView_Delegate, UIScrollViewDelegate>
 {
@@ -315,11 +316,12 @@
         // go to share
         if (!_shareView) {
             _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-            CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
-            [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
             _shareView.delegate = self;
             [self.view addSubview:_shareView];
         }
+        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+        
         [self showShareView];
     // 未同步
     } else if ([_isMinetype intValue] == 1){
@@ -426,6 +428,19 @@
 - (void)supportClickWithWeChatWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self];
+    }
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj
@@ -538,11 +553,11 @@
 {
     if (!_shareView) {
         _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
-        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _shareView.delegate = self;
         [self.view addSubview:_shareView];
     }
+    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
+    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
 
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;

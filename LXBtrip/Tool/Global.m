@@ -370,5 +370,20 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
     }
 }
 
+#pragma mark - Share part
+// Wechat
+- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController
+{
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = shareURL;
+    
+    if (!image) {
+        image = ImageNamed(@"share_icon");
+    }
+    [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+        if (response.responseCode == UMSResponseCodeSuccess) {
+        }
+    }];
+}
+
 
 @end

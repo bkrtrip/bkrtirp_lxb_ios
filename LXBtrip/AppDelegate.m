@@ -21,7 +21,8 @@
 
 #import "AppMacro.h"
 #import "Global.h"
-//#import "UMSocial.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
 
@@ -38,8 +39,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    [UMSocialData setAppKey:@"5593e07a67e58e880a003a64"];
-    
+    [UMSocialData setAppKey:UMSOCIAL_APP_KEY];
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:WECHAT_APP_ID appSecret:WECHAT_APP_KEY url:SHARE_DEFAULT_URL];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -190,12 +192,6 @@
             [alert show];
         });
     }
-//    else {
-//        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 旅小宝" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
-//        }
-//    }
     
     if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
     {
@@ -223,17 +219,9 @@
         for (CLPlacemark *placemark in placemarks) {
             
             NSDictionary *test = [placemark addressDictionary];
-            // locality(城市)
-            NSLog(@"%@", test);
+//            NSLog(@"%@", test);
             NSString *newProvince = [test objectForKey:@"State"];
-//            if ([newProvince hasSuffix:@"省"]) {
-//                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
-//            }
-            
             NSString *newCity = [test objectForKey:@"City"];
-//            if ([newCity hasSuffix:@"市"]) {
-//                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
-//            }
             NSLog(@"newCity: ------ %@", newCity);
             NSLog(@"newProvince: ------ %@", newProvince);
             if (![_locationProvince isEqualToString:newProvince]) {
@@ -263,6 +251,19 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }
+}
+
+#pragma mark - UMSocial Callback
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
 }
 
 @end

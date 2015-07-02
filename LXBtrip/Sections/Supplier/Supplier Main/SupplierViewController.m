@@ -644,7 +644,9 @@
 }
 - (void)supportClickWithWeChat
 {
-    
+    [self hideInviteTableView];
+    NSString *shareURL = @"http://www.bkrtrip.com/";
+    [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:@"旅小宝邀您参与" image:nil location:nil presentedController:self];
 }
 - (void)supportClickWithPhoneCall
 {
