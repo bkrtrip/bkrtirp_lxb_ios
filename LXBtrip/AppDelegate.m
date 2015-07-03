@@ -22,6 +22,9 @@
 #import "AppMacro.h"
 #import "Global.h"
 //#import "UMSocial.h"
+#import "APService.h"
+#import "UserModel.h"
+
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
 
@@ -64,7 +67,37 @@
     self.window.rootViewController = tabController;
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];    
+    [self.window makeKeyAndVisible];
+    
+    
+    //JPush setup
+    [APService
+     registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                         UIUserNotificationTypeSound |
+                                         UIUserNotificationTypeAlert)
+     categories:nil];
+    
+    // Required
+    [APService setupWithOption:launchOptions];
+    
+    
+    // [2-EXT]: 获取启动时收到的APN
+    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (message) {
+        NSString *payloadMsg = [message objectForKey:@"payload"];
+        NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
+        NSLog(@"%@",record);
+        
+        //        [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
+        
+        
+        //        [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
+                
+    }
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    
     return YES;
 }
 
@@ -91,6 +124,68 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+//APNs call back
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
+    [APService registerDeviceToken:deviceToken];
+    
+    //    [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    
+    NSString *staffName = [UserModel getUserPropertyByKey:@"staff_name"];
+    if (staffName) {
+        [APService setTags:[NSSet setWithObject:staffName] alias:staffName callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+        //        [APService setTags:[NSSet setWithObject:staffName] callbackSelector:nil object:nil];
+    }
+}
+
+-(void)tagsAliasCallback:(int)iResCode
+                    tags:(NSSet*)tags
+                   alias:(NSString*)alias
+{
+    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+}
+
+- (void)application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+    
+    //    [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
+    NSLog(@"error -- %@",error);
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [APService handleRemoteNotification:userInfo];
+//    NSLog(@"收到通知:%@", [self logDic:userInfo]);
+    
+    //    [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
+    
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
+//    self.hasNewMessages = YES;
+    
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:
+(void (^)(UIBackgroundFetchResult))completionHandler {
+    [APService handleRemoteNotification:userInfo];
+//    NSLog(@"收到通知:%@", [self logDic:userInfo]);
+    
+    //    [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
+    
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
+//    self.hasNewMessages = YES;
+    
+    
+    completionHandler(UIBackgroundFetchResultNewData);
+}
 
 #pragma mark Timers work
 - (BOOL)startRTimer

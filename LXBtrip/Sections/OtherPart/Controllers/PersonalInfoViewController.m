@@ -14,8 +14,9 @@
 #import "NSDictionary+GetStringValue.h"
 #import "AFNetworking.h"
 #import "UIViewController+CommonUsed.h"
+#import "CustomActivityIndicator.h"
 
-@interface PersonalInfoViewController ()<UpdateUserInformationDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface PersonalInfoViewController ()<UpdateUserInformationDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *pInfoTableView;
 @property (weak, nonatomic) IBOutlet UIView *areaPickerBgView;
@@ -95,7 +96,7 @@
                  
                  //update user info successfully
                  if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
-                     [weakSelf showAlertViewWithTitle:nil message:@"更新地址成功 ！" cancelButtonTitle:@"确定"];
+                     [weakSelf showAlertViewWithTitle:nil message:@"更新成功 ！" cancelButtonTitle:@"确定"];
                  }
              }
              
@@ -229,6 +230,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.row) {
+        case 0:
+        {
+            [self configureUserPhoto];
+        }
+            break;
         case 1:
         {
             [self goToAlterInfoPageWithType:ShopContactName withInformation:@""];
@@ -473,6 +479,117 @@
 //        [self.areaPickerView reloadComponent:2];
 //    }
     [self.areaPickerView reloadAllComponents];
+}
+
+
+//config photo
+
+- (void)configureUserPhoto
+{
+    if (NSClassFromString(@"UIAlertController")) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *telAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self capturePhotoBySourceType:UIImagePickerControllerSourceTypeCamera];
+        }];
+        
+        UIAlertAction *smsAction = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self capturePhotoBySourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            ;
+        }];
+        
+        [alertController addAction:telAction];
+        [alertController addAction:smsAction];
+        [alertController addAction:cancelAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else
+    {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从手机相册选择", nil];
+        [actionSheet showFromRect:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 0) inView:self.view animated:YES];
+        
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            [self capturePhotoBySourceType:UIImagePickerControllerSourceTypeCamera];
+            break;
+        case 1:
+            [self capturePhotoBySourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)capturePhotoBySourceType:(UIImagePickerControllerSourceType)type
+{
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
+    pickerController.sourceType = type;
+    pickerController.allowsEditing = YES;
+    pickerController.delegate = self;
+    
+    [self presentViewController:pickerController animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    NSIndexPath *signatureIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *cell = [self.pInfoTableView cellForRowAtIndexPath:signatureIndexPath];
+    
+    UIImage *sealImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    //    ((UIImageView *)[cell viewWithTag:111]).image = sealImage;
+    
+    UIImage *resizedImage = [self resizeImage:sealImage toRect:CGRectMake(0, 0, sealImage.size.width * 0.3, sealImage.size.height * 0.3)];
+    NSString *smallImgString = [self encodeByBase64ForImage:resizedImage];
+    
+    NSString *originalImgString = [self encodeByBase64ForImage:sealImage];
+    
+    ((UIImageView *)[cell viewWithTag:111]).image = [self decodingImageBase64String:originalImgString];
+    
+    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"head":smallImgString};
+    
+    [self updateUserInfo:alterInfoDic];
+    
+}
+
+
+- (NSString *)encodeByBase64ForImage:(UIImage *)image
+{
+    NSData *imagData = UIImagePNGRepresentation(image);
+    NSString *base64String = [imagData base64EncodedStringWithOptions:0];
+    
+    return base64String;
+}
+
+- (UIImage *)decodingImageBase64String:(NSString *)base64String
+{
+    NSData *imgData = [[NSData alloc]initWithBase64EncodedString:base64String options:0];
+    return [UIImage imageWithData:imgData];
+}
+
+
+- (UIImage *)resizeImage:(UIImage *)image toRect:(CGRect)rect
+{
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return  resizedImage;
 }
 
 
