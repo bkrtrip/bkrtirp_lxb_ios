@@ -175,7 +175,7 @@
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
 {
-    [self hideShareView];
+    [self supportClickWithQQWithShareObject:obj];
 }
 
 - (void)supportClickWithYiXinWithShareObject:(id)obj

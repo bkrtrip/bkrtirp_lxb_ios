@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -16,19 +16,19 @@
                     <rect key="frame" x="0.0" y="218" width="320" height="350"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享到" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEB-mp-DSA">
-                            <rect key="frame" x="135" y="8" width="51" height="21"/>
+                            <rect key="frame" x="135" y="15" width="51" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="DGK-n6-hSr">
-                            <rect key="frame" x="0.0" y="37" width="320" height="1"/>
+                            <rect key="frame" x="0.0" y="50" width="320" height="1"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="E9N-Xx-KYt"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1z-t1-YDS" userLabel="share unit-qq">
-                            <rect key="frame" x="0.0" y="58" width="80" height="77"/>
+                            <rect key="frame" x="0.0" y="76" width="80" height="77"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buX-mD-8B2">
                                     <rect key="frame" x="30" y="62" width="19" height="15"/>
@@ -60,7 +60,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Izr-Z0-pUG" userLabel="share unit-wechat">
-                            <rect key="frame" x="80" y="58" width="81" height="77"/>
+                            <rect key="frame" x="80" y="76" width="81" height="77"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLm-iI-ssN">
                                     <rect key="frame" x="11" y="0.0" width="57" height="57"/>
@@ -92,7 +92,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fog-iG-K7k" userLabel="share unit-friends">
-                            <rect key="frame" x="161" y="58" width="79" height="77"/>
+                            <rect key="frame" x="161" y="76" width="79" height="77"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fUd-kE-gtQ">
                                     <rect key="frame" x="11" y="0.0" width="57" height="57"/>
@@ -124,7 +124,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctp-CS-cLh" userLabel="share unit-shortmessage">
-                            <rect key="frame" x="240" y="58" width="80" height="77"/>
+                            <rect key="frame" x="240" y="76" width="80" height="77"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rH1-TC-luh">
                                     <rect key="frame" x="12" y="0.0" width="57" height="57"/>
@@ -166,7 +166,7 @@
                             </variation>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdA-9V-62N" userLabel="share unit-sendToComputer">
-                            <rect key="frame" x="0.0" y="157" width="80" height="77"/>
+                            <rect key="frame" x="0.0" y="175" width="80" height="77"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发送到电脑" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1n-2M-N25">
                                     <rect key="frame" x="9" y="62" width="60" height="15"/>
@@ -198,7 +198,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uye-wd-RR7" userLabel="share unit-weibo">
-                            <rect key="frame" x="80" y="157" width="81" height="77"/>
+                            <rect key="frame" x="80" y="175" width="81" height="77"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新浪" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1n-Cs-M5M">
                                     <rect key="frame" x="28" y="62" width="24" height="15"/>
@@ -230,7 +230,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFj-4c-m3K" userLabel="share unit-qzone">
-                            <rect key="frame" x="161" y="157" width="79" height="77"/>
+                            <rect key="frame" x="161" y="175" width="79" height="77"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="qzone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3I-AU-JId">
                                     <rect key="frame" x="22" y="62" width="34" height="15"/>
@@ -262,7 +262,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChI-bA-ZwS" userLabel="share unit-yixin">
-                            <rect key="frame" x="240" y="157" width="80" height="77"/>
+                            <rect key="frame" x="240" y="175" width="80" height="77"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="易信" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0F-gf-9SL">
                                     <rect key="frame" x="27" y="62" width="24" height="15"/>
@@ -338,6 +338,7 @@
                         <constraint firstItem="Uye-wd-RR7" firstAttribute="centerY" secondItem="LFj-4c-m3K" secondAttribute="centerY" id="Bms-Oc-OuV"/>
                         <constraint firstItem="Izr-Z0-pUG" firstAttribute="centerY" secondItem="d1z-t1-YDS" secondAttribute="centerY" id="CK1-yg-6IL"/>
                         <constraint firstItem="Fog-iG-K7k" firstAttribute="centerY" secondItem="ctp-CS-cLh" secondAttribute="centerY" id="EwX-aQ-OLz"/>
+                        <constraint firstItem="DGK-n6-hSr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="FYi-a1-eVQ"/>
                         <constraint firstItem="ChI-bA-ZwS" firstAttribute="centerY" secondItem="LFj-4c-m3K" secondAttribute="centerY" id="G3g-sT-wAz"/>
                         <constraint firstItem="Fog-iG-K7k" firstAttribute="leading" secondItem="Izr-Z0-pUG" secondAttribute="trailing" id="GJK-x3-mCQ"/>
                         <constraint firstItem="Izr-Z0-pUG" firstAttribute="leading" secondItem="d1z-t1-YDS" secondAttribute="trailing" id="IYi-GN-wjz"/>
@@ -352,7 +353,7 @@
                         <constraint firstAttribute="trailing" secondItem="qOA-Ct-K97" secondAttribute="trailing" id="c5a-oz-pFU"/>
                         <constraint firstItem="Fog-iG-K7k" firstAttribute="trailing" secondItem="ctp-CS-cLh" secondAttribute="leading" id="cIY-vp-ZeO"/>
                         <constraint firstItem="LFj-4c-m3K" firstAttribute="trailing" secondItem="ChI-bA-ZwS" secondAttribute="leading" id="cs0-RT-Xys"/>
-                        <constraint firstItem="jEB-mp-DSA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="dXO-Qs-9Wc"/>
+                        <constraint firstItem="jEB-mp-DSA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="dXO-Qs-9Wc"/>
                         <constraint firstItem="Fog-iG-K7k" firstAttribute="centerY" secondItem="Izr-Z0-pUG" secondAttribute="centerY" id="fgd-n3-lQj"/>
                         <constraint firstItem="qOA-Ct-K97" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="i3n-7Q-iAc"/>
                         <constraint firstItem="kdA-9V-62N" firstAttribute="width" secondItem="LFj-4c-m3K" secondAttribute="width" constant="1" id="mLO-yh-YPi"/>
@@ -360,11 +361,16 @@
                         <constraint firstItem="kdA-9V-62N" firstAttribute="centerX" secondItem="d1z-t1-YDS" secondAttribute="centerX" id="mto-Qd-EQX"/>
                         <constraint firstAttribute="centerX" secondItem="jEB-mp-DSA" secondAttribute="centerX" id="oea-9i-fde"/>
                         <constraint firstAttribute="bottom" secondItem="qOA-Ct-K97" secondAttribute="bottom" id="s6U-Wh-fvy"/>
-                        <constraint firstItem="d1z-t1-YDS" firstAttribute="top" secondItem="DGK-n6-hSr" secondAttribute="bottom" constant="20" id="skc-jT-OIx"/>
+                        <constraint firstItem="d1z-t1-YDS" firstAttribute="top" secondItem="DGK-n6-hSr" secondAttribute="bottom" constant="25" id="skc-jT-OIx"/>
                         <constraint firstItem="LFj-4c-m3K" firstAttribute="leading" secondItem="Uye-wd-RR7" secondAttribute="trailing" id="ycW-bJ-nSu"/>
                         <constraint firstItem="kdA-9V-62N" firstAttribute="width" secondItem="d1z-t1-YDS" secondAttribute="width" id="zIU-VC-v3I"/>
                         <constraint firstItem="DGK-n6-hSr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zfw-wd-ElD"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="asj-NZ-HiO"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -374,6 +380,7 @@
                 <constraint firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="h4Z-Wi-uaU"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="11" y="215"/>
         </view>
     </objects>
     <resources>

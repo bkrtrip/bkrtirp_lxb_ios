@@ -384,7 +384,7 @@
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
 {
-    [self hideShareViewWithCompletionBlock:nil];
+    [self supportClickWithQQWithShareObject:obj];
 }
 
 - (void)supportClickWithYiXinWithShareObject:(id)obj
