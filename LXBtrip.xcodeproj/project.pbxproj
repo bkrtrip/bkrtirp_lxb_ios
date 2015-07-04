@@ -573,6 +573,13 @@
 		97F886581B39639700E0E25E /* no_product@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886561B39639700E0E25E /* no_product@3x.png */; };
 		97F8865B1B3963A300E0E25E /* no_search_results@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F886591B3963A300E0E25E /* no_search_results@2x.png */; };
 		97F8865C1B3963A300E0E25E /* no_search_results@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F8865A1B3963A300E0E25E /* no_search_results@3x.png */; };
+		AE06E0F11B45FD8000D348B7 /* libPushSDK-1.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE06E0EF1B45FD8000D348B7 /* libPushSDK-1.8.2.a */; };
+		AE06E0F21B45FD8000D348B7 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE06E0F01B45FD8000D348B7 /* PushConfig.plist */; };
+		AE06E0F41B46008E00D348B7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE06E0F31B46008E00D348B7 /* CFNetwork.framework */; };
+		AE06E0F61B4600AB00D348B7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE06E0F51B4600AB00D348B7 /* CoreTelephony.framework */; };
+		AE06E0F81B4600C200D348B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE06E0F71B4600C200D348B7 /* CoreGraphics.framework */; };
+		AE06E0FA1B4600D500D348B7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE06E0F91B4600D500D348B7 /* Security.framework */; };
+		AE06E0FC1B4600E000D348B7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE06E0FB1B4600E000D348B7 /* libz.dylib */; };
 		AED4D09D1B44AF4B00FE9227 /* defaultIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AED4D09C1B44AF4B00FE9227 /* defaultIcon.jpg */; };
 		AEDD97931B434BE1000071A4 /* WebContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEDD97911B434BE1000071A4 /* WebContentViewController.m */; };
 		AEDD97941B434BE1000071A4 /* WebContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEDD97921B434BE1000071A4 /* WebContentViewController.xib */; };
@@ -1355,6 +1362,14 @@
 		97F886561B39639700E0E25E /* no_product@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_product@3x.png"; path = "LXBtrip/image/Common/no_product@3x.png"; sourceTree = SOURCE_ROOT; };
 		97F886591B3963A300E0E25E /* no_search_results@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@2x.png"; path = "Supplier/no_search_results@2x.png"; sourceTree = "<group>"; };
 		97F8865A1B3963A300E0E25E /* no_search_results@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_search_results@3x.png"; path = "Supplier/no_search_results@3x.png"; sourceTree = "<group>"; };
+		AE06E0EE1B45FD8000D348B7 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APService.h; path = JPushLib/APService.h; sourceTree = "<group>"; };
+		AE06E0EF1B45FD8000D348B7 /* libPushSDK-1.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPushSDK-1.8.2.a"; path = "JPushLib/libPushSDK-1.8.2.a"; sourceTree = "<group>"; };
+		AE06E0F01B45FD8000D348B7 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PushConfig.plist; path = JPushLib/PushConfig.plist; sourceTree = "<group>"; };
+		AE06E0F31B46008E00D348B7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		AE06E0F51B4600AB00D348B7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		AE06E0F71B4600C200D348B7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AE06E0F91B4600D500D348B7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AE06E0FB1B4600E000D348B7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AED4D09C1B44AF4B00FE9227 /* defaultIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = defaultIcon.jpg; sourceTree = "<group>"; };
 		AEDD97901B434BE1000071A4 /* WebContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentViewController.h; sourceTree = "<group>"; };
 		AEDD97911B434BE1000071A4 /* WebContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentViewController.m; sourceTree = "<group>"; };
@@ -1382,11 +1397,13 @@
 				97B6DC7A1B44FB7A009B9206 /* libiconv.dylib in Frameworks */,
 				97B6DC781B44FB6D009B9206 /* Security.framework in Frameworks */,
 				97B6DC6F1B44FA6A009B9206 /* libSocialQQ.a in Frameworks */,
+				AE06E0F41B46008E00D348B7 /* CFNetwork.framework in Frameworks */,
 				972250CF1B3BA30100F4C0DF /* SystemConfiguration.framework in Frameworks */,
 				97B6DC741B44FA6A009B9206 /* libSocialYiXin.a in Frameworks */,
 				97B6DC731B44FA6A009B9206 /* libWeChatSDK.a in Frameworks */,
 				9793A5141B103D6500182006 /* CoreLocation.framework in Frameworks */,
 				97B6DC6E1B44FA6A009B9206 /* libSocialSina.a in Frameworks */,
+				AE06E0F11B45FD8000D348B7 /* libPushSDK-1.8.2.a in Frameworks */,
 				86CFCF0733534ECB978DC4C1 /* libPods.a in Frameworks */,
 				97B6DC701B44FA6A009B9206 /* TencentOpenAPI.framework in Frameworks */,
 				97B6DC751B44FA6A009B9206 /* libYixinSDK_V2.2.a in Frameworks */,
@@ -1495,6 +1512,7 @@
 		8E5C698B1AFAFC5B004A0CC3 /* LXBtrip */ = {
 			isa = PBXGroup;
 			children = (
+				AE06E0ED1B45FD6200D348B7 /* JPushLib */,
 				8E5C69901AFAFC5B004A0CC3 /* AppDelegate.h */,
 				8E5C69911AFAFC5B004A0CC3 /* AppDelegate.m */,
 				97B6DC341B44FA6A009B9206 /* UMSocial_Sdk_4.2.3 */,
@@ -2881,12 +2899,23 @@
 				97B6DC7B1B44FB8A009B9206 /* CoreGraphics.framework */,
 				97B6DC791B44FB7A009B9206 /* libiconv.dylib */,
 				97B6DC771B44FB6D009B9206 /* Security.framework */,
+				AE06E0F31B46008E00D348B7 /* CFNetwork.framework */,
 				972250CE1B3BA30100F4C0DF /* SystemConfiguration.framework */,
 				9794A8F01B26A86B0077E5C0 /* AFNetwork */,
 				9793A5131B103D6500182006 /* CoreLocation.framework */,
 				59FCCBEC74FA47EE835906A9 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE06E0ED1B45FD6200D348B7 /* JPushLib */ = {
+			isa = PBXGroup;
+			children = (
+				AE06E0EE1B45FD8000D348B7 /* APService.h */,
+				AE06E0EF1B45FD8000D348B7 /* libPushSDK-1.8.2.a */,
+				AE06E0F01B45FD8000D348B7 /* PushConfig.plist */,
+			);
+			name = JPushLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3000,6 +3029,7 @@
 				9794A8A91B26A8280077E5C0 /* myDispatcher@3x.png in Resources */,
 				9794A8901B26A8280077E5C0 /* inputLine_0@2x_unsee.png in Resources */,
 				9743636F1B2B1BBC005D84B9 /* follow_group@3x.png in Resources */,
+				AE06E0F21B45FD8000D348B7 /* PushConfig.plist in Resources */,
 				977DCFB31B1C9C130060C7BB /* supplier_detail_top_bg@2x.png in Resources */,
 				97AEDBCA1B1458F10098F75B /* cell_phone_hightlighted@3x.png in Resources */,
 				974363671B2B0B3C005D84B9 /* share_red@3x.png in Resources */,
@@ -3737,6 +3767,7 @@
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/YiXin",
+					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
@@ -3774,6 +3805,7 @@
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/YiXin",
+					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
