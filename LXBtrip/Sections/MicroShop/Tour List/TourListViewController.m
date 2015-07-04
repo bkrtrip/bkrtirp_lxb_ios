@@ -676,18 +676,18 @@
     [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     }];
 }
 
 - (void)hideShareViewWithCompletionBlock:(void (^)())block
 {
-    if (_shareView.frame.origin.y == SCREEN_HEIGHT) {
+    if (_shareView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
             if (block) {

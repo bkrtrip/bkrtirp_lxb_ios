@@ -26,7 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
+    if (![self.title isEqualToString:@"邀请供应商"]) {
+        [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
+    }
     
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
@@ -226,16 +228,16 @@
         [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            self.navigationController.navigationBar.hidden = NO;
+            self.navigationController.navigationBar.alpha = 1;
         }
     }];
 }
 - (void)showShareView
 {
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
-        self.navigationController.navigationBar.hidden = YES;
     }];
 }
 

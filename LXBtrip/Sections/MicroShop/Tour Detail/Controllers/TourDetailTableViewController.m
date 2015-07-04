@@ -529,16 +529,16 @@
         [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            self.navigationController.navigationBar.hidden = NO;
+            self.navigationController.navigationBar.alpha = 1;
         }
     }];
 }
 - (void)showShareView
 {
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectMake(0, self.view.frame.size.height - _shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
-        self.navigationController.navigationBar.hidden = YES;
     }];
 }
 

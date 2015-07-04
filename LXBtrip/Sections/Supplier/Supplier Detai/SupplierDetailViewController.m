@@ -591,19 +591,19 @@
     
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.frame.size.height)];
+        [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            self.navigationController.navigationBar.hidden = NO;
+            self.navigationController.navigationBar.alpha = 1;
         }
     }];
 }
 - (void)showYesOrNoView
 {
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        self.navigationController.navigationBar.hidden = YES;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, - _yesOrNoView.frame.size.height)];
+        [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height-_yesOrNoView.frame.size.height, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
     }];
 }
 
@@ -618,27 +618,19 @@
     popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            self.navigationController.navigationBar.hidden = NO;
+            self.navigationController.navigationBar.alpha = 1;
         }
     }];
 }
 - (void)showShareView
 {
-    if (!_shareView) {
-        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-        _shareView.delegate = self;
-        [self.view addSubview:_shareView];
-    }
-    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
-    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
-
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
-        self.navigationController.navigationBar.hidden = YES;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     }];
 }
 
@@ -653,11 +645,10 @@
     popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        self.navigationController.navigationBar.hidden = NO;
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
-            self.navigationController.navigationBar.hidden = NO;
+            self.navigationController.navigationBar.alpha = 1;
             if (block) {
                 block();
             }
@@ -667,10 +658,10 @@
 
 - (void)showAcompanyInfoView
 {
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        self.navigationController.navigationBar.hidden = YES;
-        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height-_accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }
 
