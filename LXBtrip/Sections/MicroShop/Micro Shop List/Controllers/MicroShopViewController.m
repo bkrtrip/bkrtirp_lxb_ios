@@ -234,6 +234,7 @@
     [HTTPTool lockMicroshopWithShopId:selectedShop.shopId companyId:[UserModel companyId] staffId:[UserModel staffId] success:^(id result) {
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100044"] succeed:^{
             [self getMyShops];
+            [self getOnlineShops];
             _changeStatusButton.hidden = YES;
             _darkMask.alpha = 0;
             self.tabBarController.tabBar.hidden = NO;

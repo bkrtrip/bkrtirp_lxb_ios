@@ -98,6 +98,7 @@
 		973D8B511B1B571500CA4260 /* is_my@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 973D8B491B1B571500CA4260 /* is_my@3x.png */; };
 		973D8B521B1B571500CA4260 /* not_my_and_not_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 973D8B4A1B1B571500CA4260 /* not_my_and_not_new@2x.png */; };
 		973D8B531B1B571500CA4260 /* not_my_and_not_new@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 973D8B4B1B1B571500CA4260 /* not_my_and_not_new@3x.png */; };
+		973F96841B464FC700E8D831 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973F96831B464FC700E8D831 /* ImageIO.framework */; };
 		974363621B2AE442005D84B9 /* TourWebPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 974363601B2AE442005D84B9 /* TourWebPreviewViewController.m */; };
 		974363631B2AE442005D84B9 /* TourWebPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 974363611B2AE442005D84B9 /* TourWebPreviewViewController.xib */; };
 		974363661B2B0B3C005D84B9 /* share_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 974363641B2B0B3C005D84B9 /* share_red@2x.png */; };
@@ -715,6 +716,7 @@
 		973D8B491B1B571500CA4260 /* is_my@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "is_my@3x.png"; path = "Supplier/is_my@3x.png"; sourceTree = "<group>"; };
 		973D8B4A1B1B571500CA4260 /* not_my_and_not_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "not_my_and_not_new@2x.png"; path = "Supplier/not_my_and_not_new@2x.png"; sourceTree = "<group>"; };
 		973D8B4B1B1B571500CA4260 /* not_my_and_not_new@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "not_my_and_not_new@3x.png"; path = "Supplier/not_my_and_not_new@3x.png"; sourceTree = "<group>"; };
+		973F96831B464FC700E8D831 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9743635F1B2AE442005D84B9 /* TourWebPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourWebPreviewViewController.h; sourceTree = "<group>"; };
 		974363601B2AE442005D84B9 /* TourWebPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourWebPreviewViewController.m; sourceTree = "<group>"; };
 		974363611B2AE442005D84B9 /* TourWebPreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourWebPreviewViewController.xib; sourceTree = "<group>"; };
@@ -1371,6 +1373,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				973F96841B464FC700E8D831 /* ImageIO.framework in Frameworks */,
 				97B6DC841B44FBAF009B9206 /* libz.dylib in Frameworks */,
 				97B6DC821B44FBA8009B9206 /* libstdc++.dylib in Frameworks */,
 				97B6DC801B44FB9F009B9206 /* CoreTelephony.framework in Frameworks */,
@@ -2870,6 +2873,7 @@
 		A975CA1980B64C4D8494C542 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				973F96831B464FC700E8D831 /* ImageIO.framework */,
 				97B6DC831B44FBAF009B9206 /* libz.dylib */,
 				97B6DC811B44FBA8009B9206 /* libstdc++.dylib */,
 				97B6DC7F1B44FB9F009B9206 /* CoreTelephony.framework */,
@@ -3735,7 +3739,7 @@
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
 			};
 			name = Debug;
 		};
@@ -3772,7 +3776,7 @@
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_4.2.3/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
 			};
 			name = Release;
 		};

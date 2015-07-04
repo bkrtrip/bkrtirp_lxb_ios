@@ -372,16 +372,19 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 
 #pragma mark - Share part
 // Wechat
-- (void)shareViaWeChatWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(WechatShareType)type
+- (void)shareViaWeChatWithURLString:(NSString *)shareURL title:(NSString *)title content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(WechatShareType)type
 {
     if (!image) {
         image = ImageNamed(@"share_icon");
+    }
+    if (!title) {
+        title = content;
     }
     switch (type) {
         case Wechat_Share_Session:
         {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = shareURL;
-            
+            [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                 }
@@ -391,7 +394,7 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
         case Wechat_Share_Timeline:
         {
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareURL;
-            
+            [UMSocialData defaultData].extConfig.wechatTimelineData.title = title;
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                 }
@@ -403,16 +406,19 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 }
 
 // QQ
-- (void)shareViaQQWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(QQShareType)type
+- (void)shareViaQQWithURLString:(NSString *)shareURL title:(NSString *)title content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(QQShareType)type
 {
     if (!image) {
         image = ImageNamed(@"share_icon");
+    }
+    if (!title) {
+        title = content;
     }
     switch (type) {
         case QQ_Share_Session:
         {
             [UMSocialData defaultData].extConfig.qqData.url = shareURL;
-            
+            [UMSocialData defaultData].extConfig.qqData.title = title;
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                 }
@@ -422,7 +428,7 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
         case QQ_Share_QZone://Qzone分享文字与图片缺一不可，否则会出现错误码10001
         {
             [UMSocialData defaultData].extConfig.qzoneData.url = shareURL;
-            
+            [UMSocialData defaultData].extConfig.qzoneData.title = title;
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                 }
@@ -433,6 +439,57 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
     }
 }
 
+// Sina
+- (void)shareViaSinaWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController
+{
+    if (!image) {
+        image = ImageNamed(@"share_icon");
+    }
+    
+    NSString * shareText = [NSString stringWithFormat:@"%@ \n%@", content, shareURL];
+    [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:image socialUIDelegate:nil];
+    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(presentedController, [UMSocialControllerService defaultControllerService],YES);
+}
+
+// YiXin
+- (void)shareViaYiXinWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(YiXinShareType)type
+{
+    if (!image) {
+        image = ImageNamed(@"share_icon");
+    }
+    switch (type) {
+        case YiXin_Share_Session:
+        {
+            [UMSocialData defaultData].extConfig.yxsessionData.url = shareURL;
+            
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToYXSession] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                }
+            }];
+        }
+            break;
+        case YiXin_Share_Timeline://Qzone分享文字与图片缺一不可，否则会出现错误码10001
+        {
+            [UMSocialData defaultData].extConfig.yxtimelineData.url = shareURL;
+            
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToYXTimeline] content:content image:image location:location urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                }
+            }];
+        }
+        default:
+            break;
+    }
+}
+
+// SMS
+- (void)shareViaSMSWithContent:(NSString *)content presentedController:(UIViewController *)presentedController
+{
+    [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSms] content:content image:nil location:nil urlResource:nil presentedController:presentedController completion:^(UMSocialResponseEntity *response){
+        if (response.responseCode == UMSResponseCodeSuccess) {
+        }
+    }];
+}
 
 
 @end

@@ -333,7 +333,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
     }
 }
 
@@ -351,7 +351,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaQQWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
     }
 }
 
@@ -369,13 +369,17 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaQQWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
     }
 }
 
 - (void)supportClickWithShortMessageWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce  presentedController:self];
+    }
 }
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
@@ -386,11 +390,37 @@
 - (void)supportClickWithYiXinWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+    }
 }
 
 - (void)supportClickWithWeiboWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
+    }
 }
 
 - (void)supportClickWithFriendsWithShareObject:(id)obj
@@ -407,7 +437,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
     }
 }
 

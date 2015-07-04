@@ -24,6 +24,8 @@
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "UMSocialYiXinHandler.h"
+#import "UMSocialSinaHandler.h"
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
 
@@ -45,6 +47,11 @@
     [UMSocialWechatHandler setWXAppId:WECHAT_APP_ID appSecret:WECHAT_APP_KEY url:SHARE_DEFAULT_URL];
     //设置分享到QQ/Qzone的应用Id，和分享url 链接
     [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:SHARE_DEFAULT_URL];
+    //设置易信Appkey和分享url地址,注意需要引用头文件
+    [UMSocialYixinHandler setYixinAppKey:YX_APP_KEY url:SHARE_DEFAULT_URL];
+    //打开新浪微博的SSO开关，设置新浪微博回调地址·，这里必须要和你在新浪微博后台设置的回调地址一致。若在新浪后台设置我们的回调地址，“http://sns.whalecloud.com/sina2/callback”，这里可以传nil
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

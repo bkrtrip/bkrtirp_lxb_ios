@@ -57,6 +57,10 @@
 #define QQ_APP_ID @"1104451849"
 #define QQ_APP_KEY @"OQpIdYzQaogprsBV"
 
+//易信
+#define YX_APP_KEY @"d07397b8f201483c913b3d65275abbc5"
+
+
 // NavBasedViewController
 #define MainNavTitleColor RGB(255, 255, 255)
 #define MainNavTitleFont [UIFont boldSystemFontOfSize:18]
@@ -237,6 +241,12 @@ typedef enum QQShareType
     QQ_Share_Session = 0,
     QQ_Share_QZone = 1,
 } QQShareType;
+
+typedef enum YiXinShareType
+{
+    YiXin_Share_Session = 0,
+    YiXin_Share_Timeline = 1,
+} YiXinShareType;
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998
 #define LINE_CLASS @{@0:@"#1#283", @1:@"#1#303", @2:@"#1#492", @3:@"#1#997", @4:@"#1#998"}
