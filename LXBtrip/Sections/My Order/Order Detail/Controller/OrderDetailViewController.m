@@ -132,7 +132,7 @@
 {
     switch (indexPath.section) {
         case 0:
-            return 80.f;
+            return 70.f;
             break;
         case 1:
             return 280.f;

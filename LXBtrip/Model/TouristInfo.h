@@ -12,8 +12,8 @@
 
 @property (nonatomic, copy) NSString *touristName;//
 @property (nonatomic, copy) NSString *touristCode;//
-@property (nonatomic, copy) NSString *userId;//
-@property (nonatomic, copy) NSString *userCredit;//
+//@property (nonatomic, copy) NSString *userId;//
+//@property (nonatomic, copy) NSString *userCredit;//
 
 
 - (id)initWithDict:(NSDictionary *)dict;

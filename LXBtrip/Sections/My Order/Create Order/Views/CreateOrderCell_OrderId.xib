@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单号：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62x-Z8-5tG">
-                        <rect key="frame" x="8" y="8" width="44" height="14"/>
+                        <rect key="frame" x="8" y="8" width="282" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="LsI-j3-IVQ"/>
                         </constraints>
@@ -25,7 +25,7 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S80-it-kei">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S80-it-kei">
                         <rect key="frame" x="8" y="28" width="282" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -47,6 +47,7 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="62x-Z8-5tG" secondAttribute="trailing" constant="30" id="5Qc-kV-1uD"/>
                     <constraint firstAttribute="centerY" secondItem="KaV-aT-EpH" secondAttribute="centerY" constant="0.5" id="6b1-K2-08l"/>
                     <constraint firstAttribute="centerY" secondItem="S80-it-kei" secondAttribute="centerY" id="LhJ-Wh-rIy"/>
                     <constraint firstAttribute="trailing" secondItem="aig-oZ-vq6" secondAttribute="trailing" id="M3U-nc-m83"/>

@@ -27,8 +27,6 @@
 - (IBAction)confirmOrderButtonClicked:(id)sender;
 
 @property (copy, nonatomic) NSMutableArray *textFieldsIndexesArray;
-@property (copy, nonatomic) NSString *contactName;
-@property (copy, nonatomic) NSString *contactPhone;
 @property (copy, nonatomic) NSMutableArray *touristsArray;
 
 @end
@@ -60,6 +58,8 @@
             [_touristsArray addObject:tourist];
         }
     }
+    _item.orderTouristGroup = [_touristsArray mutableCopy];
+    
     touristsNumPlusTow = totalNum * 2; // 乘以二统计旅客信息的texfield个数
     
     _textFieldsIndexesArray = [[NSMutableArray alloc] init];
@@ -246,7 +246,7 @@
                 case 0:
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
-                    [cell setCellContentWithInputType:@"联系人：" section:2 row:0];
+                    [cell setCellContentWithInputType:@"联系人：" section:2 row:0 placeHolder:@"必填" text:_item.orderContactName];
                     cell.delegate = self;
                     return cell;
                 }
@@ -254,7 +254,7 @@
                 case 1:
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
-                    [cell setCellContentWithInputType:@"手机号码：" section:2 row:1];
+                    [cell setCellContentWithInputType:@"手机号码：" section:2 row:1 placeHolder:@"必填" text:_item.orderContactPhone];
                     cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
                     cell.delegate = self;
                     return cell;
@@ -272,7 +272,11 @@
                 case 0:
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
-                    [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row];
+                    if ([_item.orderTouristGroup[indexPath.row/2] touristName].length > 0) {
+                        [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristName]];
+                    } else {
+                        [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row placeHolder:@"选填" text:nil];
+                    }
                     cell.delegate = self;
                     return cell;
                 }
@@ -280,7 +284,11 @@
                 case 1:
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
-                    [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row];
+                    if ([_item.orderTouristGroup[indexPath.row/2] touristCode].length > 0) {
+                        [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristCode]];
+                    } else {
+                        [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:nil];
+                    }
                     cell.delegate = self;
                     return cell;
                 }
@@ -302,7 +310,7 @@
 {
     switch (indexPath.section) {
         case 0:
-            return 65.f;
+            return 70.f;
             break;
         case 1:
         {
@@ -331,7 +339,10 @@
         }
         case 3:
         {
-            if (indexPath.row == _item.orderTouristGroup.count-1) {
+            if (_item.orderTouristGroup.count == 0) {
+                return 0;
+            }
+            if (indexPath.row == _item.orderTouristGroup.count*2-1) {
                 return 67.f;
             } else {
                 return 57.f;
@@ -387,13 +398,15 @@
         
         touristsNumPlusTow -= 2;
         [_touristsArray removeLastObject];
-        // 删掉两行
-        NSIndexPath *lastPath = [_textFieldsIndexesArray lastObject];
-        [_textFieldsIndexesArray removeLastObject];
-        NSIndexPath *lastButTwoPath = [_textFieldsIndexesArray lastObject];
-        [_textFieldsIndexesArray removeLastObject];
+        _item.orderTouristGroup = [_touristsArray mutableCopy];
         
-        [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:lastPath, lastButTwoPath, nil] withRowAnimation:UITableViewRowAnimationRight];
+        // 删掉两行
+//        NSIndexPath *lastPath = [_textFieldsIndexesArray lastObject];
+        [_textFieldsIndexesArray removeLastObject];
+//        NSIndexPath *lastButTwoPath = [_textFieldsIndexesArray lastObject];
+        [_textFieldsIndexesArray removeLastObject];
+//        [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:lastPath, lastButTwoPath, nil] withRowAnimation:UITableViewRowAnimationRight];
+        [_tableView reloadData];
     }
     
     // plus
@@ -427,12 +440,15 @@
         tourist.touristName = @"";
         tourist.touristCode = @"";
         [_touristsArray addObject:tourist];
+        _item.orderTouristGroup = [_touristsArray mutableCopy];
+
         // 插入两行
         NSIndexPath *lastButTwoPath = [NSIndexPath indexPathForRow:touristsNumPlusTow-2 inSection:3];
         NSIndexPath *lastPath = [NSIndexPath indexPathForRow:touristsNumPlusTow-1 inSection:3];
         [_textFieldsIndexesArray addObject:lastButTwoPath];
         [_textFieldsIndexesArray addObject:lastPath];
-        [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:lastButTwoPath, lastPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
+//        [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:lastButTwoPath, lastPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
+        [_tableView reloadData];
     }
     
     _totalCostLabel.text = [NSString stringWithFormat:@"￥%@", _item.orderDealPrice];
@@ -449,14 +465,21 @@
 {
     if (editingCellIndexPath.section == 2) {
         if (editingCellIndexPath.row == 0) {
-            _contactName = text;
+            _item.orderContactName = text;
         } else if (editingCellIndexPath.row == 1) {
-            _contactPhone = text;
+            _item.orderContactPhone = text;
         }
     }
     
     if (editingCellIndexPath.section == 3) {
-        _touristsArray[editingCellIndexPath.row] = text;
+        //偶数为游客姓名
+        if (editingCellIndexPath.row%2 == 0) {
+            [_touristsArray[editingCellIndexPath.row/2] setTouristName:text];
+        } else {
+            //奇数为游客身份证号码
+            [_touristsArray[editingCellIndexPath.row/2] setTouristCode:text];
+        }
+        _item.orderTouristGroup = [_touristsArray mutableCopy];
     }
 }
 
@@ -498,10 +521,11 @@
         nextCell = (CreateOrderCell_Input *)[self tableView:_tableView cellForRowAtIndexPath:indexPathToBe];
     }
     [nextCell.inputTextField becomeFirstResponder];
+    [self updateToolBarButtonItemsStatusWithIndexPath:indexPathToBe];
+    
     [UIView animateWithDuration:0.4 animations:^{
         [_tableView scrollToRowAtIndexPath:editingCellIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }];
-    [self updateToolBarButtonItemsStatusWithIndexPath:indexPathToBe];
 }
 
 #pragma mark - HTTP
@@ -545,25 +569,32 @@
         return nil;
     }
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    if (group.adultPrice) {
+    
+    if (group.adultPrice && [group.adultPrice integerValue] > 0) {
         [dict setObject:group.adultPrice forKey:@"adult_price"];
     }
-    if (group.adultNum) {
+
+    if (group.adultNum && [group.adultNum integerValue] > 0) {
         [dict setObject:group.adultNum forKey:@"adult_person"];
     }
-    if (group.kidPrice) {
+    
+    if (group.kidPrice && [group.kidPrice integerValue] > 0) {
         [dict setObject:group.kidPrice forKey:@"kid_price"];
     }
-    if (group.kidBedPrice) {
-        [dict setObject:group.kidBedPrice forKey:@"kid_bed_price"];
-    }
-    if (group.kidNum) {
+    
+    if (group.kidNum && [group.kidNum integerValue] > 0) {
         [dict setObject:group.kidNum forKey:@"kid_person"];
     }
-    if (group.kidBedNum) {
+    
+    if (group.kidBedNum && [group.kidBedNum integerValue] > 0) {
         [dict setObject:group.kidBedNum forKey:@"kid_bed_person"];
     }
-    if (group.diffPrice) {
+    
+    if (group.kidBedPrice && [group.kidBedPrice integerValue] > 0) {
+        [dict setObject:group.kidBedPrice forKey:@"kid_bed_price"];
+    }
+    
+    if (group.diffPrice && [group.diffPrice integerValue] > 0) {
         [dict setObject:group.diffPrice forKey:@"diff_price"];
     }
     
@@ -578,11 +609,11 @@
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [touristsArray enumerateObjectsUsingBlock:^(TouristInfo *tourist, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        if (tourist.touristCode) {
-            [dict setObject:tourist.touristCode forKey:@"tourist_code"];
-        }
         if (tourist.touristName) {
-            [dict setObject:tourist.touristName forKey:@"tourist_name"];
+            [dict setObject:tourist.touristName forKey:@"user"];
+        }
+        if (tourist.touristCode) {
+            [dict setObject:tourist.touristCode forKey:@"cred"];
         }
         [arr addObject:dict];
     }];
@@ -675,6 +706,13 @@
 
 
 - (IBAction)confirmOrderButtonClicked:(id)sender {
-    [self modifyOrder];
+    NSString *validValueForPhoneNumber = @"^1+[3578]+\\d{9}$";
+    NSPredicate *predict = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validValueForPhoneNumber];
+    if ([predict evaluateWithObject:_item.orderContactPhone] == YES) {
+        [self modifyOrder];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"手机号码格式不正确" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 @end

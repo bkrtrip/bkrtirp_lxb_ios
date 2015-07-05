@@ -308,12 +308,14 @@
             pageNumsArray[selectedIndex] = @1;
             isLoadingMoreArray[selectedIndex] = @0;
             
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getMyOrderList];
 
-            // 下次点击“失效”时刷新列表
-            pageNumsArray[2] = @1;
-            isLoadingMoreArray[2] = @0;
+            if ([status integerValue] == 2) {
+                // 直接跳转“失效”，并刷新列表
+                pageNumsArray[2] = @1;
+                isLoadingMoreArray[2] = @0;
+                [self orderStatusButtonClicked:_orderStatusButtonsArray[2]];
+            }
         }];
     } fail:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -407,10 +409,10 @@
     [touristsArray enumerateObjectsUsingBlock:^(TouristInfo *tourist, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         if (tourist.touristCode) {
-            [dict setObject:tourist.touristCode forKey:@"tourist_code"];
+            [dict setObject:tourist.touristCode forKey:@"cred"];
         }
         if (tourist.touristName) {
-            [dict setObject:tourist.touristName forKey:@"tourist_name"];
+            [dict setObject:tourist.touristName forKey:@"user"];
         }
         [arr addObject:dict];
     }];
