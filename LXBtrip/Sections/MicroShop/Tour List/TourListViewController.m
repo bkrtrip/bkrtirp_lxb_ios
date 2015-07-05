@@ -84,9 +84,7 @@
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
 
-    _searchButton.layer.cornerRadius = 5.f;
-    [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    
+    [self setUpSearchBarAndSearchButton];
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     
@@ -116,6 +114,18 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)setUpSearchBarAndSearchButton
+{
+    _searchBar.layer.borderWidth = 0.5f;
+    _searchBar.layer.borderColor = TEXT_CCCCD2.CGColor;
+    
+    _searchBar.layer.cornerRadius = 5.f;
+    _searchButton.layer.cornerRadius = 5.f;
+    _searchBar.layer.masksToBounds = YES;
+    
+    [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
 }
 
 #pragma mark - Override

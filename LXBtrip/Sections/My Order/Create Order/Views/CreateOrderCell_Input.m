@@ -27,9 +27,6 @@
     // Initialization code
     _inputTextField.inputAccessoryView = [self setUpTextFieldAccessoryView];
     _inputTextField.delegate = self;
-    _inputTextField.placeholder = nil;
-    _inputTextField.text = nil;
-    _inputTextField.keyboardType = UIKeyboardTypeDefault;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:_inputTextField];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bottomTextFieldIsReached) name:@"BottomTextFieldIsReached" object:nil];
@@ -146,16 +143,10 @@
     if (!position) {
         if (_section == 2 && _row == 1) {
             if (textField.text.length > MAX_PHONE_NUMBER_LENGTH) {
-//                [textField resignFirstResponder];
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"手机号码长度不正确" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//                [alert show];
                 textField.text = [textField.text substringToIndex:MAX_PHONE_NUMBER_LENGTH];
             }
         } else if (_section == 3 && _row%2 == 1) {
             if (textField.text.length > MAX_IDENTITY_NUMBER_LENGTH) {
-//                [textField resignFirstResponder];
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"身份证号码长度不正确" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//                [alert show];
                 textField.text = [textField.text substringToIndex:MAX_IDENTITY_NUMBER_LENGTH];
             }
         }

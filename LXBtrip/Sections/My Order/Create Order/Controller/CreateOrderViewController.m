@@ -401,11 +401,8 @@
         _item.orderTouristGroup = [_touristsArray mutableCopy];
         
         // 删掉两行
-//        NSIndexPath *lastPath = [_textFieldsIndexesArray lastObject];
         [_textFieldsIndexesArray removeLastObject];
-//        NSIndexPath *lastButTwoPath = [_textFieldsIndexesArray lastObject];
         [_textFieldsIndexesArray removeLastObject];
-//        [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:lastPath, lastButTwoPath, nil] withRowAnimation:UITableViewRowAnimationRight];
         [_tableView reloadData];
     }
     
@@ -447,7 +444,6 @@
         NSIndexPath *lastPath = [NSIndexPath indexPathForRow:touristsNumPlusTow-1 inSection:3];
         [_textFieldsIndexesArray addObject:lastButTwoPath];
         [_textFieldsIndexesArray addObject:lastPath];
-//        [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:lastButTwoPath, lastPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
         [_tableView reloadData];
     }
     
@@ -507,6 +503,9 @@
 
 - (void)supportClickWithNextIndexPath:(NSIndexPath *)curIndexPath
 {
+//    [_tableView reloadRowsAtIndexPaths:@[curIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+//    [_tableView endUpdates];
+    [_tableView reloadData];
     NSIndexPath *indexPathToBe;
     CreateOrderCell_Input *nextCell;
     
@@ -516,10 +515,10 @@
         indexPathToBe = [NSIndexPath indexPathForRow:curIndexPath.row+1 inSection:curIndexPath.section];
     }
     
-    nextCell = (CreateOrderCell_Input *)[_tableView cellForRowAtIndexPath:indexPathToBe];
-    if (!nextCell) {
+//    nextCell = (CreateOrderCell_Input *)[_tableView cellForRowAtIndexPath:indexPathToBe];
+//    if (!nextCell) {
         nextCell = (CreateOrderCell_Input *)[self tableView:_tableView cellForRowAtIndexPath:indexPathToBe];
-    }
+//    }
     [nextCell.inputTextField becomeFirstResponder];
     [self updateToolBarButtonItemsStatusWithIndexPath:indexPathToBe];
     
