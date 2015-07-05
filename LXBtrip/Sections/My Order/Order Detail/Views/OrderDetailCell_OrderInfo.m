@@ -51,15 +51,15 @@
     _peopleNumLabel.text = @"";
 
     if ([item.orderReservePriceGroup.adultNum integerValue] > 0) {
-        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"成人——%@人", item.orderReservePriceGroup.adultNum]];
+        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"成人%@人", item.orderReservePriceGroup.adultNum]];
     }
     
     if ([item.orderReservePriceGroup.kidBedNum integerValue] > 0) {
-        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"儿童/占床——%@人", item.orderReservePriceGroup.kidBedNum]];
+        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@", 儿童/占床%@人", item.orderReservePriceGroup.kidBedNum]];
     }
     
     if ([item.orderReservePriceGroup.kidNum integerValue] > 0) {
-        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@"儿童——%@人", item.orderReservePriceGroup.kidNum]];
+        _peopleNumLabel.text = [_peopleNumLabel.text stringByAppendingString:[NSString stringWithFormat:@", 儿童%@人", item.orderReservePriceGroup.kidNum]];
     }
 }
 

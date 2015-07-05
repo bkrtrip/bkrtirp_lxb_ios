@@ -8,8 +8,6 @@
 
 #import "CreateOrderCell_Input.h"
 
-const NSInteger Max_Textfield_Input_Length_Limit = 10;
-
 @interface CreateOrderCell_Input() <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *inputTypeLabel;
@@ -30,7 +28,6 @@ const NSInteger Max_Textfield_Input_Length_Limit = 10;
     _inputTextField.inputAccessoryView = [self setUpTextFieldAccessoryView];
     _inputTextField.delegate = self;
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:_inputTextField];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bottomTextFieldIsReached) name:@"BottomTextFieldIsReached" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topTextFieldIsReached) name:@"TopTextFieldIsReached" object:nil];
@@ -38,11 +35,29 @@ const NSInteger Max_Textfield_Input_Length_Limit = 10;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldResignFirstResponder) name:@"TextFieldIResignFirstResponder" object:nil];
 }
 
-- (void)setCellContentWithInputType:(NSString *)type section:(NSInteger)section row:(NSInteger)row
+- (void)setCellContentWithInputType:(NSString *)type section:(NSInteger)section row:(NSInteger)row placeHolder:(NSString *)placeHolder text:(NSString *)text
 {
     _inputTypeLabel.text = type;
     _section = section;
     _row = row;
+    
+    if (placeHolder) {
+        _inputTextField.placeholder = placeHolder;
+    } else {
+        _inputTextField.placeholder = @"";
+    }
+    
+    if (text) {
+        _inputTextField.text = text;
+    } else {
+        _inputTextField.text = @"";
+    }
+    
+    if (section == 2 && row == 1) {
+        _inputTextField.keyboardType = UIKeyboardTypePhonePad;
+    } else {
+        _inputTextField.keyboardType = UIKeyboardTypeDefault;
+    }
 }
 
 - (void)bottomTextFieldIsReached
@@ -120,70 +135,30 @@ const NSInteger Max_Textfield_Input_Length_Limit = 10;
 #pragma mark - notification recall
 - (void)textFiledEditChanged:(NSNotification *)note
 {
-    NSUInteger orgIndex = 0;
-    NSUInteger calIndex = 0;
-    
     UITextField *textField = (UITextField *)note.object;
-    
-    for (int i = 0; i < textField.text.length; i++) {
-        unichar chi = [textField.text characterAtIndex:i];
-        if (chi >=0x4E00 && chi <=0x9FFF)
-        {
-            orgIndex++;
-            
-            calIndex++;
-            calIndex++;
-        } else {
-            orgIndex++;
-            calIndex++;
-        }
-    }
-    
     UITextRange *selectedRange = [textField markedTextRange];
     //获取高亮部分
     UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
-    // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+    //没有高亮选择的字，则对已输入的文字进行字数统计和限制
     if (!position) {
-        if (calIndex >= Max_Textfield_Input_Length_Limit) {
-            [textField resignFirstResponder];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"不能超过10个字" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-            [alert show];
-            
-            for (int i = textField.text.length - 1; i > 0; i--) {
-                textField.text = [textField.text substringToIndex:i];
-                [self.delegate setEditingCellTextWithText:textField.text];
-                
-                NSUInteger orgIndex = 0;
-                NSUInteger calIndex = 0;
-                for (int j = 0; j < textField.text.length; j++) {
-                    unichar chi = [textField.text characterAtIndex:j];
-                    if (chi >=0x4E00 && chi <=0x9FFF)
-                    {
-                        orgIndex++;
-                        
-                        calIndex++;
-                        calIndex++;
-                    } else {
-                        orgIndex++;
-                        calIndex++;
-                    }
-                }
-                
-                if (calIndex <= Max_Textfield_Input_Length_Limit) {
-                    break;
-                }
+        if (_section == 2 && _row == 1) {
+            if (textField.text.length > MAX_PHONE_NUMBER_LENGTH) {
+                textField.text = [textField.text substringToIndex:MAX_PHONE_NUMBER_LENGTH];
+            }
+        } else if (_section == 3 && _row%2 == 1) {
+            if (textField.text.length > MAX_IDENTITY_NUMBER_LENGTH) {
+                textField.text = [textField.text substringToIndex:MAX_IDENTITY_NUMBER_LENGTH];
             }
         }
-    }// 有高亮选择的字符串，则暂不对文字进行统计和限制
-    else{
-        
+    } else {
+        // 有高亮选择的字符串，则暂不对文字进行统计和限制
     }
+    
     [self.delegate setEditingCellTextWithText:textField.text];
 }
 
-//-(void)dealloc{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:nil];
-//}
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:nil];
+}
 
 @end

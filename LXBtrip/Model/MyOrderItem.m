@@ -30,12 +30,15 @@
     self.orderReservePriceGroup = [[ReservePriceGroup alloc] initWithDict:tempObject];
     
     // tourist_group
-    id tempDict = [dict[@"tourist_group"] isKindOfClass:[NSNull class]]?nil:dict[@"tourist_group"];
+    temp = [dict[@"tourist_group"] isKindOfClass:[NSNull class]]?nil:dict[@"tourist_group"];
+    id tempDict = [self arrayOrDictinaryWithJsonString:temp];
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     if ([tempDict isKindOfClass:[NSArray class]]) {
         [tempDict enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            TouristInfo *touristInfo = [[TouristInfo alloc] initWithDict:obj];
-            [tempArray addObject:touristInfo];
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                TouristInfo *touristInfo = [[TouristInfo alloc] initWithDict:obj];
+                [tempArray addObject:touristInfo];
+            }
         }];
     }
     self.orderTouristGroup = [tempArray mutableCopy];
@@ -59,11 +62,14 @@
         return nil;
     }
     
-    NSData *data = [jsonString dataUsingEncoding:NSASCIIStringEncoding];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError *error = nil;
-    id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    return obj;
+    if (data) {
+        id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        return obj;
+    }
+    return nil;
 }
 
 

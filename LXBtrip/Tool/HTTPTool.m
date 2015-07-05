@@ -168,6 +168,9 @@ singleton_implementation(HTTPTool)
 //线路列表页 - LXB1127
 + (void)getTourListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId templateId:(NSNumber *)templateId customId:(NSString *)customId startCity:(NSString *)startCity endCity:(NSString *)endCity walkType:(NSString *)walkType lineName:(NSString *)lineName pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {
+    if (!startCity) {
+        return;
+    }
     NSMutableDictionary *param = [@{@"templateid":templateId, @"customid":customId, @"startcity":startCity, @"pagenum":pageNum} mutableCopy];
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];

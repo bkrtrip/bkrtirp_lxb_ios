@@ -87,9 +87,8 @@
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GIu-8b-3vL" userLabel="separator_1">
+                        <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="GIu-8b-3vL" userLabel="separator_1">
                             <rect key="frame" x="0.0" y="442" width="320" height="1"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="3Gd-2V-Aya"/>
                             </constraints>
@@ -183,9 +182,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QwU-1i-nTs">
                     <rect key="frame" x="0.0" y="623" width="320" height="77"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IjX-dj-BYr" userLabel="separator_2">
+                        <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="IjX-dj-BYr" userLabel="separator_2">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="6Ie-np-hAx"/>
                             </constraints>
@@ -250,4 +248,7 @@
             <point key="canvasLocation" x="99" y="234"/>
         </view>
     </objects>
+    <resources>
+        <image name="separator_hor.png" width="1" height="1"/>
+    </resources>
 </document>
