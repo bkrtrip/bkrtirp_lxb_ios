@@ -31,7 +31,7 @@
 }
 - (IBAction)goToVerification:(id)sender {
     
-//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"检测中..."];
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
 
     [self checkPhoneNumberAlreadyRegistered:self.phoneNumTf.text];
 }

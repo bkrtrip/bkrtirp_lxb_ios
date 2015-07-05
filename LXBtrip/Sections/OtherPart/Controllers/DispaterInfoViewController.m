@@ -59,7 +59,6 @@
         return;
     }
     
-//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"请求中..."];
     
     if (self.isUpdateDispatcher) {
         NSDictionary *dispatcherDic;
@@ -69,9 +68,20 @@
         else {
             dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text};
         }
+        
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+
         [self updateDispatchrer:dispatcherDic];
     }
     
+}
+
+- (void)initialDispatcherInfoWithDic:(NSDictionary *)dispatcherDic
+{
+    self.dispatcherNameTF.text = [dispatcherDic stringValueByKey:@"staff_real_name"];
+    self.dispatcherPhoneNumTF.text = [dispatcherDic stringValueByKey:@"staff_partner_phonenum"];
+    self.dispatcherLoginPwdTF.text = @"";
+    self.dispatcherRepeatLoginPwdTF.text = @"";//[dispatcherDic stringValueByKey:@""];
 }
 
 - (BOOL)isValidDispatchreInfo
@@ -90,14 +100,6 @@
     }
     
     return YES;
-}
-
-- (void)initialDispatcherInfoWithDic:(NSDictionary *)dispatcherDic
-{
-    self.dispatcherNameTF.text = [dispatcherDic stringValueByKey:@"staff_real_name"];
-    self.dispatcherPhoneNumTF.text = [dispatcherDic stringValueByKey:@"staff_partner_phonenum"];
-    self.dispatcherLoginPwdTF.text = @"";
-    self.dispatcherRepeatLoginPwdTF.text = @"";//[dispatcherDic stringValueByKey:@""];
 }
 
 #pragma mark - UITextFieldDelegate

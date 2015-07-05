@@ -36,7 +36,7 @@
         return;
     }
     
-//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"重置中..."];
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self setPassword:self.pwdTf.text forPhone:self.phoneNum];
 }
 
@@ -61,7 +61,6 @@
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  
-//                 [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"重置成功"];
                  [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
 
                  [weakSelf dismissViewControllerAnimated:YES completion:nil];

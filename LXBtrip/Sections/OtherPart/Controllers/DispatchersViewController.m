@@ -196,9 +196,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    DispaterInfoViewController *viewController = [[DispaterInfoViewController alloc] init];
-    viewController.isUpdateDispatcher = YES;
-    viewController.dispatcherDic = [self.dispatchersArray objectAtIndex:indexPath.row];
+    AddDispatcherViewController *viewController = [[AddDispatcherViewController alloc] init];
+    viewController.isAlterDispatcher = YES;
+    viewController.dispatcherInfoDic = [self.dispatchersArray objectAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:viewController animated:YES];
     

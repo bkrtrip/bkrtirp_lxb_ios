@@ -205,7 +205,10 @@
 - (void)switchChanged:(UISwitch *)sender
 {
     NSString *isopenState = sender.on ? @"1" : @"0";
-    NSString *rate = self.dSettingsDic ? [self.dSettingsDic stringValueByKey:@"value"] : @"0.00";
+    NSString *rate = @"0.00";
+    if (self.dSettingsDic && [self.dSettingsDic stringValueByKey:@"value"].length > 0) {
+        rate = [self.dSettingsDic stringValueByKey:@"value"];
+    }
     
     [self updateDSettingsForOpenState:isopenState rate:rate];
 }

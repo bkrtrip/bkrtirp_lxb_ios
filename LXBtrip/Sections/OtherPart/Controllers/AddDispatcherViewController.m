@@ -29,13 +29,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"添加";
+//    self.dispatcherLoginPwdTF. = @"";
+//    self.dispatcherRepeatLoginPwdTF.text = @"";
     
-    self.dispatcherLoginUNTF.text = @"";
-    self.dispatcherNameTF.text = @"";
-    self.dispatcherPhoneNumTF.text = @"";
-    self.dispatcherLoginPwdTF.text = @"";
-    self.dispatcherRepeatLoginPwdTF.text = @"";
+    if (self.isAlterDispatcher) {
+        
+        self.title = @"分销商信息";
+        self.dispatcherLoginUNTF.enabled = NO;
+        
+        [self initialDispatcherInfoWithDic:self.dispatcherInfoDic];
+    }
+    else {
+        self.title = @"添加";
+
+        self.dispatcherLoginUNTF.text = @"";
+        self.dispatcherNameTF.text = @"";
+        self.dispatcherPhoneNumTF.text = @"";
+        self.dispatcherLoginPwdTF.text = @"";
+        self.dispatcherRepeatLoginPwdTF.text = @"";
+    }
     
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:@"完成" image:nil];
 }
@@ -55,14 +67,83 @@
     
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     
-    NSDictionary *dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text, @"name":self.dispatcherLoginUNTF.text};
+    NSDictionary *dispatcherDic;
     
-    [self createNewDispatchrer:dispatcherDic];
+    if (self.isAlterDispatcher) {
+        dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text};
+        
+        [self updateDispatchrer:dispatcherDic];
+    }
+    else {
+        dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text, @"name":self.dispatcherLoginUNTF.text};
+        
+        [self createNewDispatchrer:dispatcherDic];
+    }
 }
 
+- (void)initialDispatcherInfoWithDic:(NSDictionary *)dispatcherDic
+{
+    self.dispatcherLoginUNTF.text = [dispatcherDic stringValueByKey:@"staff_name"];
+    self.dispatcherNameTF.text = [dispatcherDic stringValueByKey:@"staff_real_name"];
+    self.dispatcherPhoneNumTF.text = [dispatcherDic stringValueByKey:@"staff_partner_phonenum"];
+    self.dispatcherLoginPwdTF.text = [dispatcherDic stringValueByKey:@"staff_pwd"];
+    self.dispatcherRepeatLoginPwdTF.text = [dispatcherDic stringValueByKey:@"staff_pwd"];//[dispatcherDic stringValueByKey:@""];
+}
+
+- (void)updateDispatchrer:(NSDictionary *)dispatchreDic
+{
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+
+    __weak AddDispatcherViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    
+    if (!staffDic) {
+        return;
+    }
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/setDistributor", HOST_BASE_URL];
+    
+    NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[staffDic stringValueByKey:@"staff_id" ], @"staffid", [staffDic stringValueByKey:@"dat_company_id"], @"companyid", nil];// @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    [parameterDic addEntriesFromDictionary:dispatchreDic];
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100053"];
+                 
+                 if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
+                     //success
+                     
+                     [weakSelf.navigationController popViewControllerAnimated:YES];
+                 }
+             }
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+     }];
+}
 
 - (void)createNewDispatchrer:(NSDictionary *)dispatchreDic
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+
     __weak AddDispatcherViewController *weakSelf = self;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -112,15 +193,38 @@
 
 - (BOOL)isValidDispatchreInfo
 {
-    if ((self.dispatcherLoginPwdTF.text.length > 0 || self.dispatcherRepeatLoginPwdTF.text.length > 0) && (![self.dispatcherLoginPwdTF.text isEqualToString:self.dispatcherRepeatLoginPwdTF.text])) {
-        [self showAlertViewWithTitle:nil message:@"两次密码输入不一致。" cancelButtonTitle:@"确定"];
+    if (self.dispatcherLoginUNTF.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"用户名不能为空。" cancelButtonTitle:@"确定"];
         
         return NO;
     }
     
+    if (self.dispatcherNameTF.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"姓名不能为空。" cancelButtonTitle:@"确定"];
+        
+        return NO;
+    }
     
-    if (self.dispatcherNameTF.text == 0 || self.dispatcherPhoneNumTF.text == 0 || self.dispatcherLoginPwdTF.text == 0) {
-        [self showAlertViewWithTitle:nil message:@"所有信息为必填项，您有还有信息未填写。" cancelButtonTitle:@"确定"];
+    if (self.dispatcherPhoneNumTF.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"手机号不能为空。" cancelButtonTitle:@"确定"];
+        
+        return NO;
+    }
+    
+    if (self.dispatcherLoginPwdTF.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"密码不能为空。" cancelButtonTitle:@"确定"];
+        
+        return NO;
+    }
+    
+    if (self.dispatcherRepeatLoginPwdTF.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"确认密码不能为空。" cancelButtonTitle:@"确定"];
+        
+        return NO;
+    }
+    
+    if (![self.dispatcherLoginPwdTF.text isEqualToString:self.dispatcherRepeatLoginPwdTF.text]) {
+        [self showAlertViewWithTitle:nil message:@"两次密码输入不一致。" cancelButtonTitle:@"确定"];
         
         return NO;
     }
