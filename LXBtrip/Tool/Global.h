@@ -10,8 +10,11 @@
 #import "AppMacro.h"
 #import <CoreLocation/CoreLocation.h>
 
-typedef void (^errorCode_succeed_block)();
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
 
+typedef void (^errorCode_succeed_block)();
 
 @interface Global : NSObject
 singleton_interface(Global)
@@ -52,6 +55,23 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 - (void)sendShortTextWithPhoneNumber:(NSString *)phoneNumber;
 
 - (void)setUnderlinedWithText:(NSString *)text button:(UIButton *)button color:(UIColor *)color;
+
+#pragma mark - Share part
+// Wechat
+- (void)shareViaWeChatWithURLString:(NSString *)shareURL title:(NSString *)title content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(WechatShareType)type;
+
+// QQ
+- (void)shareViaQQWithURLString:(NSString *)shareURL title:(NSString *)title content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(QQShareType)type;
+
+// Sina
+- (void)shareViaSinaWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController;
+
+
+// YiXin
+- (void)shareViaYiXinWithURLString:(NSString *)shareURL content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(YiXinShareType)type;
+
+// SMS
+- (void)shareViaSMSWithContent:(NSString *)content presentedController:(UIViewController *)presentedController;
 
 
 @end

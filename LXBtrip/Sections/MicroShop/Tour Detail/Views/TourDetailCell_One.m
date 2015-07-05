@@ -14,7 +14,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *walkTypeImageView;
 
-@property (strong, nonatomic) IBOutlet UILabel *tourIDLabel;
+@property (strong, nonatomic) IBOutlet UILabel *tourTravelGoodsCodePriLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tourNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tourDescriptionLabel;
 
@@ -100,11 +100,17 @@
             break;
     }
     
-    if (product.productTravelGoodsId && [product.productTravelGoodsId integerValue] > 0) {
-        _tourIDLabel.hidden = NO;
-        _tourIDLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsCode];
-    } else {
-        _tourIDLabel.hidden = YES;
+//    if (product.productTravelGoodsId && [product.productTravelGoodsId integerValue] > 0) {
+//        _tourIDLabel.hidden = NO;
+//        _tourIDLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsCode];
+//    }
+    
+    if (product.productTravelGoodsCodePri && product.productTravelGoodsCodePri.length > 0) {
+        _tourTravelGoodsCodePriLabel.hidden = NO;
+        _tourTravelGoodsCodePriLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsCodePri];
+    }
+    else {
+        _tourTravelGoodsCodePriLabel.hidden = YES;
     }
     
     _tourNameLabel.text = product.productTravelGoodsName;

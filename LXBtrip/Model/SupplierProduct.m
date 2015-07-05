@@ -51,8 +51,10 @@
     
     self.productTravelStartCity = [dict[@"travel_start_city"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_start_city"];
     self.productTravelApplyTime = [dict[@"travel_apply_time"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_apply_time"];
-    self.productTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
     
+    self.productTravelGoodsCode = [dict[@"travel_goods_code"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code"];
+    self.productTravelGoodsCodePri = [dict[@"travel_goods_code_pri"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_code_pri"];
+
     self.productTravelGoodsId = [dict[@"travel_goods_id"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_id"];
 
     self.productTravelGoodsCompanyId = [dict[@"travel_goods_companyid"] isKindOfClass:[NSNull class]]?nil:dict[@"travel_goods_companyid"];

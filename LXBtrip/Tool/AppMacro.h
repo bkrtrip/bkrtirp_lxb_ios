@@ -40,11 +40,25 @@
 #define INVITE_SIX_GIVE_SHOP_URL @"http://mobile.bkrtrip.com/view/other/line/customiz.html"
 #define INVITE_THREE_GIVE_POSTER_URL @"http://mobile.bkrtrip.com/view/other/line/poster.html"
 
+// Notification Names
 #define PROVINCE_CHANGED @"PROVINCE_CHANGED"
 #define CITY_CHANGED @"CITY_CHANGED"
 #define SWITCH_CITY_SUPPLIER_LIST @"SWITCH_CITY_WITH_CITY_NAME_SUPPLIER_LIST"
 #define SWITCH_CITY_TOUR_LIST @"SWITCH_CITY_WITH_CITY_NAME_TOUR_LIST"
 #define MY_SHOP_HAS_UPDATED @"MY_SHOP_HAS_UPDATED"
+
+// Share Ids and Keys
+#define UMSOCIAL_APP_KEY @"5593e07a67e58e880a003a64"
+#define SHARE_DEFAULT_URL @"http://www.bkrtrip.com/"
+// Wechat
+#define WECHAT_APP_ID @"wx44f84b030229c600"
+#define WECHAT_APP_KEY @"6fca45e7abcf5e8ca6836aae937380dc"
+// QQ
+#define QQ_APP_ID @"1104451849"
+#define QQ_APP_KEY @"OQpIdYzQaogprsBV"
+
+//易信
+#define YX_APP_KEY @"d07397b8f201483c913b3d65275abbc5"
 
 
 // NavBasedViewController
@@ -216,6 +230,23 @@ typedef enum TouristType
     Kid_No_Bed = 2
 } TouristType;
 
+typedef enum WechatShareType
+{
+    Wechat_Share_Session = 0,
+    Wechat_Share_Timeline = 1,
+} WechatShareType;
+
+typedef enum QQShareType
+{
+    QQ_Share_Session = 0,
+    QQ_Share_QZone = 1,
+} QQShareType;
+
+typedef enum YiXinShareType
+{
+    YiXin_Share_Session = 0,
+    YiXin_Share_Timeline = 1,
+} YiXinShareType;
 
 //国内游  #1#283  出境游  #1#303  周边游  #1#492  国内目的地  #1#997  国外目的地  #1#998
 #define LINE_CLASS @{@0:@"#1#283", @1:@"#1#303", @2:@"#1#492", @3:@"#1#997", @4:@"#1#998"}

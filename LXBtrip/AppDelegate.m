@@ -21,7 +21,11 @@
 
 #import "AppMacro.h"
 #import "Global.h"
-//#import "UMSocial.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialYiXinHandler.h"
+#import "UMSocialSinaHandler.h"
 #import "APService.h"
 #import "UserModel.h"
 
@@ -41,7 +45,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    [UMSocialData setAppKey:@"5593e07a67e58e880a003a64"];
+    [UMSocialData setAppKey:UMSOCIAL_APP_KEY];
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:WECHAT_APP_ID appSecret:WECHAT_APP_KEY url:SHARE_DEFAULT_URL];
+    //设置分享到QQ/Qzone的应用Id，和分享url 链接
+    [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:SHARE_DEFAULT_URL];
+    //设置易信Appkey和分享url地址,注意需要引用头文件
+    [UMSocialYixinHandler setYixinAppKey:YX_APP_KEY url:SHARE_DEFAULT_URL];
+    //打开新浪微博的SSO开关，设置新浪微博回调地址·，这里必须要和你在新浪微博后台设置的回调地址一致。若在新浪后台设置我们的回调地址，“http://sns.whalecloud.com/sina2/callback”，这里可以传nil
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -285,12 +297,6 @@ fetchCompletionHandler:
             [alert show];
         });
     }
-//    else {
-//        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 旅小宝" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//            [alert show];
-//        }
-//    }
     
     if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
     {
@@ -318,17 +324,9 @@ fetchCompletionHandler:
         for (CLPlacemark *placemark in placemarks) {
             
             NSDictionary *test = [placemark addressDictionary];
-            // locality(城市)
-            NSLog(@"%@", test);
+//            NSLog(@"%@", test);
             NSString *newProvince = [test objectForKey:@"State"];
-//            if ([newProvince hasSuffix:@"省"]) {
-//                newProvince = [newProvince substringWithRange:NSMakeRange(0, newProvince.length-1)];
-//            }
-            
             NSString *newCity = [test objectForKey:@"City"];
-//            if ([newCity hasSuffix:@"市"]) {
-//                newCity = [newCity substringWithRange:NSMakeRange(0, newCity.length-1)];
-//            }
             NSLog(@"newCity: ------ %@", newCity);
             NSLog(@"newProvince: ------ %@", newProvince);
             if (![_locationProvince isEqualToString:newProvince]) {
@@ -358,6 +356,19 @@ fetchCompletionHandler:
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定位失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [alert show];
     }
+}
+
+#pragma mark - UMSocial Callback
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
 }
 
 @end

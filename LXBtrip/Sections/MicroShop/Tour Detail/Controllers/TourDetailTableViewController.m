@@ -15,15 +15,17 @@
 #import "TourDetailWebDetailViewController.h"
 #import "CalendarViewController.h"
 #import "AccompanyInfoViewController.h"
+#import "ShareView.h"
 
-@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
+@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate, ShareViewDelegate>
 {
     NSMutableDictionary *cellHeights;
-    NSInteger weekday;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *startDate;
+@property (strong, nonatomic) ShareView *shareView;
+@property (strong, nonatomic) UIControl *darkMask;
 
 @end
 
@@ -36,6 +38,12 @@
     
     self.title = @"线路详情";
     [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
+    
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
+    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _darkMask.alpha = 0;// initally transparent
+    [self.view addSubview:_darkMask];
     
     cellHeights = [[NSMutableDictionary alloc] init];
     [self setUpTableView];
@@ -65,14 +73,26 @@
 
 - (void)rightBarButtonItemClicked:(id)sender
 {
-    //
+    if (!_shareView) {
+        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
+        _shareView.delegate = self;
+        [self.view addSubview:_shareView];
+    }
+    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:_product];
+    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+    
+    [self showShareView];
+}
+
+- (void)hidePopUpViews
+{
+    [self hideShareView];
+    _darkMask.alpha = 0;
 }
 
 - (void)startDateChanged:(NSNotification *)note
 {
     _startDate = [note userInfo][@"start_date"];
-    weekday = [[note userInfo][@"weekday"] integerValue];
-    
     [self calculateFirstTwoCellHeights];
     [_tableView reloadData];
 }
@@ -102,14 +122,17 @@
                 
                 NSString *nowDate = [self nowDateString];
                 [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
-                    // 多线程不一定按顺序循环
-                    if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:nowDate] != NSOrderedAscending) {
-                        if (!_startDate) {
-                            _startDate = [grp.marketTime copy];
-                        }
-                        
-                        if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:_startDate] == NSOrderedAscending) {
-                            _startDate = [grp.marketTime copy];
+                    if ([grp.marketAdultPrice integerValue]>0 || [grp.marketKidPrice integerValue]>0 || [grp.marketKidPriceNoBed integerValue]>0) {
+                        // 多线程不一定按顺序循环
+                        if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:nowDate] != NSOrderedAscending) {
+                            if (!_startDate) {
+                                _startDate = [grp.marketTime copy];
+                                return ;
+                            }
+                            
+                            if ([[Global sharedGlobal] compareDateStringOne:grp.marketTime withDateStringTwo:_startDate] == NSOrderedAscending) {
+                                _startDate = [grp.marketTime copy];
+                            }
                         }
                     }
                 }];
@@ -178,7 +201,6 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -213,7 +235,7 @@
             case 2:
             {
                 TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-                [cell setCellContentWithStartDate:_startDate weekDay:weekday];
+                [cell setCellContentWithStartDate:_startDate];
                 return cell;
             }
                 break;
@@ -241,7 +263,7 @@
             case 1:
             {
                 TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-                [cell setCellContentWithStartDate:_startDate weekDay:weekday];
+                [cell setCellContentWithStartDate:_startDate];
                 return cell;
             }
                 break;
@@ -297,7 +319,6 @@
         }
     }
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([UserModel companyId] && [UserModel staffId]) {
@@ -367,7 +388,160 @@
     [self.navigationController pushViewController:comment animated:YES];
 }
 
+#pragma mark - ShareViewDelegate
+- (void)supportClickWithWeChatWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    }
+}
+
+- (void)supportClickWithQQWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    }
+}
+
+- (void)supportClickWithQZoneWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+    }
+}
+
+- (void)supportClickWithShortMessageWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce presentedController:self];
+    }
+}
+
+- (void)supportClickWithSendingToComputerWithShareObject:(id)obj
+{
+    [self supportClickWithQQWithShareObject:obj];
+}
+
+- (void)supportClickWithYiXinWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+    }
+}
+
+- (void)supportClickWithWeiboWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
+    }
+}
+
+- (void)supportClickWithFriendsWithShareObject:(id)obj
+{
+    [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+    }
+}
+
+- (void)supportClickWithCancel
+{
+    [self hideShareView];
+}
+
 #pragma mark - Private
+- (void)hideShareView
+{
+    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+    if (_shareView.frame.origin.y == self.view.frame.size.height) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.alpha = 1;
+        }
+    }];
+}
+- (void)showShareView
+{
+    self.navigationController.navigationBar.alpha = 0;
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 1;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height - _shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    }];
+}
+
 - (NSString *)nowDateString
 {
     NSDate *todayDate = [NSDate date];
@@ -378,7 +552,6 @@
     NSInteger cellYear = [comps year];
     NSInteger cellMonth = [comps month];
     NSInteger cellDay = [comps day];
-    weekday = [comps weekday];
     
     NSString *nowDate = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)cellYear, (long)cellMonth, (long)cellDay];
     return nowDate;

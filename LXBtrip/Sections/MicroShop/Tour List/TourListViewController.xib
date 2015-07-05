@@ -48,6 +48,30 @@
                         <action selector="toTopButtonClicked:" destination="-1" eventType="touchUpInside" id="R1d-eT-ka3"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5W-kl-NHr" userLabel="noProductView">
+                    <rect key="frame" x="0.0" y="155" width="320" height="413"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_product.png" translatesAutoresizingMaskIntoConstraints="NO" id="EJ2-QC-J9s">
+                            <rect key="frame" x="113" y="40" width="94" height="83"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="PpD-Um-KRq"/>
+                                <constraint firstAttribute="width" secondItem="EJ2-QC-J9s" secondAttribute="height" multiplier="421:372" id="pbv-5k-crn"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="PpD-Um-KRq"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="height" secondItem="S5W-kl-NHr" secondAttribute="height" multiplier="0.2" id="PdG-ac-uTF"/>
+                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="top" secondItem="S5W-kl-NHr" secondAttribute="top" constant="40" id="fT3-GK-hsw"/>
+                        <constraint firstAttribute="centerX" secondItem="EJ2-QC-J9s" secondAttribute="centerX" id="m4H-9r-gbI"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rJc-Ol-ciH" userLabel="destinationTableView">
                     <rect key="frame" x="0.0" y="155" width="320" height="264"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,30 +216,6 @@
                         <action selector="walkTypeButtonClicked:" destination="-1" eventType="touchUpInside" id="dE3-Qv-bPp"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5W-kl-NHr" userLabel="noProductView">
-                    <rect key="frame" x="0.0" y="155" width="320" height="413"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_product.png" translatesAutoresizingMaskIntoConstraints="NO" id="EJ2-QC-J9s">
-                            <rect key="frame" x="113" y="40" width="94" height="83"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="100" id="PpD-Um-KRq"/>
-                                <constraint firstAttribute="width" secondItem="EJ2-QC-J9s" secondAttribute="height" multiplier="421:372" id="pbv-5k-crn"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="PpD-Um-KRq"/>
-                                </mask>
-                            </variation>
-                        </imageView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="height" secondItem="S5W-kl-NHr" secondAttribute="height" multiplier="0.2" id="PdG-ac-uTF"/>
-                        <constraint firstItem="EJ2-QC-J9s" firstAttribute="top" secondItem="S5W-kl-NHr" secondAttribute="top" constant="40" id="fT3-GK-hsw"/>
-                        <constraint firstAttribute="centerX" secondItem="EJ2-QC-J9s" secondAttribute="centerX" id="m4H-9r-gbI"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>

@@ -16,6 +16,7 @@
 #import "SetShopNameViewController.h"
 #import "AccompanyInfoViewController.h"
 #import "TourDetailTableViewController.h"
+#import "UMSocialWechatHandler.h"
 
 @interface SupplierDetailViewController()<UITableViewDataSource, UITableViewDelegate, YesOrNoViewDelegate, TourListTableViewCell_Delegate, ShareViewDelegate, AccompanyInfoView_Delegate, UIScrollViewDelegate>
 {
@@ -315,11 +316,12 @@
         // go to share
         if (!_shareView) {
             _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-            CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
-            [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
             _shareView.delegate = self;
             [self.view addSubview:_shareView];
         }
+        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+        
         [self showShareView];
     // 未同步
     } else if ([_isMinetype intValue] == 1){
@@ -426,41 +428,123 @@
 - (void)supportClickWithWeChatWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    }
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    }
 }
 
 - (void)supportClickWithQZoneWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+    }
 }
 
 - (void)supportClickWithShortMessageWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce presentedController:self];
+    }
 }
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
 {
-    [self hideShareView];
+    [self supportClickWithQQWithShareObject:obj];
 }
 
 - (void)supportClickWithYiXinWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+    }
 }
 
 - (void)supportClickWithWeiboWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
+    }
 }
 
 - (void)supportClickWithFriendsWithShareObject:(id)obj
 {
     [self hideShareView];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+    }
 }
 
 - (void)supportClickWithCancel
@@ -505,18 +589,21 @@
         return;
     }
     
-    //YesOrNoView不需要
-//    popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, _yesOrNoView.frame.size.height)];
+        [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.alpha = 1;
+        }
     }];
 }
 - (void)showYesOrNoView
 {
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_yesOrNoView setFrame:CGRectOffset(_yesOrNoView.frame, 0, - _yesOrNoView.frame.size.height)];
+        [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height-_yesOrNoView.frame.size.height, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
     }];
 }
 
@@ -531,22 +618,19 @@
     popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.alpha = 1;
+        }
     }];
 }
 - (void)showShareView
 {
-    if (!_shareView) {
-        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
-        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
-        _shareView.delegate = self;
-        [self.view addSubview:_shareView];
-    }
-
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     }];
 }
 
@@ -561,11 +645,10 @@
     popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        self.navigationController.navigationBar.hidden = NO;
-//        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
+            self.navigationController.navigationBar.alpha = 1;
             if (block) {
                 block();
             }
@@ -575,12 +658,10 @@
 
 - (void)showAcompanyInfoView
 {
+    self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        self.navigationController.navigationBar.hidden = YES;
-//        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
-        
-        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height-_accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }
 

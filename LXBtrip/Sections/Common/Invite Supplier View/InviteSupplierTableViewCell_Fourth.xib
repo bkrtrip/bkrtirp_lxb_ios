@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,16 +16,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OvP-SJ-RJS" userLabel="share unit-qq">
-                        <rect key="frame" x="0.0" y="16" width="78" height="77"/>
+                        <rect key="frame" x="0.0" y="16" width="80" height="77"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xS-iD-gsI">
-                                <rect key="frame" x="28" y="62" width="24" height="15"/>
+                                <rect key="frame" x="29" y="62" width="24" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rsl-u3-G3S" userLabel="callButton">
-                                <rect key="frame" x="11" y="0.0" width="57" height="57"/>
+                                <rect key="frame" x="12" y="0.0" width="57" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="57" id="0rH-eF-cEG"/>
                                     <constraint firstAttribute="width" secondItem="rsl-u3-G3S" secondAttribute="height" multiplier="1:1" id="uS4-Vl-Ux5"/>
@@ -49,10 +48,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NjY-yt-f3r" userLabel="share unit-wechat">
-                        <rect key="frame" x="78" y="16" width="79" height="77"/>
+                        <rect key="frame" x="80" y="16" width="80" height="77"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUq-3y-b5P" userLabel="messageButton">
-                                <rect key="frame" x="11" y="0.0" width="57" height="57"/>
+                                <rect key="frame" x="12" y="0.0" width="57" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wUq-3y-b5P" secondAttribute="height" multiplier="1:1" id="2we-vB-AzN"/>
                                     <constraint firstAttribute="height" constant="57" id="Y6H-gp-WGU"/>
@@ -65,7 +64,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="短信" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ba8-Z7-DNd">
-                                <rect key="frame" x="28" y="62" width="24" height="15"/>
+                                <rect key="frame" x="29" y="62" width="24" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -81,10 +80,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVB-wK-i5l" userLabel="share unit-friends">
-                        <rect key="frame" x="157" y="16" width="77" height="77"/>
+                        <rect key="frame" x="160" y="16" width="80" height="77"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsn-Hh-qbf" userLabel="qqButton">
-                                <rect key="frame" x="10" y="0.0" width="57" height="57"/>
+                                <rect key="frame" x="12" y="0.0" width="57" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="qsn-Hh-qbf" secondAttribute="height" multiplier="1:1" id="H4N-We-eLa"/>
                                     <constraint firstAttribute="height" constant="57" id="q7C-eu-zDA"/>
@@ -97,7 +96,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Kt-NA-bQm">
-                                <rect key="frame" x="29" y="62" width="19" height="15"/>
+                                <rect key="frame" x="31" y="62" width="19" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -113,10 +112,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KcP-9c-2og" userLabel="share unit-shortmessage">
-                        <rect key="frame" x="234" y="16" width="78" height="77"/>
+                        <rect key="frame" x="240" y="16" width="80" height="77"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-ds-AcE" userLabel="wechatButton">
-                                <rect key="frame" x="10" y="0.0" width="57" height="57"/>
+                                <rect key="frame" x="11" y="0.0" width="57" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="57" id="4XQ-2J-kXg"/>
                                     <constraint firstAttribute="width" secondItem="iB8-ds-AcE" secondAttribute="height" multiplier="1:1" id="g8J-dM-XzK"/>
@@ -129,7 +128,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HV7-5X-G2Z">
-                                <rect key="frame" x="26" y="62" width="24" height="15"/>
+                                <rect key="frame" x="27" y="62" width="24" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -148,9 +147,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="gjX-UA-rH7"/>
-                                <exclude reference="VqK-iV-U6A"/>
                                 <exclude reference="ERn-xK-f59"/>
+                                <exclude reference="VqK-iV-U6A"/>
+                                <exclude reference="gjX-UA-rH7"/>
                             </mask>
                         </variation>
                     </view>
@@ -159,9 +158,9 @@
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="height" secondItem="OvP-SJ-RJS" secondAttribute="height" id="05b-1G-rQX"/>
                     <constraint firstItem="KcP-9c-2og" firstAttribute="width" secondItem="OvP-SJ-RJS" secondAttribute="width" id="3bS-O2-UTw"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="centerY" secondItem="KcP-9c-2og" secondAttribute="centerY" id="3zF-6G-KIa"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="KcP-9c-2og" secondAttribute="trailing" id="ALk-qK-qPd"/>
+                    <constraint firstAttribute="trailing" secondItem="KcP-9c-2og" secondAttribute="trailing" id="ALk-qK-qPd"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="centerY" secondItem="NjY-yt-f3r" secondAttribute="centerY" id="GZT-zv-dLc"/>
-                    <constraint firstItem="MVB-wK-i5l" firstAttribute="width" secondItem="OvP-SJ-RJS" secondAttribute="width" constant="-1" id="Waq-Yl-gbA"/>
+                    <constraint firstItem="MVB-wK-i5l" firstAttribute="width" secondItem="OvP-SJ-RJS" secondAttribute="width" id="Waq-Yl-gbA"/>
                     <constraint firstItem="OvP-SJ-RJS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bO5-H5-f74"/>
                     <constraint firstItem="NjY-yt-f3r" firstAttribute="leading" secondItem="OvP-SJ-RJS" secondAttribute="trailing" id="bXN-XL-wFC"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="leading" secondItem="NjY-yt-f3r" secondAttribute="trailing" id="fur-dO-3qv"/>

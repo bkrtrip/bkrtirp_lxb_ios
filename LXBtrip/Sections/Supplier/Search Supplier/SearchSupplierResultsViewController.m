@@ -268,11 +268,11 @@
     selectedProduct = product;
     if (!_shareView) {
         _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
-        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _shareView.delegate = self;
         [self.view addSubview:_shareView];
     }
+    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
+    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
     
     [self showShareView];
     
@@ -322,41 +322,123 @@
 - (void)supportClickWithWeChatWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    }
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    }
 }
 
 - (void)supportClickWithQZoneWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+    }
 }
 
 - (void)supportClickWithShortMessageWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce  presentedController:self];
+    }
 }
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
 {
-    [self hideShareViewWithCompletionBlock:nil];
+    [self supportClickWithQQWithShareObject:obj];
 }
 
 - (void)supportClickWithYiXinWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+    }
 }
 
 - (void)supportClickWithWeiboWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
+    }
 }
 
 - (void)supportClickWithFriendsWithShareObject:(id)obj
 {
     [self hideShareViewWithCompletionBlock:nil];
+    if ([obj isKindOfClass:[SupplierProduct class]]) {
+        SupplierProduct *sharePrd = (SupplierProduct *)obj;
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+    }
 }
 
 - (void)supportClickWithCancel
@@ -415,7 +497,7 @@
                 siftedResultsArray = [searchedResultsArray mutableCopy];
                 [_mainTableView reloadData];
                 pageNum ++;
-            } else {
+            } else if (searchedResultsArray.count == 0) {
                 _noSearchResultsView.hidden = NO;
             }
         }];
@@ -529,6 +611,8 @@
 // show/hide ShareView
 - (void)showShareView
 {
+    [self.view insertSubview:_darkMask aboveSubview:_startCityTableView];
+
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
@@ -545,6 +629,7 @@
         [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
+            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }
