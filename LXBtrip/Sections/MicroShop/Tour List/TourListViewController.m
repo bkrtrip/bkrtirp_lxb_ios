@@ -38,8 +38,8 @@
 }
 
 
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *locationButton;
-
 @property (strong, nonatomic) IBOutlet UIButton *destinationButton;
 @property (strong, nonatomic) IBOutlet UIButton *walkTypeButton;
 
@@ -79,13 +79,13 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_TourList) name:CITY_CHANGED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_TOUR_LIST object:nil];
-
+    
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
-
+    
     [self setUpSearchBarAndSearchButton];
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
@@ -96,7 +96,7 @@
     
     UIScrollView *scroll = (UIScrollView *)_mainTableView;
     scroll.delegate = self;
-
+    
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
     
     // 初始化和此方法相同
@@ -152,6 +152,9 @@
     
     isRefreshing = YES;
     startCity = [[Global sharedGlobal] locationCity];
+    if (!startCity || startCity.length == 0) {
+        startCity = @"全国";
+    }
     if (startCity) {
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
         [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
@@ -167,7 +170,6 @@
     
     [self getTourList];
 }
-
 
 - (void)hidePopUpViews
 {
@@ -193,7 +195,7 @@
             SupplierInfo *info = [[SupplierInfo alloc] initWithDict:data];
             if (!_info) {
                 _info = info;
-                self.title = _info.supplierCustomName;
+                self.titleLabel.text = _info.supplierCustomName;
                 if (!endCity) {
                     citiesArray = [[_info.supplierEndCity componentsSeparatedByString:@"#"] mutableCopy];
                     [_destinationTableView reloadData];

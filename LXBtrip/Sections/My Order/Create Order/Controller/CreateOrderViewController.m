@@ -705,6 +705,12 @@
 
 
 - (IBAction)confirmOrderButtonClicked:(id)sender {
+    if ([_item.orderReservePriceGroup.adultNum integerValue] + [_item.orderReservePriceGroup.kidBedNum integerValue] + [_item.orderReservePriceGroup.kidNum integerValue] == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"人数为0，不能确认参团" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     NSString *validValueForPhoneNumber = @"^1+[3578]+\\d{9}$";
     NSPredicate *predict = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validValueForPhoneNumber];
     if ([predict evaluateWithObject:_item.orderContactPhone] == YES) {

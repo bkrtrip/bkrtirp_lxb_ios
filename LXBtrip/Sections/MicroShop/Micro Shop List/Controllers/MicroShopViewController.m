@@ -17,6 +17,7 @@
 #import "YesOrNoView.h"
 #import "MicroShopDetailViewController.h"
 #import "SetShopNameViewController.h"
+#import "SetShopContactViewController.h"
 #import "MyShopWebPreviewViewController.h"
 
 @interface MicroShopViewController ()<UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ReusableHeaderView_myShop_Delegate, MicroShopCollectionViewCell_MyShop_Delegate, YesOrNoViewDelegate>
@@ -582,17 +583,25 @@
     
     if (collectionView == _myShopCollectionView && indexPath.row < _myShopsArray.count) {
         if ([UserModel companyId] && [UserModel staffId]) {
-            // go to set user info page
-            if (![UserModel staffRealName]) {
+            // set shop name if void
+            if (![UserModel staffDepartmentName]) {
                 SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
                 [self.navigationController pushViewController:setName animated:YES];
-            } else {
-                // go to webview
-                MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
-                web.title = @"线路详情";
-                web.ShopURLString = [_myShopsArray[indexPath.row] shopPreviewURLString];
-                [self.navigationController pushViewController:web animated:YES];
+                return ;
             }
+            
+            // set shop contact if void
+            if (![UserModel staffRealName]) {
+                SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+                [self.navigationController pushViewController:setContact animated:YES];
+                return ;
+            }
+            
+            // go to webview
+            MyShopWebPreviewViewController *web = [[MyShopWebPreviewViewController alloc] init];
+            web.title = @"我的微店";
+            web.ShopURLString = [_myShopsArray[indexPath.row] shopPreviewURLString];
+            [self.navigationController pushViewController:web animated:YES];
         } else {
             [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
         }

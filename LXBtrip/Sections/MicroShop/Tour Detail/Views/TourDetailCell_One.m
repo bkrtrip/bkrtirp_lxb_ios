@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *walkTypeImageView;
+@property (strong, nonatomic) IBOutlet UILabel *tourApplyTimeLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *tourTravelGoodsCodePriLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tourNameLabel;
@@ -100,11 +101,6 @@
             break;
     }
     
-//    if (product.productTravelGoodsId && [product.productTravelGoodsId integerValue] > 0) {
-//        _tourIDLabel.hidden = NO;
-//        _tourIDLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsCode];
-//    }
-    
     if (product.productTravelGoodsCodePri && product.productTravelGoodsCodePri.length > 0) {
         _tourTravelGoodsCodePriLabel.hidden = NO;
         _tourTravelGoodsCodePriLabel.text = [NSString stringWithFormat:@"产品编码: %@", product.productTravelGoodsCodePri];
@@ -115,6 +111,12 @@
     
     _tourNameLabel.text = product.productTravelGoodsName;
     _tourDescriptionLabel.text = product.productIntroduce;
+    if (product.productTravelApplyTime && [product.productTravelApplyTime integerValue] > 0) {
+        _tourApplyTimeLabel.text = [NSString stringWithFormat:@"请提前%@天预订", product.productTravelApplyTime];
+        _tourApplyTimeLabel.hidden = NO;
+    } else {
+        _tourApplyTimeLabel.hidden = YES;
+    }
     
     CGSize nameLabeSize = [_tourNameLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8.f, MAXFLOAT)];
     CGSize descriptionLabelSize = [_tourDescriptionLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8.f, MAXFLOAT)];

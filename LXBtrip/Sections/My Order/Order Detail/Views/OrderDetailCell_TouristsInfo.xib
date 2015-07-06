@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -36,7 +36,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgR-z2-B7G">
-                                <rect key="frame" x="106" y="49" width="5" height="17"/>
+                                <rect key="frame" x="106" y="56" width="5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -48,6 +48,7 @@
                             <constraint firstItem="OTr-mC-Vnn" firstAttribute="centerY" secondItem="P7P-Fk-gN7" secondAttribute="centerY" id="9La-mK-bKP"/>
                             <constraint firstItem="OTr-mC-Vnn" firstAttribute="leading" secondItem="P7P-Fk-gN7" secondAttribute="trailing" constant="8" id="9lb-LZ-rmA"/>
                             <constraint firstAttribute="bottom" secondItem="vAF-MZ-3Nx" secondAttribute="bottom" constant="15" id="HRI-4f-xpw"/>
+                            <constraint firstItem="vAF-MZ-3Nx" firstAttribute="centerY" secondItem="hgR-z2-B7G" secondAttribute="centerY" id="IOW-Xz-N75"/>
                             <constraint firstItem="P7P-Fk-gN7" firstAttribute="leading" secondItem="mgE-am-hqH" secondAttribute="leading" constant="28" id="MDa-oe-xMI"/>
                             <constraint firstItem="P7P-Fk-gN7" firstAttribute="top" secondItem="mgE-am-hqH" secondAttribute="top" constant="15" id="abe-If-MHT"/>
                             <constraint firstItem="hgR-z2-B7G" firstAttribute="top" secondItem="OTr-mC-Vnn" secondAttribute="bottom" constant="17" id="cwY-sY-nHz"/>
@@ -57,6 +58,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="6UQ-pv-MWY"/>
+                                <exclude reference="cwY-sY-nHz"/>
                             </mask>
                         </variation>
                     </view>

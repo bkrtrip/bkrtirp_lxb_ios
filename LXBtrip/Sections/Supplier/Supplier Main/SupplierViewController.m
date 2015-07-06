@@ -102,6 +102,9 @@
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
+    // initial status
+    [_zhuanXianButton setSelected:YES];
+    [_diJieButton setSelected:NO];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
     [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
@@ -270,6 +273,13 @@
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
+    if (selectedIndex <= 2) {
+        [_zhuanXianButton setSelected:YES];
+        [_diJieButton setSelected:NO];
+    } else {
+        [_zhuanXianButton setSelected:NO];
+        [_diJieButton setSelected:YES];
+    }
     _selectedIndex = selectedIndex;
     lineClass = LINE_CLASS[@(_selectedIndex)];
     [self scrollToVisibleWithSelectedIndex:_selectedIndex];

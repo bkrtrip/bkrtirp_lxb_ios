@@ -14,6 +14,7 @@
 #import "AccompanyInfoView.h"
 #import "TourWebPreviewViewController.h"
 #import "SetShopNameViewController.h"
+#import "SetShopContactViewController.h"
 #import "AccompanyInfoViewController.h"
 #import "TourDetailTableViewController.h"
 #import "UMSocialWechatHandler.h"
@@ -128,12 +129,18 @@
         return;
     }
     
-    // 未完成资料
-    if (![UserModel staffRealName]) {
-        // go to open micro shop
+    // set shop name if void
+    if (![UserModel staffDepartmentName]) {
         SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
         [self.navigationController pushViewController:setName animated:YES];
-        return;
+        return ;
+    }
+    
+    // set shop contact if void
+    if (![UserModel staffRealName]) {
+        SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+        [self.navigationController pushViewController:setContact animated:YES];
+        return ;
     }
     
     [self syncOrCancelSyncMySupplier];

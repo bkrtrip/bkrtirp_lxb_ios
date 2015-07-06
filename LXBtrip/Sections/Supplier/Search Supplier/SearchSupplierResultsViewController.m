@@ -304,12 +304,12 @@
     selectedProduct = product;
     if (!_accompanyInfoView) {
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
-        
-        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
         [self.view addSubview:_accompanyInfoView];
     }
+    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
+    
+    [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
     [self showAccompanyInfoView];
 }
 
@@ -598,14 +598,15 @@
 // show/hide accompanyInfoView
 - (void)hideAccompanyInfoViewWithCompletionBlock:(void (^)())block
 {
-    if (_accompanyInfoView.frame.origin.y == SCREEN_HEIGHT) {
+    if (_accompanyInfoView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
-    [UIView animateWithDuration:0.4 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
+            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }
@@ -615,9 +616,11 @@
 
 - (void)showAccompanyInfoView
 {
+    [self.view insertSubview:_darkMask aboveSubview:_startCityTableView];
+    
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height-_accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }
 
@@ -628,18 +631,18 @@
 
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     }];
 }
 
 - (void)hideShareViewWithCompletionBlock:(void (^)())block
 {
-    if (_shareView.frame.origin.y == SCREEN_HEIGHT) {
+    if (_shareView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
             [self.view insertSubview:_darkMask aboveSubview:_mainTableView];

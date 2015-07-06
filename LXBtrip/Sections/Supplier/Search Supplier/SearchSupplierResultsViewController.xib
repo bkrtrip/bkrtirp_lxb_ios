@@ -199,6 +199,18 @@
                         </mask>
                     </variation>
                 </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="WxL-1P-LWr">
+                    <rect key="frame" x="160" y="64" width="1" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="afJ-fV-MPM"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="qII-6w-ivk">
+                    <rect key="frame" x="0.0" y="112" width="320" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="4LH-Ot-eUb"/>
+                    </constraints>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWC-ZL-gtC" userLabel="noSearchResultsView">
                     <rect key="frame" x="0.0" y="113" width="320" height="455"/>
                     <subviews>
@@ -239,18 +251,6 @@
                         <outlet property="delegate" destination="-1" id="Al9-sO-cel"/>
                     </connections>
                 </tableView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="WxL-1P-LWr">
-                    <rect key="frame" x="160" y="64" width="1" height="49"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="1" id="afJ-fV-MPM"/>
-                    </constraints>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="qII-6w-ivk">
-                    <rect key="frame" x="0.0" y="112" width="320" height="1"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="4LH-Ot-eUb"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
