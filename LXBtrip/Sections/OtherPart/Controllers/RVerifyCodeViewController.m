@@ -42,7 +42,7 @@
 }
 - (IBAction)goToInitialPwd:(id)sender {
     
-    if (![self.verifyCodeTf.text isEqualToString:self.verificationCode]) {
+    if ([self.verificationCode rangeOfString:self.verifyCodeTf.text].location == NSNotFound) {
         [self showAlertViewWithTitle:@"提示" message:@"验证码输入错误，请重新输入。" cancelButtonTitle:@"确定"];
         return;
     }
