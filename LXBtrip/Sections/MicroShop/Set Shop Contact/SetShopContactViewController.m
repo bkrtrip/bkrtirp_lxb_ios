@@ -66,10 +66,8 @@
             NSInteger stackControllersCount = self.navigationController.viewControllers.count;
             if (stackControllersCount > 3) {
                 NSInteger supplierDetailIndex = stackControllersCount - 3;
-                UIViewController *supplierDetail = self.navigationController.viewControllers[supplierDetailIndex];
-                if ([supplierDetail isKindOfClass:[SupplierDetailViewController class]]) {
-                    [self.navigationController popToViewController:supplierDetail animated:YES];
-                }
+                UIViewController *supplierDetailOrMicroshop = self.navigationController.viewControllers[supplierDetailIndex];
+                [self.navigationController popToViewController:supplierDetailOrMicroshop animated:YES];
             }
         }];
     } fail:^(id result) {

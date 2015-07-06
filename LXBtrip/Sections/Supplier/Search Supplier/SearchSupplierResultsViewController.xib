@@ -131,7 +131,7 @@
                         <action selector="startCityButtonClicked:" destination="-1" eventType="touchUpInside" id="a8q-vq-lCZ"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9M-z8-etd" userLabel="Image View Open">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9M-z8-etd" userLabel="Image View Open">
                     <rect key="frame" x="138" y="97" width="12" height="6"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="6" id="g2B-94-FOv"/>
@@ -143,7 +143,7 @@
                         </mask>
                     </variation>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-F3-IxC" userLabel="Image View Closed">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-F3-IxC" userLabel="Image View Closed">
                     <rect key="frame" x="142" y="94" width="8" height="9"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Fiz-F3-IxC" secondAttribute="height" multiplier="17:18" id="J2B-Ls-3nl"/>
@@ -175,7 +175,7 @@
                         <action selector="walkTypeButtonClicked:" destination="-1" eventType="touchUpInside" id="AaH-Gp-jID"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="wRK-xQ-Lap" userLabel="Image View Open">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="wRK-xQ-Lap" userLabel="Image View Open">
                     <rect key="frame" x="298" y="97" width="12" height="6"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="6" id="EGe-R2-jSw"/>
@@ -187,7 +187,7 @@
                         </mask>
                     </variation>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="8is-o2-mHs" userLabel="Image View Closed">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="8is-o2-mHs" userLabel="Image View Closed">
                     <rect key="frame" x="302" y="94" width="8" height="9"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="9" id="3tA-nT-TPu"/>
@@ -326,9 +326,9 @@
     <resources>
         <image name="back.png" width="7" height="13"/>
         <image name="no_search_results.png" width="120" height="112"/>
-        <image name="rectangle_close.png" width="8" height="9"/>
-        <image name="rectangle_open.png" width="12" height="6"/>
         <image name="separator_hor.png" width="1" height="1"/>
         <image name="separator_ver.png" width="1" height="1"/>
+        <image name="triangle_close.png" width="8" height="9"/>
+        <image name="triangle_open.png" width="12" height="6"/>
     </resources>
 </document>

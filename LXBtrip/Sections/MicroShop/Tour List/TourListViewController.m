@@ -58,7 +58,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 
 @property (strong, nonatomic) IBOutlet UITableView *destinationTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *triangleUpImageView_Destination;
 @property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *triangleUpImageView_Walktype;
 
 @property (strong, nonatomic) UIControl *darkMask;
 
@@ -645,11 +647,13 @@
 - (void)setDestinationCityTableViewHidden:(BOOL)hidden
 {
     _destinationTableView.hidden = hidden;
+    _triangleUpImageView_Destination.hidden = hidden;
 }
 
 - (void)setWalkTypeTableViewHidden:(BOOL)hidden
 {
     _walkTypeTableView.hidden = hidden;
+    _triangleUpImageView_Walktype.hidden = hidden;
 }
 
 // show/hide accompanyInfoView
