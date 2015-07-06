@@ -498,7 +498,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer.timeoutInterval=10;
+    manager.requestSerializer.timeoutInterval = 3;
     
     NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
     

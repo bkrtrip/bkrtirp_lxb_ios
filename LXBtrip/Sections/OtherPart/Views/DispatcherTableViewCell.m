@@ -8,6 +8,7 @@
 
 #import "DispatcherTableViewCell.h"
 #import "NSDictionary+GetStringValue.h"
+#import "AppMacro.h"
 
 @interface DispatcherTableViewCell ()
 
@@ -47,6 +48,12 @@
         dateFormatter.dateFormat = @"yyyy-MM-dd";
         self.admitDateLabel.text = [dateFormatter stringFromDate:date];
         
+        NSString *photoURL = [infoDic stringValueByKey:@"head_url"];
+        if (photoURL.length > 0) {
+            NSURL *pUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL,photoURL]];
+            
+            [self.photoImgView sd_setImageWithURL:pUrl placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"]];
+        }
     }
 }
 

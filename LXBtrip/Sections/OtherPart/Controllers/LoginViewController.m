@@ -17,6 +17,7 @@
 
 #import "CustomActivityIndicator.h"
 #import "Global.h"
+#import "APService.h"
 
 @interface LoginViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 
@@ -85,8 +86,12 @@
                   */
                  NSDictionary *resultDic = [jsonObj objectForKey:@"RS100034"];
                  if (resultDic && [resultDic stringValueByKey:@"error_code"].length > 0) {
-                     if ([[resultDic stringValueByKey:@"error_info"] isEqualToString:@"account does not exist."]) {
+                     NSString *errorInfo = [resultDic stringValueByKey:@"error_info"];
+                     if ([errorInfo isEqualToString:@"account does not exist."]) {
                          [weakSelf showAlertViewWithTitle:nil message:@"您输入的账号不存在，请重新输入。" cancelButtonTitle:@"确定"];
+                     }
+                     else if ([errorInfo isEqualToString:@"account and password is not correct."]) {
+                         [weakSelf showAlertViewWithTitle:nil message:@"您输入的账号不正确，请重新输入。" cancelButtonTitle:@"确定"];
                      }
                      else {
                          [weakSelf showAlertViewWithTitle:nil message:[resultDic stringValueByKey:@"error_info"] cancelButtonTitle:@"确定"];
@@ -97,6 +102,9 @@
 
                  
                  [UserModel storeUserInformations:jsonObj];
+                 
+                 NSString *userName = [resultDic stringValueByKey:@"staff_name"];
+                 [APService setTags:[NSSet setWithObject:userName] alias:userName callbackSelector:nil object:nil];
                  
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
                  if ([[Global sharedGlobal] notFirstLogin] == NO) {
@@ -162,7 +170,6 @@
 {
     if (![self.phoneNumberText.text isEqualToString:@""]&&![self.passwordText.text isEqualToString:@""])
     {
-//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimatingWithMessage:@"登录中..."];
         [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self loginSystemForUser:self.phoneNumberText.text withPwd:self.passwordText.text];
     }else

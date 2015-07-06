@@ -166,6 +166,13 @@
     if (indexPath.row == 0) {
         PhotoTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"photoCell"];
         
+        NSString *photoURL = [self.userInfoDic stringValueByKey:@"head_url"];
+        if (photoURL.length > 0) {
+            NSURL *pUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL,photoURL]];
+            
+            [cell.photoImgView sd_setImageWithURL:pUrl placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"]];
+        }
+        
         return cell;
     }
     else {
@@ -420,6 +427,10 @@
         return self.provinceArray ? self.provinceArray.count : 0;
     }
     else if (component == 1) {
+        if (self.provinceArray == nil || self.provinceArray.count == 0) {
+            return 0;
+        }
+        
         NSString *provinceId = [(NSDictionary *)[self.provinceArray objectAtIndex:[pickerView selectedRowInComponent:0]] stringValueByKey:@"province_id"];
         NSMutableArray *correspondingCity = [[NSMutableArray alloc]init];
         for (NSDictionary *cityDic  in self.cityArray) {
@@ -433,8 +444,14 @@
         return correspondingCity.count;
     }
     else {
-        NSString *cityId = [(NSDictionary *)[self.cityArray objectAtIndex:[pickerView selectedRowInComponent:1]] stringValueByKey:@"city_id"];
+        if (self.corresondingCitiesArray == nil || self.corresondingCitiesArray.count == 0) {
+            return 0;
+        }
+        
+        NSString *cityId = [(NSDictionary *)[self.corresondingCitiesArray objectAtIndex:[pickerView selectedRowInComponent:1]] stringValueByKey:@"city_id"];
+        
         NSMutableArray *correspondingDistricts = [[NSMutableArray alloc]init];
+        
         for (NSDictionary *districtDic  in self.districtArray) {
             if ([[districtDic stringValueByKey:@"city_id"] isEqualToString:cityId]) {
                 [correspondingDistricts addObject:districtDic];
@@ -472,12 +489,6 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-//    if (component == 0) {
-//        [self.areaPickerView reloadComponent:1];
-//    }
-//    else if (component == 1) {
-//        [self.areaPickerView reloadComponent:2];
-//    }
     [self.areaPickerView reloadAllComponents];
 }
 
@@ -548,17 +559,17 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     NSIndexPath *signatureIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    UITableViewCell *cell = [self.pInfoTableView cellForRowAtIndexPath:signatureIndexPath];
+    PhotoTableViewCell *cell = (PhotoTableViewCell *)[self.pInfoTableView cellForRowAtIndexPath:signatureIndexPath];
     
     UIImage *sealImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    //    ((UIImageView *)[cell viewWithTag:111]).image = sealImage;
+//        ((UIImageView *)[cell viewWithTag:111]).image = sealImage;
     
     UIImage *resizedImage = [self resizeImage:sealImage toRect:CGRectMake(0, 0, sealImage.size.width * 0.3, sealImage.size.height * 0.3)];
     NSString *smallImgString = [self encodeByBase64ForImage:resizedImage];
     
     NSString *originalImgString = [self encodeByBase64ForImage:sealImage];
     
-    ((UIImageView *)[cell viewWithTag:111]).image = [self decodingImageBase64String:originalImgString];
+    cell.photoImgView.image = [self decodingImageBase64String:originalImgString];
     
     NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"head":smallImgString};
     

@@ -59,6 +59,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+//get a string that contains only number and alphabet, its length is 32
+- (NSString *)getRandomPaymentSecret
+{
+    NSString *sourceAlphas = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+    NSMutableString *resultStr = [[NSMutableString alloc] init];
+    srand(time(0));
+    for (int i = 0; i < 32; i++)
+    {
+        unsigned index = rand() % [sourceAlphas length];
+        NSString *oneStr = [sourceAlphas substringWithRange:NSMakeRange(index, 1)];
+        [resultStr appendString:oneStr];
+    }
+    return resultStr;
+}
 
 - (void)getPaymentInformation
 {
@@ -136,6 +151,13 @@
         cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
         
         [((WCPayFooterTableViewCell *)cell).openWebchatPayBtn addTarget:self action:@selector(openWebchatPayment) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (self.isOpenedWXPay) {
+            [((WCPayFooterTableViewCell *)cell).openWebchatPayBtn setTitle:@"保存" forState:UIControlStateNormal];
+        }
+        else {
+            [((WCPayFooterTableViewCell *)cell).openWebchatPayBtn setTitle:@"确认开通" forState:UIControlStateNormal];
+        }
     }
     
     return cell;
@@ -214,7 +236,10 @@
                 [cell setcontentInformation:[self.webChatPaymentConfigDic stringValueByKey:@"wx_paysecret"]];
             }
             else {
-                [cell setcontentInformation:@"未设置"];
+                
+                NSString *paySecret = [self getRandomPaymentSecret];
+                [cell setcontentInformation:paySecret];
+                [self.webChatPaymentConfigDic setValue:paySecret forKey:@"wx_paysecret"];
             }
             
             cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
@@ -418,7 +443,8 @@
                          msg = @"开通成功。";
                      }
                      
-                     [weakSelf showAlertViewWithTitle:nil message:msg cancelButtonTitle:@"确定"];
+//                     [weakSelf showAlertViewWithTitle:nil message:msg cancelButtonTitle:@"确定"];
+                     [weakSelf.navigationController popViewControllerAnimated:YES];
                  }
              }
          }

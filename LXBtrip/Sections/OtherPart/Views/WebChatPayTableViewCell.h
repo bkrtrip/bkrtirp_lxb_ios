@@ -11,4 +11,5 @@
 @interface WebChatPayTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *wcPayOpenStateLabel;
 
+- (void)changePayOpenState:(BOOL)isOpened;
 @end

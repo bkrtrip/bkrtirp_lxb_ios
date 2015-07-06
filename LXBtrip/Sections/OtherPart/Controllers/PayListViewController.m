@@ -9,9 +9,15 @@
 #import "PayListViewController.h"
 #import "WebChatPayTableViewCell.h"
 #import "PayConfigViewController.h"
+#import "AFNetworking.h"
+#import "NSDictionary+GetStringValue.h"
+#import "UIViewController+CommonUsed.h"
+#import "CustomActivityIndicator.h"
 
 @interface PayListViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *payTableView;
+
+@property (assign, nonatomic) BOOL isWebPayOpened;
 
 @end
 
@@ -26,6 +32,8 @@
     self.payTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 
     self.title = @"支付";
+    
+    [self getPaymentInformation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,17 +41,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    self.navigationController.navigationBarHidden = NO;
-//    self.navigationController.tabBarController.tabBar.hidden = YES;
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    self.navigationController.navigationBarHidden = YES;
-//    self.navigationController.tabBarController.tabBar.hidden = NO;
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self getPaymentInformation];
+}
+
 
 
 #pragma mark - UITableViewDataSource
@@ -62,7 +66,7 @@
 {
     
     WebChatPayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"webChatPayCell"];
-
+    [cell changePayOpenState:self.isWebPayOpened];
     
     return cell;
 }
@@ -79,7 +83,54 @@
     
     PayConfigViewController *viewController = [[PayConfigViewController alloc] initWithNibName:@"PayConfigViewController" bundle:nil];
     
+    
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)getPaymentInformation
+{
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    __weak PayListViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
+    if ([staffDic stringValueByKey:@"staff_id"].length == 0) {
+        return;
+    }
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/isOpenPay", HOST_BASE_URL];
+    NSDictionary *parameterDic = @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    
+    [manager POST:partialUrl parameters:parameterDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100029"];
+                 
+                 if (resultDic && [resultDic stringValueByKey:@"error_code"].length == 0) {
+                     
+                     weakSelf.isWebPayOpened = YES;
+                     [weakSelf.payTableView reloadData];
+                 }
+             }
+         }
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+     }];
 }
 
 /*

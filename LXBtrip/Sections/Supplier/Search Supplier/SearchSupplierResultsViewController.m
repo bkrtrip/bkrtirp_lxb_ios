@@ -75,6 +75,8 @@
     UIScrollView *scrollView = (UIScrollView *)_mainTableView;
     scrollView.delegate = self;
     
+    [self setUpSearchBarAndSearchButton];
+    
     [_walkTypeTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
     
     [_startCityTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
@@ -109,6 +111,17 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+}
+
+- (void)setUpSearchBarAndSearchButton
+{
+    _searchBar.layer.borderWidth = 0.5f;
+    _searchBar.layer.borderColor = TEXT_CCCCD2.CGColor;
+    
+    _searchBar.layer.cornerRadius = 5.f;
+    _searchBar.layer.masksToBounds = YES;
+    
+    [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
 }
 
 - (void)hidePopUpViews

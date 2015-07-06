@@ -11,4 +11,7 @@
 
 @interface AddDispatcherViewController : NavBaseViewController
 
+@property (assign, nonatomic) BOOL isAlterDispatcher;
+@property (retain, nonatomic) NSDictionary *dispatcherInfoDic;
+
 @end

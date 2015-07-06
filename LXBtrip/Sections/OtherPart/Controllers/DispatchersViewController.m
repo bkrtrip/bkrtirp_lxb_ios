@@ -16,8 +16,9 @@
 #import "DispaterInfoViewController.h"
 #import "AddDispatcherViewController.h"
 #import "CustomActivityIndicator.h"
+#import "ShareView.h"
 
-@interface DispatchersViewController ()<DispatcherActionDelegate, UIActionSheetDelegate>
+@interface DispatchersViewController ()<DispatcherActionDelegate, UIActionSheetDelegate, ShareViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *dispatchersTableView;
 
 @property (retain, nonatomic) NSMutableArray *dispatchersArray;
@@ -26,6 +27,9 @@
 @property (assign, nonatomic) BOOL isAllLoaded;
 
 @property (retain, nonatomic) NSDictionary *operatedDispatcherDic;
+
+@property (strong, nonatomic) ShareView *shareView;
+@property (strong, nonatomic) UIControl *darkMask;
 
 @end
 
@@ -58,6 +62,13 @@
     [self.dispatchersTableView addSubview:refreshControl];
     
 //    [self getDispathersListForPage:self.pageNum];
+    
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
+    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _darkMask.alpha = 0;// initally transparent
+    [self.view addSubview:_darkMask];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -196,9 +207,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    DispaterInfoViewController *viewController = [[DispaterInfoViewController alloc] init];
-    viewController.isUpdateDispatcher = YES;
-    viewController.dispatcherDic = [self.dispatchersArray objectAtIndex:indexPath.row];
+    AddDispatcherViewController *viewController = [[AddDispatcherViewController alloc] init];
+    viewController.isAlterDispatcher = YES;
+    viewController.dispatcherInfoDic = [self.dispatchersArray objectAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:viewController animated:YES];
     
@@ -227,6 +238,15 @@
         case ShareDispatcherInfo:
         {
             //TODO: send_mstort_rul
+            if (!_shareView) {
+                _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
+                _shareView.delegate = self;
+                [self.view addSubview:_shareView];
+            }
+            CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:nil];
+            [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+            
+            [self showShareView];
         }
             break;
             
@@ -288,14 +308,95 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - ShareViewDelegate
+- (void)supportClickWithWeChatWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
-*/
 
+- (void)supportClickWithQQWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+}
+
+- (void)supportClickWithQZoneWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+}
+
+- (void)supportClickWithShortMessageWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] presentedController:self];
+}
+
+- (void)supportClickWithSendingToComputerWithShareObject:(id)obj
+{
+    [self supportClickWithQQWithShareObject:obj];
+}
+
+- (void)supportClickWithYiXinWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaYiXinWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+}
+
+- (void)supportClickWithWeiboWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaSinaWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self];
+}
+
+- (void)supportClickWithFriendsWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+}
+
+- (void)supportClickWithCancel
+{
+    [self hideShareView];
+}
+
+#pragma mark - private
+- (void)hideShareView
+{
+    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+    if (_shareView.frame.origin.y == self.view.frame.size.height) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.alpha = 1;
+        }
+    }];
+}
+- (void)showShareView
+{
+    self.navigationController.navigationBar.alpha = 0;
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 1;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    }];
+}
+
+- (void)hidePopUpViews
+{
+    [self hideShareView];
+    _darkMask.alpha = 0;
+}
 @end
