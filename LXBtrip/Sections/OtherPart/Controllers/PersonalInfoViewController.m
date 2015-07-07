@@ -66,7 +66,12 @@
     NSDictionary *cityDic = [self.corresondingCitiesArray objectAtIndex:[self.areaPickerView selectedRowInComponent:1]];
     NSDictionary *districtDic = [self.corresondingDistrictsArray objectAtIndex:[self.areaPickerView selectedRowInComponent:2]];
     
-    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"provinceid":[provinceDic stringValueByKey:@"province_id"], @"provincename":[provinceDic stringValueByKey:@"province_name"], @"cityid":[cityDic stringValueByKey:@"city_id"], @"cityname":[cityDic stringValueByKey:@"city_name"], @"areaid":[districtDic stringValueByKey:@"dictrict_id"], @"areaname":[districtDic stringValueByKey:@"district_name"]};
+    UserInfoTableViewCell *cell = (UserInfoTableViewCell *)[self.pInfoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    NSString *address = [NSString stringWithFormat:@"%@ %@", [provinceDic stringValueByKey:@"province_name"], [cityDic stringValueByKey:@"city_name"]];
+    cell.contentLabel.text = address;
+    
+    
+    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"provinceid":[provinceDic stringValueByKey:@"province_id"], @"provincename":[provinceDic stringValueByKey:@"province_name"], @"cityid":[cityDic stringValueByKey:@"city_id"], @"cityname":[cityDic stringValueByKey:@"city_name"], @"areaid":[districtDic stringValueByKey:@"district_id"], @"areaname":[districtDic stringValueByKey:@"district_name"]};
     
     [self updateUserInfo:alterInfoDic];
 }
