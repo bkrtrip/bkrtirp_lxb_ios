@@ -140,7 +140,7 @@
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
         [[Global sharedGlobal] shareViaWeChatWithURLString:_ShopURLString title:@"旅游行业微商运营秘籍" content:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
+    } else if ([self.title isEqualToString:@"我的微店"]) {
         [[Global sharedGlobal] shareViaWeChatWithURLString:_ShopURLString title:[UserModel staffDepartmentName] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
     }
 }
@@ -150,7 +150,7 @@
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
         [[Global sharedGlobal] shareViaQQWithURLString:_ShopURLString title:@"旅游行业微商运营秘籍" content:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" image:nil location:nil presentedController:self shareType:QQ_Share_Session];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
+    } else if ([self.title isEqualToString:@"我的微店"]) {
         [[Global sharedGlobal] shareViaQQWithURLString:_ShopURLString title:[UserModel staffDepartmentName] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
     }
 }
@@ -160,7 +160,7 @@
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
         [[Global sharedGlobal] shareViaQQWithURLString:_ShopURLString title:@"旅游行业微商运营秘籍" content:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
+    } else if ([self.title isEqualToString:@"我的微店"]) {
         [[Global sharedGlobal] shareViaQQWithURLString:_ShopURLString title:[UserModel staffDepartmentName] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
     }
 }
@@ -169,9 +169,9 @@
 {
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
-        [[Global sharedGlobal] shareViaSMSWithContent:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" presentedController:self];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
-        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] presentedController:self];
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。%@", _ShopURLString] presentedController:self];
+    } else if ([self.title isEqualToString:@"我的微店"]) {
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景。%@", [UserModel staffDepartmentName], _ShopURLString] presentedController:self];
     }
 }
 
@@ -185,7 +185,7 @@
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
         [[Global sharedGlobal] shareViaYiXinWithURLString:_ShopURLString content:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
+    } else if ([self.title isEqualToString:@"我的微店"]) {
         [[Global sharedGlobal] shareViaYiXinWithURLString:_ShopURLString content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
     }
 }
@@ -195,7 +195,7 @@
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
         [[Global sharedGlobal] shareViaSinaWithURLString:_ShopURLString content:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" image:nil location:nil presentedController:self];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
+    } else if ([self.title isEqualToString:@"我的微店"]) {
         [[Global sharedGlobal] shareViaSinaWithURLString:_ShopURLString content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] image:nil location:nil presentedController:self];
     }
 }
@@ -205,7 +205,7 @@
     [self hideShareView];
     if ([self.title isEqualToString:@"微商运营指导"]) {
         [[Global sharedGlobal] shareViaWeChatWithURLString:_ShopURLString title:@"旅游行业微商运营秘籍" content:@"旅游微商多渠道运营模式，帮您快速实现业务量的翻倍增长。" image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
-    } else if ([self.title isEqualToString:@"线路详情"]) {
+    } else if ([self.title isEqualToString:@"我的微店"]) {
         [[Global sharedGlobal] shareViaWeChatWithURLString:_ShopURLString title:[UserModel staffDepartmentName] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [UserModel staffDepartmentName]] image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
     }
 }

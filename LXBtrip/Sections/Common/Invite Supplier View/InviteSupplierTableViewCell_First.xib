@@ -26,10 +26,20 @@
                         <color key="textColor" red="0.29803921570000003" green="0.64705882349999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lpe-Q5-YOM">
+                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.86274509803921573" green="0.87058823529411766" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ck0-cG-ZCp"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Lpe-Q5-YOM" secondAttribute="bottom" id="1Vn-W9-dX6"/>
+                    <constraint firstAttribute="trailing" secondItem="Lpe-Q5-YOM" secondAttribute="trailing" id="8wf-gT-M3L"/>
                     <constraint firstItem="P71-zy-J0K" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="G8C-R5-NOL"/>
                     <constraint firstItem="q0I-DL-M0G" firstAttribute="bottom" secondItem="P71-zy-J0K" secondAttribute="bottom" id="SqK-gT-Vh6"/>
+                    <constraint firstItem="Lpe-Q5-YOM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jSf-Cb-cC3"/>
                     <constraint firstItem="q0I-DL-M0G" firstAttribute="leading" secondItem="P71-zy-J0K" secondAttribute="trailing" constant="8" id="ouf-W2-WL0"/>
                     <constraint firstAttribute="centerY" secondItem="P71-zy-J0K" secondAttribute="centerY" id="q8h-am-pDH"/>
                 </constraints>
@@ -37,7 +47,7 @@
             <connections>
                 <outlet property="invitationCodeLabel" destination="q0I-DL-M0G" id="aHP-sk-p3t"/>
             </connections>
-            <point key="canvasLocation" x="210" y="304"/>
+            <point key="canvasLocation" x="210" y="303.5"/>
         </tableViewCell>
     </objects>
 </document>

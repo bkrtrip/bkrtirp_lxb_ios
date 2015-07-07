@@ -64,7 +64,7 @@
             
             if (_isFromSetShopName == YES) {
                 NSInteger stackControllersCount = self.navigationController.viewControllers.count;
-                if (stackControllersCount > 3) {
+                if (stackControllersCount >= 3) {
                     NSInteger supplierDetailIndex = stackControllersCount - 3;
                     UIViewController *supplierDetailOrMicroshop = self.navigationController.viewControllers[supplierDetailIndex];
                     [self.navigationController popToViewController:supplierDetailOrMicroshop animated:YES];

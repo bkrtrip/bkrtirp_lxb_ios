@@ -53,9 +53,6 @@
     //设置易信Appkey和分享url地址,注意需要引用头文件
     [UMSocialYixinHandler setYixinAppKey:YX_APP_KEY url:SHARE_DEFAULT_URL];
     
-    //打开新浪微博的SSO开关，设置新浪微博回调地址
-//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-    
     //对未安装客户端平台进行隐藏，在设置QQ、微信AppID之后调用下面的方法
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]];
     

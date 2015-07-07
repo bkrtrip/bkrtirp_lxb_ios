@@ -43,8 +43,9 @@
     
     float adultTotalPrice = [item.orderReservePriceGroup.adultNum integerValue]*[item.orderReservePriceGroup.adultPrice floatValue];
     
-    float kidTotalPrice = [item.orderReservePriceGroup.kidNum integerValue]*[item.orderReservePriceGroup.kidPrice floatValue] +
-    [item.orderReservePriceGroup.kidBedNum integerValue]*[item.orderReservePriceGroup.kidBedPrice floatValue];
+    float kidNoBedPrict = [item.orderReservePriceGroup.kidNum integerValue]*[item.orderReservePriceGroup.kidPrice floatValue];
+    
+    float kidBedPrice = [item.orderReservePriceGroup.kidBedNum integerValue]*[item.orderReservePriceGroup.kidBedPrice floatValue];
     
     if (adultTotalPrice == 0) {
         _adultPriceLabel.hidden = YES;
@@ -53,18 +54,23 @@
         _adultPriceLabel.text = [NSString stringWithFormat:@"成人:￥%@*%.2f", item.orderReservePriceGroup.adultNum, [item.orderReservePriceGroup.adultPrice floatValue]];
     }
     
-    if (kidTotalPrice == 0) {
-        _childPriceLabel.hidden = YES;
+    if (kidNoBedPrict == 0) {
+        if (kidBedPrice == 0) {
+            _childPriceLabel.hidden = YES;
+        } else {
+            _childPriceLabel.hidden = NO;
+            _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%@*%.2f",item.orderReservePriceGroup.kidBedNum, [item.orderReservePriceGroup.kidBedPrice floatValue]];
+        }
     } else {
         _childPriceLabel.hidden = NO;
-        _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%.2f", kidTotalPrice];
+        _childPriceLabel.text = [NSString stringWithFormat:@"儿童:￥%@*%.2f",item.orderReservePriceGroup.kidNum, [item.orderReservePriceGroup.kidPrice floatValue]];
     }
     
-    if (adultTotalPrice + kidTotalPrice == 0) {
+    if (adultTotalPrice + kidNoBedPrict + kidBedPrice == 0) {
         _totalPriceLabel.hidden = YES;
     } else {
         _totalPriceLabel.hidden = NO;
-        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + kidTotalPrice];
+        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + adultTotalPrice + kidNoBedPrict + kidBedPrice];
     }
 }
 

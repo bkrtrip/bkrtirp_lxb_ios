@@ -609,6 +609,10 @@
     
     // add to my shop cell clicked
     if (collectionView == _myShopCollectionView && indexPath.row == _myShopsArray.count) {
+        if (![UserModel companyId] || ![UserModel staffId]) {
+            [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+            return;
+        }
         self.selectedIndex = 0;
     }
 }

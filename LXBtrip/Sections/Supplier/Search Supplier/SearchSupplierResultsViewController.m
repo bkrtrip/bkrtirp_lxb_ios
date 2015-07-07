@@ -391,7 +391,16 @@
     [self hideShareViewWithCompletionBlock:nil];
     if ([obj isKindOfClass:[SupplierProduct class]]) {
         SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce  presentedController:self];
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@\n%@", sharePrd.productTravelGoodsName, shareURL]  presentedController:self];
     }
 }
 

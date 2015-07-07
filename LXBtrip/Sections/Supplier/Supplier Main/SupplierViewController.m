@@ -517,6 +517,7 @@
         _inviteTableView.dataSource = self;
         _inviteTableView.delegate = self;
         [self.view addSubview:_inviteTableView];
+        _inviteTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
         [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
@@ -651,12 +652,12 @@
 - (void)supportClickWithQQ
 {
     [self hideInviteTableView];
-    [[Global sharedGlobal] shareViaQQWithURLString:SHARE_DEFAULT_URL title:@"西安华商旅行社邀请加入旅小宝" content:[NSString stringWithFormat:@"我是西安华商旅行社，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel userName], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    [[Global sharedGlobal] shareViaQQWithURLString:SHARE_DEFAULT_URL title:[NSString stringWithFormat:@"%@邀请加入旅小宝", [UserModel staffDepartmentName]] content:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel userName], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
 }
 - (void)supportClickWithWeChat
 {
     [self hideInviteTableView];
-    [[Global sharedGlobal] shareViaWeChatWithURLString:SHARE_DEFAULT_URL title:@"西安华商旅行社邀请加入旅小宝" content:[NSString stringWithFormat:@"我是西安华商旅行社，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel userName], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:SHARE_DEFAULT_URL title:[NSString stringWithFormat:@"%@邀请加入旅小宝", [UserModel staffDepartmentName]] content:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel userName], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
 - (void)supportClickWithPhoneCall
 {
@@ -666,7 +667,7 @@
 - (void)supportClickWithShortMessage
 {
     [self hideInviteTableView];
-    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"我是西安华商旅行社，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel userName], SHARE_DEFAULT_URL] presentedController:self];
+    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel userName], SHARE_DEFAULT_URL] presentedController:self];
 }
 
 #pragma mark - Actions

@@ -207,40 +207,9 @@
                         <constraint firstAttribute="bottom" secondItem="K0l-Sn-Wdd" secondAttribute="bottom" id="t58-mH-5CZ"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_up.png" translatesAutoresizingMaskIntoConstraints="NO" id="wOb-NO-LUG" userLabel="triangle_up_walktype.png">
-                    <rect key="frame" x="233" y="145" width="14" height="10"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="14" id="CQN-LA-f3o"/>
-                        <constraint firstAttribute="width" secondItem="wOb-NO-LUG" secondAttribute="height" multiplier="42:30" id="RGt-Z3-jXP"/>
-                    </constraints>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_up.png" translatesAutoresizingMaskIntoConstraints="NO" id="H4e-bF-fbi" userLabel="triangle_up_destination.png">
-                    <rect key="frame" x="73" y="145" width="14" height="10"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="14" id="Q9F-AY-XcM"/>
-                        <constraint firstAttribute="width" secondItem="H4e-bF-fbi" secondAttribute="height" multiplier="42:37" id="cpw-dD-mXb"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="cpw-dD-mXb"/>
-                        </mask>
-                    </variation>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="0dU-7Q-WIN">
-                    <rect key="frame" x="160" y="99" width="1" height="57"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="1" id="jzW-jO-AJf"/>
-                    </constraints>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="8P6-4X-32F">
-                    <rect key="frame" x="0.0" y="154" width="320" height="1"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="DIP-rG-qz4"/>
-                    </constraints>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gc-94-qjm">
                     <rect key="frame" x="0.0" y="98" width="160" height="57"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="57" id="EnX-Bm-6fw"/>
                     </constraints>
@@ -255,7 +224,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRV-ia-wRd">
                     <rect key="frame" x="160" y="98" width="160" height="57"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="出行方式" image="calendar.png">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -265,6 +234,37 @@
                         <action selector="walkTypeButtonClicked:" destination="-1" eventType="touchUpInside" id="dE3-Qv-bPp"/>
                     </connections>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="0dU-7Q-WIN">
+                    <rect key="frame" x="160" y="99" width="1" height="57"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="jzW-jO-AJf"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="8P6-4X-32F">
+                    <rect key="frame" x="0.0" y="154" width="320" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="DIP-rG-qz4"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_up.png" translatesAutoresizingMaskIntoConstraints="NO" id="H4e-bF-fbi" userLabel="triangle_up_destination.png">
+                    <rect key="frame" x="73" y="145" width="14" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="14" id="Q9F-AY-XcM"/>
+                        <constraint firstAttribute="width" secondItem="H4e-bF-fbi" secondAttribute="height" multiplier="42:37" id="cpw-dD-mXb"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="cpw-dD-mXb"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_up.png" translatesAutoresizingMaskIntoConstraints="NO" id="wOb-NO-LUG" userLabel="triangle_up_walktype.png">
+                    <rect key="frame" x="233" y="145" width="14" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="14" id="CQN-LA-f3o"/>
+                        <constraint firstAttribute="width" secondItem="wOb-NO-LUG" secondAttribute="height" multiplier="42:30" id="RGt-Z3-jXP"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>

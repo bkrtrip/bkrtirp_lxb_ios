@@ -561,7 +561,16 @@
     [self hideShareViewWithCompletionBlock:nil];
     if ([obj isKindOfClass:[SupplierProduct class]]) {
         SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce presentedController:self];
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@\n%@", sharePrd.productTravelGoodsName, shareURL] presentedController:self];
     }
 }
 
@@ -679,7 +688,7 @@
 
 - (void)showAccompanyInfoView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
+    [self.view insertSubview:_darkMask aboveSubview:_triangleUpImageView_Walktype];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
@@ -689,7 +698,7 @@
 // show/hide ShareView
 - (void)showShareView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
+    [self.view insertSubview:_darkMask aboveSubview:_triangleUpImageView_Walktype];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];

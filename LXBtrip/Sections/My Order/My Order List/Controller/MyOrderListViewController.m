@@ -264,7 +264,7 @@
                     [ordersArray[selectedIndex] addObject:item];
                 }];
                 
-                ordersArray[selectedIndex] = [[self sortByTimeDescendingWithOrders:ordersArray[selectedIndex]] mutableCopy];
+//                ordersArray[selectedIndex] = [[self sortByTimeDescendingWithOrders:ordersArray[selectedIndex]] mutableCopy];
                 
                 [tableViewsArray[selectedIndex] reloadData];
                 pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue]+1);

@@ -443,6 +443,8 @@
 		97B30AC61B2D305E006F88DC /* RecentContactButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B30ABD1B2D305E006F88DC /* RecentContactButton.xib */; };
 		97B30AC71B2D305E006F88DC /* RecentContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B30ABF1B2D305E006F88DC /* RecentContactTableViewCell.m */; };
 		97B30AC81B2D305E006F88DC /* RecentContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B30AC01B2D305E006F88DC /* RecentContactTableViewCell.xib */; };
+		97B35A251B4B972A00D11F48 /* arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B35A231B4B972A00D11F48 /* arrow_right@2x.png */; };
+		97B35A261B4B972A00D11F48 /* arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B35A241B4B972A00D11F48 /* arrow_right@3x.png */; };
 		97B6DC641B44FA6A009B9206 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 97B6DC351B44FA6A009B9206 /* UMSocialLocalizable.strings */; };
 		97B6DC651B44FA6A009B9206 /* libUMSocial_Sdk_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B6DC431B44FA6A009B9206 /* libUMSocial_Sdk_4.2.3.a */; };
 		97B6DC661B44FA6A009B9206 /* UMSCommentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B6DC451B44FA6A009B9206 /* UMSCommentDetailController.xib */; };
@@ -1184,6 +1186,8 @@
 		97B30ABE1B2D305E006F88DC /* RecentContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentContactTableViewCell.h; sourceTree = "<group>"; };
 		97B30ABF1B2D305E006F88DC /* RecentContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentContactTableViewCell.m; sourceTree = "<group>"; };
 		97B30AC01B2D305E006F88DC /* RecentContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentContactTableViewCell.xib; sourceTree = "<group>"; };
+		97B35A231B4B972A00D11F48 /* arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_right@2x.png"; path = "Supplier/arrow_right@2x.png"; sourceTree = "<group>"; };
+		97B35A241B4B972A00D11F48 /* arrow_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_right@3x.png"; path = "Supplier/arrow_right@3x.png"; sourceTree = "<group>"; };
 		97B6DC361B44FA6A009B9206 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
 		97B6DC381B44FA6A009B9206 /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
 		97B6DC391B44FA6A009B9206 /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
@@ -1711,6 +1715,8 @@
 		973D8B311B1B40E000CA4260 /* Supplier */ = {
 			isa = PBXGroup;
 			children = (
+				97B35A231B4B972A00D11F48 /* arrow_right@2x.png */,
+				97B35A241B4B972A00D11F48 /* arrow_right@3x.png */,
 				979DDD691B4A71AE001D6AE8 /* triangle_down@2x.png */,
 				979DDD6A1B4A71AE001D6AE8 /* triangle_down@3x.png */,
 				9779157C1B3B8072007DBC40 /* no_my_supplier@2x.png */,
@@ -3161,6 +3167,7 @@
 				97AEDBCC1B1458F10098F75B /* cell_phone_normal@3x.png in Resources */,
 				974363631B2AE442005D84B9 /* TourWebPreviewViewController.xib in Resources */,
 				972250D91B3BCC1200F4C0DF /* no_network@2x.png in Resources */,
+				97B35A251B4B972A00D11F48 /* arrow_right@2x.png in Resources */,
 				9706E9E61B367FD900E23EB4 /* loading2@3x.png in Resources */,
 				979DDD631B4A42C4001D6AE8 /* triangle_up@2x.png in Resources */,
 				97B30AC41B2D305E006F88DC /* MySupplierViewController.xib in Resources */,
@@ -3221,6 +3228,7 @@
 				9706E9E21B367FD900E23EB4 /* loading0@3x.png in Resources */,
 				979870691B2EB78200738D9D /* telephone_share@3x.png in Resources */,
 				97AEDBCF1B1458F10098F75B /* fixed_line_phone_normal@2x.png in Resources */,
+				97B35A261B4B972A00D11F48 /* arrow_right@3x.png in Resources */,
 				22924CFA1B2D8B1300D898CF /* WCPayHeaderTableViewCell.xib in Resources */,
 				97ADF1CF1B120FAA009DA8C3 /* add_cell@2x.png in Resources */,
 				97C3B26B1B1B3BE600C729C4 /* lock@3x.png in Resources */,
@@ -3778,7 +3786,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b67bba45-7cdd-4e8d-90c0-e71007c52d99";
+				PROVISIONING_PROFILE = "4585d289-74fb-4bd8-87c9-d54e422646a6";
 			};
 			name = Debug;
 		};
@@ -3816,7 +3824,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b67bba45-7cdd-4e8d-90c0-e71007c52d99";
+				PROVISIONING_PROFILE = "4585d289-74fb-4bd8-87c9-d54e422646a6";
 			};
 			name = Release;
 		};
