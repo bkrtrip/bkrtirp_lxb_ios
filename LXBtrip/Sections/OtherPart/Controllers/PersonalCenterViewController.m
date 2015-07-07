@@ -258,6 +258,14 @@
             }
             //支付设置
             else if (indexPath.row == 1) {
+                self.isAlreadyLogined = [self getUserLoginState];
+                
+                if (!self.isAlreadyLogined) {
+                    [self showLoginPage];
+                    
+                    return;
+                }
+                
                 PayListViewController *viewController = [[PayListViewController alloc] initWithNibName:@"PayListViewController" bundle:nil];
                 
                 [self.navigationController pushViewController:viewController animated:YES];
@@ -265,8 +273,11 @@
             //分销设置
             else if (indexPath.row == 2) {
                 
+                self.isAlreadyLogined = [self getUserLoginState];
+                
                 if (!self.isAlreadyLogined) {
-                    [self showAlertViewWithTitle:nil message:@"您还未登录，请先登录" cancelButtonTitle:@"确认"];
+                    [self showLoginPage];
+                    
                     return;
                 }
                 
@@ -375,12 +386,11 @@
     // || action == GoToSuppliers || action == GoToOrders
     if (action == GoToDispatchers) {
         //TODO: 未登录不允许访问
+        
+        self.isAlreadyLogined = [self getUserLoginState];
+
         if (!self.isAlreadyLogined) {
-            UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
-            UIViewController *viewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"loginControllerNavController"];
-            ((LoginViewController *)(((UINavigationController *)viewController).viewControllers.firstObject)).delegate = self;
-            
-            [self presentViewController:viewController animated:YES completion:nil];
+            [self showLoginPage];
             
             return;
         }
@@ -445,6 +455,16 @@
         default:
             break;
     }
+}
+
+
+- (void)showLoginPage
+{
+    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"UserLogin" bundle:nil];
+    UIViewController *viewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"loginControllerNavController"];
+    ((LoginViewController *)(((UINavigationController *)viewController).viewControllers.firstObject)).delegate = self;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 

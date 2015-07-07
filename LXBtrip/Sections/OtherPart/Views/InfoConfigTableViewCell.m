@@ -11,7 +11,6 @@
 @interface InfoConfigTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 @end
 
@@ -75,6 +74,7 @@
 {
     if (content && content.length > 0) {
         self.contentLabel.text = content;
+        self.contentTF.text = content;
     }
 }
 

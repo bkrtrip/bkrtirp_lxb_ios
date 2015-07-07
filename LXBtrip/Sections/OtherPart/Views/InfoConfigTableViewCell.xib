@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -33,18 +33,28 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lS4-pv-ZLg">
+                        <rect key="frame" x="152" y="17" width="153" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="0Er-sB-AW4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IfL-X7-vQq"/>
                     <constraint firstItem="fwi-uC-lN9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="SXj-pA-HRL"/>
                     <constraint firstItem="0Er-sB-AW4" firstAttribute="leading" secondItem="fwi-uC-lN9" secondAttribute="trailing" constant="5" id="WLv-Vu-Ayq"/>
+                    <constraint firstItem="lS4-pv-ZLg" firstAttribute="centerY" secondItem="0Er-sB-AW4" secondAttribute="centerY" id="WXT-37-z5o"/>
                     <constraint firstAttribute="centerY" secondItem="fwi-uC-lN9" secondAttribute="centerY" id="YpA-Xp-dgr"/>
+                    <constraint firstItem="lS4-pv-ZLg" firstAttribute="height" secondItem="0Er-sB-AW4" secondAttribute="height" id="a0v-Yp-a5q"/>
                     <constraint firstItem="0Er-sB-AW4" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-7" id="lBZ-yt-HWO"/>
+                    <constraint firstItem="lS4-pv-ZLg" firstAttribute="centerX" secondItem="0Er-sB-AW4" secondAttribute="centerX" id="qMN-QM-mN3"/>
+                    <constraint firstItem="lS4-pv-ZLg" firstAttribute="width" secondItem="0Er-sB-AW4" secondAttribute="width" id="uYL-kr-QZV"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="contentLabel" destination="0Er-sB-AW4" id="CFX-aN-gdk"/>
+                <outlet property="contentTF" destination="lS4-pv-ZLg" id="5Zh-MJ-2QM"/>
                 <outlet property="titleLabel" destination="fwi-uC-lN9" id="7VD-GK-Iaq"/>
             </connections>
             <point key="canvasLocation" x="243" y="341"/>

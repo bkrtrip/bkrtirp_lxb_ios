@@ -24,6 +24,9 @@ typedef enum : NSUInteger {
 
 @interface InfoConfigTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UITextField *contentTF;
+
 - (void)changeUIStateForType:(ConfigType)type;
 
 - (void)initializeCellForType:(ConfigContentType)type;

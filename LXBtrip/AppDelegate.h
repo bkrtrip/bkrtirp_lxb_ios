@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define NEWSRemoteNotification @"PushNotificationForNewMsg"
+
 @protocol RTimerDelegate <NSObject>
 @optional
 - (void) changeRState:(int)leftSeconds;

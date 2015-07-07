@@ -167,6 +167,9 @@
 {
     InfoConfigTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoConfigCell"];
     
+    cell.contentLabel.hidden = NO;
+    cell.contentTF.hidden = YES;
+    
     switch (indexPath.row) {
         case 0:
         {
@@ -184,11 +187,14 @@
         {
             [cell initializeCellForType:WCPwd];
             
+            cell.contentLabel.hidden = YES;
+            cell.contentTF.hidden = NO;
+
             if (self.webChatPaymentConfigDic && [self.webChatPaymentConfigDic stringValueByKey:@"wx_loginpwd"].length > 0) {
                 [cell setcontentInformation:[self.webChatPaymentConfigDic stringValueByKey:@"wx_loginpwd"]];
             }
             else {
-                [cell setcontentInformation:@"未设置"];
+                [cell setcontentInformation:@""];
             }
         }
             break;

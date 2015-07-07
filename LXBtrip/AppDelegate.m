@@ -180,7 +180,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //    [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
     
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
 //    self.hasNewMessages = YES;
     
 }
@@ -190,13 +190,12 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
-//    NSLog(@"收到通知:%@", [self logDic:userInfo]);
+    NSLog(@"收到通知:%@", userInfo);
     
     //    [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
     
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
-//    self.hasNewMessages = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:NEWSRemoteNotification object:nil];
     
     
     completionHandler(UIBackgroundFetchResultNewData);

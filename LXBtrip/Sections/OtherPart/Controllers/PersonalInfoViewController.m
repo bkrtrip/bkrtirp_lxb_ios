@@ -59,12 +59,16 @@
 }
 
 - (IBAction)confirmChangeArea:(id)sender {
-    self.areaPickerBgView.hidden = YES;
-    
     //update province and city id
     NSDictionary *provinceDic = [self.provinceArray objectAtIndex:[self.areaPickerView selectedRowInComponent:0]];
     NSDictionary *cityDic = [self.corresondingCitiesArray objectAtIndex:[self.areaPickerView selectedRowInComponent:1]];
     NSDictionary *districtDic = [self.corresondingDistrictsArray objectAtIndex:[self.areaPickerView selectedRowInComponent:2]];
+    
+    if (!provinceDic || !cityDic || !districtDic) {
+        return;
+    }
+    
+    self.areaPickerBgView.hidden = YES;
     
     UserInfoTableViewCell *cell = (UserInfoTableViewCell *)[self.pInfoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
     NSString *address = [NSString stringWithFormat:@"%@ %@", [provinceDic stringValueByKey:@"province_name"], [cityDic stringValueByKey:@"city_name"]];

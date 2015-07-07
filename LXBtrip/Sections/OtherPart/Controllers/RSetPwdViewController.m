@@ -12,7 +12,7 @@
 #import "AppMacro.h"
 #import "CustomActivityIndicator.h"
 
-@interface RSetPwdViewController ()<UITextFieldDelegate>
+@interface RSetPwdViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pwdTf;
 @property (weak, nonatomic) IBOutlet UITextField *confirmNewPwdTf;
 
@@ -60,7 +60,25 @@
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  
                  [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                 
+                 if (NSClassFromString(@"UIAlertController")) {
+                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功。" preferredStyle:UIAlertControllerStyleAlert];
+                     
+                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                         [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                     }];
+                     
+                     [alertController addAction:cancelAction];
+                     
+                     [weakSelf presentViewController:alertController animated:YES completion:nil];
+                 }
+                 else
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"注册成功。" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                     [alertView show];
+                 }
+                 
+//                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
              }
              
          }
@@ -72,6 +90,13 @@
      }];
 }
 
+
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - UITextFieldDelegate
 

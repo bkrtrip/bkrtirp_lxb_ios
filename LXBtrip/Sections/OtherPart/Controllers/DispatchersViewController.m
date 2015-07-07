@@ -334,7 +334,7 @@
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] presentedController:self];
+    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景。请点击查看: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] presentedController:self];
 }
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
