@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -13,7 +13,7 @@
                 <outlet property="imageView_Open" destination="GxR-Z2-hQ3" id="LnH-RW-qAL"/>
                 <outlet property="lineClassButton" destination="j4H-nk-xMB" id="DmG-Ng-YTU"/>
                 <outlet property="mainTableView" destination="64y-48-Eh0" id="pgB-2b-2Bk"/>
-                <outlet property="searchTextField" destination="GBb-7A-pXr" id="pYX-1l-tih"/>
+                <outlet property="searchBar" destination="XL2-r7-zhh" id="nqO-O8-XgU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -56,7 +56,8 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="58" id="kLV-Mg-ZOR"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <inset key="titleEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="国内游">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,25 +66,20 @@
                                 <action selector="lineClassButtonClicked:" destination="-1" eventType="touchUpInside" id="Cad-Sf-tcG"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dhu-Mp-pXg" userLabel="Image View Closed">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_close.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dhu-Mp-pXg" userLabel="Image View Closed">
                             <rect key="frame" x="81" y="42" width="8" height="9"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Dhu-Mp-pXg" secondAttribute="height" multiplier="17:18" id="R3E-iC-Bu9"/>
                                 <constraint firstAttribute="height" constant="9" id="dsb-in-Suc"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="GxR-Z2-hQ3" userLabel="Image View Open">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="GxR-Z2-hQ3" userLabel="Image View Open">
                             <rect key="frame" x="79" y="45" width="12" height="6"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="GxR-Z2-hQ3" secondAttribute="height" multiplier="2:1" id="cIc-tC-fsv"/>
                                 <constraint firstAttribute="height" constant="6" id="eig-5y-bV8"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜索目的地，如云南" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GBb-7A-pXr" userLabel="Search Text Field">
-                            <rect key="frame" x="92" y="24" width="174" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2SY-RQ-Ab1">
                             <rect key="frame" x="266" y="15" width="54" height="49"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -104,6 +100,17 @@
                                 <action selector="backButtonClicked:" destination="-1" eventType="touchUpInside" id="zNN-wh-HXA"/>
                             </connections>
                         </button>
+                        <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="搜索热门目的地" translatesAutoresizingMaskIntoConstraints="NO" id="XL2-r7-zhh">
+                            <rect key="frame" x="93" y="25" width="172" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="4sN-yq-cJp"/>
+                            </constraints>
+                            <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="azt-aj-swM"/>
+                            </connections>
+                        </searchBar>
                     </subviews>
                     <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -112,22 +119,21 @@
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="leading" secondItem="vhU-8g-Hg1" secondAttribute="leading" id="COr-wB-a9i"/>
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="centerY" secondItem="vhU-8g-Hg1" secondAttribute="centerY" id="HVg-hZ-VTp"/>
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="height" secondItem="vhU-8g-Hg1" secondAttribute="height" id="JHe-ts-ka7"/>
-                        <constraint firstItem="GBb-7A-pXr" firstAttribute="leading" secondItem="j4H-nk-xMB" secondAttribute="trailing" id="KJK-aH-qJX"/>
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="bottom" secondItem="Dhu-Mp-pXg" secondAttribute="bottom" constant="3" id="KQU-Bz-9cV"/>
                         <constraint firstAttribute="trailing" secondItem="2SY-RQ-Ab1" secondAttribute="trailing" id="NOq-LT-bhF"/>
                         <constraint firstAttribute="height" constant="64" id="OFj-ph-OyA"/>
-                        <constraint firstItem="GBb-7A-pXr" firstAttribute="height" secondItem="vhU-8g-Hg1" secondAttribute="height" id="PLV-Lq-DXc"/>
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="trailing" secondItem="Dhu-Mp-pXg" secondAttribute="trailing" constant="3" id="RAh-IB-kiU"/>
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="trailing" secondItem="GxR-Z2-hQ3" secondAttribute="trailing" constant="1" id="Sl9-6U-eop"/>
                         <constraint firstAttribute="centerX" secondItem="vhU-8g-Hg1" secondAttribute="centerX" constant="10" id="WWF-il-lg5"/>
-                        <constraint firstItem="GBb-7A-pXr" firstAttribute="trailing" secondItem="vhU-8g-Hg1" secondAttribute="trailing" id="Zoc-bD-hFZ"/>
+                        <constraint firstItem="2SY-RQ-Ab1" firstAttribute="leading" secondItem="XL2-r7-zhh" secondAttribute="trailing" constant="1" id="dTn-AY-DK3"/>
                         <constraint firstItem="2SY-RQ-Ab1" firstAttribute="centerY" secondItem="vhU-8g-Hg1" secondAttribute="centerY" id="f7X-ai-eAQ"/>
-                        <constraint firstItem="GBb-7A-pXr" firstAttribute="centerY" secondItem="vhU-8g-Hg1" secondAttribute="centerY" id="gc9-12-VTz"/>
                         <constraint firstAttribute="bottom" secondItem="vhU-8g-Hg1" secondAttribute="bottom" constant="10" id="ge6-rx-oMY"/>
                         <constraint firstItem="2SY-RQ-Ab1" firstAttribute="leading" secondItem="vhU-8g-Hg1" secondAttribute="trailing" id="h5p-aW-ncq"/>
                         <constraint firstAttribute="bottom" secondItem="2SY-RQ-Ab1" secondAttribute="bottom" id="kSh-XK-pgG"/>
                         <constraint firstItem="vhU-8g-Hg1" firstAttribute="leading" secondItem="Yhu-xh-AhN" secondAttribute="trailing" id="rU0-oa-NrU"/>
+                        <constraint firstItem="XL2-r7-zhh" firstAttribute="leading" secondItem="j4H-nk-xMB" secondAttribute="trailing" constant="1" id="ray-bx-22X"/>
                         <constraint firstItem="j4H-nk-xMB" firstAttribute="bottom" secondItem="GxR-Z2-hQ3" secondAttribute="bottom" constant="3" id="voq-9T-3o1"/>
+                        <constraint firstItem="vhU-8g-Hg1" firstAttribute="centerY" secondItem="XL2-r7-zhh" secondAttribute="centerY" id="xdE-MP-YKV"/>
                         <constraint firstAttribute="bottom" secondItem="Yhu-xh-AhN" secondAttribute="bottom" id="xjv-JA-axS"/>
                     </constraints>
                 </view>
@@ -152,7 +158,7 @@
     <resources>
         <image name="back.png" width="7" height="13"/>
         <image name="border_two_rect.png" width="306" height="39"/>
-        <image name="rectangle_close.png" width="8" height="9"/>
-        <image name="rectangle_open.png" width="12" height="6"/>
+        <image name="triangle_close.png" width="8" height="9"/>
+        <image name="triangle_open.png" width="12" height="6"/>
     </resources>
 </document>

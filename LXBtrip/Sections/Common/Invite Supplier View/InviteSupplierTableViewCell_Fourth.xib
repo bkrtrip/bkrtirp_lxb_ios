@@ -153,11 +153,19 @@
                             </mask>
                         </variation>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="02a-KA-pYp">
+                        <rect key="frame" x="12" y="54" width="296" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="gdg-6M-bJU"/>
+                            <constraint firstAttribute="height" constant="1" id="r8R-8C-fqi"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="height" secondItem="OvP-SJ-RJS" secondAttribute="height" id="05b-1G-rQX"/>
                     <constraint firstItem="KcP-9c-2og" firstAttribute="width" secondItem="OvP-SJ-RJS" secondAttribute="width" id="3bS-O2-UTw"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="centerY" secondItem="KcP-9c-2og" secondAttribute="centerY" id="3zF-6G-KIa"/>
+                    <constraint firstItem="02a-KA-pYp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9PK-oT-YRT"/>
                     <constraint firstAttribute="trailing" secondItem="KcP-9c-2og" secondAttribute="trailing" id="ALk-qK-qPd"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="centerY" secondItem="NjY-yt-f3r" secondAttribute="centerY" id="GZT-zv-dLc"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="width" secondItem="OvP-SJ-RJS" secondAttribute="width" id="Waq-Yl-gbA"/>
@@ -165,7 +173,9 @@
                     <constraint firstItem="NjY-yt-f3r" firstAttribute="leading" secondItem="OvP-SJ-RJS" secondAttribute="trailing" id="bXN-XL-wFC"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="leading" secondItem="NjY-yt-f3r" secondAttribute="trailing" id="fur-dO-3qv"/>
                     <constraint firstItem="KcP-9c-2og" firstAttribute="height" secondItem="OvP-SJ-RJS" secondAttribute="height" id="jCR-b2-Y4c"/>
+                    <constraint firstAttribute="trailing" secondItem="02a-KA-pYp" secondAttribute="trailing" id="kfp-gu-gZz"/>
                     <constraint firstItem="MVB-wK-i5l" firstAttribute="trailing" secondItem="KcP-9c-2og" secondAttribute="leading" id="mwq-NZ-sZC"/>
+                    <constraint firstItem="02a-KA-pYp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pWg-cn-GYY"/>
                     <constraint firstItem="NjY-yt-f3r" firstAttribute="centerY" secondItem="OvP-SJ-RJS" secondAttribute="centerY" id="rKO-9G-wsq"/>
                     <constraint firstAttribute="centerY" secondItem="OvP-SJ-RJS" secondAttribute="centerY" id="seh-Tu-Ph0"/>
                     <constraint firstItem="NjY-yt-f3r" firstAttribute="width" secondItem="OvP-SJ-RJS" secondAttribute="width" id="vBN-K8-7N2"/>
@@ -177,6 +187,7 @@
     </objects>
     <resources>
         <image name="QQ.png" width="47" height="51"/>
+        <image name="separator_hor.png" width="1" height="1"/>
         <image name="shor_message.png" width="50" height="45"/>
         <image name="telephone_share.png" width="51" height="51"/>
         <image name="weChat.png" width="50" height="50"/>

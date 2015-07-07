@@ -56,7 +56,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日本东京+群马县" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfC-Bh-B1k" userLabel="nameLabel">
-                                <rect key="frame" x="86" y="56" width="107" height="17"/>
+                                <rect key="frame" x="86" y="56" width="216" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -92,6 +92,7 @@
                             <constraint firstAttribute="centerX" secondItem="jr6-Mu-nbk" secondAttribute="centerX" id="210-xN-iI0"/>
                             <constraint firstItem="cW6-fJ-5Gc" firstAttribute="centerY" secondItem="pFj-GE-7SP" secondAttribute="centerY" id="3am-Kd-pr5"/>
                             <constraint firstItem="GfC-Bh-B1k" firstAttribute="leading" secondItem="pFj-GE-7SP" secondAttribute="leading" id="6aP-O8-Ye2"/>
+                            <constraint firstAttribute="trailing" secondItem="GfC-Bh-B1k" secondAttribute="trailing" constant="8" id="JQj-Uq-Chc"/>
                             <constraint firstItem="J3n-qA-Sqs" firstAttribute="leading" secondItem="rSq-Th-hGX" secondAttribute="trailing" constant="8" id="KwD-KY-DEU"/>
                             <constraint firstItem="7Oy-U7-Ebd" firstAttribute="centerY" secondItem="pFj-GE-7SP" secondAttribute="centerY" id="MFM-ZA-r3c"/>
                             <constraint firstItem="GfC-Bh-B1k" firstAttribute="leading" secondItem="cW6-fJ-5Gc" secondAttribute="trailing" constant="5" id="RFA-5M-KYH"/>

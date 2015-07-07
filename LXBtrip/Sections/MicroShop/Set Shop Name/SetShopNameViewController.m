@@ -29,9 +29,30 @@
         [alert show];
         return;
     }
-    SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
-    setContact.shopName = _shopNameTextField.text;
-    [self.navigationController pushViewController:setContact animated:YES];
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [HTTPTool setSelfInfoWithStaffId:[UserModel staffId] companyId:[UserModel companyId] avatarString:nil contactName:nil shopName:_shopNameTextField.text phoneNumber:nil provinceId:nil provinceName:nil cityId:nil cityName:nil areaId:nil areaName:nil address:nil success:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        [[Global sharedGlobal] codeHudWithObject:result[@"RS100024"] succeed:^{
+            // 更新本地用户信息
+            [UserModel updateUserProperty:_shopNameTextField.text ForKey:@"staff_departments_name"];
+            
+            SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+            setContact.isFromSetShopName = YES;
+            [self.navigationController pushViewController:setContact animated:YES];
+        }];
+    } fail:^(id result) {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        
+        if ([[Global sharedGlobal] networkAvailability] == NO) {
+            [self networkUnavailable];
+            return ;
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微店信息设置失败！" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated

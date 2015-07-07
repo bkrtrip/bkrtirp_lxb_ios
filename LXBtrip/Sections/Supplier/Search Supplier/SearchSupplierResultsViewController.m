@@ -75,6 +75,8 @@
     UIScrollView *scrollView = (UIScrollView *)_mainTableView;
     scrollView.delegate = self;
     
+    [self setUpSearchBarAndSearchButton];
+    
     [_walkTypeTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
     
     [_startCityTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
@@ -109,6 +111,17 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+}
+
+- (void)setUpSearchBarAndSearchButton
+{
+    _searchBar.layer.borderWidth = 0.5f;
+    _searchBar.layer.borderColor = TEXT_CCCCD2.CGColor;
+    
+    _searchBar.layer.cornerRadius = 5.f;
+    _searchBar.layer.masksToBounds = YES;
+    
+    [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
 }
 
 - (void)hidePopUpViews
@@ -291,12 +304,12 @@
     selectedProduct = product;
     if (!_accompanyInfoView) {
         _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
-        
-        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
         _accompanyInfoView.delegate = self;
         [self.view addSubview:_accompanyInfoView];
     }
+    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
+    
+    [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
     [self showAccompanyInfoView];
 }
 
@@ -378,7 +391,16 @@
     [self hideShareViewWithCompletionBlock:nil];
     if ([obj isKindOfClass:[SupplierProduct class]]) {
         SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce  presentedController:self];
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@\n%@", sharePrd.productTravelGoodsName, shareURL]  presentedController:self];
     }
 }
 
@@ -585,14 +607,15 @@
 // show/hide accompanyInfoView
 - (void)hideAccompanyInfoViewWithCompletionBlock:(void (^)())block
 {
-    if (_accompanyInfoView.frame.origin.y == SCREEN_HEIGHT) {
+    if (_accompanyInfoView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
-    [UIView animateWithDuration:0.4 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, _accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
+            [self.view insertSubview:_darkMask aboveSubview:_mainTableView];
             if (block) {
                 block();
             }
@@ -602,9 +625,11 @@
 
 - (void)showAccompanyInfoView
 {
+    [self.view insertSubview:_darkMask aboveSubview:_startCityTableView];
+    
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_accompanyInfoView setFrame:CGRectOffset(_accompanyInfoView.frame, 0, -_accompanyInfoView.frame.size.height)];
+        [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height-_accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
 }
 
@@ -615,18 +640,18 @@
 
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, -_shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     }];
 }
 
 - (void)hideShareViewWithCompletionBlock:(void (^)())block
 {
-    if (_shareView.frame.origin.y == SCREEN_HEIGHT) {
+    if (_shareView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_shareView setFrame:CGRectOffset(_shareView.frame, 0, _shareView.frame.size.height)];
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
             [self.view insertSubview:_darkMask aboveSubview:_mainTableView];

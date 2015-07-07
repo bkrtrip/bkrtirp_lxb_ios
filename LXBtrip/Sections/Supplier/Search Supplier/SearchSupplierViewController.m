@@ -12,7 +12,7 @@
 #import "TourListCell_Destination.h"
 #import "SearchSupplierResultsViewController.h"
 
-@interface SearchSupplierViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SearchSupplier_HotSearchTableViewCell_Delegate>
+@interface SearchSupplierViewController ()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate,  SearchSupplier_HotSearchTableViewCell_Delegate>
 {
     NSMutableArray *searchHistoryArray;
     NSMutableArray *hotSearchNames;
@@ -27,7 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView_Closed;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView_Open;
 
-@property (strong, nonatomic) IBOutlet UITextField *searchTextField;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)searchButtonClicked:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
@@ -39,18 +39,12 @@
 @end
 
 @implementation SearchSupplierViewController
-
-- (void)awakeFromNib
-{
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    imgView.image = ImageNamed(@"search");
-    _searchTextField.leftView = imgView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     searchHistoryArray = [[[Global sharedGlobal] searchHistory] mutableCopy];
     hotSearchNames = [[NSMutableArray alloc] init];
+    
+    [self setUpSearchBar];
     
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_darkMask addTarget:self action:@selector(dismissDropDownTableView) forControlEvents:UIControlEventTouchUpInside];
@@ -84,6 +78,19 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+}
+
+- (void)setUpSearchBar
+{
+    _searchBar.layer.borderWidth = 0.5f;
+    _searchBar.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
+    UITextField *txfSearchField = [_searchBar valueForKey:@"_searchField"];
+    txfSearchField.font = [UIFont systemFontOfSize:12.f];
+    
+    [txfSearchField setValue:[UIFont systemFontOfSize:12.f] forKeyPath:@"_placeholderLabel.font"];
 }
 
 #pragma mark - Override
@@ -323,17 +330,17 @@
     }
 }
 - (IBAction)searchButtonClicked:(id)sender {
-    if (!_searchTextField.text || _searchTextField.text.length == 0) {
+    if (!_searchBar.text || _searchBar.text.length == 0) {
         return;
     }
-    NSString *keywords = _searchTextField.text;
+    NSString *keywords = _searchBar.text;
     SearchSupplierResultsViewController *results = [[SearchSupplierResultsViewController alloc] init];
     results.lineClass = lineClass;
     results.keyword = keywords;
     [self.navigationController pushViewController:results animated:YES];
-    [_searchTextField resignFirstResponder];
+    [_searchBar resignFirstResponder];
     
-    [[Global sharedGlobal] saveToSearchHistoryWithKeyword:_searchTextField.text];
+    [[Global sharedGlobal] saveToSearchHistoryWithKeyword:_searchBar.text];
     
     if (!searchHistoryArray) {
         searchHistoryArray = [[NSMutableArray alloc] init];
@@ -341,7 +348,7 @@
     
     __block BOOL alreadyInCache = NO;
     [searchHistoryArray enumerateObjectsUsingBlock:^(NSString *cache, NSUInteger idx, BOOL *stop) {
-        if ([cache isEqualToString:_searchTextField.text]) {
+        if ([cache isEqualToString:_searchBar.text]) {
             alreadyInCache = YES;
         }
     }];

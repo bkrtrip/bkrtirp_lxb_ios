@@ -35,7 +35,7 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSb-vv-e57">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSb-vv-e57">
                         <rect key="frame" x="79" y="130" width="52" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="w68-9u-gKz"/>
@@ -77,6 +77,12 @@
                 <constraint firstItem="mSb-vv-e57" firstAttribute="top" secondItem="ohI-m5-OTb" secondAttribute="bottom" constant="8" id="tAK-wv-ECc"/>
                 <constraint firstItem="oHt-ve-7RL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zWq-Ci-JCc"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="5ws-Fb-aPw"/>
+                    <exclude reference="SDe-4q-cxG"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="alleyLocationButton" destination="mSb-vv-e57" id="7Nl-Ef-zbp"/>
                 <outlet property="alleyLogoImageview" destination="oHt-ve-7RL" id="Vcx-Uz-fGn"/>

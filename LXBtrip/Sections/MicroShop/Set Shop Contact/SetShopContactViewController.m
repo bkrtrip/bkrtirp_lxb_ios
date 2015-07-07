@@ -52,24 +52,25 @@
     }
     
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-    [HTTPTool setSelfInfoWithStaffId:[UserModel staffId] companyId:[UserModel companyId] avatarString:nil contactName:_shopContactTextField.text shopName:_shopName phoneNumber:nil provinceId:nil provinceName:nil cityId:nil cityName:nil areaId:nil areaName:nil address:nil success:^(id result) {
+    [HTTPTool setSelfInfoWithStaffId:[UserModel staffId] companyId:[UserModel companyId] avatarString:nil contactName:_shopContactTextField.text shopName:nil phoneNumber:nil provinceId:nil provinceName:nil cityId:nil cityName:nil areaId:nil areaName:nil address:nil success:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
 
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100024"] succeed:^{
             // 更新本地用户信息
-            [UserModel updateUserProperty:_shopName ForKey:@"staff_real_name"];
-            [UserModel updateUserProperty:_shopContactTextField.text ForKey:@"staff_departments_name"];
+            [UserModel updateUserProperty:_shopContactTextField.text ForKey:@"staff_real_name"];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微店信息设置成功！" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
             
-            NSInteger stackControllersCount = self.navigationController.viewControllers.count;
-            if (stackControllersCount > 3) {
-                NSInteger supplierDetailIndex = stackControllersCount - 3;
-                UIViewController *supplierDetail = self.navigationController.viewControllers[supplierDetailIndex];
-                if ([supplierDetail isKindOfClass:[SupplierDetailViewController class]]) {
-                    [self.navigationController popToViewController:supplierDetail animated:YES];
+            if (_isFromSetShopName == YES) {
+                NSInteger stackControllersCount = self.navigationController.viewControllers.count;
+                if (stackControllersCount >= 3) {
+                    NSInteger supplierDetailIndex = stackControllersCount - 3;
+                    UIViewController *supplierDetailOrMicroshop = self.navigationController.viewControllers[supplierDetailIndex];
+                    [self.navigationController popToViewController:supplierDetailOrMicroshop animated:YES];
                 }
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }];
     } fail:^(id result) {

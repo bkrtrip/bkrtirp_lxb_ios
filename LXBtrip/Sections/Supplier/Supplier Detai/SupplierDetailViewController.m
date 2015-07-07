@@ -14,6 +14,7 @@
 #import "AccompanyInfoView.h"
 #import "TourWebPreviewViewController.h"
 #import "SetShopNameViewController.h"
+#import "SetShopContactViewController.h"
 #import "AccompanyInfoViewController.h"
 #import "TourDetailTableViewController.h"
 #import "UMSocialWechatHandler.h"
@@ -30,8 +31,6 @@
 @property (strong, nonatomic) YesOrNoView *yesOrNoView;
 @property (strong, nonatomic) ShareView *shareView;
 @property (strong, nonatomic) AccompanyInfoView *accompanyInfoView;
-
-//@property (copy, nonatomic) NSMutableArray *productsArray;
 
 @property (strong, nonatomic) UIControl *darkMask;
 @property (copy, nonatomic) NSString *isMinetype;
@@ -121,20 +120,9 @@
 
 - (IBAction)addToOrRemoveFromMyShopButtonClicked:(id)sender
 {
-    // 未登录
-    if (![UserModel companyId] || ![UserModel staffId]) {
-        // go to login page
-        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
-        return;
-    }
-    
-    // 未完成资料
-    if (![UserModel staffRealName]) {
-        // go to open micro shop
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
-    }
+    [self ifNotLogin];
+    [self ifShopNameNotSet];
+    [self ifShopContactNotSet];
     
     [self syncOrCancelSyncMySupplier];
 }
@@ -297,16 +285,9 @@
 #pragma mark - TourListTableViewCell_Delegate
 - (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
-    if (![UserModel companyId] || ![UserModel staffId]) {
-        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
-        return;
-    }
-    
-    if (![UserModel staffRealName]) {
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
-    }
+    [self ifNotLogin];
+    [self ifShopNameNotSet];
+    [self ifShopContactNotSet];
     
     popUpType = Share_Type;
     selectedProduct = product;
@@ -314,40 +295,17 @@
     // 已同步
     if ([_isMinetype intValue] == 0) {
         // go to share
-        if (!_shareView) {
-            _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-            _shareView.delegate = self;
-            [self.view addSubview:_shareView];
-        }
-        CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
-        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
-        
         [self showShareView];
     // 未同步
     } else if ([_isMinetype intValue] == 1){
-        if (!_yesOrNoView) {
-            _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
-            [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
-            _yesOrNoView.delegate = self;
-            [self.view addSubview:_yesOrNoView];
-        }
-        [_yesOrNoView setYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接转发产品详情页给游客浏览！\n（产品详情页将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
-
-        [self showYesOrNoView];
+        [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接转发产品详情页给游客浏览！\n（产品详情页将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
     }
 }
 - (void)supportClickWithPreviewButtonWithProduct:(SupplierProduct *)product
 {
-    if (![UserModel companyId] || ![UserModel staffId]) {
-        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
-        return;
-    }
-    
-    if (![UserModel staffRealName]) {
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
-    }
+    [self ifNotLogin];
+    [self ifShopNameNotSet];
+    [self ifShopContactNotSet];
     
     popUpType = Preview_Type;
     selectedProduct = product;
@@ -364,43 +322,19 @@
         }
     //未同步
     } else if ([_isMinetype intValue] == 1){
-        if (!_yesOrNoView) {
-            _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
-            [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
-            _yesOrNoView.delegate = self;
-            [self.view addSubview:_yesOrNoView];
-        }
-        [_yesOrNoView setYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接预览产品详情页！\n（页面将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
-        
-        [self showYesOrNoView];
+        [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接预览产品详情页！\n（页面将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
     }
 }
 - (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product
 {
-    if (![UserModel companyId] || ![UserModel staffId]) {
-        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
-        return;
-    }
-    
-    if (![UserModel staffRealName]) {
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
-    }
+    [self ifNotLogin];
+    [self ifShopNameNotSet];
+    [self ifShopContactNotSet];
     
     popUpType = Accompany_Type;
     selectedProduct = product;
-    if (!_accompanyInfoView) {
-        _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
-        CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productTravelGoodsName price:product.productMarketPrice instructions:product.productPeerNotice];
-        
-        [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
-        _accompanyInfoView.delegate = self;
-        [self.view addSubview:_accompanyInfoView];
-    }
     
-    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productTravelGoodsName price:product.productMarketPrice instructions:product.productPeerNotice];
-    [_accompanyInfoView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewHeight)];
+    [self setUpAccompanyInfoView];
     [self showAcompanyInfoView];
 }
 
@@ -484,7 +418,16 @@
     [self hideShareView];
     if ([obj isKindOfClass:[SupplierProduct class]]) {
         SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce presentedController:self];
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@\n%@", sharePrd.productTravelGoodsName, shareURL] presentedController:self];
     }
 }
 
@@ -561,45 +504,59 @@
 - (void)supportClickWithYes
 {
     [self hideYesOrNoView];
-    // 未登录
-    if (![UserModel companyId] || ![UserModel staffId]) {
-        // go to login page
-        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
-        return;
-    }
     
-    // 未完成资料，合并后要修改
-    if (![UserModel staffRealName]) {
-        // go to open micro shop
-        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
-        [self.navigationController pushViewController:setName animated:YES];
-        return;
-    }
+    [self ifNotLogin];
+    [self ifShopNameNotSet];
+    [self ifShopContactNotSet];
     
     //同步
     [self syncOrCancelSyncMySupplier];
 }
 
 #pragma mark - private
-// YesOrNoView
-- (void)hideYesOrNoView
-{
-    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+// set up accessory views
+- (void)setUpAccompanyInfoView {
+    if (!_accompanyInfoView) {
+        _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
+        _accompanyInfoView.delegate = self;
+        [self.view addSubview:_accompanyInfoView];
+    }
+    
+    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:selectedProduct.productCompanyName productName:selectedProduct.productTravelGoodsName price:selectedProduct.productMarketPrice instructions:selectedProduct.productPeerNotice];
+    [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+}
+- (void)setUpShareView {
+    if (!_shareView) {
+        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
+        _shareView.delegate = self;
+        [self.view addSubview:_shareView];
+    }
+    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:selectedProduct];
+    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+}
+- (void)setUpYesOrNoViewWithIntroductionString:(NSString *)introduction confirmString:(NSString *)confirm {
+    if (!_yesOrNoView) {
+        _yesOrNoView = [[NSBundle mainBundle] loadNibNamed:@"YesOrNoView" owner:nil options:nil][0];
+        [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _yesOrNoView.containerView.frame.size.height)];
+        _yesOrNoView.delegate = self;
+        [self.view addSubview:_yesOrNoView];
+    }
+    [_yesOrNoView setYesOrNoViewWithIntroductionString:introduction confirmString:confirm];
+}
+
+// hide/show accessory views
+- (void)hideYesOrNoView {
     if (_yesOrNoView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
-    
+    self.navigationController.navigationBar.alpha = 1;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
         [_yesOrNoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _yesOrNoView.frame.size.height)];
-    } completion:^(BOOL finished) {
-        if (finished) {
-            self.navigationController.navigationBar.alpha = 1;
-        }
     }];
 }
-- (void)showYesOrNoView
-{
+- (void)showYesOrNoViewWithIntroductionString:(NSString *)introduction confirmString:(NSString *)confirm {
+    [self setUpYesOrNoViewWithIntroductionString:introduction confirmString:confirm];
     self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
@@ -607,14 +564,10 @@
     }];
 }
 
-// shareView
-- (void)hideShareView
-{
-    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+- (void)hideShareView {
     if (_shareView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
-    
     popUpType = None_Type;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
@@ -625,8 +578,8 @@
         }
     }];
 }
-- (void)showShareView
-{
+- (void)showShareView {
+    [self setUpShareView];
     self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
@@ -634,10 +587,7 @@
     }];
 }
 
-// accompanyInfoView
-- (void)hideAccompanyInfoViewWithCompletionBlock:(void (^)())block
-{
-    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+- (void)hideAccompanyInfoViewWithCompletionBlock:(void (^)())block {
     if (_accompanyInfoView.frame.origin.y == self.view.frame.size.height) {
         return;
     }
@@ -655,14 +605,36 @@
         }
     }];
 }
-
-- (void)showAcompanyInfoView
-{
+- (void)showAcompanyInfoView {
+    [self setUpAccompanyInfoView];
     self.navigationController.navigationBar.alpha = 0;
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height-_accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
     }];
+}
+
+// evaluate user status
+- (void)ifNotLogin {
+    if (![UserModel companyId] || ![UserModel staffId]) {
+        // go to login page
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return;
+    }
+}
+- (void)ifShopNameNotSet {
+    if (![UserModel staffDepartmentName]) {
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
+        return ;
+    }
+}
+- (void)ifShopContactNotSet {
+    if (![UserModel staffRealName]) {
+        SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+        [self.navigationController pushViewController:setContact animated:YES];
+        return ;
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

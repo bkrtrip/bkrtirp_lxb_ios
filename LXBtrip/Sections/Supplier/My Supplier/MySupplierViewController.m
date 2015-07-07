@@ -56,6 +56,9 @@
     _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
+    // initial status
+    [_zhuanXianButton setSelected:YES];
+    [_diJieButton setSelected:NO];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 64.f)];
     [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, _scrollView.frame.size.height)];
@@ -268,22 +271,57 @@
 
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
     selectedIndex = 0;
+    if (selectedIndex <= 2) {
+        [_zhuanXianButton setSelected:YES];
+        [_diJieButton setSelected:NO];
+    } else {
+        [_zhuanXianButton setSelected:NO];
+        [_diJieButton setSelected:YES];
+    }
     [self scrollToVisibleWithSelectedIndex:selectedIndex];
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
     selectedIndex = 1;
+    if (selectedIndex <= 2) {
+        [_zhuanXianButton setSelected:YES];
+        [_diJieButton setSelected:NO];
+    } else {
+        [_zhuanXianButton setSelected:NO];
+        [_diJieButton setSelected:YES];
+    }
     [self scrollToVisibleWithSelectedIndex:selectedIndex];
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
     selectedIndex = 2;
+    if (selectedIndex <= 2) {
+        [_zhuanXianButton setSelected:YES];
+        [_diJieButton setSelected:NO];
+    } else {
+        [_zhuanXianButton setSelected:NO];
+        [_diJieButton setSelected:YES];
+    }
     [self scrollToVisibleWithSelectedIndex:selectedIndex];
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
     selectedIndex = 3;
+    if (selectedIndex <= 2) {
+        [_zhuanXianButton setSelected:YES];
+        [_diJieButton setSelected:NO];
+    } else {
+        [_zhuanXianButton setSelected:NO];
+        [_diJieButton setSelected:YES];
+    }
     [self scrollToVisibleWithSelectedIndex:selectedIndex];
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
     selectedIndex = 4;
+    if (selectedIndex <= 2) {
+        [_zhuanXianButton setSelected:YES];
+        [_diJieButton setSelected:NO];
+    } else {
+        [_zhuanXianButton setSelected:NO];
+        [_diJieButton setSelected:YES];
+    }
     [self scrollToVisibleWithSelectedIndex:selectedIndex];
 }
 

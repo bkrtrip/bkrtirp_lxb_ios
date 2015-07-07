@@ -38,8 +38,8 @@
 }
 
 
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *locationButton;
-
 @property (strong, nonatomic) IBOutlet UIButton *destinationButton;
 @property (strong, nonatomic) IBOutlet UIButton *walkTypeButton;
 
@@ -58,7 +58,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 
 @property (strong, nonatomic) IBOutlet UITableView *destinationTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *triangleUpImageView_Destination;
 @property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *triangleUpImageView_Walktype;
 
 @property (strong, nonatomic) UIControl *darkMask;
 
@@ -77,13 +79,13 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_TourList) name:CITY_CHANGED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_TOUR_LIST object:nil];
-
+    
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
-
+    
     [self setUpSearchBarAndSearchButton];
     
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
@@ -94,7 +96,7 @@
     
     UIScrollView *scroll = (UIScrollView *)_mainTableView;
     scroll.delegate = self;
-
+    
     walkTypesArray = @[@"不限", @"跟团游", @"自由行", @"半自助"];
     
     // 初始化和此方法相同
@@ -150,6 +152,9 @@
     
     isRefreshing = YES;
     startCity = [[Global sharedGlobal] locationCity];
+    if (!startCity || startCity.length == 0) {
+        startCity = @"全国";
+    }
     if (startCity) {
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
         [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
@@ -165,7 +170,6 @@
     
     [self getTourList];
 }
-
 
 - (void)hidePopUpViews
 {
@@ -191,7 +195,7 @@
             SupplierInfo *info = [[SupplierInfo alloc] initWithDict:data];
             if (!_info) {
                 _info = info;
-                self.title = _info.supplierCustomName;
+                self.titleLabel.text = _info.supplierCustomName;
                 if (!endCity) {
                     citiesArray = [[_info.supplierEndCity componentsSeparatedByString:@"#"] mutableCopy];
                     [_destinationTableView reloadData];
@@ -557,7 +561,16 @@
     [self hideShareViewWithCompletionBlock:nil];
     if ([obj isKindOfClass:[SupplierProduct class]]) {
         SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        [[Global sharedGlobal] shareViaSMSWithContent:sharePrd.productIntroduce presentedController:self];
+        NSString *shareURL = sharePrd.productShareURL;
+        if (!shareURL) {
+            shareURL = sharePrd.productPreviewURL;
+            if (!shareURL) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+                return ;
+            }
+        }
+        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@\n%@", sharePrd.productTravelGoodsName, shareURL] presentedController:self];
     }
 }
 
@@ -645,11 +658,13 @@
 - (void)setDestinationCityTableViewHidden:(BOOL)hidden
 {
     _destinationTableView.hidden = hidden;
+    _triangleUpImageView_Destination.hidden = hidden;
 }
 
 - (void)setWalkTypeTableViewHidden:(BOOL)hidden
 {
     _walkTypeTableView.hidden = hidden;
+    _triangleUpImageView_Walktype.hidden = hidden;
 }
 
 // show/hide accompanyInfoView
@@ -673,7 +688,7 @@
 
 - (void)showAccompanyInfoView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
+    [self.view insertSubview:_darkMask aboveSubview:_triangleUpImageView_Walktype];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height - _accompanyInfoView.frame.size.height, SCREEN_WIDTH, _accompanyInfoView.frame.size.height)];
@@ -683,7 +698,7 @@
 // show/hide ShareView
 - (void)showShareView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_walkTypeButton];
+    [self.view insertSubview:_darkMask aboveSubview:_triangleUpImageView_Walktype];
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
         [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];

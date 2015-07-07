@@ -19,7 +19,7 @@
     
     self.productDetailURL = [dict[@"details_url"] isKindOfClass:[NSNull class]]?nil:dict[@"details_url"];
     self.productIntroduceURL = [dict[@"introduce_url"] isKindOfClass:[NSNull class]]?nil:dict[@"introduce_url"];
-    self.productShareURL = [dict[@"share_url"] isKindOfClass:[NSNull class]]?nil:dict[@"share_url"];
+    self.productShareURL = [dict[@"forward_url"] isKindOfClass:[NSNull class]]?nil:dict[@"forward_url"];
     self.productPreviewURL = [dict[@"preview_url"] isKindOfClass:[NSNull class]]?nil:dict[@"preview_url"];
 
     
