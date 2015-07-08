@@ -257,7 +257,7 @@
             self.alterHintLabel.text = @"";
             self.title = @"利润率";
             
-            self.infoTF.text = [self.dispatchSettingDic stringValueByKey:@"value"];
+            self.infoTF.text = [NSString stringWithFormat:@"%.0f", [[self.dispatchSettingDic stringValueByKey:@"value"] doubleValue] * 100];
         }
             break;
 
@@ -268,6 +268,47 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    
+    if (self.type == DispatchRate) {
+        
+        NSError *error;
+        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:&error];
+        if (regEx && string.length > 0) {
+            NSArray *matchedArray = [regEx matchesInString:string options:NSMatchingAnchored range:NSMakeRange(0, 1)];
+            if (matchedArray == nil || (matchedArray && matchedArray.count == 0)) {
+                return NO;
+            }
+        }
+        
+        if (range.location == 2 && range.length == 0) {
+            
+            return NO;
+        }
+        
+        if (range.location == 1 && range.length == 0 && [textField.text isEqualToString:@"0"]) {
+            
+            return NO;
+        }
+
+        
+        /*
+        if (textField.text.length == 0 && (range.location == 0 && range.length == 0)) {
+            NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[1-9]" options:NSRegularExpressionCaseInsensitive error:&error];
+            NSArray *matchedArray = [regEx matchesInString:string options:NSMatchingAnchored range:NSMakeRange(0, 1)];
+            if (matchedArray == nil || (matchedArray && matchedArray.count == 0)) {
+                return NO;
+            }
+        }
+        */
+    }
+    
+    
+    return YES;
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {

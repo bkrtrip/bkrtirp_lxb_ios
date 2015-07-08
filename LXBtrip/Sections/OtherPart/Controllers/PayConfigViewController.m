@@ -14,6 +14,7 @@
 #import "UserModel.h"
 #import "AlterUserInfoViewController.h"
 #import "WCPayFooterTableViewCell.h"
+#import "WebContentViewController.h"
 
 @interface PayConfigViewController ()<UpdateUserInformationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *configTableView;
@@ -158,6 +159,9 @@
         else {
             [((WCPayFooterTableViewCell *)cell).openWebchatPayBtn setTitle:@"确认开通" forState:UIControlStateNormal];
         }
+        
+        [((WCPayFooterTableViewCell *)cell).webchatPaymentHelpBtn addTarget:self action:@selector(showHelpWebPage) forControlEvents:UIControlEventTouchUpInside];
+
     }
     
     return cell;
@@ -389,17 +393,49 @@
 }
 
 
+
+- (void)showHelpWebPage
+{
+    WebContentViewController *viewController = [[WebContentViewController alloc] init];
+    viewController.contentUrl = @"http://ws.bkrtrip.cn/view/server/pay/help.html";
+    viewController.title = @"微信支付设置帮助";
+    
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 - (void)openWebchatPayment
 {
-    if (!self.isOpenedWXPay) {
-        //all information required
-        if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_loginname"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_loginpwd"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_appid"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_appsecret"].length == 0 || [self.webChatPaymentConfigDic stringValueByKey:@"wx_partner"].length == 0) {
-            
-            [self showAlertViewWithTitle:nil message:@"您有未填写的微信支付信息，请填写完整后再提交。" cancelButtonTitle:@"确定"];
-            return;
-        }
+    //all information required
+    if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_loginname"].length == 0) {
         
+        [self showAlertViewWithTitle:nil message:@"微信公众平台用户名不能为空。" cancelButtonTitle:@"确定"];
+        return;
     }
+    
+    if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_loginpwd"].length == 0) {
+        
+        [self showAlertViewWithTitle:nil message:@"微信密码不能为空。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
+    if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_appid"].length == 0) {
+        
+        [self showAlertViewWithTitle:nil message:@"公众号appid不能为空。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
+    if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_appsecret"].length == 0) {
+        
+        [self showAlertViewWithTitle:nil message:@"公众号appsecret不能为空。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
+    if ([self.webChatPaymentConfigDic stringValueByKey:@"wx_partner"].length == 0) {
+        
+        [self showAlertViewWithTitle:nil message:@"微信支付商户号不能为空。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
     
     [self createWebchatPaymentConfigWithInfo:self.webChatPaymentConfigDic];
 }

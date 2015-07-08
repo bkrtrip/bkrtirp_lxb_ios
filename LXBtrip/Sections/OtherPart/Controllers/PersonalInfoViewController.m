@@ -82,6 +82,7 @@
 
 - (void)updateUserInfo:(NSDictionary *)userDic
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     __weak PersonalInfoViewController *weakSelf = self;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -94,6 +95,8 @@
     [manager POST:partialUrl parameters:userDic
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+
          if (responseObject)
          {
              id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -113,7 +116,9 @@
      
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         [weakSelf showAlertViewWithTitle:nil message:@"更新失败 ！" cancelButtonTitle:@"确定"];
+
      }];
 }
 
@@ -580,7 +585,9 @@
     
     cell.photoImgView.image = [self decodingImageBase64String:originalImgString];
     
-    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"head":smallImgString};
+    NSString *imgBody = [NSString stringWithFormat:@"data:image/png;base64,%@", smallImgString];
+    
+    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"head":imgBody};
     
     [self updateUserInfo:alterInfoDic];
     

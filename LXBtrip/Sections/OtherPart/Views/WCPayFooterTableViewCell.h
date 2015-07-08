@@ -11,4 +11,5 @@
 @interface WCPayFooterTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *openWebchatPayBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *webchatPaymentHelpBtn;
 @end

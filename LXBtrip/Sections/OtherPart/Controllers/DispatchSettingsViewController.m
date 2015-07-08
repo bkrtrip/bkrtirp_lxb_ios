@@ -199,6 +199,7 @@
     
     cell.profitRateLabel.text = [NSString stringWithFormat:@"%.0f %%", profileRate];
     
+    changedInfor = [NSString stringWithFormat:@"%.2f", [changedInfor doubleValue] / 100];
     [self updateDSettingsForOpenState:@"1" rate:changedInfor];
 }
 

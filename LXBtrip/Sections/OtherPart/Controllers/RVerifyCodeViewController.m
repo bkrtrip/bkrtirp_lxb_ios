@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeAlertLabel;
 
 @property (nonatomic, retain) NSString *verificationCode;
+
+
+@property (weak, nonatomic) IBOutlet UITextField *invitationCodeTf;
 @end
 
 @implementation RVerifyCodeViewController
@@ -46,6 +49,12 @@
         [self showAlertViewWithTitle:@"提示" message:@"验证码输入错误，请重新输入。" cancelButtonTitle:@"确定"];
         return;
     }
+    
+    if (self.invitationCodeTf.text.length > 0 && self.invitationCodeTf.text.length != 5) {
+        [self showAlertViewWithTitle:@"提示" message:@"请输入正确格式的邀请码(五位大些字母)。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
     
     [self performSegueWithIdentifier:@"goToRSetPwd" sender:nil];
 }
@@ -167,6 +176,22 @@
             }
         }
     }
+    else if (textField.tag == 212) {
+        
+        NSError *error;
+        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[A-Z]" options:0 error:&error];
+        if (regEx && string.length > 0) {
+            NSArray *matchedArray = [regEx matchesInString:string options:NSMatchingAnchored range:NSMakeRange(0, 1)];
+            if (matchedArray == nil || (matchedArray && matchedArray.count == 0)) {
+                return NO;
+            }
+        }
+        
+        if (range.location == 5 && range.length == 0) {
+            
+            return NO;
+        }
+    }
     
     
     return YES;
@@ -177,11 +202,16 @@
     if (textField.tag == 211) {
         ((UIImageView *)[self.view viewWithTag:11]).image = [UIImage imageNamed:@"inputLine_1"];
     }
+    else if (textField.tag == 212) {
+        ((UIImageView *)[self.view viewWithTag:22]).image = [UIImage imageNamed:@"inputLine_1"];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     ((UIImageView *)[self.view viewWithTag:11]).image = [UIImage imageNamed:@"inputLine_0"];
+    ((UIImageView *)[self.view viewWithTag:22]).image = [UIImage imageNamed:@"inputLine_0"];
+
 }
 
 
@@ -194,6 +224,7 @@
     
     RSetPwdViewController *viewController = (RSetPwdViewController *)segue.destinationViewController;
     viewController.phoneNum = self.phoneNum;
+    viewController.invitationCode = self.invitationCodeTf.text.length == 5 ? self.invitationCodeTf.text : @"";
 }
 
 
