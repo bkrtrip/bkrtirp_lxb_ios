@@ -17,15 +17,13 @@
 #import "AccompanyInfoViewController.h"
 #import "ShareView.h"
 
-@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate, ShareViewDelegate>
+@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
 {
     NSMutableDictionary *cellHeights;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *startDate;
-@property (strong, nonatomic) ShareView *shareView;
-@property (strong, nonatomic) UIControl *darkMask;
 
 @end
 
@@ -37,13 +35,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startDateChanged:) name:@"Start_Date_Changed" object:nil];
     
     self.title = @"线路详情";
-    [self setUpNavigationItem:self.navigationItem withRightBarItemTitle:nil image:ImageNamed(@"share_red")];
-    
-    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
-    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    _darkMask.alpha = 0;// initally transparent
-    [self.view addSubview:_darkMask];
     
     cellHeights = [[NSMutableDictionary alloc] init];
     [self setUpTableView];
@@ -69,25 +60,6 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
-}
-
-- (void)rightBarButtonItemClicked:(id)sender
-{
-    if (!_shareView) {
-        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-        _shareView.delegate = self;
-        [self.view addSubview:_shareView];
-    }
-    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:_product];
-    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
-    
-    [self showShareView];
-}
-
-- (void)hidePopUpViews
-{
-    [self hideShareView];
-    _darkMask.alpha = 0;
 }
 
 - (void)startDateChanged:(NSNotification *)note
@@ -386,169 +358,6 @@
     CommentsViewController *comment = [[CommentsViewController alloc] init];
     comment.product = _product;
     [self.navigationController pushViewController:comment animated:YES];
-}
-
-#pragma mark - ShareViewDelegate
-- (void)supportClickWithWeChatWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
-    }
-}
-
-- (void)supportClickWithQQWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
-    }
-}
-
-- (void)supportClickWithQZoneWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
-    }
-}
-
-- (void)supportClickWithShortMessageWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@\n%@", sharePrd.productTravelGoodsName, shareURL] presentedController:self];
-    }
-}
-
-- (void)supportClickWithSendingToComputerWithShareObject:(id)obj
-{
-    [self supportClickWithQQWithShareObject:obj];
-}
-
-- (void)supportClickWithYiXinWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
-    }
-}
-
-- (void)supportClickWithWeiboWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
-    }
-}
-
-- (void)supportClickWithFriendsWithShareObject:(id)obj
-{
-    [self hideShareView];
-    if ([obj isKindOfClass:[SupplierProduct class]]) {
-        SupplierProduct *sharePrd = (SupplierProduct *)obj;
-        NSString *shareURL = sharePrd.productShareURL;
-        if (!shareURL) {
-            shareURL = sharePrd.productPreviewURL;
-            if (!shareURL) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享和预览链接地址为空" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-                return ;
-            }
-        }
-        [[Global sharedGlobal] shareViaWeChatWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
-    }
-}
-
-- (void)supportClickWithCancel
-{
-    [self hideShareView];
-}
-
-#pragma mark - Private
-- (void)hideShareView
-{
-    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
-    if (_shareView.frame.origin.y == self.view.frame.size.height) {
-        return;
-    }
-    
-    [UIView animateWithDuration:0.4 animations:^{
-        _darkMask.alpha = 0;
-        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
-    } completion:^(BOOL finished) {
-        if (finished) {
-            self.navigationController.navigationBar.alpha = 1;
-        }
-    }];
-}
-- (void)showShareView
-{
-    self.navigationController.navigationBar.alpha = 0;
-    [UIView animateWithDuration:0.4 animations:^{
-        _darkMask.alpha = 1;
-        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height - _shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
-    }];
 }
 
 - (NSString *)nowDateString
