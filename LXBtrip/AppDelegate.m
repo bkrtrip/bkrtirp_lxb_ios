@@ -132,11 +132,11 @@
     
     
     // --TEST--
-    [[Global sharedGlobal] upDateLocationCity:@"西安"];
-    [[Global sharedGlobal] upDateLocationProvince:@"陕西"];
+//    [[Global sharedGlobal] upDateLocationCity:@"西安"];
+//    [[Global sharedGlobal] upDateLocationProvince:@"陕西"];
     // --TEST--
     
-//    [self startLocation];
+    [self startLocation];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
