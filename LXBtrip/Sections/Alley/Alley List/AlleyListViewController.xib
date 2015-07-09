@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alley_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fk0-Wf-MrF" userLabel="banner Image View">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alley_banner.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Fk0-Wf-MrF" userLabel="banner Image View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Fk0-Wf-MrF" secondAttribute="height" multiplier="1242:456" id="Wwi-oN-aFX"/>
@@ -90,7 +90,7 @@
         </view>
     </objects>
     <resources>
-        <image name="alley_banner.png" width="414" height="152"/>
+        <image name="alley_banner.jpg" width="414" height="152"/>
         <image name="alley_sub_banner.png" width="413" height="29"/>
         <image name="rectangle_close.png" width="8" height="9"/>
     </resources>

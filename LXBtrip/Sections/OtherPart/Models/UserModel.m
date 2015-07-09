@@ -117,5 +117,10 @@ static NSString *userPlistPath = nil;
     return [userDic[@"RS100034"] objectForKey:@"staff_name"];
 }
 
++ (NSString *)inviteCode
+{
+    NSDictionary *userDic = [self getUserInformations];
+    return [userDic[@"RS100034"] objectForKey:@"invite_code"];
+}
 
 @end

@@ -304,7 +304,10 @@
 {
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 0;
-        [_inviteTableView setFrame:CGRectOffset(_inviteTableView.frame, 0, _inviteTableView.frame.size.height)];
+        [_inviteTableView setFrame:CGRectMake(_inviteTableView.frame.origin.x,
+                                              self.view.frame.size.height,
+                                              _inviteTableView.frame.size.width,
+                                              _inviteTableView.frame.size.height)];
     } completion:^(BOOL finished) {
         if (finished) {
             self.tabBarController.tabBar.hidden = NO;
@@ -318,10 +321,9 @@
         self.tabBarController.tabBar.hidden = YES;
         _darkMask.alpha = 1;
         [_inviteTableView setFrame:CGRectMake(_inviteTableView.frame.origin.x,
-                                              _inviteTableView.frame.origin.y-_inviteTableView.frame.size.height,
+                                              self.view.frame.size.height -_inviteTableView.frame.size.height,
                                               _inviteTableView.frame.size.width,
                                               _inviteTableView.frame.size.height)];
-//        [_inviteTableView setFrame:CGRectOffset(_inviteTableView.frame, 0, -_inviteTableView.frame.size.height)];
     }];
 }
 
@@ -550,7 +552,7 @@
         case 0:
         {
             InviteSupplierTableViewCell_First *cell = (InviteSupplierTableViewCell_First *)[tableView dequeueReusableCellWithIdentifier:@"InviteSupplierTableViewCell_First" forIndexPath:indexPath];
-            [cell setCellContentWithInvitationCode:[UserModel userName]];
+            [cell setCellContentWithInvitationCode:[UserModel inviteCode]];
             return cell;
         }
             break;
@@ -657,12 +659,12 @@
 - (void)supportClickWithQQ
 {
     [self hideInviteTableView];
-    [[Global sharedGlobal] shareViaQQWithURLString:SHARE_DEFAULT_URL title:[NSString stringWithFormat:@"%@邀请加入旅小宝", [UserModel staffDepartmentName]] content:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel userName], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    [[Global sharedGlobal] shareViaQQWithURLString:SHARE_DEFAULT_URL title:[NSString stringWithFormat:@"%@邀请加入旅小宝", [UserModel staffDepartmentName]] content:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel inviteCode], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
 }
 - (void)supportClickWithWeChat
 {
     [self hideInviteTableView];
-    [[Global sharedGlobal] shareViaWeChatWithURLString:SHARE_DEFAULT_URL title:[NSString stringWithFormat:@"%@邀请加入旅小宝", [UserModel staffDepartmentName]] content:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel userName], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:SHARE_DEFAULT_URL title:[NSString stringWithFormat:@"%@邀请加入旅小宝", [UserModel staffDepartmentName]] content:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel inviteCode], SHARE_DEFAULT_URL] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
 - (void)supportClickWithPhoneCall
 {
@@ -672,7 +674,7 @@
 - (void)supportClickWithShortMessage
 {
     [self hideInviteTableView];
-    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel userName], SHARE_DEFAULT_URL] presentedController:self];
+    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"我是%@，你登录旅小宝录产品吧，我直接就可以销售你的线路了，特别方便！邀请码：%@ 地址：%@", [UserModel staffDepartmentName], [UserModel inviteCode], SHARE_DEFAULT_URL] presentedController:self];
 }
 
 #pragma mark - Actions

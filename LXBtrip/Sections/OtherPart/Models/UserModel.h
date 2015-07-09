@@ -36,6 +36,7 @@
 + (NSString *)staffDepartmentName;
 + (NSString *)userToken;
 + (NSString *)userName;
++ (NSString *)inviteCode;
 + (void)updateUserProperty:(NSString *)property ForKey:(NSString *)key;
 
 @end
