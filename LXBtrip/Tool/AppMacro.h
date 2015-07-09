@@ -118,7 +118,7 @@
 // 00AE55
 #define TEXT_00AE55 [UIColor colorWithRed:0/255.f green:174/255.f blue:85/255.f alpha:1]
 
-// FF0075
+// FF0075 - RED
 #define RED_FF0075 [UIColor colorWithRed:255/255.f green:0/255.f blue:117/255.f alpha:1]
 
 // F8F8F8 248
