@@ -70,7 +70,7 @@
     NSDictionary *dispatcherDic;
     
     if (self.isAlterDispatcher) {
-        dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text};
+        dispatcherDic = @{@"contacts":self.dispatcherNameTF.text, @"phone":self.dispatcherPhoneNumTF.text, @"pwd":self.dispatcherLoginPwdTF.text, @"name":self.dispatcherLoginUNTF.text};
         
         [self updateDispatchrer:dispatcherDic];
     }
@@ -100,15 +100,9 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval=10;
     
-    NSDictionary *staffDic = [[UserModel getUserInformations] valueForKey:@"RS100034"];
-    
-    if (!staffDic) {
-        return;
-    }
-    
     NSString *partialUrl = [NSString stringWithFormat:@"%@myself/setDistributor", HOST_BASE_URL];
     
-    NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[staffDic stringValueByKey:@"staff_id" ], @"staffid", [staffDic stringValueByKey:@"dat_company_id"], @"companyid", nil];// @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
+    NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[self.dispatcherInfoDic stringValueByKey:@"staff_id" ], @"staffid", [self.dispatcherInfoDic stringValueByKey:@"dat_company_id"], @"companyid", nil];// @{@"staffid":[staffDic stringValueByKey:@"staff_id" ], @"companyid":[staffDic stringValueByKey:@"dat_company_id"]};
     [parameterDic addEntriesFromDictionary:dispatchreDic];
     
     [manager POST:partialUrl parameters:parameterDic

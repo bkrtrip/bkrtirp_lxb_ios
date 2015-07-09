@@ -49,7 +49,15 @@
     manager.requestSerializer.timeoutInterval=10;
     
     NSString *partialUrl = [NSString stringWithFormat:@"%@common/register", HOST_BASE_URL];
-    [manager POST:partialUrl parameters:@{@"name":phoneNum, @"pwd":pwd}
+    NSDictionary *paramDic;
+    if (self.invitationCode && self.invitationCode.length == 5) {
+        paramDic = @{@"name":phoneNum, @"pwd":pwd, @"code":self.invitationCode};
+    }
+    else {
+        paramDic = @{@"name":phoneNum, @"pwd":pwd};
+    }
+    
+    [manager POST:partialUrl parameters:paramDic
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (responseObject)

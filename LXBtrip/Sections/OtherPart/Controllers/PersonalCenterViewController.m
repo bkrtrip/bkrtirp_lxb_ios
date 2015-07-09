@@ -154,7 +154,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;
+    self.isAlreadyLogined = [self getUserLoginState];
+    if (self.isAlreadyLogined) {
+        return 7;
+    }
+    else {
+        return 5;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -331,6 +337,8 @@
             [cell initialHeaderViewWithUserInfo:self.userInfoDic];
         }
     }
+    
+    [self.mineTableView reloadData];
 }
 
 

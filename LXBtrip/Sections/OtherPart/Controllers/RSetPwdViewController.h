@@ -12,5 +12,6 @@
 @interface RSetPwdViewController : NavBaseViewController
 
 @property (nonatomic, retain) NSString *phoneNum;
+@property (nonatomic, retain) NSString *invitationCode;
 
 @end
