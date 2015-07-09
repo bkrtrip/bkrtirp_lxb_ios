@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "NavBaseViewController.h"
+#import "AlterUserInfoViewController.h"
 
 @interface AlterPhoneNumViewController : NavBaseViewController
 
 @property (nonatomic, retain) NSDictionary *userInfoDic;
+
+@property (weak, nonatomic) id<UpdateUserInformationDelegate> delegate;
 
 @end

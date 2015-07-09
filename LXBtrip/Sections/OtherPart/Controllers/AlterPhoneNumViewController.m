@@ -8,6 +8,10 @@
 
 #import "AlterPhoneNumViewController.h"
 #import "NSDictionary+GetStringValue.h"
+#import "AppMacro.h"
+#import "AFNetworking.h"
+#import "UIViewController+CommonUsed.h"
+#import "CustomActivityIndicator.h"
 
 //(238.0/255.0, 238.0/255.0, 238.0/255.0, 1.0)
 //(68.0/255.0, 167.0/255.0, 248.0/255.0, 1.0)
@@ -45,7 +49,9 @@
 
 - (void)rightBarButtonItemClicked:(id)sender
 {
+    NSDictionary *alterInfoDic = @{@"staffid":[self.userInfoDic stringValueByKey:@"staff_id"], @"companyid":[self.userInfoDic stringValueByKey:@"company_id"], @"phone":self.contactNumberTF.text};
     
+    [self updateUserInfo:alterInfoDic];
 }
 
 
@@ -93,6 +99,53 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     ((UIImageView *)[self.view viewWithTag:11]).image = [UIImage imageNamed:@"inputLine_0"];
+}
+
+- (void)updateUserInfo:(NSDictionary *)userDic
+{
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    __weak AlterPhoneNumViewController *weakSelf = self;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer.timeoutInterval=10;
+    
+    
+    NSString *partialUrl = [NSString stringWithFormat:@"%@myself/setStaff", HOST_BASE_URL];
+    
+    [manager POST:partialUrl parameters:userDic
+          success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         
+         if (responseObject)
+         {
+             id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
+             NSLog(@"%@", jsonObj);
+             
+             if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
+                 
+                 NSDictionary *resultDic = [jsonObj objectForKey:@"RS100024"];
+                 
+                 //update user info successfully
+                 if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
+
+                     if (weakSelf.delegate) {
+                         [weakSelf.delegate updateUserInformationSuccessfully];
+                     }
+                     
+                     [weakSelf.navigationController popViewControllerAnimated:YES];
+                 }
+             }
+             
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         [weakSelf showAlertViewWithTitle:nil message:@"更新失败 ！" cancelButtonTitle:@"确定"];
+         
+     }];
 }
 
 /*

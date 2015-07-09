@@ -383,6 +383,8 @@
     [UserModel clearUserInformation];
     [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:self];
     
+    self.userInfoDic = nil;
+    
     [self updateUIForLoginState:NO];
 }
 

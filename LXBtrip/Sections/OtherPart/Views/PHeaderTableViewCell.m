@@ -70,6 +70,9 @@
             
             [self.userPhotoImgView sd_setImageWithURL:pUrl placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"]];
         }
+        else {
+            self.userPhotoImgView.image = [UIImage imageNamed:@"defaultIcon.jpg"];
+        }
     }
     else {
         self.userInfoNotSetAlertLabel.hidden = NO;
