@@ -578,19 +578,19 @@
     }
     
     if (group.kidPrice && [group.kidPrice integerValue] > 0) {
-        [dict setObject:group.kidPrice forKey:@"kid_price"];
+        [dict setObject:group.kidPrice forKey:@"kid_nbed_price"];
     }
     
     if (group.kidNum && [group.kidNum integerValue] > 0) {
-        [dict setObject:group.kidNum forKey:@"kid_person"];
+        [dict setObject:group.kidNum forKey:@"kid_nbed_person"];
     }
     
     if (group.kidBedNum && [group.kidBedNum integerValue] > 0) {
-        [dict setObject:group.kidBedNum forKey:@"kid_bed_person"];
+        [dict setObject:group.kidBedNum forKey:@"kid_person"];
     }
     
     if (group.kidBedPrice && [group.kidBedPrice integerValue] > 0) {
-        [dict setObject:group.kidBedPrice forKey:@"kid_bed_price"];
+        [dict setObject:group.kidBedPrice forKey:@"kid_price"];
     }
     
     if (group.diffPrice && [group.diffPrice integerValue] > 0) {

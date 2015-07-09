@@ -70,11 +70,11 @@
     }
 
     
-    if (adultTotalPrice + kidNoBedPrict + kidBedPrice == 0) {
-        _totalPriceLabel.hidden = YES;
-    } else {
+    if (item.orderDealPrice && [item.orderDealPrice floatValue] > 0) {
         _totalPriceLabel.hidden = NO;
-        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", adultTotalPrice + adultTotalPrice + kidNoBedPrict + kidBedPrice];
+        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f", [item.orderDealPrice floatValue]];
+    } else {
+        _totalPriceLabel.hidden = YES;
     }
 }
 

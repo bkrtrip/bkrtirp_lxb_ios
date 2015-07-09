@@ -90,6 +90,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:MY_SHOP_HAS_UPDATED object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
 
@@ -166,6 +168,19 @@
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _darkMask.alpha = 0;// initally transparent
     [self.view addSubview:_darkMask];
+    
+    // inviteTableView
+    CGFloat height = 320.f;
+    _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, height)];
+    _inviteTableView.dataSource = self;
+    _inviteTableView.delegate = self;
+    [self.view addSubview:_inviteTableView];
+    _inviteTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
     
     locationCity = [[Global sharedGlobal] locationCity];
     startCity = [locationCity copy];
@@ -302,7 +317,11 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.tabBarController.tabBar.hidden = YES;
         _darkMask.alpha = 1;
-        [_inviteTableView setFrame:CGRectOffset(_inviteTableView.frame, 0, -_inviteTableView.frame.size.height)];
+        [_inviteTableView setFrame:CGRectMake(_inviteTableView.frame.origin.x,
+                                              _inviteTableView.frame.origin.y-_inviteTableView.frame.size.height,
+                                              _inviteTableView.frame.size.width,
+                                              _inviteTableView.frame.size.height)];
+//        [_inviteTableView setFrame:CGRectOffset(_inviteTableView.frame, 0, -_inviteTableView.frame.size.height)];
     }];
 }
 
@@ -509,20 +528,6 @@
     if (![UserModel companyId] || ![UserModel staffId]) {
         [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
         return;
-    }
-    
-    if (!_inviteTableView) {
-        CGFloat height = 320.f;
-        _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, height)];
-        _inviteTableView.dataSource = self;
-        _inviteTableView.delegate = self;
-        [self.view addSubview:_inviteTableView];
-        _inviteTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
-        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
-        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
-        [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
     }
     
     [self showInviteTableView];

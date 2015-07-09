@@ -264,8 +264,6 @@
                     [ordersArray[selectedIndex] addObject:item];
                 }];
                 
-//                ordersArray[selectedIndex] = [[self sortByTimeDescendingWithOrders:ordersArray[selectedIndex]] mutableCopy];
-                
                 [tableViewsArray[selectedIndex] reloadData];
                 pageNumsArray[selectedIndex] = @([pageNumsArray[selectedIndex] integerValue]+1);
             } else {
@@ -308,7 +306,7 @@
             pageNumsArray[selectedIndex] = @1;
             isLoadingMoreArray[selectedIndex] = @0;
             
-            [self getMyOrderList];
+//            [self getMyOrderList];
 
             if ([status integerValue] == 2) {
                 // 直接跳转“失效”，并刷新列表
@@ -345,13 +343,9 @@
         [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, index*SCREEN_WIDTH, 0) animated:NO];
         [_underLineLabel setFrame:CGRectMake(index*SCREEN_WIDTH/3, _underLineLabel.frame.origin.y, SCREEN_WIDTH/3, _underLineLabel.frame.size.height)];
     } completion:^(BOOL finished) {
-        if (finished) {
-            selectedIndex = index;
-            if ([isLoadingMoreArray[index] integerValue] == 0) {
-                
-                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getMyOrderList];
-            }
+        if ([isLoadingMoreArray[index] integerValue] == 0) {
+            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+            [self getMyOrderList];
         }
     }];
 }
@@ -381,18 +375,23 @@
     if (group.adultNum) {
         [dict setObject:group.adultNum forKey:@"adult_person"];
     }
+    
+    // kid no bed
     if (group.kidPrice) {
         [dict setObject:group.kidPrice forKey:@"kid_nbed_price"];
-    }
-    if (group.kidBedPrice) {
-        [dict setObject:group.kidBedPrice forKey:@"kid_price"];
     }
     if (group.kidNum) {
         [dict setObject:group.kidNum forKey:@"kid_nbed_person"];
     }
+    
+    // kid with bed
+    if (group.kidBedPrice) {
+        [dict setObject:group.kidBedPrice forKey:@"kid_price"];
+    }
     if (group.kidBedNum) {
         [dict setObject:group.kidBedNum forKey:@"kid_person"];
     }
+    
     if (group.diffPrice) {
         [dict setObject:group.diffPrice forKey:@"diff_price"];
     }

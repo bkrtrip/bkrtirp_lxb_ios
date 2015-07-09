@@ -69,7 +69,9 @@
     [super viewDidLoad];
     // must override superclass
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:@"SHOP_LIST_NEEDS_UPDATE" object:nil]; // This one is from MicroShopDetailViewController
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myShopListNeedsUpdate) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil]; // This one is from LoginViewController
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(provinceChanged) name:PROVINCE_CHANGED object:nil];
     
     CGFloat scrollViewYOrigin = 20.f + 52.f + 3.f;

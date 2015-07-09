@@ -373,7 +373,7 @@
 {
     //clear user infomation
     [UserModel clearUserInformation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:self];
     
     [self updateUIForLoginState:NO];
 }

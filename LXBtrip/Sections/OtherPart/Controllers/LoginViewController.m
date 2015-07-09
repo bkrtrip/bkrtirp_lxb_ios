@@ -106,7 +106,7 @@
                  NSString *userName = [resultDic stringValueByKey:@"staff_name"];
                  [APService setTags:[NSSet setWithObject:userName] alias:userName callbackSelector:nil object:nil];
                  
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOP_LIST_NEEDS_UPDATE" object:self];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:self];
                  if ([[Global sharedGlobal] notFirstLogin] == NO) {
                      [[Global sharedGlobal] saveNotFirstLoginStatus];
                  }
