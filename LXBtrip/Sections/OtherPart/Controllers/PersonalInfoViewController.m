@@ -270,6 +270,7 @@
         {
             AlterPhoneNumViewController *viewController = [[AlterPhoneNumViewController alloc] init];
             viewController.userInfoDic = self.userInfoDic;
+            viewController.delegate = self;
             
             [self.navigationController pushViewController:viewController animated:YES];
         }

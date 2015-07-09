@@ -60,15 +60,6 @@
     [refreshControl addTarget:self action:@selector(refreshDispatchers:) forControlEvents:UIControlEventValueChanged];
     
     [self.dispatchersTableView addSubview:refreshControl];
-    
-//    [self getDispathersListForPage:self.pageNum];
-    
-    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
-    [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
-    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    _darkMask.alpha = 0;// initally transparent
-    [self.view addSubview:_darkMask];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,6 +74,25 @@
     self.navigationController.tabBarController.tabBar.hidden = YES;
     
     [self refreshDispatcherList];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self initializeShareViewBgView];
+}
+
+- (void)initializeShareViewBgView
+{
+    if (!_darkMask) {
+        _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
+        _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+        _darkMask.alpha = 0;// initally transparent
+        [self.view addSubview:_darkMask];
+    }
 }
 
 - (void)refreshDispatchers:(UIRefreshControl *)sender
@@ -238,6 +248,14 @@
         case ShareDispatcherInfo:
         {
             //TODO: send_mstort_rul
+            
+            if ([self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"].length == 0) {
+                
+                [self showAlertViewWithTitle:nil message:@"未设置微店名称无法进行分享操作，请先的我的微店里设置微店名称。" cancelButtonTitle:@"确认"];
+                
+                return;
+            }
+            
             if (!_shareView) {
                 _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
                 _shareView.delegate = self;
@@ -313,28 +331,28 @@
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
 }
 
 - (void)supportClickWithQZoneWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+    [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
 }
 
 - (void)supportClickWithShortMessageWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景。请点击查看: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] presentedController:self];
+    [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] presentedController:self];
 }
 
 - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
@@ -346,21 +364,21 @@
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaYiXinWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+    [[Global sharedGlobal] shareViaYiXinWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
 }
 
 - (void)supportClickWithWeiboWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaSinaWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self];
+    [[Global sharedGlobal] shareViaSinaWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self];
 }
 
 - (void)supportClickWithFriendsWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"%@，邀您同游，乐享世界美景", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
 }
 
 - (void)supportClickWithCancel
