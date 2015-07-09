@@ -344,6 +344,7 @@
 {
     TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
     web.detailURLString = _product.productDetailURL;
+    web.title = @"线路详情";
     [self.navigationController pushViewController:web animated:YES];
 }
 
@@ -351,6 +352,7 @@
 {
     TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
     web.detailURLString = _product.productIntroduceURL;
+    web.title = @"行程介绍";
     [self.navigationController pushViewController:web animated:YES];
 }
 - (void)supportClickWithReviews

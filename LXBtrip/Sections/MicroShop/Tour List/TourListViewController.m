@@ -593,7 +593,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
     }
 }
 
@@ -611,7 +611,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
+        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self];
     }
 }
 

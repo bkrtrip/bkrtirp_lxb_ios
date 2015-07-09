@@ -86,8 +86,11 @@ singleton_interface(HTTPTool)
 // 当地热门搜索列表 - LXB21112
 + (void)getHotSearchListWithSuccess:(SuccessBlock)success fail:(FailBlock)fail;
 
-// 关键字搜索列表页 - LXB21113
+// 关键字搜索列表页 - LXB21113 - 未登录
 + (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
+
+// 关键字搜索列表页 - LXB21249 - 已登录
++ (void)searchSupplierListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId startCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 服务商列表 - LXB31119 - 未登录
 + (void)getServiceListWithCounty:(NSString *)country province:(NSString *)province city:(NSString *)city pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
