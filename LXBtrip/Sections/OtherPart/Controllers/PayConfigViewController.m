@@ -285,6 +285,11 @@
     if (indexPath.section == 1) {
         
         if (indexPath.row == 5) {
+            
+            if (self.isOpenedWXPay) {
+                [self showMenueForCopyPaySecret];
+            }
+            
             return;
         }
         
@@ -318,12 +323,6 @@
                 viewController.type = WX_partner;
             }
                 break;
-//            case 5:
-//            {
-//                viewController.type = WX_paysecret;
-//            }
-//                break;
-                
                 
             default:
                 break;
@@ -333,6 +332,40 @@
     }
 }
 
+- (void)showMenueForCopyPaySecret {
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    
+    InfoConfigTableViewCell *cell = (InfoConfigTableViewCell *)[self.configTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:1]];
+    CGRect selectionRect = CGRectMake(cell.frame.origin.x + cell.contentTF.frame.origin.x, cell.frame.origin.y + 5, 60, 20);
+    [menuController setTargetRect:selectionRect inView:self.configTableView];
+    
+    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:@"拷贝支付秘钥" action:@selector(copyPaysecretToClipboard)];
+    [menuController setMenuItems:[NSArray arrayWithObject:item]];
+    [menuController setMenuVisible:YES animated:YES];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action
+              withSender:(id)sender
+{
+    //@selector(copy:) == action ||
+
+    BOOL result = NO;
+    if(@selector(copyPaysecretToClipboard) == action) {
+        result = YES;
+    }
+    return result;
+}
+
+// UIMenuController Methods
+
+- (void)copyPaysecretToClipboard {
+    UIPasteboard *pastBoard = [UIPasteboard generalPasteboard];
+    pastBoard.string = ((InfoConfigTableViewCell *)[self.configTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:1]]).contentTF.text;
+}
 
 #pragma mark - UpdateUserInformationDelegate
 
