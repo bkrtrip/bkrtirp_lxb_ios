@@ -532,6 +532,7 @@
         return;
     }
     
+    [_inviteTableView reloadData];
     [self showInviteTableView];
 }
 

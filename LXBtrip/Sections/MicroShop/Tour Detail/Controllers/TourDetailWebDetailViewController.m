@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"行程介绍";
     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_detailURLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.f]];
     loadTimer = [NSTimer scheduledTimerWithTimeInterval:10.f target:self selector:@selector(stopLoading) userInfo:nil repeats:NO];

@@ -120,11 +120,13 @@
 
 - (IBAction)addToOrRemoveFromMyShopButtonClicked:(id)sender
 {
-    [self ifNotLogin];
-    [self ifShopNameNotSet];
-    [self ifShopContactNotSet];
-    
-    [self syncOrCancelSyncMySupplier];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                [self syncOrCancelSyncMySupplier];
+            }
+        }
+    }
 }
 
 #pragma mark - HTTP
@@ -285,57 +287,63 @@
 #pragma mark - TourListTableViewCell_Delegate
 - (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
-    [self ifNotLogin];
-    [self ifShopNameNotSet];
-    [self ifShopContactNotSet];
-    
-    popUpType = Share_Type;
-    selectedProduct = product;
-
-    // 已同步
-    if ([_isMinetype intValue] == 0) {
-        // go to share
-        [self showShareView];
-    // 未同步
-    } else if ([_isMinetype intValue] == 1){
-        [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接转发产品详情页给游客浏览！\n（产品详情页将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                popUpType = Share_Type;
+                selectedProduct = product;
+                
+                // 已同步
+                if ([_isMinetype intValue] == 0) {
+                    // go to share
+                    [self showShareView];
+                    // 未同步
+                } else if ([_isMinetype intValue] == 1){
+                    [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接转发产品详情页给游客浏览！\n（产品详情页将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
+                }
+            }
+        }
     }
 }
 - (void)supportClickWithPreviewButtonWithProduct:(SupplierProduct *)product
 {
-    [self ifNotLogin];
-    [self ifShopNameNotSet];
-    [self ifShopContactNotSet];
-    
-    popUpType = Preview_Type;
-    selectedProduct = product;
-    
-    //已同步
-    if ([_isMinetype intValue] == 0) {
-        // go to preview webview
-        
-        if (product.productPreviewURL) {
-            TourWebPreviewViewController *web = [[TourWebPreviewViewController alloc] init];
-            web.tourURLString = product.productPreviewURL;
-            [self.navigationController pushViewController:web animated:YES];
-            popUpType = None_Type;
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                popUpType = Preview_Type;
+                selectedProduct = product;
+                
+                //已同步
+                if ([_isMinetype intValue] == 0) {
+                    // go to preview webview
+                    
+                    if (product.productPreviewURL) {
+                        TourWebPreviewViewController *web = [[TourWebPreviewViewController alloc] init];
+                        web.tourURLString = product.productPreviewURL;
+                        [self.navigationController pushViewController:web animated:YES];
+                        popUpType = None_Type;
+                    }
+                    //未同步
+                } else if ([_isMinetype intValue] == 1){
+                    [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接预览产品详情页！\n（页面将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
+                }
+            }
         }
-    //未同步
-    } else if ([_isMinetype intValue] == 1){
-        [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接预览产品详情页！\n（页面将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
     }
 }
 - (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product
 {
-    [self ifNotLogin];
-    [self ifShopNameNotSet];
-    [self ifShopContactNotSet];
-    
-    popUpType = Accompany_Type;
-    selectedProduct = product;
-    
-    [self setUpAccompanyInfoView];
-    [self showAcompanyInfoView];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                popUpType = Accompany_Type;
+                selectedProduct = product;
+                
+                [self setUpAccompanyInfoView];
+                [self showAcompanyInfoView];
+            }
+        }
+    }
 }
 
 #pragma mark - AccompanyInfoView_Delegate
@@ -505,12 +513,14 @@
 {
     [self hideYesOrNoView];
     
-    [self ifNotLogin];
-    [self ifShopNameNotSet];
-    [self ifShopContactNotSet];
-    
-    //同步
-    [self syncOrCancelSyncMySupplier];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                //同步
+                [self syncOrCancelSyncMySupplier];
+            }
+        }
+    }
 }
 
 #pragma mark - private
@@ -615,26 +625,29 @@
 }
 
 // evaluate user status
-- (void)ifNotLogin {
+- (BOOL)ifNotLogin {
     if (![UserModel companyId] || ![UserModel staffId]) {
         // go to login page
         [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
-        return;
+        return NO;
     }
+    return YES;
 }
-- (void)ifShopNameNotSet {
+- (BOOL)ifShopNameNotSet {
     if (![UserModel staffDepartmentName]) {
         SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
         [self.navigationController pushViewController:setName animated:YES];
-        return ;
+        return NO;
     }
+    return YES;
 }
-- (void)ifShopContactNotSet {
+- (BOOL)ifShopContactNotSet {
     if (![UserModel staffRealName]) {
         SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
         [self.navigationController pushViewController:setContact animated:YES];
-        return ;
+        return NO;
     }
+    return YES;
 }
 
 #pragma mark - UIScrollViewDelegate

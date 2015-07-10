@@ -651,7 +651,7 @@ singleton_implementation(HTTPTool)
     }];
 }
 
-// 关键字搜索列表页 - LXB21113
+// 关键字搜索列表页 - LXB21113 - 未登录
 + (void)searchSupplierListWithStartCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
 {
     NSMutableDictionary *param = [@{@"lineclass":lineClass, @"pagenum":pageNum} mutableCopy];
@@ -675,6 +675,52 @@ singleton_implementation(HTTPTool)
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
     [manager.requestSerializer setValue:@"LXB21113" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/searchList"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
+// 关键字搜索列表页 - LXB21249 - 已登录
++ (void)searchSupplierListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId startCity:(NSString *)startCity lineClass:(NSString *)lineClass hotTheme:(NSString *)hotTheme keyword:(NSString *)keyword walkType:(NSString *)walkType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSMutableDictionary *param = [@{@"lineclass":lineClass, @"pagenum":pageNum} mutableCopy];
+    
+    if (companyId) {
+        [param setObject:companyId forKey:@"companyid"];
+    } else
+        return;
+    
+    if (staffId) {
+        [param setObject:staffId forKey:@"staffid"];
+    } else
+        return;
+    
+    if (startCity) {
+        [param setObject:startCity forKey:@"startcity"];
+    }
+    
+    if (hotTheme) {
+        [param setObject:hotTheme forKey:@"hottheme"];
+    }
+    
+    if (keyword) {
+        [param setObject:keyword forKey:@"keyword"];
+    }
+    
+    if (walkType) {
+        [param setObject:walkType forKey:@"walktype"];
+    }
+    
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB21249" forHTTPHeaderField:@"AUTHCODE"];
     
     [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"supplier/searchList"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {

@@ -96,7 +96,7 @@
             _underLine.backgroundColor = RED_FF0075;
             [self.contentView addSubview:_underLine];
         }
-        [_underLine setFrame:CGRectMake(0, _scrollView.frame.size.height - 2, SCREEN_WIDTH/picNum, 2)];
+        [_underLine setFrame:CGRectMake(0, _scrollView.frame.size.height, SCREEN_WIDTH/picNum, 2)];
     }
     
     // walk type image

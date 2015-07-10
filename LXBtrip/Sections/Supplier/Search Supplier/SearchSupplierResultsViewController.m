@@ -15,6 +15,8 @@
 #import "ShareView.h"
 #import "TourWebPreviewViewController.h"
 #import "TourDetailTableViewController.h"
+#import "SetShopNameViewController.h"
+#import "SetShopContactViewController.h"
 
 @interface SearchSupplierResultsViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, TourListTableViewCell_Delegate, AccompanyInfoView_Delegate, ShareViewDelegate>
 {
@@ -68,6 +70,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResultsNeedsUpdate) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil]; // from LoginViewController, change search API after login
+
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     _mainTableView.backgroundColor = BG_E9ECF5;
     _mainTableView.tableFooterView = [[UIView alloc] init];
@@ -111,6 +115,16 @@
     if ([[Global sharedGlobal] networkAvailability] == NO) {
         [self networkUnavailable];
     }
+}
+
+- (void)searchResultsNeedsUpdate
+{
+    _noSearchResultsView.hidden = YES;
+    pageNum = 1;
+    isRefreshing = YES;
+
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [self getSearchedSupplierResults];
 }
 
 - (void)setUpSearchBarAndSearchButton
@@ -278,39 +292,56 @@
 #pragma mark - TourListTableViewCell_Delegate
 - (void)supportClickWithShareButtonWithProduct:(SupplierProduct *)product
 {
-    selectedProduct = product;
-    if (!_shareView) {
-        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
-        _shareView.delegate = self;
-        [self.view addSubview:_shareView];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                selectedProduct = product;
+                if (!_shareView) {
+                    _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
+                    _shareView.delegate = self;
+                    [self.view addSubview:_shareView];
+                }
+                CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
+                [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+                
+                [self showShareView];
+            }
+        }
     }
-    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:product];
-    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
-    
-    [self showShareView];
-    
 }
 - (void)supportClickWithPreviewButtonWithProduct:(SupplierProduct *)product
 {
-    selectedProduct = product;
-    if (selectedProduct.productPreviewURL) {
-        TourWebPreviewViewController *web = [[TourWebPreviewViewController alloc] init];
-        web.tourURLString = selectedProduct.productPreviewURL;
-        [self.navigationController pushViewController:web animated:YES];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                selectedProduct = product;
+                if (selectedProduct.productPreviewURL) {
+                    TourWebPreviewViewController *web = [[TourWebPreviewViewController alloc] init];
+                    web.tourURLString = selectedProduct.productPreviewURL;
+                    [self.navigationController pushViewController:web animated:YES];
+                }
+            }
+        }
     }
 }
 - (void)supportClickWithAccompanyInfoWithProduct:(SupplierProduct *)product
 {
-    selectedProduct = product;
-    if (!_accompanyInfoView) {
-        _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
-        _accompanyInfoView.delegate = self;
-        [self.view addSubview:_accompanyInfoView];
+    if ([self ifNotLogin] == YES) {
+        if ([self ifShopNameNotSet] == YES) {
+            if ([self ifShopContactNotSet] == YES) {
+                selectedProduct = product;
+                if (!_accompanyInfoView) {
+                    _accompanyInfoView = [[NSBundle mainBundle] loadNibNamed:@"AccompanyInfoView" owner:nil options:nil][0];
+                    _accompanyInfoView.delegate = self;
+                    [self.view addSubview:_accompanyInfoView];
+                }
+                CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
+                
+                [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+                [self showAccompanyInfoView];
+            }
+        }
     }
-    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
-    
-    [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
-    [self showAccompanyInfoView];
 }
 
 #pragma mark - AccompanyInfoView_Delegate
@@ -423,7 +454,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+        [[Global sharedGlobal] shareViaYiXinWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
     }
 }
 
@@ -441,7 +472,7 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productIntroduce image:nil location:nil presentedController:self];
+        [[Global sharedGlobal] shareViaSinaWithURLString:shareURL content:sharePrd.productTravelGoodsName image:nil location:nil presentedController:self];
     }
 }
 
@@ -471,69 +502,135 @@
 #pragma mark - HTTP
 - (void)getSearchedSupplierResults
 {
-    [HTTPTool searchSupplierListWithStartCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        
-        if (isRefreshing == YES) {
-            pageNum = 1;
-            [searchedResultsArray removeAllObjects];
-            [_mainTableView reloadData];
-            isRefreshing = NO;
-        }
-        
-        _noSearchResultsView.hidden = YES;
-        
-        [[Global sharedGlobal] codeHudWithObject:result[@"RS100013"] succeed:^{
+    if ([UserModel companyId] && [UserModel staffId]) {
+        [HTTPTool searchSupplierListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] startCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             
-            NSString *startCitiesString = result[@"RS100013"][@"start_city"];
-            NSArray *temp = [startCitiesString componentsSeparatedByString:@"#"];
-            
-            if (!startCitiesArray) {
-                startCitiesArray = [[NSMutableArray alloc] init];
-                [startCitiesArray addObject:@"不限"];
+            if (isRefreshing == YES) {
+                pageNum = 1;
+                [searchedResultsArray removeAllObjects];
+                [_mainTableView reloadData];
+                isRefreshing = NO;
             }
             
-            [temp enumerateObjectsUsingBlock:^(NSString *new, NSUInteger idx, BOOL *stop) {
-                __block BOOL alreadyOld = NO;
-                [startCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
-                    if ([new isEqualToString:old]) {
-                        alreadyOld = YES;
-                    }
-                }];
-                if (alreadyOld == NO) {
-                    [startCitiesArray addObject:new];
-                }
-            }];
+            _noSearchResultsView.hidden = YES;
             
-            [_startCityTableView reloadData];
-
-            if ([result[@"RS100013"][@"goods_list"] isKindOfClass:[NSArray class]]) {
-                [result[@"RS100013"][@"goods_list"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    SupplierProduct *product = [[SupplierProduct alloc] initWithDict:obj];
-                    if (!searchedResultsArray) {
-                        searchedResultsArray = [[NSMutableArray alloc] init];
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100049"] succeed:^{
+                
+                NSString *startCitiesString = result[@"RS100049"][@"start_city"];
+                NSArray *temp = [startCitiesString componentsSeparatedByString:@"#"];
+                
+                if (!startCitiesArray) {
+                    startCitiesArray = [[NSMutableArray alloc] init];
+                    [startCitiesArray addObject:@"不限"];
+                }
+                
+                [temp enumerateObjectsUsingBlock:^(NSString *new, NSUInteger idx, BOOL *stop) {
+                    __block BOOL alreadyOld = NO;
+                    [startCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
+                        if ([new isEqualToString:old]) {
+                            alreadyOld = YES;
+                        }
+                    }];
+                    if (alreadyOld == NO) {
+                        [startCitiesArray addObject:new];
                     }
-                    [searchedResultsArray addObject:product];
                 }];
                 
-                siftedResultsArray = [searchedResultsArray mutableCopy];
-                [_mainTableView reloadData];
-                pageNum ++;
-            } else if (searchedResultsArray.count == 0) {
-                _noSearchResultsView.hidden = NO;
+                [_startCityTableView reloadData];
+                
+                if ([result[@"RS100049"][@"goods_list"] isKindOfClass:[NSArray class]]) {
+                    [result[@"RS100049"][@"goods_list"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        SupplierProduct *product = [[SupplierProduct alloc] initWithDict:obj];
+                        if (!searchedResultsArray) {
+                            searchedResultsArray = [[NSMutableArray alloc] init];
+                        }
+                        [searchedResultsArray addObject:product];
+                    }];
+                    
+                    siftedResultsArray = [searchedResultsArray mutableCopy];
+                    [_mainTableView reloadData];
+                    pageNum ++;
+                } else if (searchedResultsArray.count == 0) {
+                    _noSearchResultsView.hidden = NO;
+                }
+            }];
+        } fail:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
             }
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"搜索失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
         }];
-    } fail:^(id result) {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        
-        if ([[Global sharedGlobal] networkAvailability] == NO) {
-            [self networkUnavailable];
-            return ;
-        }
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"搜索失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-    }];
+    } else {
+        [HTTPTool searchSupplierListWithStartCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if (isRefreshing == YES) {
+                pageNum = 1;
+                [searchedResultsArray removeAllObjects];
+                [_mainTableView reloadData];
+                isRefreshing = NO;
+            }
+            
+            _noSearchResultsView.hidden = YES;
+            
+            [[Global sharedGlobal] codeHudWithObject:result[@"RS100013"] succeed:^{
+                
+                NSString *startCitiesString = result[@"RS100013"][@"start_city"];
+                NSArray *temp = [startCitiesString componentsSeparatedByString:@"#"];
+                
+                if (!startCitiesArray) {
+                    startCitiesArray = [[NSMutableArray alloc] init];
+                    [startCitiesArray addObject:@"不限"];
+                }
+                
+                [temp enumerateObjectsUsingBlock:^(NSString *new, NSUInteger idx, BOOL *stop) {
+                    __block BOOL alreadyOld = NO;
+                    [startCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
+                        if ([new isEqualToString:old]) {
+                            alreadyOld = YES;
+                        }
+                    }];
+                    if (alreadyOld == NO) {
+                        [startCitiesArray addObject:new];
+                    }
+                }];
+                
+                [_startCityTableView reloadData];
+                
+                if ([result[@"RS100013"][@"goods_list"] isKindOfClass:[NSArray class]]) {
+                    [result[@"RS100013"][@"goods_list"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        SupplierProduct *product = [[SupplierProduct alloc] initWithDict:obj];
+                        if (!searchedResultsArray) {
+                            searchedResultsArray = [[NSMutableArray alloc] init];
+                        }
+                        [searchedResultsArray addObject:product];
+                    }];
+                    
+                    siftedResultsArray = [searchedResultsArray mutableCopy];
+                    [_mainTableView reloadData];
+                    pageNum ++;
+                } else if (searchedResultsArray.count == 0) {
+                    _noSearchResultsView.hidden = NO;
+                }
+            }];
+        } fail:^(id result) {
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            
+            if ([[Global sharedGlobal] networkAvailability] == NO) {
+                [self networkUnavailable];
+                return ;
+            }
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"搜索失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
+        }];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -689,6 +786,32 @@
             [siftedResultsArray addObject:product];
         }
     }];
+}
+
+// evaluate user status
+- (BOOL)ifNotLogin {
+    if (![UserModel companyId] || ![UserModel staffId]) {
+        // go to login page
+        [self presentViewController:[[Global sharedGlobal] loginNavViewControllerFromSb] animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
+}
+- (BOOL)ifShopNameNotSet {
+    if (![UserModel staffDepartmentName]) {
+        SetShopNameViewController *setName = [[SetShopNameViewController alloc] init];
+        [self.navigationController pushViewController:setName animated:YES];
+        return NO;
+    }
+    return YES;
+}
+- (BOOL)ifShopContactNotSet {
+    if (![UserModel staffRealName]) {
+        SetShopContactViewController *setContact = [[SetShopContactViewController alloc] init];
+        [self.navigationController pushViewController:setContact animated:YES];
+        return NO;
+    }
+    return YES;
 }
 
 @end
