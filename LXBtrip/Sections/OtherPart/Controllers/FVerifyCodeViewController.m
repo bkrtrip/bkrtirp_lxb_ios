@@ -44,6 +44,11 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)goToResetPwd:(id)sender {
+    if (self.verifyCodeTf.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"验证码不能为空，请输入手机收到的验证码。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
     if ([self.verificationCode rangeOfString:self.verifyCodeTf.text].location == NSNotFound) {
         [self showAlertViewWithTitle:@"提示" message:@"验证码输入错误，请重新输入。" cancelButtonTitle:@"确定"];
         return;
