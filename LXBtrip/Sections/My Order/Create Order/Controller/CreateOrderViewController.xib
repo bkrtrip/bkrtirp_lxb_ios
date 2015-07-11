@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jA-80-We3">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jA-80-We3">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="512"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -30,13 +30,13 @@
                     <rect key="frame" x="0.0" y="512" width="320" height="56"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单金额：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-Ak-oIe">
-                            <rect key="frame" x="8" y="20" width="70" height="17"/>
+                            <rect key="frame" x="10" y="20" width="70" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥12400" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4p-oe-rNc">
-                            <rect key="frame" x="78" y="20" width="54" height="17"/>
+                            <rect key="frame" x="80" y="20" width="54" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                         <constraint firstAttribute="trailing" secondItem="o4p-oe-rNc" secondAttribute="trailing" constant="37" id="bw9-5c-Hyr"/>
                         <constraint firstAttribute="trailing" secondItem="Ne9-Lb-sxj" secondAttribute="trailing" id="eAP-qE-Jf6"/>
                         <constraint firstAttribute="centerY" secondItem="o4p-oe-rNc" secondAttribute="centerY" id="mAt-Oj-LQx"/>
-                        <constraint firstItem="d6y-Ak-oIe" firstAttribute="leading" secondItem="RuR-4h-Q5t" secondAttribute="leading" constant="8" id="ojo-Vu-CTm"/>
+                        <constraint firstItem="d6y-Ak-oIe" firstAttribute="leading" secondItem="RuR-4h-Q5t" secondAttribute="leading" constant="10" id="ojo-Vu-CTm"/>
                         <constraint firstAttribute="height" secondItem="Ne9-Lb-sxj" secondAttribute="height" id="p1H-JX-H0u"/>
                     </constraints>
                     <variation key="default">

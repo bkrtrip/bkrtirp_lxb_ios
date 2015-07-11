@@ -60,6 +60,12 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 - (void)rightBarButtonItemClicked:(id)sender
 {
     if (!_shareView) {

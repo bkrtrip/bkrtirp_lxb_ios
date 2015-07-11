@@ -23,6 +23,6 @@
 @property (nonatomic, weak) id <CreateOrderCell_Input_Delegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
-- (void)setCellContentWithInputType:(NSString *)type section:(NSInteger)section row:(NSInteger)row placeHolder:(NSString *)placeHolder text:(NSString *)text;
+- (void)setCellContentWithInputType:(NSString *)type section:(NSInteger)section row:(NSInteger)row placeHolder:(NSString *)placeHolder text:(NSString *)text showSeparator:(BOOL)show;
 
 @end

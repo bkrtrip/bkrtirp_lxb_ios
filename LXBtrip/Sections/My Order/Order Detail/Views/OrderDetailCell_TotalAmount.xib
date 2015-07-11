@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -14,16 +14,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVq-6u-yfw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5C-kK-JCR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="YpB-fw-rIn"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LVq-6u-yfw">
+                        <rect key="frame" x="0.0" y="10" width="320" height="56"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="订单总额：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-eT-BhJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单总额：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-eT-BhJ">
                                 <rect key="frame" x="28" y="20" width="70" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocu-Tl-NQL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocu-Tl-NQL">
                                 <rect key="frame" x="106" y="20" width="5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,22 +51,15 @@
                             </mask>
                         </variation>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5C-kK-JCR">
-                        <rect key="frame" x="0.0" y="56" width="320" height="10"/>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="10" id="YpB-fw-rIn"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="LVq-6u-yfw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7bS-jt-ALw"/>
+                    <constraint firstItem="LVq-6u-yfw" firstAttribute="top" secondItem="I5C-kK-JCR" secondAttribute="bottom" id="B6Q-w9-Khs"/>
                     <constraint firstAttribute="trailing" secondItem="I5C-kK-JCR" secondAttribute="trailing" id="QYq-XJ-32Z"/>
                     <constraint firstAttribute="bottom" secondItem="LVq-6u-yfw" secondAttribute="bottom" id="ZcX-hR-kAG"/>
                     <constraint firstAttribute="trailing" secondItem="LVq-6u-yfw" secondAttribute="trailing" id="atx-tI-GCI"/>
                     <constraint firstItem="LVq-6u-yfw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dva-QL-Pxi"/>
                     <constraint firstItem="I5C-kK-JCR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lSJ-1r-gGz"/>
-                    <constraint firstAttribute="bottom" secondItem="I5C-kK-JCR" secondAttribute="bottom" id="y78-SY-njW"/>
+                    <constraint firstItem="I5C-kK-JCR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="sPL-af-f7G"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

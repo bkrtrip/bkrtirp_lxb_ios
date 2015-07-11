@@ -48,6 +48,9 @@
 #define MY_SHOP_HAS_UPDATED @"MY_SHOP_HAS_UPDATED"
 #define UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS @"UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS"
 
+#define INVITE_SUPPLIER_URL_PREFIX @"http://mobile.bkrtrip.com/com/download?code="
+
+
 // Share Ids and Keys
 #define UMSOCIAL_APP_KEY @"5593e07a67e58e880a003a64"
 #define SHARE_DEFAULT_URL @"http://www.bkrtrip.com/"

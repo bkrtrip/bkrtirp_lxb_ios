@@ -11,6 +11,7 @@
 @interface CreateOrderCell_Input() <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *inputTypeLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *separatorHozImageView;
 
 @property (strong, nonatomic) UIBarButtonItem *prevBarButton;
 @property (strong, nonatomic) UIBarButtonItem *nextBarButton;
@@ -35,7 +36,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldResignFirstResponder) name:@"TextFieldIResignFirstResponder" object:nil];
 }
 
-- (void)setCellContentWithInputType:(NSString *)type section:(NSInteger)section row:(NSInteger)row placeHolder:(NSString *)placeHolder text:(NSString *)text
+- (void)setCellContentWithInputType:(NSString *)type section:(NSInteger)section row:(NSInteger)row placeHolder:(NSString *)placeHolder text:(NSString *)text showSeparator:(BOOL)show
 {
     _inputTypeLabel.text = type;
     _section = section;
@@ -58,6 +59,8 @@
     } else {
         _inputTextField.keyboardType = UIKeyboardTypeDefault;
     }
+    
+    _separatorHozImageView.hidden = !show;
 }
 
 - (void)bottomTextFieldIsReached

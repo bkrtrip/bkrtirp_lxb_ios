@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *minusButton;
 @property (strong, nonatomic) IBOutlet UIButton *plusButton;
 @property (strong, nonatomic) IBOutlet UILabel *personNumLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *separatorHorImageView;
 
 @property (strong, nonatomic) IBOutlet UIView *graySeparatorView;
 @property (strong, nonatomic) IBOutlet UILabel *diffPriceLabel;
@@ -91,6 +92,7 @@
     }
     
     _graySeparatorView.hidden = !showSeparator;
+    _separatorHorImageView.hidden = showSeparator;
 }
 
 - (IBAction)minusButtonClicked:(id)sender {

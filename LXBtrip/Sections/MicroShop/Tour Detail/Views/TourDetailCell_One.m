@@ -50,8 +50,8 @@
 
 - (CGFloat)cellHeightWithSupplierProduct:(SupplierProduct *)product startDate:(NSString *)dateString
 {
-    CGFloat topImgAspectRatio = 1242.f/518.f;
-    __block CGFloat cellHeight = SCREEN_WIDTH/topImgAspectRatio + (10.f + 20.f + 10.f); // 初始为滚动图片高度+跟团游图片高度
+    CGFloat topImgHeightToWidth = 518.f/1242.f;
+    __block CGFloat cellHeight = SCREEN_WIDTH*topImgHeightToWidth + (10.f + 20.f + 10.f); // 初始为滚动图片高度+跟团游图片高度
     
     // scroll top images
     _scrollView.pagingEnabled = YES;
@@ -84,7 +84,7 @@
         }
         [_scrollView setContentSize:CGSizeMake(picNum*SCREEN_WIDTH, _scrollView.frame.size.height)];
         for (int i = 0; i < picNum; i++) {
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _scrollView.frame.size.height)];
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_WIDTH*topImgHeightToWidth)];
             imgView.contentMode = UIViewContentModeScaleAspectFill;
             [imgView sd_setImageWithURL:[NSURL URLWithString:imgURLs[i]] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             }];
@@ -96,7 +96,7 @@
             _underLine.backgroundColor = RED_FF0075;
             [self.contentView addSubview:_underLine];
         }
-        [_underLine setFrame:CGRectMake(0, _scrollView.frame.size.height, SCREEN_WIDTH/picNum, 2)];
+        [_underLine setFrame:CGRectMake(0, SCREEN_WIDTH*topImgHeightToWidth, SCREEN_WIDTH/picNum, 2)];
     }
     
     // walk type image

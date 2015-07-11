@@ -246,7 +246,7 @@
                 case 0:
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
-                    [cell setCellContentWithInputType:@"联系人：" section:2 row:0 placeHolder:@"必填" text:_item.orderContactName];
+                    [cell setCellContentWithInputType:@"联系人：" section:2 row:0 placeHolder:@"必填" text:_item.orderContactName showSeparator:YES];
                     cell.delegate = self;
                     return cell;
                 }
@@ -254,7 +254,7 @@
                 case 1:
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
-                    [cell setCellContentWithInputType:@"手机号码：" section:2 row:1 placeHolder:@"必填" text:_item.orderContactPhone];
+                    [cell setCellContentWithInputType:@"手机号码：" section:2 row:1 placeHolder:@"必填" text:_item.orderContactPhone showSeparator:NO];
                     cell.separatorInset = UIEdgeInsetsMake(0, 414, 0, 0);
                     cell.delegate = self;
                     return cell;
@@ -273,9 +273,9 @@
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
                     if ([_item.orderTouristGroup[indexPath.row/2] touristName].length > 0) {
-                        [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristName]];
+                        [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristName] showSeparator:YES];
                     } else {
-                        [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row placeHolder:@"选填" text:nil];
+                        [cell setCellContentWithInputType:@"游客姓名：" section:3 row:indexPath.row placeHolder:@"选填" text:nil showSeparator:YES];
                     }
                     cell.delegate = self;
                     return cell;
@@ -285,9 +285,17 @@
                 {
                     CreateOrderCell_Input *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateOrderCell_Input" forIndexPath:indexPath];
                     if ([_item.orderTouristGroup[indexPath.row/2] touristCode].length > 0) {
-                        [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristCode]];
+                        if (_item.orderTouristGroup.count*2-1 == indexPath.row) {
+                            [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristCode] showSeparator:NO];
+                        } else {
+                            [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:[_item.orderTouristGroup[indexPath.row/2] touristCode] showSeparator:YES];
+                        }
                     } else {
-                        [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:nil];
+                        if (_item.orderTouristGroup.count*2-1 == indexPath.row) {
+                            [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:nil showSeparator:NO];
+                        } else {
+                            [cell setCellContentWithInputType:@"身份证号：" section:3 row:indexPath.row placeHolder:@"选填" text:nil showSeparator:YES];
+                        }
                     }
                     cell.delegate = self;
                     return cell;
@@ -316,7 +324,7 @@
         {
             if (_item.orderReservePriceGroup.diffPrice && [_item.orderReservePriceGroup.diffPrice integerValue] > 0) {
                 if (priceGroupNum+3-1 == indexPath.row) {
-                    return 93.f;
+                    return 83.f;
                 } else {
                     return 57.f;
                 }
@@ -482,7 +490,7 @@
 - (void)supportClickWithPreviousIndexPath:(NSIndexPath *)curIndexPath
 {
     NSIndexPath *indexPathToBe;
-    CreateOrderCell_Input *prevCell;
+//    CreateOrderCell_Input *prevCell;
     
     if (curIndexPath.section == 3 && curIndexPath.row == 0) {
         indexPathToBe = [NSIndexPath indexPathForRow:1 inSection:2];
@@ -490,14 +498,19 @@
         indexPathToBe = [NSIndexPath indexPathForRow:curIndexPath.row-1 inSection:curIndexPath.section];
     }
     
-    prevCell = (CreateOrderCell_Input *)[_tableView cellForRowAtIndexPath:indexPathToBe];
-    if (!prevCell) {
-        prevCell = (CreateOrderCell_Input *)[self tableView:_tableView cellForRowAtIndexPath:indexPathToBe];
-    }
-    [prevCell.inputTextField becomeFirstResponder];
+//    prevCell = (CreateOrderCell_Input *)[_tableView cellForRowAtIndexPath:indexPathToBe];
+//    if (!prevCell) {
+//        prevCell = (CreateOrderCell_Input *)[self tableView:_tableView cellForRowAtIndexPath:indexPathToBe];
+//    }
+//    [prevCell.inputTextField becomeFirstResponder];
+//    [UIView animateWithDuration:0.4 animations:^{
+//        [_tableView scrollToRowAtIndexPath:editingCellIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//    }];
+    
     [UIView animateWithDuration:0.4 animations:^{
-        [_tableView scrollToRowAtIndexPath:editingCellIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [_tableView scrollToRowAtIndexPath:indexPathToBe atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }];
+    
     [self updateToolBarButtonItemsStatusWithIndexPath:indexPathToBe];
 }
 
@@ -505,9 +518,9 @@
 {
 //    [_tableView reloadRowsAtIndexPaths:@[curIndexPath] withRowAnimation:UITableViewRowAnimationNone];
 //    [_tableView endUpdates];
-    [_tableView reloadData];
+//    [_tableView reloadData];
     NSIndexPath *indexPathToBe;
-    CreateOrderCell_Input *nextCell;
+//    CreateOrderCell_Input *nextCell;
     
     if (curIndexPath.section == 2 && curIndexPath.row == 1) {
         indexPathToBe = [NSIndexPath indexPathForRow:0 inSection:3];
@@ -517,14 +530,18 @@
     
 //    nextCell = (CreateOrderCell_Input *)[_tableView cellForRowAtIndexPath:indexPathToBe];
 //    if (!nextCell) {
-        nextCell = (CreateOrderCell_Input *)[self tableView:_tableView cellForRowAtIndexPath:indexPathToBe];
+//        nextCell = (CreateOrderCell_Input *)[self tableView:_tableView cellForRowAtIndexPath:indexPathToBe];
 //    }
-    [nextCell.inputTextField becomeFirstResponder];
+//    [nextCell.inputTextField becomeFirstResponder];
+    
     [self updateToolBarButtonItemsStatusWithIndexPath:indexPathToBe];
     
     [UIView animateWithDuration:0.4 animations:^{
-        [_tableView scrollToRowAtIndexPath:editingCellIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [_tableView scrollToRowAtIndexPath:indexPathToBe atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }];
+//    [UIView animateWithDuration:0.4 animations:^{
+//        [_tableView scrollToRowAtIndexPath:editingCellIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//    }];
 }
 
 #pragma mark - HTTP

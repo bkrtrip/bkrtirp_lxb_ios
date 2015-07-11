@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -18,8 +18,8 @@
                         <rect key="frame" x="1" y="0.0" width="318" height="56"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预订信息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HV7-dR-PnC">
-                                <rect key="frame" x="10" y="19" width="60" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="10" y="18" width="64" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -30,18 +30,31 @@
                             <constraint firstItem="HV7-dR-PnC" firstAttribute="leading" secondItem="e3J-cT-5I9" secondAttribute="leading" constant="10" id="nFU-e1-yDS"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="1U0-9K-IzF">
+                        <rect key="frame" x="10" y="55" width="300" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="9H1-Y6-S50"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="e3J-cT-5I9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="1" id="JrU-xi-I5o"/>
                     <constraint firstAttribute="bottom" secondItem="e3J-cT-5I9" secondAttribute="bottom" id="KkQ-1y-9yv"/>
                     <constraint firstAttribute="trailing" secondItem="e3J-cT-5I9" secondAttribute="trailing" constant="1" id="f2C-XU-JVZ"/>
+                    <constraint firstAttribute="centerX" secondItem="1U0-9K-IzF" secondAttribute="centerX" id="fhd-sJ-aHb"/>
+                    <constraint firstItem="1U0-9K-IzF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="iqI-aK-Sa5"/>
+                    <constraint firstAttribute="bottom" secondItem="1U0-9K-IzF" secondAttribute="bottom" id="lb8-ai-vF9"/>
                     <constraint firstItem="e3J-cT-5I9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="oD3-tQ-n5K"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="headerLabel" destination="HV7-dR-PnC" id="QPV-RH-Sip"/>
             </connections>
+            <point key="canvasLocation" x="189" y="239.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="separator_hor.png" width="1" height="1"/>
+    </resources>
 </document>
