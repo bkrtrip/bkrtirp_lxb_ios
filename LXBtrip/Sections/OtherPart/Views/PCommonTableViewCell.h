@@ -14,7 +14,8 @@ typedef enum : NSUInteger {
     Dispatch,
     Help,
     About,
-    SignOut
+    SignOut,
+    Invitation
 } SettingsType;
 
 @interface PCommonTableViewCell : UITableViewCell
