@@ -22,5 +22,6 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIImageView *settingIconImgView;
 @property (weak, nonatomic) IBOutlet UILabel *settingTitleLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *invitationLabel;
 - (void)initailCellWithType:(SettingsType)type;
 @end

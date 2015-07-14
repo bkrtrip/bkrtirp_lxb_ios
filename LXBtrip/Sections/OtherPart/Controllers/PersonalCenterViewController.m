@@ -205,6 +205,7 @@
         case 2:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
+            ((PCommonTableViewCell *)cell).invitationLabel.hidden = YES;
 
             if (indexPath.row == 0) {
                 [(PCommonTableViewCell *)cell initailCellWithType:Message];
@@ -221,6 +222,7 @@
         case 4:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
+            ((PCommonTableViewCell *)cell).invitationLabel.hidden = YES;
             
             switch (indexPath.row) {
                 case 0:
@@ -236,6 +238,13 @@
                 case 2:
                 {
                     [(PCommonTableViewCell *)cell initailCellWithType:Invitation];
+                    NSString *invitationCode = [UserModel getUserPropertyByKey:@"invite_code"];
+                    if (invitationCode && invitationCode.length == 5) {
+                        ((PCommonTableViewCell *)cell).invitationLabel.hidden = NO;
+                        ((PCommonTableViewCell *)cell).invitationLabel.text = [NSString stringWithFormat:@"[邀请码:%@]", invitationCode];
+                    }
+                    
+                    
                     cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
                 }
                     break;
@@ -248,7 +257,8 @@
         case 6:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
-            
+            ((PCommonTableViewCell *)cell).invitationLabel.hidden = YES;
+
             [(PCommonTableViewCell *)cell initailCellWithType:SignOut];
             cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
         }
@@ -612,65 +622,95 @@
 }
 
     
-/*
- 
- #pragma mark - ShareViewDelegate
- - (void)supportClickWithWeChatWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
- }
- 
- - (void)supportClickWithQQWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:QQ_Share_Session];
- }
- 
- - (void)supportClickWithQZoneWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaQQWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
- }
- 
- - (void)supportClickWithShortMessageWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaSMSWithContent:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] presentedController:self];
- }
- 
- - (void)supportClickWithSendingToComputerWithShareObject:(id)obj
- {
- [self supportClickWithQQWithShareObject:obj];
- }
- 
- - (void)supportClickWithYiXinWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaYiXinWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
- }
- 
- - (void)supportClickWithWeiboWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaSinaWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self];
- }
- 
- - (void)supportClickWithFriendsWithShareObject:(id)obj
- {
- [self hideShareView];
- 
- [[Global sharedGlobal] shareViaWeChatWithURLString:[self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"] title:[self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"] content:[NSString stringWithFormat:@"请将%@的旅行超市放入收藏夹，以便于线上的推广宣传工作。请点击查看微店: %@", [self.operatedDispatcherDic stringValueByKey:@"staff_departments_name"], [self.operatedDispatcherDic stringValueByKey:@"send_mstort_url"]] image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
- }
- 
- */
+
+//https://itunes.apple.com/cn/app/lu-xiao-bao/id1015845012?mt=8
+#pragma mark - ShareViewDelegate
+- (void)supportClickWithWeChatWithShareObject:(id)obj
+{
+    [self hideShareView];
     
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+    
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaWeChatWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+}
+
+- (void)supportClickWithQQWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaQQWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+}
+
+- (void)supportClickWithQZoneWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+    
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaQQWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+}
+
+- (void)supportClickWithShortMessageWithShareObject:(id)obj
+{
+    [self hideShareView];
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *content = [NSString stringWithFormat:@"我是%@，旅小宝提供免费微店，不用录产品即可销售线路了，还能免费开通外联、分销账户，特别方便！注册邀请码：%@，旅小宝下载地址：%@", [UserModel getUserPropertyByKey:@"staff_departments_name"], [UserModel getUserPropertyByKey:@"invite_code"], appUrl];
+    
+    [[Global sharedGlobal] shareViaSMSWithContent:content presentedController:self];
+}
+
+- (void)supportClickWithSendingToComputerWithShareObject:(id)obj
+{
+    [self supportClickWithQQWithShareObject:obj];
+}
+
+- (void)supportClickWithYiXinWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaYiXinWithURLString:appUrl content:content image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+}
+
+- (void)supportClickWithWeiboWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaSinaWithURLString:appUrl content:content image:nil location:nil presentedController:self];
+}
+
+- (void)supportClickWithFriendsWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaWeChatWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+}
+
+
 - (void)supportClickWithCancel
 {
     [self hideShareView];
