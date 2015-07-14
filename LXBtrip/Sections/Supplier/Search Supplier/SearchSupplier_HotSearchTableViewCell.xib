@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="SearchSupplier_HotSearchTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -22,9 +23,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NlG-TP-iRt">
-                        <rect key="frame" x="10" y="51" width="60" height="34"/>
+                        <rect key="frame" x="10" y="40" width="68" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="NlG-TP-iRt" secondAttribute="height" multiplier="53:30" id="KeK-h3-dh3"/>
+                            <constraint firstAttribute="height" constant="40" id="YBp-Nq-pCd"/>
                             <constraint firstAttribute="width" constant="60" id="mJH-ha-7up"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -32,13 +34,20 @@
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="KeK-h3-dh3"/>
+                                <exclude reference="mJH-ha-7up"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <action selector="hotSearchButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vpP-VP-ywn"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcF-yb-Txi" userLabel="separator_1">
-                        <rect key="frame" x="70" y="68" width="20" height="0.0"/>
+                        <rect key="frame" x="78" y="60" width="10" height="0.0"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="10" id="FlM-pq-gee"/>
                             <constraint firstAttribute="width" constant="10" id="dsn-bX-e9J"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -51,7 +60,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNZ-U3-FHh">
-                        <rect key="frame" x="90" y="51" width="60" height="34"/>
+                        <rect key="frame" x="88" y="40" width="67" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="热门">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,7 +71,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYP-gP-eKb" userLabel="separator_2">
-                        <rect key="frame" x="150" y="68" width="20" height="0.0"/>
+                        <rect key="frame" x="155" y="60" width="10" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Qj4-Gx-c4O"/>
                         </constraints>
@@ -76,7 +85,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55J-Uz-2pD" userLabel="邮轮">
-                        <rect key="frame" x="170" y="51" width="60" height="34"/>
+                        <rect key="frame" x="165" y="40" width="68" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="邮轮">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,7 +96,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dw0-U7-QBo" userLabel="separator_3">
-                        <rect key="frame" x="230" y="68" width="20" height="0.0"/>
+                        <rect key="frame" x="233" y="60" width="10" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Hkz-h1-Z9u"/>
                         </constraints>
@@ -101,7 +110,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOe-xH-YhI">
-                        <rect key="frame" x="250" y="51" width="60" height="34"/>
+                        <rect key="frame" x="243" y="40" width="67" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="自由行">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -112,7 +121,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1Q-l3-Y8Q">
-                        <rect key="frame" x="10" y="95" width="60" height="34"/>
+                        <rect key="frame" x="10" y="91" width="68" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="5Qf-Il-eAo"/>
                             <constraint firstAttribute="width" secondItem="W1Q-l3-Y8Q" secondAttribute="height" multiplier="53:30" id="l9y-vn-ILT"/>
@@ -124,6 +133,7 @@
                         </state>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="5Qf-Il-eAo"/>
                                 <exclude reference="l9y-vn-ILT"/>
                             </mask>
                         </variation>
@@ -132,7 +142,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Mi-oo-8xh" userLabel="separator_4">
-                        <rect key="frame" x="70" y="112" width="20" height="0.0"/>
+                        <rect key="frame" x="78" y="111" width="10" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="1Pd-S9-Rds"/>
                         </constraints>
@@ -146,7 +156,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVH-qZ-GoU">
-                        <rect key="frame" x="90" y="95" width="60" height="34"/>
+                        <rect key="frame" x="88" y="91" width="67" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="亲子游">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -157,7 +167,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZ4-e5-BG7" userLabel="separator_5">
-                        <rect key="frame" x="150" y="112" width="20" height="0.0"/>
+                        <rect key="frame" x="155" y="111" width="10" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="E6l-MU-2qc"/>
                         </constraints>
@@ -171,7 +181,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0e-26-NN7">
-                        <rect key="frame" x="170" y="95" width="60" height="34"/>
+                        <rect key="frame" x="165" y="91" width="68" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="海岛游">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -182,7 +192,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wls-L6-skR" userLabel="separator_6">
-                        <rect key="frame" x="230" y="112" width="20" height="0.0"/>
+                        <rect key="frame" x="233" y="111" width="10" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="1Ux-xQ-NDN"/>
                         </constraints>
@@ -196,7 +206,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNq-dh-fUY" userLabel="自驾游">
-                        <rect key="frame" x="250" y="95" width="60" height="34"/>
+                        <rect key="frame" x="243" y="91" width="67" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="自驾游">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -214,7 +224,7 @@
                     <constraint firstItem="ZYP-gP-eKb" firstAttribute="leading" secondItem="cNZ-U3-FHh" secondAttribute="trailing" id="31i-gg-Kq5"/>
                     <constraint firstItem="NlG-TP-iRt" firstAttribute="width" secondItem="fOe-xH-YhI" secondAttribute="width" id="3F6-kn-DAI"/>
                     <constraint firstItem="rGf-xW-FAT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="4t3-Hu-Nlf"/>
-                    <constraint firstItem="NlG-TP-iRt" firstAttribute="top" secondItem="rGf-xW-FAT" secondAttribute="bottom" constant="21" id="7CT-Om-v7A"/>
+                    <constraint firstItem="NlG-TP-iRt" firstAttribute="top" secondItem="rGf-xW-FAT" secondAttribute="bottom" constant="10" id="7CT-Om-v7A"/>
                     <constraint firstItem="NlG-TP-iRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="AMJ-IJ-1aP"/>
                     <constraint firstItem="wls-L6-skR" firstAttribute="trailing" secondItem="sNq-dh-fUY" secondAttribute="leading" id="BKD-pi-HAi"/>
                     <constraint firstItem="W1Q-l3-Y8Q" firstAttribute="width" secondItem="sNq-dh-fUY" secondAttribute="width" id="DH1-DF-Ef8"/>
@@ -228,11 +238,15 @@
                     <constraint firstItem="fZ4-e5-BG7" firstAttribute="leading" secondItem="YVH-qZ-GoU" secondAttribute="trailing" id="NWI-aY-VMJ"/>
                     <constraint firstItem="NlG-TP-iRt" firstAttribute="width" secondItem="55J-Uz-2pD" secondAttribute="width" id="OPX-4B-TfT"/>
                     <constraint firstItem="W1Q-l3-Y8Q" firstAttribute="width" secondItem="W1Q-l3-Y8Q" secondAttribute="height" multiplier="53:30" id="ORa-IA-w3J"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="W1Q-l3-Y8Q" secondAttribute="bottom" constant="10" id="QbU-5o-FSm"/>
                     <constraint firstItem="W1Q-l3-Y8Q" firstAttribute="height" secondItem="sNq-dh-fUY" secondAttribute="height" id="SiR-DV-l1a"/>
                     <constraint firstItem="W1Q-l3-Y8Q" firstAttribute="centerY" secondItem="7Mi-oo-8xh" secondAttribute="centerY" id="Srf-p8-vnE"/>
                     <constraint firstItem="fZ4-e5-BG7" firstAttribute="centerY" secondItem="W1Q-l3-Y8Q" secondAttribute="centerY" id="Sy4-h9-2vU"/>
                     <constraint firstItem="YVH-qZ-GoU" firstAttribute="leading" secondItem="7Mi-oo-8xh" secondAttribute="trailing" id="TxK-ab-rph"/>
+                    <constraint firstItem="W1Q-l3-Y8Q" firstAttribute="height" secondItem="NlG-TP-iRt" secondAttribute="height" id="Ufe-dN-xWH"/>
+                    <constraint firstItem="W1Q-l3-Y8Q" firstAttribute="width" secondItem="NlG-TP-iRt" secondAttribute="width" id="W4a-Ci-myO"/>
                     <constraint firstItem="rGf-xW-FAT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="WvE-F3-UkQ"/>
+                    <constraint firstItem="7Mi-oo-8xh" firstAttribute="width" secondItem="CcF-yb-Txi" secondAttribute="width" id="Ww1-z1-YQL"/>
                     <constraint firstItem="wls-L6-skR" firstAttribute="width" secondItem="7Mi-oo-8xh" secondAttribute="width" id="Y3E-i4-3fG"/>
                     <constraint firstItem="7Mi-oo-8xh" firstAttribute="leading" secondItem="W1Q-l3-Y8Q" secondAttribute="trailing" id="ZA6-hu-dvf"/>
                     <constraint firstItem="wls-L6-skR" firstAttribute="centerY" secondItem="W1Q-l3-Y8Q" secondAttribute="centerY" id="Zzf-qo-Fsg"/>
@@ -258,6 +272,12 @@
                     <constraint firstItem="cNZ-U3-FHh" firstAttribute="height" secondItem="NlG-TP-iRt" secondAttribute="height" id="y0h-PJ-rLD"/>
                     <constraint firstItem="sNq-dh-fUY" firstAttribute="trailing" secondItem="fOe-xH-YhI" secondAttribute="trailing" id="z70-Zp-4wk"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="ORa-IA-w3J"/>
+                        <exclude reference="l4W-vb-fwx"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outletCollection property="hotSearchButtonsArray" destination="NlG-TP-iRt" id="CsX-of-Dx7"/>
