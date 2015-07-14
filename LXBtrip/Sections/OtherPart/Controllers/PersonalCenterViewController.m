@@ -343,6 +343,14 @@
             
             
             if (indexPath.row == 2) {
+                
+                self.isAlreadyLogined = [self getUserLoginState];
+                
+                if (!self.isAlreadyLogined) {
+                    [self showLoginPage];
+                    
+                    return;
+                }
                 [self creatAndShowShareView];
                 
                 return;

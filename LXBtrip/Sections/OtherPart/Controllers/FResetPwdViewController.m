@@ -31,8 +31,18 @@
 }
 - (IBAction)resetPwdComplete:(id)sender {
     
+    if (self.pwdTf.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"请输入密码。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
+    if (self.confirmNewPwdTf.text.length == 0) {
+        [self showAlertViewWithTitle:nil message:@"请输入确认密码。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
     if (![self.pwdTf.text isEqualToString:self.confirmNewPwdTf.text]) {
-        [self showAlertViewWithTitle:@"提示" message:@"两次输入的密码不一致，请重新输入。" cancelButtonTitle:@"确定"];
+        [self showAlertViewWithTitle:nil message:@"两次输入的密码不一致，请重新输入。" cancelButtonTitle:@"确定"];
         return;
     }
     
