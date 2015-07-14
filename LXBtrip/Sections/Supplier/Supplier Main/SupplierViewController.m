@@ -173,7 +173,7 @@
     
     // inviteTableView
     CGFloat height = 320.f;
-    _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, height)];
+    _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, height)];
     _inviteTableView.dataSource = self;
     _inviteTableView.delegate = self;
     [self.view addSubview:_inviteTableView];
