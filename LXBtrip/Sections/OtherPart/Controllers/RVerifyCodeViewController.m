@@ -49,7 +49,14 @@
         return;
     }
     
-    if ([self.verificationCode rangeOfString:self.verifyCodeTf.text].location == NSNotFound) {
+    if (!self.verificationCode || self.verificationCode.length < 4) {
+        [self showAlertViewWithTitle:nil message:@"请先获取验证码。" cancelButtonTitle:@"确定"];
+        return;
+    }
+    
+    NSRange range = [self.verificationCode rangeOfString:self.verifyCodeTf.text];
+    
+    if (range.location == NSNotFound || range.length != 4) {
         [self showAlertViewWithTitle:@"提示" message:@"验证码输入错误，请重新输入。" cancelButtonTitle:@"确定"];
         return;
     }

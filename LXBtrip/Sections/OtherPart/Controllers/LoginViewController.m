@@ -190,7 +190,7 @@
     if (textField.tag == 211) {
         
         NSError *error;
-        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9a-zA-Z]" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9a-zA-Z_-]" options:NSRegularExpressionCaseInsensitive error:&error];
         if (regEx && string.length > 0) {
             NSArray *matchedArray = [regEx matchesInString:string options:NSMatchingAnchored range:NSMakeRange(0, 1)];
             if (matchedArray == nil || (matchedArray && matchedArray.count == 0)) {

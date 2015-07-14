@@ -47,6 +47,10 @@
             self.settingIconImgView.image = [UIImage imageNamed:@"signOut"];
             self.settingTitleLabel.text = @"退出登录";
             break;
+        case Invitation:
+            self.settingIconImgView.image = [UIImage imageNamed:@"invitation"];
+            self.settingTitleLabel.text = @"邀请朋友";
+            break;
             
         default:
             break;

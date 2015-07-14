@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -27,15 +28,24 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[邀请码:wwwww]" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iv8-WL-DiA">
+                        <rect key="frame" x="186" y="17" width="101" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.081659912959999997" green="0.40052545049999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="centerY" secondItem="iv8-WL-DiA" secondAttribute="centerY" id="AGp-il-EZf"/>
                     <constraint firstItem="pTz-ap-CbQ" firstAttribute="leading" secondItem="0Og-DO-bsn" secondAttribute="trailing" constant="8" id="Dez-TQ-daH"/>
                     <constraint firstItem="0Og-DO-bsn" firstAttribute="centerY" secondItem="pTz-ap-CbQ" secondAttribute="centerY" constant="-1" id="ird-qe-MxV"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="iv8-WL-DiA" secondAttribute="trailing" constant="-8" id="lOY-ng-6gg"/>
                     <constraint firstItem="0Og-DO-bsn" firstAttribute="left" secondItem="H2p-sc-9uM" secondAttribute="left" constant="15" id="nHt-1j-aVZ"/>
                     <constraint firstAttribute="centerY" secondItem="0Og-DO-bsn" secondAttribute="centerY" constant="0.5" id="r2a-fG-0F5"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="invitationLabel" destination="iv8-WL-DiA" id="seS-mf-s6H"/>
                 <outlet property="settingIconImgView" destination="0Og-DO-bsn" id="frE-jH-t2K"/>
                 <outlet property="settingTitleLabel" destination="pTz-ap-CbQ" id="zIV-Pe-J50"/>
             </connections>

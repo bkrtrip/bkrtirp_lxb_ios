@@ -14,12 +14,14 @@ typedef enum : NSUInteger {
     Dispatch,
     Help,
     About,
-    SignOut
+    SignOut,
+    Invitation
 } SettingsType;
 
 @interface PCommonTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *settingIconImgView;
 @property (weak, nonatomic) IBOutlet UILabel *settingTitleLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *invitationLabel;
 - (void)initailCellWithType:(SettingsType)type;
 @end

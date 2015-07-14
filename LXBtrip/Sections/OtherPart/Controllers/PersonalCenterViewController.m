@@ -26,13 +26,17 @@
 #import "MySupplierViewController.h"
 #import "NotificationCenterViewController.h"
 #import "WebContentViewController.h"
+#import "ShareView.h"
 
-@interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol>
+@interface PersonalCenterViewController ()<UITableViewDataSource, UITableViewDelegate, HeaderActionProtocol, LoginVCProtocol, ShareViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mineTableView;
 
 @property (assign, nonatomic) BOOL isAlreadyLogined;
 
 @property (retain, nonatomic) NSDictionary *userInfoDic;
+
+@property (strong, nonatomic) ShareView *shareView;
+@property (strong, nonatomic) UIControl *darkMask;
 
 @end
 
@@ -101,6 +105,8 @@
 {
     [super viewDidAppear:animated];
     [[NoNetworkView sharedNoNetworkView] hide];
+    
+    [self initializeShareViewBgView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -111,6 +117,18 @@
     self.navigationController.tabBarController.tabBar.hidden = YES;
 }
 
+
+- (void)initializeShareViewBgView
+{
+    if (!_darkMask) {
+        _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
+        _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+        _darkMask.alpha = 0;// initally transparent
+        [self.view addSubview:_darkMask];
+    }
+}
 
 - (BOOL)getUserLoginState
 {
@@ -144,7 +162,7 @@
         case 2:
             return 3;
         case 4:
-            return 2;
+            return 3;
             
         //separate cell
         default:
@@ -187,6 +205,7 @@
         case 2:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
+            ((PCommonTableViewCell *)cell).invitationLabel.hidden = YES;
 
             if (indexPath.row == 0) {
                 [(PCommonTableViewCell *)cell initailCellWithType:Message];
@@ -203,20 +222,43 @@
         case 4:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
+            ((PCommonTableViewCell *)cell).invitationLabel.hidden = YES;
             
-            if (indexPath.row == 0) {
-                [(PCommonTableViewCell *)cell initailCellWithType:Help];
-            }
-            else if (indexPath.row == 1) {
-                [(PCommonTableViewCell *)cell initailCellWithType:About];
-                cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+            switch (indexPath.row) {
+                case 0:
+                {
+                    [(PCommonTableViewCell *)cell initailCellWithType:Help];
+                }
+                    break;
+                case 1:
+                {
+                    [(PCommonTableViewCell *)cell initailCellWithType:About];
+                }
+                    break;
+                case 2:
+                {
+                    [(PCommonTableViewCell *)cell initailCellWithType:Invitation];
+                    NSString *invitationCode = [UserModel getUserPropertyByKey:@"invite_code"];
+                    if (invitationCode && invitationCode.length == 5) {
+                        ((PCommonTableViewCell *)cell).invitationLabel.hidden = NO;
+                        ((PCommonTableViewCell *)cell).invitationLabel.text = [NSString stringWithFormat:@"[邀请码:%@]", invitationCode];
+                    }
+                    
+                    
+                    cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
+                }
+                    break;
+                    
+                default:
+                    break;
             }
         }
             break;
         case 6:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
-            
+            ((PCommonTableViewCell *)cell).invitationLabel.hidden = YES;
+
             [(PCommonTableViewCell *)cell initailCellWithType:SignOut];
             cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
         }
@@ -298,6 +340,21 @@
             //http://mobile.bkrtrip.com/view/other/line/version.html
             //http://mobile.bkrtrip.com/view/other/line/help.html
             //http://mobile.bkrtrip.com/com/about
+            
+            
+            if (indexPath.row == 2) {
+                
+                self.isAlreadyLogined = [self getUserLoginState];
+                
+                if (!self.isAlreadyLogined) {
+                    [self showLoginPage];
+                    
+                    return;
+                }
+                [self creatAndShowShareView];
+                
+                return;
+            }
             
             WebContentViewController *viewController = [[WebContentViewController alloc] init];
             if (indexPath.row == 0) {
@@ -572,14 +629,146 @@
      }];
 }
 
-/*
-#pragma mark - Navigation
+    
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//https://itunes.apple.com/cn/app/lu-xiao-bao/id1015845012?mt=8
+#pragma mark - ShareViewDelegate
+- (void)supportClickWithWeChatWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+    
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaWeChatWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
-*/
+
+- (void)supportClickWithQQWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaQQWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+}
+
+- (void)supportClickWithQZoneWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+    
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaQQWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+}
+
+- (void)supportClickWithShortMessageWithShareObject:(id)obj
+{
+    [self hideShareView];
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *content = [NSString stringWithFormat:@"我是%@，旅小宝提供免费微店，不用录产品即可销售线路了，还能免费开通外联、分销账户，特别方便！注册邀请码：%@，旅小宝下载地址：%@", [UserModel getUserPropertyByKey:@"staff_departments_name"], [UserModel getUserPropertyByKey:@"invite_code"], appUrl];
+    
+    [[Global sharedGlobal] shareViaSMSWithContent:content presentedController:self];
+}
+
+- (void)supportClickWithSendingToComputerWithShareObject:(id)obj
+{
+    [self supportClickWithQQWithShareObject:obj];
+}
+
+- (void)supportClickWithYiXinWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaYiXinWithURLString:appUrl content:content image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+}
+
+- (void)supportClickWithWeiboWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaSinaWithURLString:appUrl content:content image:nil location:nil presentedController:self];
+}
+
+- (void)supportClickWithFriendsWithShareObject:(id)obj
+{
+    [self hideShareView];
+    
+    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
+
+    NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
+    NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+    
+    [[Global sharedGlobal] shareViaWeChatWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+}
+
+
+- (void)supportClickWithCancel
+{
+    [self hideShareView];
+}
+
+#pragma mark - private
+
+
+- (void)creatAndShowShareView
+{
+    if (!_shareView) {
+        _shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:nil options:nil][0];
+        _shareView.delegate = self;
+        [self.view addSubview:_shareView];
+    }
+    CGFloat viewHeight = [_shareView shareViewHeightWithShareObject:nil];
+    [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
+    
+    [self showShareView];
+}
+
+- (void)hideShareView
+{
+    // must not delete, otherwise 'hidePopUpViews' will make the y-offset incorrect
+    if (_shareView.frame.origin.y == self.view.frame.size.height) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 0;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.navigationController.navigationBar.alpha = 1;
+        }
+    }];
+}
+- (void)showShareView
+{
+    self.navigationController.navigationBar.alpha = 0;
+    [UIView animateWithDuration:0.4 animations:^{
+        _darkMask.alpha = 1;
+        [_shareView setFrame:CGRectMake(0, self.view.frame.size.height-_shareView.frame.size.height, SCREEN_WIDTH, _shareView.frame.size.height)];
+    }];
+}
+
+- (void)hidePopUpViews
+{
+    [self hideShareView];
+    _darkMask.alpha = 0;
+}
 
 @end
