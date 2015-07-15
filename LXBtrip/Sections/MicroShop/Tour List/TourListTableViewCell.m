@@ -38,7 +38,9 @@
         ;
     }];
     _tourTitleLabel.text = [NSString stringWithFormat:@"【%@出发】%@", product.productTravelStartCity ,product.productTravelGoodsName];
-    _tourKeywordsLabel.text = product.productIntroduce;
+//    _tourKeywordsLabel.text = product.productIntroduce;
+    _tourKeywordsLabel.text = @"";
+
     _costLabel.text = [NSString stringWithFormat:@"￥%@ 起", product.productMarketPrice];
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -266,8 +266,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOG-Yd-Sck">
                     <rect key="frame" x="0.0" y="513" width="320" height="55"/>
                     <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="ka1-hv-I83">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="dbW-La-MIP"/>
+                            </constraints>
+                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-wO-6cF">
-                            <rect key="frame" x="85" y="10" width="150" height="35"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="8m5-f1-qBe"/>
                                 <constraint firstAttribute="width" constant="150" id="fqE-gK-nn9"/>
@@ -277,16 +283,29 @@
                                 <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="8m5-f1-qBe"/>
+                                    <exclude reference="fqE-gK-nn9"/>
+                                </mask>
+                            </variation>
                             <connections>
                                 <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="sxn-tm-OSn"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="ka1-hv-I83" secondAttribute="trailing" id="4E6-6J-Oy7"/>
+                        <constraint firstItem="Qk9-wO-6cF" firstAttribute="top" secondItem="wOG-Yd-Sck" secondAttribute="top" id="HVB-8J-crK"/>
+                        <constraint firstAttribute="trailing" secondItem="Qk9-wO-6cF" secondAttribute="trailing" id="JAP-Dv-GaK"/>
+                        <constraint firstItem="ka1-hv-I83" firstAttribute="leading" secondItem="wOG-Yd-Sck" secondAttribute="leading" id="Qba-rY-MI4"/>
+                        <constraint firstItem="Qk9-wO-6cF" firstAttribute="leading" secondItem="wOG-Yd-Sck" secondAttribute="leading" id="Qzn-oe-7n9"/>
                         <constraint firstAttribute="height" constant="55" id="ekb-kt-r0K"/>
                         <constraint firstAttribute="centerX" secondItem="Qk9-wO-6cF" secondAttribute="centerX" id="iis-oF-0K6"/>
+                        <constraint firstItem="ka1-hv-I83" firstAttribute="top" secondItem="wOG-Yd-Sck" secondAttribute="top" id="jdZ-iu-lb9"/>
                         <constraint firstAttribute="centerY" secondItem="Qk9-wO-6cF" secondAttribute="centerY" id="mQk-Da-eCl"/>
+                        <constraint firstAttribute="bottom" secondItem="Qk9-wO-6cF" secondAttribute="bottom" id="ob3-N9-rA1"/>
                     </constraints>
                 </view>
             </subviews>
@@ -316,5 +335,6 @@
     <resources>
         <image name="location_green.png" width="13" height="17"/>
         <image name="segment_border.png" width="173" height="38"/>
+        <image name="separator_hor.png" width="1" height="1"/>
     </resources>
 </document>

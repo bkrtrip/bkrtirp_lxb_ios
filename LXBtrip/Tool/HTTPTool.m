@@ -1077,10 +1077,33 @@ singleton_implementation(HTTPTool)
     }
     
     NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:jsonString options:0];
+    NSString *str = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+    str = [self removeUnescapedCharacter:str];
+    decodedData = [str dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError *error = nil;
     id obj = [NSJSONSerialization JSONObjectWithData:decodedData options:NSJSONReadingAllowFragments error:&error];
     return obj;
+}
+
+// '+ (NSCharacterSet *)illegalCharacterSet'
+// Returns a character set containing values in the category of Non-Characters or that have not yet been defined in version 3.2 of the Unicode standard.
++ (NSString *)removeUnescapedCharacter:(NSString *)inputStr{
+    inputStr = [inputStr stringByReplacingOccurrencesOfString:@"" withString:@""];
+    NSCharacterSet *controlChars = [NSCharacterSet controlCharacterSet];
+    //获取那些特殊字符
+    NSRange range = [inputStr rangeOfCharacterFromSet:controlChars];
+    //寻找字符串中有没有这些特殊字符
+    if (range.location != NSNotFound) {
+        NSMutableString *mutable = [NSMutableString stringWithString:inputStr];
+        while (range.location != NSNotFound) {
+            [mutable deleteCharactersInRange:range];
+            //去掉这些特殊字符
+            range = [mutable rangeOfCharacterFromSet:controlChars];
+        }
+        return mutable;
+    }
+    return inputStr;
 }
 
 @end

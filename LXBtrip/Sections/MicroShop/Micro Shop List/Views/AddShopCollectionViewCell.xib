@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -26,16 +26,52 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="lGc-IZ-Mym" userLabel="separator_hor_top.png">
+                        <rect key="frame" x="0.0" y="0.0" width="262" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="rlH-wP-m9c"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="lFu-kQ-P7r" userLabel="separator_hor_bottom.png">
+                        <rect key="frame" x="0.0" y="372" width="262" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Prq-Fp-sTQ"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="EMJ-fn-FSX" userLabel="separator_ver_left.png">
+                        <rect key="frame" x="0.0" y="0.0" width="1" height="373"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="84H-AH-tYq"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_ver.png" translatesAutoresizingMaskIntoConstraints="NO" id="F6Y-WC-dLe" userLabel="separator_ver_right.png">
+                        <rect key="frame" x="261" y="0.0" width="1" height="373"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="9mU-z4-4er"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="lGc-IZ-Mym" secondAttribute="trailing" id="4BO-sV-ame"/>
+                <constraint firstItem="EMJ-fn-FSX" firstAttribute="height" secondItem="Ydn-P1-pCl" secondAttribute="height" id="5R2-ny-Qov"/>
+                <constraint firstItem="lFu-kQ-P7r" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="6La-wI-reC"/>
+                <constraint firstAttribute="trailing" secondItem="lFu-kQ-P7r" secondAttribute="trailing" id="9ia-fb-NWK"/>
+                <constraint firstItem="lGc-IZ-Mym" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="D5P-V3-pD9"/>
                 <constraint firstItem="Ydn-P1-pCl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Du8-ii-kcq"/>
                 <constraint firstItem="Ydn-P1-pCl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LlQ-BH-fok"/>
                 <constraint firstAttribute="bottom" secondItem="Mrq-rx-SRQ" secondAttribute="bottom" constant="8" id="NvQ-gc-WK0"/>
+                <constraint firstItem="EMJ-fn-FSX" firstAttribute="centerY" secondItem="Ydn-P1-pCl" secondAttribute="centerY" id="QVn-c5-T8o"/>
                 <constraint firstAttribute="bottom" secondItem="Ydn-P1-pCl" secondAttribute="bottom" id="SAs-3h-xrG"/>
+                <constraint firstItem="EMJ-fn-FSX" firstAttribute="leading" secondItem="Ydn-P1-pCl" secondAttribute="leading" id="Vks-cT-ufd"/>
+                <constraint firstItem="Ydn-P1-pCl" firstAttribute="centerY" secondItem="F6Y-WC-dLe" secondAttribute="centerY" id="Z5Q-zy-g7d"/>
+                <constraint firstItem="lFu-kQ-P7r" firstAttribute="bottom" secondItem="Ydn-P1-pCl" secondAttribute="bottom" id="aQP-5c-fjt"/>
                 <constraint firstItem="Mrq-rx-SRQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dNo-U6-e2X"/>
+                <constraint firstItem="lGc-IZ-Mym" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iOj-nS-C0c"/>
+                <constraint firstItem="Ydn-P1-pCl" firstAttribute="trailing" secondItem="F6Y-WC-dLe" secondAttribute="trailing" id="rMk-i4-uUH"/>
                 <constraint firstAttribute="trailing" secondItem="Ydn-P1-pCl" secondAttribute="trailing" id="v5n-qx-W4S"/>
+                <constraint firstItem="Ydn-P1-pCl" firstAttribute="height" secondItem="F6Y-WC-dLe" secondAttribute="height" id="y1b-qd-5TV"/>
             </constraints>
             <size key="customSize" width="209" height="176"/>
             <variation key="default">
@@ -46,10 +82,12 @@
             <connections>
                 <outlet property="addCellImageView" destination="Ydn-P1-pCl" id="UM5-fc-8jy"/>
             </connections>
-            <point key="canvasLocation" x="292.5" y="256"/>
+            <point key="canvasLocation" x="292" y="256"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="add_cell.png" width="37" height="37"/>
+        <image name="separator_hor.png" width="1" height="1"/>
+        <image name="separator_ver.png" width="1" height="1"/>
     </resources>
 </document>

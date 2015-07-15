@@ -210,7 +210,7 @@
 {
     if (tableView == _mainTableView) {
         if (indexPath.section == 0) {
-            return 170.f;
+            return 150.f;
         }
         if (indexPath.section == 1) {
             if (indexPath.row == 0) {

@@ -20,8 +20,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _addCellImageView.layer.borderColor = TEXT_CCCCD2.CGColor;
-    _addCellImageView.layer.borderWidth = 0.5f;
+//    _addCellImageView.layer.borderColor = TEXT_CCCCD2.CGColor;
+//    _addCellImageView.layer.borderWidth = 0.5f;
 }
 
 @end
