@@ -98,7 +98,7 @@
     if (message) {
         NSString *payloadMsg = [message objectForKey:@"payload"];
         NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
-        NSLog(@"%@",record);
+//        NSLog(@"%@",record);
         
         //        [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
         
@@ -149,7 +149,7 @@
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
+//    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [APService registerDeviceToken:deviceToken];
     
     //    [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
@@ -165,15 +165,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     tags:(NSSet*)tags
                    alias:(NSString*)alias
 {
-    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+//    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
 }
 
 - (void)application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+//    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
     
     //    [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
-    NSLog(@"error -- %@",error);
+//    NSLog(@"error -- %@",error);
 }
 
 - (void)application:(UIApplication *)application
@@ -194,7 +194,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
-    NSLog(@"收到通知:%@", userInfo);
+//    NSLog(@"收到通知:%@", userInfo);
     
     //    [self showAlertViewWithTitle:@"提示" message:@"收到标准推送通知。" cancelButtonTitle:@"确定"];
     
@@ -316,11 +316,11 @@ fetchCompletionHandler:
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     [_locationManager stopUpdatingLocation];
-    NSLog(@"location ok");
+//    NSLog(@"location ok");
     
     CLLocation *newLocation = [locations objectAtIndex:0];
     
-    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+//    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f", newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
     
     // 更新经纬度
     [[Global sharedGlobal] upDateLocationCoordinate:newLocation];
@@ -333,8 +333,8 @@ fetchCompletionHandler:
 //            NSLog(@"%@", test);
             NSString *newProvince = [test objectForKey:@"State"];
             NSString *newCity = [test objectForKey:@"City"];
-            NSLog(@"newCity: ------ %@", newCity);
-            NSLog(@"newProvince: ------ %@", newProvince);
+//            NSLog(@"newCity: ------ %@", newCity);
+//            NSLog(@"newProvince: ------ %@", newProvince);
             if (![_locationProvince isEqualToString:newProvince]) {
                 _locationProvince = newProvince;
                 [[Global sharedGlobal] upDateLocationProvince:_locationProvince];

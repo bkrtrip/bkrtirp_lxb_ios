@@ -299,9 +299,9 @@
             
             [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
                 if (grp.marketAdultPrice) {
-                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
-                    NSLog(@"grp.marketTime: %@", grp.marketTime);
-                    NSLog(@"-----------------");
+//                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
+//                    NSLog(@"grp.marketTime: %@", grp.marketTime);
+//                    NSLog(@"-----------------");
                 }
             }];
             
@@ -314,9 +314,9 @@
             
             [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
                 if (grp.marketAdultPrice) {
-                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
-                    NSLog(@"grp.marketTime: %@", grp.marketTime);
-                    NSLog(@"-----------------");
+//                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
+//                    NSLog(@"grp.marketTime: %@", grp.marketTime);
+//                    NSLog(@"-----------------");
                 }
             }];
             

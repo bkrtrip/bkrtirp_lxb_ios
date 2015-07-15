@@ -32,7 +32,7 @@ static NSString *userPlistPath = nil;
 {
     [self clearUserInformation];
     
-    NSLog(@"userDic: %@", userDic);
+//    NSLog(@"userDic: %@", userDic);
     if (userDic) {
         [userDic writeToFile:[self getUserPlistPath] atomically:NO];
     }
@@ -67,7 +67,7 @@ static NSString *userPlistPath = nil;
         [fileManager removeItemAtPath:[self getUserPlistPath] error:&error];
         
         if (error) {
-            NSLog(@"remove (%@) failed : %@",[self getUserPlistPath], error.description);
+//            NSLog(@"remove (%@) failed : %@",[self getUserPlistPath], error.description);
         }
     }
 }

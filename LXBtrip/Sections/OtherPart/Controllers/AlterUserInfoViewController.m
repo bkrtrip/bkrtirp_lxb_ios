@@ -149,7 +149,7 @@
          if (responseObject)
          {
              id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
-             NSLog(@"%@", jsonObj);
+//             NSLog(@"%@", jsonObj);
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  

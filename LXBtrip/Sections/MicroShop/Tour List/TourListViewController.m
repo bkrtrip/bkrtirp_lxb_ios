@@ -164,6 +164,13 @@
 
 - (void)switchCityWithCityName:(NSNotification *)note
 {
+    _noProductView.hidden = YES;
+    pageNum = 1;
+    [self setWalkTypeTableViewHidden:YES];
+    [self setDestinationCityTableViewHidden:YES];
+    
+    isRefreshing = YES;
+
     NSDictionary *info = [note userInfo];
     startCity = info[@"startcity"];
     [_locationButton setTitle:startCity forState:UIControlStateNormal];
@@ -187,7 +194,7 @@
         
         if (isRefreshing == YES) {
             _info = nil;
-            [productsArray removeAllObjects];
+            [_info.supplierProductsArray removeAllObjects];
             isRefreshing = NO;
         }
         id data = result[@"RS100007"];
@@ -291,7 +298,7 @@
 {
     if (tableView == _mainTableView) {
         TourDetailTableViewController *detail = [[TourDetailTableViewController alloc] init];
-        detail.product = productsArray[indexPath.row];
+        detail.product = _info.supplierProductsArray[indexPath.row];
         [self.navigationController pushViewController:detail animated:YES];
     }
     

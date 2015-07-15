@@ -15,7 +15,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *tourImageView;
 @property (strong, nonatomic) IBOutlet UILabel *tourTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *tourKeywordsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *costLabel;
 
 @end
@@ -38,8 +37,6 @@
         ;
     }];
     _tourTitleLabel.text = [NSString stringWithFormat:@"【%@出发】%@", product.productTravelStartCity ,product.productTravelGoodsName];
-//    _tourKeywordsLabel.text = product.productIntroduce;
-    _tourKeywordsLabel.text = @"";
 
     _costLabel.text = [NSString stringWithFormat:@"￥%@ 起", product.productMarketPrice];
 }

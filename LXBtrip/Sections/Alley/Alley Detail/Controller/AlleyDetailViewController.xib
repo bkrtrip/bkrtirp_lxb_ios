@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="uh4-wq-vFd">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="491"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="V0m-AV-9EV"/>
@@ -27,7 +27,7 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BpQ-IJ-40c">
-                    <rect key="frame" x="0.0" y="491" width="320" height="77"/>
+                    <rect key="frame" x="0.0" y="508" width="320" height="60"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_hor.png" translatesAutoresizingMaskIntoConstraints="NO" id="H0u-ix-Pt5" userLabel="separator_2">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
@@ -36,7 +36,7 @@
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4b-gS-Wrn">
-                            <rect key="frame" x="89" y="18" width="142" height="40"/>
+                            <rect key="frame" x="89" y="10" width="142" height="40"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="I4b-gS-Wrn" secondAttribute="height" multiplier="300:85" id="9hb-GC-CJw"/>
@@ -57,7 +57,7 @@
                         <constraint firstAttribute="centerX" secondItem="I4b-gS-Wrn" secondAttribute="centerX" constant="0.5" id="Cyx-ob-x0p"/>
                         <constraint firstAttribute="centerY" secondItem="I4b-gS-Wrn" secondAttribute="centerY" id="O7D-Eh-rur"/>
                         <constraint firstAttribute="centerX" secondItem="H0u-ix-Pt5" secondAttribute="centerX" id="mSU-6H-Ah7"/>
-                        <constraint firstAttribute="height" constant="77" id="nOG-4P-LeH"/>
+                        <constraint firstAttribute="height" constant="60" id="nOG-4P-LeH"/>
                         <constraint firstItem="H0u-ix-Pt5" firstAttribute="width" secondItem="BpQ-IJ-40c" secondAttribute="width" id="z4A-qO-9RD"/>
                     </constraints>
                 </view>

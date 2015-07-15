@@ -67,7 +67,7 @@
          if (responseObject)
          {
              id jsonObj = [self jsonObjWithBase64EncodedJsonString:operation.responseString];
-             NSLog(@"%@", jsonObj);
+//             NSLog(@"%@", jsonObj);
              
              if (jsonObj && [jsonObj isKindOfClass:[NSDictionary class]]) {
                  
