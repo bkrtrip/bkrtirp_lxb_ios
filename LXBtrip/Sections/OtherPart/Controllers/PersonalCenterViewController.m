@@ -38,9 +38,21 @@
 @property (strong, nonatomic) ShareView *shareView;
 @property (strong, nonatomic) UIControl *darkMask;
 
+@property (strong, nonatomic) NSString *shareUrl;
+
 @end
 
 @implementation PersonalCenterViewController
+
+- (NSString *)shareUrl
+{
+    if (!_shareUrl) {
+        _shareUrl = @"http://mobile.bkrtrip.com/com/download";
+    }
+    
+    return _shareUrl;
+}
+
 
 - (id)init
 {
@@ -348,10 +360,13 @@
                 
                 if (!self.isAlreadyLogined) {
                     [self showLoginPage];
-                    
-                    return;
                 }
-                [self creatAndShowShareView];
+                else {
+                    
+                    self.shareUrl = [NSString stringWithFormat:@"http://mobile.bkrtrip.com/com/download?code=%@", [UserModel getUserPropertyByKey:@"invite_code"]];
+                    
+                    [self creatAndShowShareView];
+                }
                 
                 return;
             }
@@ -637,44 +652,37 @@
 {
     [self hideShareView];
     
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
-    
     NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
     NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
     
-    [[Global sharedGlobal] shareViaWeChatWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:self.shareUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Session];
 }
 
 - (void)supportClickWithQQWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
-
     NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
     NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
     
-    [[Global sharedGlobal] shareViaQQWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+    [[Global sharedGlobal] shareViaQQWithURLString:self.shareUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_Session];
 }
 
 - (void)supportClickWithQZoneWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
-    
     NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
     NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
     
-    [[Global sharedGlobal] shareViaQQWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
+    [[Global sharedGlobal] shareViaQQWithURLString:self.shareUrl title:title content:content image:nil location:nil presentedController:self shareType:QQ_Share_QZone];
 }
 
 - (void)supportClickWithShortMessageWithShareObject:(id)obj
 {
     [self hideShareView];
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
 
-    NSString *content = [NSString stringWithFormat:@"我是%@，旅小宝提供免费微店，不用录产品即可销售线路了，还能免费开通外联、分销账户，特别方便！注册邀请码：%@，旅小宝下载地址：%@", [UserModel getUserPropertyByKey:@"staff_departments_name"], [UserModel getUserPropertyByKey:@"invite_code"], appUrl];
+    NSString *content = [NSString stringWithFormat:@"我是%@，旅小宝提供免费微店，不用录产品即可销售线路了，还能免费开通外联、分销账户，特别方便！注册邀请码：%@，旅小宝下载地址：%@", [UserModel getUserPropertyByKey:@"staff_departments_name"], [UserModel getUserPropertyByKey:@"invite_code"], self.shareUrl];
     
     [[Global sharedGlobal] shareViaSMSWithContent:content presentedController:self];
 }
@@ -688,34 +696,28 @@
 {
     [self hideShareView];
     
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
-
     NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
     
-    [[Global sharedGlobal] shareViaYiXinWithURLString:appUrl content:content image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
+    [[Global sharedGlobal] shareViaYiXinWithURLString:self.shareUrl content:content image:nil location:nil presentedController:self shareType:YiXin_Share_Session];
 }
 
 - (void)supportClickWithWeiboWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
-
     NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
     
-    [[Global sharedGlobal] shareViaSinaWithURLString:appUrl content:content image:nil location:nil presentedController:self];
+    [[Global sharedGlobal] shareViaSinaWithURLString:self.shareUrl content:content image:nil location:nil presentedController:self];
 }
 
 - (void)supportClickWithFriendsWithShareObject:(id)obj
 {
     [self hideShareView];
     
-    NSString *appUrl = @"https://itunes.apple.com/app/id1015845012";
-
     NSString *title = [NSString stringWithFormat:@"%@邀您加入旅小宝", [UserModel getUserPropertyByKey:@"staff_departments_name"]];
     NSString *content = [NSString stringWithFormat:@"旅小宝提供免费微店，不用录产品即可销售线路！还能免费开通外联、分销账户！注册邀请码：%@", [UserModel getUserPropertyByKey:@"invite_code"]];
     
-    [[Global sharedGlobal] shareViaWeChatWithURLString:appUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
+    [[Global sharedGlobal] shareViaWeChatWithURLString:self.shareUrl title:title content:content image:nil location:nil presentedController:self shareType:Wechat_Share_Timeline];
 }
 
 
