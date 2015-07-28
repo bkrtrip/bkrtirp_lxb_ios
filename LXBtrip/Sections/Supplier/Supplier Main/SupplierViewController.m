@@ -31,6 +31,7 @@
     NSString *lineClass;
 
     NSMutableArray *isLoadingMoresArray;
+    NSMutableArray *finishedLoadingAllArray;
     NSMutableArray *pageNumsArray;
     NSMutableArray *collectionViewsArray;
     NSMutableArray *refreshControlsArray;
@@ -119,8 +120,10 @@
 
     lineTypesArray = [[NSMutableArray alloc] initWithCapacity:5];
     for (int i = 0; i < 5; i++) {
-        NSString *lineType = @"";
-        [lineTypesArray addObject:lineType];
+        NSMutableArray *subLineTypes = [[NSMutableArray alloc] init];
+//        NSString *lineType = @"";
+//        [lineTypesArray addObject:lineType];
+        [lineTypesArray addObject:subLineTypes];
     }
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
     refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -198,7 +201,8 @@
     if (startCity) {
         pageNumsArray[_selectedIndex] = @1;
         isLoadingMoresArray[_selectedIndex] = @0;
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+        finishedLoadingAllArray[_selectedIndex] = @0;
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
     } else {
         [sender endRefreshing];
     }
@@ -217,9 +221,10 @@
         lineClass = LINE_CLASS[@(_selectedIndex)];
         pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
         isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
-        
+        finishedLoadingAllArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
+
         [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
     }
 }
 
@@ -237,9 +242,10 @@
 {
     NSDictionary *info = [note userInfo];
     _selectedIndex = [info[@"line_class_index"] integerValue];
-    lineTypesArray[_selectedIndex] = info[@"line_type"];
+//    lineTypesArray[_selectedIndex] = info[@"line_type"];
     pageNumsArray[_selectedIndex] = @1;
     isLoadingMoresArray[_selectedIndex] = @0;
+    finishedLoadingAllArray[_selectedIndex] = @0;
     
     self.selectedIndex = [info[@"line_class_index"] integerValue];
 }
@@ -342,6 +348,7 @@
 
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
+                [lineTypesArray[_selectedIndex] removeAllObjects];
                 isLoadingMoresArray[_selectedIndex] = @1;
                 [collectionViewsArray[_selectedIndex] reloadData];
             }
@@ -373,6 +380,7 @@
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
                         [_suppliersArray[_selectedIndex] addObject:tempDict];
+                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
                     }];
                     
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
@@ -389,6 +397,8 @@
                     [refreshControlsArray[_selectedIndex] endRefreshing];
                     if ([pageNumsArray[_selectedIndex] intValue] == 1) {
                         [noSuppliersArray[_selectedIndex] setHidden:NO];
+                    } else if ([pageNumsArray[_selectedIndex] intValue] > 1) {
+                        finishedLoadingAllArray[_selectedIndex] = @1;
                     }
                 }
             }];
@@ -414,6 +424,7 @@
 
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
+                [lineTypesArray[_selectedIndex] removeAllObjects];
                 isLoadingMoresArray[_selectedIndex] = @1;
                 [collectionViewsArray[_selectedIndex] reloadData];
             }
@@ -445,6 +456,7 @@
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
                         [_suppliersArray[_selectedIndex] addObject:tempDict];
+                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
                     }];
                     
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
@@ -461,6 +473,8 @@
                     [refreshControlsArray[_selectedIndex] endRefreshing];
                     if ([pageNumsArray[_selectedIndex] intValue] == 1) {
                         [noSuppliersArray[_selectedIndex] setHidden:NO];
+                    } else if ([pageNumsArray[_selectedIndex] intValue] > 1) {
+                        finishedLoadingAllArray[_selectedIndex] = @1;
                     }
                 }
             }];
@@ -508,6 +522,8 @@
 {
     ReusableHeaderView_Supplier *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_Supplier" forIndexPath:indexPath];
     header.sectionHeaderNameLabel.text = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"line_type"];
+    
+//    header.sectionHeaderNameLabel.text = lineTypesArray[_selectedIndex][indexPath.section];
     return header;
 }
 
@@ -525,6 +541,8 @@
         NSArray *subSectionArray = [_suppliersArray[_selectedIndex][indexPath.section] valueForKey:@"supplier_info"];
         SupplierInfo *curInfo = subSectionArray[indexPath.row];
         detail.info = curInfo;
+        detail.lineClass = lineClass;
+        detail.lineType = lineTypesArray[_selectedIndex][indexPath.section];
         [self.navigationController pushViewController:detail animated:YES];
         return ;
     }
@@ -664,8 +682,14 @@
         CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
         if (fabs(delta) < 10) {
             isLoadingMoresArray[_selectedIndex] = @1;
-//            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+            if ([finishedLoadingAllArray[_selectedIndex] intValue] == 0) {
+                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+            }
+//            else {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+//                [alert show];
+//            }
         }
     }
 }
@@ -721,43 +745,43 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
-    if ([lineTypesArray[0] length] > 0) {
-        lineTypesArray[0] = @"";
-        pageNumsArray[0] = @1;
-        isLoadingMoresArray[0] = @0;
-    }
+//    if ([lineTypesArray[0] length] > 0) {
+//        lineTypesArray[0] = @"";
+//        pageNumsArray[0] = @1;
+//        isLoadingMoresArray[0] = @0;
+//    }
     self.selectedIndex = 0;
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
-    if ([lineTypesArray[1] length] > 0) {
-        lineTypesArray[1] = @"";
-        pageNumsArray[1] = @1;
-        isLoadingMoresArray[1] = @0;
-    }
+//    if ([lineTypesArray[1] length] > 0) {
+//        lineTypesArray[1] = @"";
+//        pageNumsArray[1] = @1;
+//        isLoadingMoresArray[1] = @0;
+//    }
     self.selectedIndex = 1;
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
-    if ([lineTypesArray[2] length] > 0) {
-        lineTypesArray[2] = @"";
-        pageNumsArray[2] = @1;
-        isLoadingMoresArray[2] = @0;
-    }
+//    if ([lineTypesArray[2] length] > 0) {
+//        lineTypesArray[2] = @"";
+//        pageNumsArray[2] = @1;
+//        isLoadingMoresArray[2] = @0;
+//    }
     self.selectedIndex = 2;
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
-    if ([lineTypesArray[3] length] > 0) {
-        lineTypesArray[3] = @"";
-        pageNumsArray[3] = @1;
-        isLoadingMoresArray[3] = @0;
-    }
+//    if ([lineTypesArray[3] length] > 0) {
+//        lineTypesArray[3] = @"";
+//        pageNumsArray[3] = @1;
+//        isLoadingMoresArray[3] = @0;
+//    }
     self.selectedIndex = 3;
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
-    if ([lineTypesArray[4] length] > 0) {
-        lineTypesArray[4] = @"";
-        pageNumsArray[4] = @1;
-        isLoadingMoresArray[4] = @0;
-    }
+//    if ([lineTypesArray[4] length] > 0) {
+//        lineTypesArray[4] = @"";
+//        pageNumsArray[4] = @1;
+//        isLoadingMoresArray[4] = @0;
+//    }
     self.selectedIndex = 4;
 }
 
@@ -775,7 +799,7 @@
     if ([isLoadingMoresArray[index] integerValue] == 0) {
         if (startCity) {
             [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineTypesArray[_selectedIndex]];
+            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
         }
     }
 }

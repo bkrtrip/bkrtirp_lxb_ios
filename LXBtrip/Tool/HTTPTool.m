@@ -497,9 +497,9 @@ singleton_implementation(HTTPTool)
 }
 
 // 供应商详情 - 未登录 - LXB21115
-+ (void)getSupplierDetailWithSupplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy success:(SuccessBlock)success fail:(FailBlock)fail
++ (void)getSupplierDetailWithSupplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy lineClass:(NSString *)lineClass lineType:(NSString *)lineType success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param = [@{@"supplierid":supplierId, @"pagenum":pageNum} mutableCopy];
+    NSMutableDictionary *param = [@{@"supplierid":supplierId, @"pagenum":pageNum, @"lineclass":lineClass, @"linetype":lineType} mutableCopy];
     
     if (isMy) {
         [param setObject:isMy forKey:@"ismy"];
@@ -523,9 +523,9 @@ singleton_implementation(HTTPTool)
 }
 
 // 供应商详情 - 已登录 - LXB21216
-+ (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy success:(SuccessBlock)success fail:(FailBlock)fail
++ (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy lineClass:(NSString *)lineClass lineType:(NSString *)lineType success:(SuccessBlock)success fail:(FailBlock)fail
 {
-    NSMutableDictionary *param = [@{@"supplierid":supplierId, @"pagenum":pageNum, @"ismy":isMy} mutableCopy];
+    NSMutableDictionary *param = [@{@"supplierid":supplierId, @"pagenum":pageNum, @"ismy":isMy, @"lineclass":lineClass, @"linetype":lineType} mutableCopy];
     
     if (companyId) {
         [param setObject:companyId forKey:@"companyid"];

@@ -11,5 +11,7 @@
 @interface SupplierDetailViewController : NavBaseViewController
 
 @property (nonatomic, strong) SupplierInfo *info;
+@property (nonatomic, copy) NSString *lineClass;
+@property (nonatomic, copy) NSString *lineType;
 
 @end

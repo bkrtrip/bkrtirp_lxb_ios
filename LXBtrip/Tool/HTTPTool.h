@@ -69,10 +69,10 @@ singleton_interface(HTTPTool)
 + (void)getSuppliersListWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId StartCity:(NSString *)startCity lineClass:(NSString *)lineClass lineType:(NSString *)lineType pageNum:(NSNumber *)pageNum success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 供应商详情 - 未登录 - LXB21115
-+ (void)getSupplierDetailWithSupplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)getSupplierDetailWithSupplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy lineClass:(NSString *)lineClass lineType:(NSString *)lineType success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 供应商详情 - 已登录 - LXB21216
-+ (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy success:(SuccessBlock)success fail:(FailBlock)fail;
++ (void)getSupplierDetailWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId supplierId:(NSNumber *)supplierId pageNum:(NSNumber *)pageNum isMy:(NSString *)isMy lineClass:(NSString *)lineClass lineType:(NSString *)lineType success:(SuccessBlock)success fail:(FailBlock)fail;
 
 // 我的供应商 - LXB21218
 + (void)getMySuppliersWithCompanyId:(NSNumber *)companyId staffId:(NSNumber *)staffId lineClass:(NSString *)lineClass success:(SuccessBlock)success fail:(FailBlock)fail;

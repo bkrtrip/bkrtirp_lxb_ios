@@ -133,7 +133,7 @@
 - (void)getSupplierDetail
 {
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool getSupplierDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] supplierId:_info.supplierId pageNum:@(pageNum) isMy:_isMinetype success:^(id result) {
+        [HTTPTool getSupplierDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] supplierId:_info.supplierId pageNum:@(pageNum) isMy:_isMinetype lineClass:_lineClass lineType:_lineType success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100016"] succeed:^{
                 SupplierInfo *tempInfo = [[SupplierInfo alloc] initWithDict:result[@"RS100016"]];
@@ -163,7 +163,7 @@
             [alert show];
         }];
     } else {
-        [HTTPTool getSupplierDetailWithSupplierId:_info.supplierId pageNum:@(pageNum) isMy:_info.supplierIsMy success:^(id result) {
+        [HTTPTool getSupplierDetailWithSupplierId:_info.supplierId pageNum:@(pageNum) isMy:_info.supplierIsMy lineClass:_lineClass lineType:_lineType success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100015"] succeed:^{
                 SupplierInfo *tempInfo = [[SupplierInfo alloc] initWithDict:result[@"RS100015"]];
