@@ -3766,8 +3766,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3794,7 +3794,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4585d289-74fb-4bd8-87c9-d54e422646a6";
+				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
 			};
 			name = Debug;
 		};
@@ -3804,8 +3804,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3832,7 +3832,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4585d289-74fb-4bd8-87c9-d54e422646a6";
+				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
 			};
 			name = Release;
 		};

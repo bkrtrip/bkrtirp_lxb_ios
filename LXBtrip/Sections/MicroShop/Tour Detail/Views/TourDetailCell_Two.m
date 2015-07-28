@@ -11,7 +11,7 @@
 
 const CGFloat bedImageWidth = 11.f;
 const CGFloat bedImageHeight = 11.f;
-const CGFloat adultMarketWidth = 82.f;
+const CGFloat adultMarketWidth = 78.f;
 const CGFloat adultMarketHeight = 16.f;
 const CGFloat yOrigin = 64.f;
 
@@ -136,8 +136,9 @@ const CGFloat yOrigin = 64.f;
                         [_childPerBedPriceLabel setFrame:CGRectOffset(_kidWithBedMarketLabel.frame, adultMarketWidth, 0)];
                         _childPerBedPriceLabel.text = [NSString stringWithFormat:@"￥%@/", grp.travelKidPrice];
                         _childPerBedPriceLabel.hidden = NO;
+                        [_childPerBedPriceLabel sizeToFit];
                         
-                        [_bedImageView setFrame:CGRectMake(_childPerBedPriceLabel.frame.origin.x + _childPerBedPriceLabel.frame.size.width, _childPerBedPriceLabel.frame.origin.y, bedImageWidth, bedImageHeight)];
+                        [_bedImageView setFrame:CGRectMake(_childPerBedPriceLabel.frame.origin.x + _childPerBedPriceLabel.frame.size.width, _childPerBedPriceLabel.frame.origin.y+2, bedImageWidth, bedImageHeight)];
                         _bedImageView.hidden = NO;
                         
                         priceNum ++;
@@ -148,10 +149,9 @@ const CGFloat yOrigin = 64.f;
                         CGFloat actualXOrigin;
                         CGFloat actualYOrigin;
                         if (priceNum == 2) {
-                            actualXOrigin = SCREEN_WIDTH/2.0;
+                            actualXOrigin = SCREEN_WIDTH/2.0 + 5.f;
                             actualYOrigin = yOrigin + adultMarketHeight + 8.f;
-                        }
-                        if (priceNum == 1) {
+                        } else if (priceNum == 1) {
                             actualXOrigin = xOrigin;
                             actualYOrigin = yOrigin + adultMarketHeight + 8.f;
                             cellHeight += 24.f;
@@ -161,7 +161,7 @@ const CGFloat yOrigin = 64.f;
                             cellHeight += 24.f;
                         }
                         
-                        [_kidNoBedMarketLabel setFrame:CGRectMake(actualXOrigin, actualYOrigin + (priceNum-1)*(adultMarketHeight + 8.f), adultMarketWidth, adultMarketHeight)];
+                        [_kidNoBedMarketLabel setFrame:CGRectMake(actualXOrigin, actualYOrigin, adultMarketWidth, adultMarketHeight)];
                         _kidNoBedMarketLabel.hidden = NO;
                         
                         [_childPriceLabel setFrame:CGRectOffset(_kidNoBedMarketLabel.frame, adultMarketWidth, 0)];

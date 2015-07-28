@@ -37,6 +37,8 @@
     NSMutableArray *refreshControlsArray;
     NSMutableArray *noSuppliersArray;
     NSMutableArray *lineTypesArray;
+    
+    BOOL isLoadingData;
 }
 
 //navigationbar part
@@ -338,8 +340,13 @@
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {
+    if (isLoadingData == YES) {
+        return;
+    }
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+            
+            isLoadingData = NO;
             
             if (!(SCREEN_HEIGHT > 568.0) || ([pageNumsArray[_selectedIndex] integerValue] != 1)) {
                 [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -403,6 +410,9 @@
                 }
             }];
         } fail:^(id result) {
+            
+            isLoadingData = NO;
+
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControlsArray[_selectedIndex] endRefreshing];
             
@@ -417,6 +427,8 @@
     } else {
         [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
             
+            isLoadingData = NO;
+
             if (!(SCREEN_HEIGHT > 568.0) || ([pageNumsArray[_selectedIndex] integerValue] != 1)) {
                 [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
                 [refreshControlsArray[_selectedIndex] endRefreshing];
@@ -479,6 +491,9 @@
                 }
             }];
         } fail:^(id result) {
+            
+            isLoadingData = NO;
+
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             [refreshControlsArray[_selectedIndex] endRefreshing];
 
@@ -683,13 +698,16 @@
         if (fabs(delta) < 10) {
             isLoadingMoresArray[_selectedIndex] = @1;
             if ([finishedLoadingAllArray[_selectedIndex] intValue] == 0) {
-                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+                if (isLoadingData == NO) {
+                    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+                    isLoadingData = YES;
+                }
             }
-//            else {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//                [alert show];
-//            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
 }
@@ -798,8 +816,11 @@
     
     if ([isLoadingMoresArray[index] integerValue] == 0) {
         if (startCity) {
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+            if (isLoadingData == NO) {
+                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+                [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+                isLoadingData = YES;
+            }
         }
     }
 }
