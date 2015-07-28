@@ -18,8 +18,10 @@
     self.supplierLogo = [dict[@"company_logo"] isKindOfClass:[NSNull class]]?nil:dict[@"company_logo"];
     self.alleyCompanyBusinessLicense = [dict[@"company_business_license"] isKindOfClass:[NSNull class]]?nil:dict[@"company_business_license"];
 
-    self.supplierContactPhone = [dict[@"company_contactcallphone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contactcallphone"];
-
+    //座机
+    self.supplierContactFixedPhone = [dict[@"company_contacttelephone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contacttelephone"];
+    //手机
+    self.supplierContactMobilePhone = [dict[@"company_contactcallphone"] isKindOfClass:[NSNull class]]?nil:dict[@"company_contactcallphone"];
 
     self.supplierIsSync = [dict[@"is_sync"] isKindOfClass:[NSNull class]]?nil:dict[@"is_sync"];
     

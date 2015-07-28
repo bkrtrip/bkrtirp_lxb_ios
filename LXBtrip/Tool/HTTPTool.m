@@ -890,9 +890,26 @@ singleton_implementation(HTTPTool)
             fail(error);
         }
     }];
-
 }
 
+// 验证邀请码 - LXB51164
++ (void)checkInvitationCodeWithInvitationCode:(NSString *)code success:(SuccessBlock)success fail:(FailBlock)fail
+{
+    NSDictionary *param = @{@"code":code};
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"LXB51164" forHTTPHeaderField:@"AUTHCODE"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", HOST_BASE_URL, @"common/checkInviteCode"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success([self dictionaryWithBase64EncodedJsonString:operation.responseString]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
 
 
 

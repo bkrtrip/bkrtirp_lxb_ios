@@ -26,14 +26,14 @@
                             <constraint firstAttribute="height" constant="80" id="ohs-ar-v5H"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-i9-NG8">
-                        <rect key="frame" x="93" y="96" width="135" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-i9-NG8">
+                        <rect key="frame" x="158" y="96" width="5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0y-Lu-dFj">
-                        <rect key="frame" x="136" y="122" width="48" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0y-Lu-dFj">
+                        <rect key="frame" x="158" y="122" width="4" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -49,13 +49,43 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqx-tP-2J0" userLabel="cellPhoneButton">
+                        <rect key="frame" x="40" y="38" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lqx-tP-2J0" secondAttribute="height" multiplier="1:1" id="1e3-wW-p9R"/>
+                            <constraint firstAttribute="height" constant="50" id="Rkh-IZ-t5T"/>
+                        </constraints>
+                        <state key="normal" image="cell_phone.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="cellPhoneButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wz1-dO-cZ3"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDN-Yq-GEY" userLabel="fixedPhoneButton">
+                        <rect key="frame" x="230" y="38" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="gac-bH-UP0"/>
+                        </constraints>
+                        <state key="normal" image="fixed_phone.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="fixedPhoneButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iIc-ER-1Gr"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="BDN-Yq-GEY" firstAttribute="leading" secondItem="BBq-vd-oJA" secondAttribute="trailing" constant="30" id="3Kr-dE-iOz"/>
                     <constraint firstItem="bNV-Kg-o55" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4W8-ku-JfX"/>
                     <constraint firstAttribute="bottom" secondItem="bNV-Kg-o55" secondAttribute="bottom" id="BYb-Qr-FMD"/>
+                    <constraint firstItem="lqx-tP-2J0" firstAttribute="bottom" secondItem="BBq-vd-oJA" secondAttribute="bottom" id="DNT-Hl-bA4"/>
+                    <constraint firstItem="lqx-tP-2J0" firstAttribute="bottom" secondItem="BDN-Yq-GEY" secondAttribute="bottom" id="DtZ-Vq-wG0"/>
                     <constraint firstItem="O0y-Lu-dFj" firstAttribute="top" secondItem="4Du-i9-NG8" secondAttribute="bottom" constant="8" id="HZU-bL-icB"/>
                     <constraint firstAttribute="bottomMargin" secondItem="lBa-pJ-PuO" secondAttribute="bottom" constant="8" id="LK0-rt-RX5"/>
+                    <constraint firstItem="BDN-Yq-GEY" firstAttribute="width" secondItem="BDN-Yq-GEY" secondAttribute="height" multiplier="1:1" id="PMB-WT-PVw"/>
                     <constraint firstItem="O0y-Lu-dFj" firstAttribute="centerX" secondItem="4Du-i9-NG8" secondAttribute="centerX" constant="-0.5" id="PNm-ra-FWT"/>
+                    <constraint firstItem="BBq-vd-oJA" firstAttribute="leading" secondItem="lqx-tP-2J0" secondAttribute="trailing" constant="30" id="TZz-Bg-qRP"/>
                     <constraint firstAttribute="trailing" secondItem="bNV-Kg-o55" secondAttribute="trailing" id="ThV-dR-7Fv"/>
                     <constraint firstAttribute="centerX" secondItem="lBa-pJ-PuO" secondAttribute="centerX" id="ZEs-aj-KPw"/>
                     <constraint firstItem="4Du-i9-NG8" firstAttribute="top" secondItem="BBq-vd-oJA" secondAttribute="bottom" constant="8" id="aCs-Do-Vxi"/>
@@ -66,7 +96,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="cellPhoneButton" destination="lqx-tP-2J0" id="W93-Lz-Pqb"/>
                 <outlet property="certificateLabel" destination="lBa-pJ-PuO" id="wG5-so-ROX"/>
+                <outlet property="fixedPhoneButton" destination="BDN-Yq-GEY" id="XUD-Uw-LeA"/>
                 <outlet property="providerLabel" destination="O0y-Lu-dFj" id="x8C-4M-xKa"/>
                 <outlet property="supplierImageView" destination="BBq-vd-oJA" id="Bzy-9f-BBp"/>
                 <outlet property="supplierNameLabel" destination="4Du-i9-NG8" id="0Dl-ym-8NZ"/>
@@ -75,6 +107,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="cell_phone.png" width="35" height="35"/>
+        <image name="fixed_phone.png" width="35" height="35"/>
         <image name="supplier_detail_top_bg.png" width="414" height="201"/>
     </resources>
 </document>

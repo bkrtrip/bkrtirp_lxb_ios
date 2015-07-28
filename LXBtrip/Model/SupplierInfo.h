@@ -20,8 +20,8 @@
 @property (nonatomic, copy) NSString *supplierLineType;
 @property (nonatomic, copy) NSString *supplierLineTypeLetter;
 
-@property (nonatomic, copy) NSString *supplierContactPhone;
-
+@property (nonatomic, copy) NSString *supplierContactFixedPhone;
+@property (nonatomic, copy) NSString *supplierContactMobilePhone;
 
 @property (nonatomic, copy) NSMutableArray *supplierProductsArray; // contains SupplierProduct
 

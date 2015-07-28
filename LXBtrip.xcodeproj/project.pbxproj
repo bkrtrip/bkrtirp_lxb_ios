@@ -78,6 +78,10 @@
 		9706E9F41B367FD900E23EB4 /* loading9@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9706E9E01B367FD900E23EB4 /* loading9@3x.png */; };
 		97192EC31B0CCC3800C02B9E /* used@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97192EC11B0CCC3800C02B9E /* used@2x.png */; };
 		97192EC41B0CCC3800C02B9E /* used@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97192EC21B0CCC3800C02B9E /* used@3x.png */; };
+		971B0A081B674D6E0035FBF2 /* cell_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971B0A041B674D6E0035FBF2 /* cell_phone@2x.png */; };
+		971B0A091B674D6E0035FBF2 /* cell_phone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971B0A051B674D6E0035FBF2 /* cell_phone@3x.png */; };
+		971B0A0A1B674D6E0035FBF2 /* fixed_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971B0A061B674D6E0035FBF2 /* fixed_phone@2x.png */; };
+		971B0A0B1B674D6E0035FBF2 /* fixed_phone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971B0A071B674D6E0035FBF2 /* fixed_phone@3x.png */; };
 		972250CF1B3BA30100F4C0DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972250CE1B3BA30100F4C0DF /* SystemConfiguration.framework */; };
 		972250D21B3BA63900F4C0DF /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 972250D11B3BA63900F4C0DF /* AFAppDotNetAPIClient.m */; };
 		972250D61B3BAD3B00F4C0DF /* NoNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 972250D51B3BAD3B00F4C0DF /* NoNetworkView.m */; };
@@ -703,6 +707,10 @@
 		9706E9E01B367FD900E23EB4 /* loading9@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading9@3x.png"; sourceTree = "<group>"; };
 		97192EC11B0CCC3800C02B9E /* used@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "used@2x.png"; sourceTree = "<group>"; };
 		97192EC21B0CCC3800C02B9E /* used@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "used@3x.png"; sourceTree = "<group>"; };
+		971B0A041B674D6E0035FBF2 /* cell_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell_phone@2x.png"; path = "LXBtrip/image/Common/cell_phone@2x.png"; sourceTree = SOURCE_ROOT; };
+		971B0A051B674D6E0035FBF2 /* cell_phone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell_phone@3x.png"; path = "LXBtrip/image/Common/cell_phone@3x.png"; sourceTree = SOURCE_ROOT; };
+		971B0A061B674D6E0035FBF2 /* fixed_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fixed_phone@2x.png"; path = "LXBtrip/image/Common/fixed_phone@2x.png"; sourceTree = SOURCE_ROOT; };
+		971B0A071B674D6E0035FBF2 /* fixed_phone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fixed_phone@3x.png"; path = "LXBtrip/image/Common/fixed_phone@3x.png"; sourceTree = SOURCE_ROOT; };
 		972250CE1B3BA30100F4C0DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		972250D01B3BA63900F4C0DF /* AFAppDotNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAppDotNetAPIClient.h; sourceTree = "<group>"; };
 		972250D11B3BA63900F4C0DF /* AFAppDotNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAppDotNetAPIClient.m; sourceTree = "<group>"; };
@@ -2659,6 +2667,10 @@
 		97AFC1711B1555CF009C3CF6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				971B0A041B674D6E0035FBF2 /* cell_phone@2x.png */,
+				971B0A051B674D6E0035FBF2 /* cell_phone@3x.png */,
+				971B0A061B674D6E0035FBF2 /* fixed_phone@2x.png */,
+				971B0A071B674D6E0035FBF2 /* fixed_phone@3x.png */,
 				97CC39D11B4579D100E00184 /* share_icon@2x.png */,
 				97CC39D21B4579D100E00184 /* share_icon@3x.png */,
 				972250D71B3BCC1200F4C0DF /* no_network@2x.png */,
@@ -3078,6 +3090,7 @@
 				9794A88B1B26A8280077E5C0 /* buttonBg@2x.png in Resources */,
 				97A570701B23DFEB00D48A36 /* telephone_blue@2x.png in Resources */,
 				97C032021B248202000385B8 /* plus_red@2x.png in Resources */,
+				971B0A091B674D6E0035FBF2 /* cell_phone@3x.png in Resources */,
 				97AEDBC91B1458F10098F75B /* cell_phone_hightlighted@2x.png in Resources */,
 				977DCFB61B1C9C130060C7BB /* telephone@3x.png in Resources */,
 				979DDD5E1B4A41C4001D6AE8 /* triangle_close@3x.png in Resources */,
@@ -3095,6 +3108,7 @@
 				22AE94D81B270CF100E8CD83 /* InfoConfigTableViewCell.xib in Resources */,
 				977DCF911B1C96F30060C7BB /* is_new@2x.png in Resources */,
 				9794A8B91B26A8280077E5C0 /* tel_1@2x.png in Resources */,
+				971B0A0A1B674D6E0035FBF2 /* fixed_phone@2x.png in Resources */,
 				9794A81C1B26A8280077E5C0 /* AccompanyInfoView.xib in Resources */,
 				22738A041B2DD91E008E328E /* DispaterInfoViewController.xib in Resources */,
 				973956881B4E325D00FC3B05 /* alley_banner@2x.jpg in Resources */,
@@ -3177,6 +3191,7 @@
 				972250D91B3BCC1200F4C0DF /* no_network@2x.png in Resources */,
 				97B35A251B4B972A00D11F48 /* arrow_right@2x.png in Resources */,
 				9706E9E61B367FD900E23EB4 /* loading2@3x.png in Resources */,
+				971B0A0B1B674D6E0035FBF2 /* fixed_phone@3x.png in Resources */,
 				979DDD631B4A42C4001D6AE8 /* triangle_up@2x.png in Resources */,
 				97B30AC41B2D305E006F88DC /* MySupplierViewController.xib in Resources */,
 				9794A87F1B26A8280077E5C0 /* NavBaseViewController.xib in Resources */,
@@ -3226,6 +3241,7 @@
 				975DC44A1B2FCE260058B6B4 /* CreateOrderCell_StartOrEndDate.xib in Resources */,
 				97AEDBD01B1458F10098F75B /* fixed_line_phone_normal@3x.png in Resources */,
 				9770EEC81B2533E5004FDA7A /* alley_instruction@3x.png in Resources */,
+				971B0A081B674D6E0035FBF2 /* cell_phone@2x.png in Resources */,
 				97CDAFF01B2C62D6009917FB /* telephone_red@3x.png in Resources */,
 				9706E9E51B367FD900E23EB4 /* loading2@2x.png in Resources */,
 				9770EEC61B2533E5004FDA7A /* alley_detail_banner@3x.png in Resources */,
@@ -3766,8 +3782,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3794,7 +3810,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
+				PROVISIONING_PROFILE = "4585d289-74fb-4bd8-87c9-d54e422646a6";
 			};
 			name = Debug;
 		};
@@ -3804,8 +3820,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3832,7 +3848,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9101052a-2e24-4c05-af7b-3cfa5bd128b2";
+				PROVISIONING_PROFILE = "4585d289-74fb-4bd8-87c9-d54e422646a6";
 			};
 			name = Release;
 		};

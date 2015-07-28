@@ -7,10 +7,16 @@
 //
 
 #import "SupplierDetailTopImageTableViewCell.h"
+#import "Global.h"
 
 @interface SupplierDetailTopImageTableViewCell()
 
 @property (strong, nonatomic) IBOutlet UIImageView *supplierImageView;
+@property (strong, nonatomic) IBOutlet UIButton *cellPhoneButton;
+@property (strong, nonatomic) IBOutlet UIButton *fixedPhoneButton;
+- (IBAction)cellPhoneButtonClicked:(id)sender;
+- (IBAction)fixedPhoneButtonClicked:(id)sender;
+
 @property (strong, nonatomic) IBOutlet UILabel *supplierNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *providerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *certificateLabel;
@@ -36,6 +42,19 @@
     
     [_supplierImageView sd_setImageWithURL:[NSURL URLWithString:logoString] placeholderImage:ImageNamed(@"default_logo") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     }];
+    
+    if (info.supplierContactMobilePhone && info.supplierContactMobilePhone.length > 0) {
+        _cellPhoneButton.hidden = NO;
+    } else {
+        _cellPhoneButton.hidden = YES;
+    }
+    
+    if (info.supplierContactFixedPhone && info.supplierContactFixedPhone.length > 0) {
+        _fixedPhoneButton.hidden = NO;
+    } else {
+        _fixedPhoneButton.hidden = YES;
+    }
+    
     _supplierNameLabel.text = info.supplierName;
     _providerLabel.text = info.supplierBrand;
     
@@ -47,4 +66,11 @@
     }
 }
 
+- (IBAction)cellPhoneButtonClicked:(id)sender {
+    [[Global sharedGlobal] callWithPhoneNumber:_info.supplierContactMobilePhone];
+}
+
+- (IBAction)fixedPhoneButtonClicked:(id)sender {
+    [[Global sharedGlobal] callWithPhoneNumber:_info.supplierContactFixedPhone];
+}
 @end

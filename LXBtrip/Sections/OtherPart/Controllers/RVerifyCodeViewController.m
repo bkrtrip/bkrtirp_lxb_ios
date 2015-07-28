@@ -62,12 +62,25 @@
     }
     
     if (self.invitationCodeTf.text.length > 0 && self.invitationCodeTf.text.length != 5) {
-        [self showAlertViewWithTitle:@"提示" message:@"请输入正确格式的邀请码(五位大些字母)。" cancelButtonTitle:@"确定"];
+        [self showAlertViewWithTitle:@"提示" message:@"请输入正确格式的邀请码(五位大写字母)。" cancelButtonTitle:@"确定"];
         return;
     }
     
+    [HTTPTool checkInvitationCodeWithInvitationCode:self.invitationCodeTf.text success:^(id result) {
+        if ([result[@"RS100064"] isKindOfClass:[NSDictionary class]]) {
+            if ([result[@"RS100064"][@"error_code"] intValue] == 0) {
+                [self performSegueWithIdentifier:@"goToRSetPwd" sender:nil];
+            } else if ([result[@"RS100064"][@"error_code"] intValue] == -1) {
+                [self showAlertViewWithTitle:@"提示" message:@"邀请码错误。" cancelButtonTitle:@"确定"];
+            } else {
+                [self showAlertViewWithTitle:@"提示" message:@"操作失败。" cancelButtonTitle:@"确定"];
+            }
+        }
+
+    } fail:^(id result) {
+        [self showAlertViewWithTitle:@"提示" message:@"操作失败。" cancelButtonTitle:@"确定"];
+    }];
     
-    [self performSegueWithIdentifier:@"goToRSetPwd" sender:nil];
 }
 - (IBAction)getVerificationCode:(id)sender {
     AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -237,6 +250,5 @@
     viewController.phoneNum = self.phoneNum;
     viewController.invitationCode = self.invitationCodeTf.text.length == 5 ? self.invitationCodeTf.text : @"";
 }
-
 
 @end
