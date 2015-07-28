@@ -7,6 +7,7 @@
 //
 
 #import "Global.h"
+#import <TencentOpenAPI/QQApiInterface.h>       //QQ互联 SDK
 
 const NSString *kNotFirstLogin = @"not_first_login";
 const NSString *kSearchHistory = @"search_history";
@@ -408,6 +409,12 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 // QQ
 - (void)shareViaQQWithURLString:(NSString *)shareURL title:(NSString *)title content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(QQShareType)type
 {
+    if ([QQApiInterface isQQInstalled] == NO) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您的设备没有安装QQ" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     if (!image) {
         image = ImageNamed(@"share_icon");
     }
