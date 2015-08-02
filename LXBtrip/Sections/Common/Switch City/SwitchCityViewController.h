@@ -11,5 +11,6 @@
 @interface SwitchCityViewController : NavBaseViewController
 @property (nonatomic, assign) BOOL isFromSupplierList;
 @property (nonatomic, assign) BOOL isFromTourList;
+@property (nonatomic, assign) BOOL isFromSupplierSearchResults;
 
 @end

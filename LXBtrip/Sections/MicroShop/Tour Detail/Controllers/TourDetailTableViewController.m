@@ -10,14 +10,13 @@
 #import "TourDetailCell_One.h"
 #import "TourDetailCell_Two.h"
 #import "TourDetailCell_Three.h"
-#import "TourDetailCell_Four.h"
-#import "CommentsViewController.h"
+//#import "CommentsViewController.h"
 #import "TourDetailWebDetailViewController.h"
 #import "CalendarViewController.h"
 #import "AccompanyInfoViewController.h"
 #import "ShareView.h"
 
-@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Four_Delegate, TourDetailCell_Two_Delegate>
+@interface TourDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, TourDetailCell_Two_Delegate>
 {
     NSMutableDictionary *cellHeights;
 }
@@ -44,10 +43,9 @@
 
 - (void)setUpTableView
 {
+    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_One" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_One"];
     [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Two" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Two"];
     [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Three" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Three"];
-    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_Four" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_Four"];
-    [_tableView registerNib:[UINib nibWithNibName:@"TourDetailCell_One" bundle:nil] forCellReuseIdentifier:@"TourDetailCell_One"];
     
     _tableView.tableFooterView = [[UIView alloc] init];
 }
@@ -179,9 +177,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([UserModel companyId] && [UserModel staffId]) {
-        return 4;
+        return 5;
     }
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -207,14 +205,21 @@
             case 2:
             {
                 TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-                [cell setCellContentWithStartDate:_startDate];
+                [cell setCellContentWithStartDate:_startDate imageView:ImageNamed(@"start_date") title:@"出发日期"];
                 return cell;
             }
                 break;
             case 3:
             {
-                TourDetailCell_Four *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Four" forIndexPath:indexPath];
-                cell.delegate = self;
+                TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
+                [cell setCellContentWithStartDate:nil imageView:ImageNamed(@"line_detail") title:@"线路详情"];
+                return cell;
+            }
+                break;
+            case 4:
+            {
+                TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
+                [cell setCellContentWithStartDate:nil imageView:ImageNamed(@"tour_introduction") title:@"行程介绍"];
                 return cell;
             }
                 break;
@@ -235,14 +240,21 @@
             case 1:
             {
                 TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
-                [cell setCellContentWithStartDate:_startDate];
+                [cell setCellContentWithStartDate:_startDate imageView:ImageNamed(@"start_date") title:@"出发日期"];
                 return cell;
             }
                 break;
             case 2:
             {
-                TourDetailCell_Four *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Four" forIndexPath:indexPath];
-                cell.delegate = self;
+                TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
+                [cell setCellContentWithStartDate:nil imageView:ImageNamed(@"line_detail") title:@"线路详情"];
+                return cell;
+            }
+                break;
+            case 3:
+            {
+                TourDetailCell_Three *cell = [tableView dequeueReusableCellWithIdentifier:@"TourDetailCell_Three" forIndexPath:indexPath];
+                [cell setCellContentWithStartDate:nil imageView:ImageNamed(@"tour_introduction") title:@"行程介绍"];
                 return cell;
             }
                 break;
@@ -264,14 +276,8 @@
             case 1:
                 return [cellHeights[@"second_cell_height"] floatValue];
                 break;
-            case 2:
-                return 70.f;
-                break;
-            case 3:
-                return 50.f;
-                break;
             default:
-                return 0.f;
+                return 60.f;
                 break;
         }
     } else {
@@ -279,14 +285,8 @@
             case 0:
                 return [cellHeights[@"first_cell_height"] floatValue];
                 break;
-            case 1:
-                return 70.f;
-                break;
-            case 2:
-                return 50.f;
-                break;
             default:
-                return 0.f;
+                return 60.f;
                 break;
         }
     }
@@ -294,34 +294,78 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([UserModel companyId] && [UserModel staffId]) {
-        if (indexPath.row == 2) {
-            CalendarViewController *calendar = [[CalendarViewController alloc] init];
-            
-            [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
-                if (grp.marketAdultPrice) {
-//                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
-//                    NSLog(@"grp.marketTime: %@", grp.marketTime);
-//                    NSLog(@"-----------------");
-                }
-            }];
-            
-            calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
-            [self.navigationController pushViewController:calendar animated:YES];
+        switch (indexPath.row) {
+            case 2:
+            {
+                CalendarViewController *calendar = [[CalendarViewController alloc] init];
+                
+                [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+                    if (grp.marketAdultPrice) {
+                        //                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
+                        //                    NSLog(@"grp.marketTime: %@", grp.marketTime);
+                        //                    NSLog(@"-----------------");
+                    }
+                }];
+                
+                calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
+                [self.navigationController pushViewController:calendar animated:YES];
+            }
+                break;
+            case 3:
+            {
+                TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
+                web.detailURLString = _product.productDetailURL;
+                web.title = @"线路详情";
+                [self.navigationController pushViewController:web animated:YES];
+            }
+                break;
+            case 4:
+            {
+                TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
+                web.detailURLString = _product.productIntroduceURL;
+                web.title = @"行程介绍";
+                [self.navigationController pushViewController:web animated:YES];
+            }
+                break;
+            default:
+                break;
         }
     } else {
-        if (indexPath.row == 1) {
-            CalendarViewController *calendar = [[CalendarViewController alloc] init];
-            
-            [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
-                if (grp.marketAdultPrice) {
-//                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
-//                    NSLog(@"grp.marketTime: %@", grp.marketTime);
-//                    NSLog(@"-----------------");
-                }
-            }];
-            
-            calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
-            [self.navigationController pushViewController:calendar animated:YES];
+        switch (indexPath.row) {
+            case 1:
+            {
+                CalendarViewController *calendar = [[CalendarViewController alloc] init];
+                
+                [_product.productMarketTicketGroup enumerateObjectsUsingBlock:^(MarketTicketGroup *grp, NSUInteger idx, BOOL *stop) {
+                    if (grp.marketAdultPrice) {
+                        //                    NSLog(@"grp.marketAdultPrice: %@", grp.marketAdultPrice);
+                        //                    NSLog(@"grp.marketTime: %@", grp.marketTime);
+                        //                    NSLog(@"-----------------");
+                    }
+                }];
+                
+                calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
+                [self.navigationController pushViewController:calendar animated:YES];
+            }
+                break;
+            case 2:
+            {
+                TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
+                web.detailURLString = _product.productDetailURL;
+                web.title = @"线路详情";
+                [self.navigationController pushViewController:web animated:YES];
+            }
+                break;
+            case 3:
+            {
+                TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
+                web.detailURLString = _product.productIntroduceURL;
+                web.title = @"行程介绍";
+                [self.navigationController pushViewController:web animated:YES];
+            }
+                break;
+            default:
+                break;
         }
     }
 }
@@ -339,29 +383,7 @@
     [[Global sharedGlobal] callWithPhoneNumber:_product.productCompanyContactPhone];
 }
 
-#pragma mark - TourDetailCell_Four_Delegate
-- (void)supportClickWithDetail
-{
-    TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
-    web.detailURLString = _product.productDetailURL;
-    web.title = @"线路详情";
-    [self.navigationController pushViewController:web animated:YES];
-}
-
-- (void)supportClickWithTravelTourGuide
-{
-    TourDetailWebDetailViewController *web = [[TourDetailWebDetailViewController alloc] init];
-    web.detailURLString = _product.productIntroduceURL;
-    web.title = @"行程介绍";
-    [self.navigationController pushViewController:web animated:YES];
-}
-- (void)supportClickWithReviews
-{
-    CommentsViewController *comment = [[CommentsViewController alloc] init];
-    comment.product = _product;
-    [self.navigationController pushViewController:comment animated:YES];
-}
-
+#pragma mark - Private
 - (NSString *)nowDateString
 {
     NSDate *todayDate = [NSDate date];
@@ -376,7 +398,6 @@
     NSString *nowDate = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)cellYear, (long)cellMonth, (long)cellDay];
     return nowDate;
 }
-
 
 
 @end

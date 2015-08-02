@@ -11,19 +11,23 @@
 
 @interface TourDetailCell_Three()
 
+@property (strong, nonatomic) IBOutlet UIImageView *cellImageView;
+@property (strong, nonatomic) IBOutlet UILabel *cellTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *startDateLabel;
 
 @end
 @implementation TourDetailCell_Three
 
-- (void)awakeFromNib {
-    // Initialization code
-    }
-
-- (void)setCellContentWithStartDate:(NSString *)startDate
+- (void)setCellContentWithStartDate:(NSString *)startDate imageView:(UIImage *)image title:(NSString *)title
 {
+    _cellImageView.image = image;
+    _cellTitleLabel.text = title;
+    
     if (startDate) {
+        _startDateLabel.hidden = NO;
         _startDateLabel.text = [NSString stringWithFormat:@"%@ %@", startDate, [[Global sharedGlobal] weekDayFromDateString:startDate]];
+    } else {
+        _startDateLabel.hidden = YES;
     }
 }
 

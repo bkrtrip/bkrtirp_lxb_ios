@@ -131,13 +131,12 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
+    _locationProvince = [[Global sharedGlobal] locationProvince];
+    _locationCity = [[Global sharedGlobal] locationCity];
     
-    // --TEST--
-//    [[Global sharedGlobal] upDateLocationCity:@"西安"];
-//    [[Global sharedGlobal] upDateLocationProvince:@"陕西"];
-    // --TEST--
-    
-    [self startLocation];
+    if (!_locationProvince && !_locationCity) {
+        [self startLocation];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -336,6 +335,7 @@ fetchCompletionHandler:
             NSString *newCity = [test objectForKey:@"City"];
 //            NSLog(@"newCity: ------ %@", newCity);
 //            NSLog(@"newProvince: ------ %@", newProvince);
+            
             if (![_locationProvince isEqualToString:newProvince]) {
                 _locationProvince = newProvince;
                 [[Global sharedGlobal] upDateLocationProvince:_locationProvince];

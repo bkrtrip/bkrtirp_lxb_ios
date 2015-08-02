@@ -17,15 +17,17 @@
 #import "TourDetailTableViewController.h"
 #import "SetShopNameViewController.h"
 #import "SetShopContactViewController.h"
+#import "SwitchCityViewController.h"
 
 @interface SearchSupplierResultsViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, TourListTableViewCell_Delegate, AccompanyInfoView_Delegate, ShareViewDelegate>
 {
     NSInteger pageNum;
     NSMutableArray *searchedResultsArray;
     NSMutableArray *siftedResultsArray;
-    NSMutableArray *startCitiesArray;
+    NSMutableArray *endCitiesArray;
     NSArray *walkTypesArray;
     NSString *walkType;
+    NSString *endCity;
     
     TourListCell_Destination *selectedCell_Destination;
     TourListCell_WalkType *selectedCell_WalkType;
@@ -36,13 +38,15 @@
 
 - (IBAction)backButtonClicked:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIButton *locationButton;
+- (IBAction)locationButtonClicked:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)falseSearchButtonClicked:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UIButton *startCityButton;
+@property (strong, nonatomic) IBOutlet UIButton *endCityButton;
 @property (strong, nonatomic) IBOutlet UIButton *walkTypeButton;
-- (IBAction)startCityButtonClicked:(id)sender;
+- (IBAction)endCityButtonClicked:(id)sender;
 - (IBAction)walkTypeButtonClicked:(id)sender;
 
 
@@ -54,7 +58,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (strong, nonatomic) IBOutlet UITableView *walkTypeTableView;
-@property (strong, nonatomic) IBOutlet UITableView *startCityTableView;
+@property (strong, nonatomic) IBOutlet UITableView *endCityTableView;
 
 
 @property (strong, nonatomic) IBOutlet UIControl *darkMask;
@@ -71,6 +75,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResultsNeedsUpdate) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil]; // from LoginViewController, change search API after login
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
 
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     _mainTableView.backgroundColor = BG_E9ECF5;
@@ -79,13 +85,18 @@
     UIScrollView *scrollView = (UIScrollView *)_mainTableView;
     scrollView.delegate = self;
     
+    NSString *startCity = [[Global sharedGlobal] locationCity];
+    if (startCity) {
+        [_locationButton setTitle:startCity forState:UIControlStateNormal];
+    }
+    
     [self setUpSearchBarAndSearchButton];
     
     [_walkTypeTableView registerNib:[UINib nibWithNibName:@"TourListCell_WalkType" bundle:nil] forCellReuseIdentifier:@"TourListCell_WalkType"];
     
-    [_startCityTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
+    [_endCityTableView registerNib:[UINib nibWithNibName:@"TourListCell_Destination" bundle:nil] forCellReuseIdentifier:@"TourListCell_Destination"];
     
-    _startCityTableView.tableFooterView = [[UIView alloc] init];
+    _endCityTableView.tableFooterView = [[UIView alloc] init];
 
     [_darkMask addTarget:self action:@selector(hidePopUpViews) forControlEvents:UIControlEventTouchUpInside];
     _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
@@ -132,7 +143,7 @@
     _searchBar.layer.borderWidth = 0.5f;
     _searchBar.layer.borderColor = TEXT_CCCCD2.CGColor;
     
-    _searchBar.layer.cornerRadius = 5.f;
+    _searchBar.layer.cornerRadius = 3.f;
     _searchBar.layer.masksToBounds = YES;
     
     [_searchBar setImage:ImageNamed(@"search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
@@ -170,8 +181,8 @@
     if (tableView == _mainTableView) {
         return siftedResultsArray.count;
     }
-    if (tableView == _startCityTableView) {
-        return startCitiesArray.count;
+    if (tableView == _endCityTableView) {
+        return endCitiesArray.count;
     }
     return walkTypesArray.count;
 }
@@ -184,9 +195,9 @@
         return cell;
     }
     
-    if (tableView == _startCityTableView) {
+    if (tableView == _endCityTableView) {
         TourListCell_Destination *cell = [tableView dequeueReusableCellWithIdentifier:@"TourListCell_Destination" forIndexPath:indexPath];
-        [cell setCellContentWithDestination:startCitiesArray[indexPath.row]];
+        [cell setCellContentWithDestination:endCitiesArray[indexPath.row]];
         return cell;
     }
     
@@ -213,13 +224,11 @@
         [self.navigationController pushViewController:detail animated:YES];
     }
     
-    if (tableView == _startCityTableView) {
+    if (tableView == _endCityTableView) {
         [selectedCell_Destination setSelected:NO];
-        selectedCell_Destination = (TourListCell_Destination *)[_startCityTableView cellForRowAtIndexPath:indexPath];
+        selectedCell_Destination = (TourListCell_Destination *)[_endCityTableView cellForRowAtIndexPath:indexPath];
         [selectedCell_Destination setSelected:YES];
         
-        [self siftProductsWithStartCity:startCitiesArray[indexPath.row]];
-        [_startCityButton setTitle:startCitiesArray[indexPath.row] forState:UIControlStateNormal];
         if (siftedResultsArray.count == 0) {
             _noSearchResultsView.hidden = NO;
         } else {
@@ -228,12 +237,18 @@
         [_mainTableView reloadData];
         [self hidePopUpViews];
         
-//        pageNum = 1;
-//        isRefreshing = YES;
-//        _hotTheme = nil;
-//        _keyword = nil;
-//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-//        [self getSearchedSupplierResults];
+        if (indexPath.row == 0) {
+            endCity = nil;
+            [_endCityButton setTitle:@"全部目的地" forState:UIControlStateNormal];
+        } else {
+            endCity = endCitiesArray[indexPath.row];
+            [_endCityButton setTitle:endCitiesArray[indexPath.row] forState:UIControlStateNormal];
+        }
+        
+        pageNum = 1;
+        isRefreshing = YES;
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getSearchedSupplierResults];
     }
     
     if (tableView == _walkTypeTableView) {
@@ -503,7 +518,7 @@
 - (void)getSearchedSupplierResults
 {
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool searchSupplierListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] startCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
+        [HTTPTool searchSupplierListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] startCity:[[Global sharedGlobal] locationCity] endCity:endCity lineClass:nil hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             
             if (isRefreshing == YES) {
@@ -517,27 +532,27 @@
             
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100049"] succeed:^{
                 
-                NSString *startCitiesString = result[@"RS100049"][@"start_city"];
-                NSArray *temp = [startCitiesString componentsSeparatedByString:@"#"];
+                NSString *endCitiesString = result[@"RS100049"][@"end_city"];
+                NSArray *temp = [endCitiesString componentsSeparatedByString:@"#"];
                 
-                if (!startCitiesArray) {
-                    startCitiesArray = [[NSMutableArray alloc] init];
-                    [startCitiesArray addObject:@"不限"];
+                if (!endCitiesArray) {
+                    endCitiesArray = [[NSMutableArray alloc] init];
+                    [endCitiesArray addObject:@"不限"];
                 }
                 
                 [temp enumerateObjectsUsingBlock:^(NSString *new, NSUInteger idx, BOOL *stop) {
                     __block BOOL alreadyOld = NO;
-                    [startCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
+                    [endCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
                         if ([new isEqualToString:old]) {
                             alreadyOld = YES;
                         }
                     }];
                     if (alreadyOld == NO) {
-                        [startCitiesArray addObject:new];
+                        [endCitiesArray addObject:new];
                     }
                 }];
                 
-                [_startCityTableView reloadData];
+                [_endCityTableView reloadData];
                 
                 if ([result[@"RS100049"][@"goods_list"] isKindOfClass:[NSArray class]]) {
                     [result[@"RS100049"][@"goods_list"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -567,7 +582,7 @@
             [alert show];
         }];
     } else {
-        [HTTPTool searchSupplierListWithStartCity:_startCity lineClass:_lineClass hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
+        [HTTPTool searchSupplierListWithStartCity:[[Global sharedGlobal] locationCity] endCity:endCity lineClass:nil hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             
             if (isRefreshing == YES) {
@@ -581,27 +596,27 @@
             
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100013"] succeed:^{
                 
-                NSString *startCitiesString = result[@"RS100013"][@"start_city"];
-                NSArray *temp = [startCitiesString componentsSeparatedByString:@"#"];
+                NSString *endCitiesString = result[@"RS100013"][@"end_city"];
+                NSArray *temp = [endCitiesString componentsSeparatedByString:@"#"];
                 
-                if (!startCitiesArray) {
-                    startCitiesArray = [[NSMutableArray alloc] init];
-                    [startCitiesArray addObject:@"不限"];
+                if (!endCitiesArray) {
+                    endCitiesArray = [[NSMutableArray alloc] init];
+                    [endCitiesArray addObject:@"不限"];
                 }
                 
                 [temp enumerateObjectsUsingBlock:^(NSString *new, NSUInteger idx, BOOL *stop) {
                     __block BOOL alreadyOld = NO;
-                    [startCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
+                    [endCitiesArray enumerateObjectsUsingBlock:^(NSString *old, NSUInteger idx, BOOL *stop) {
                         if ([new isEqualToString:old]) {
                             alreadyOld = YES;
                         }
                     }];
                     if (alreadyOld == NO) {
-                        [startCitiesArray addObject:new];
+                        [endCitiesArray addObject:new];
                     }
                 }];
                 
-                [_startCityTableView reloadData];
+                [_endCityTableView reloadData];
                 
                 if ([result[@"RS100013"][@"goods_list"] isKindOfClass:[NSArray class]]) {
                     [result[@"RS100013"][@"goods_list"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -649,14 +664,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)startCityButtonClicked:(id)sender {
+- (IBAction)endCityButtonClicked:(id)sender {
     [self setWalkTypeTableViewHidden:YES];
-    if (_startCityTableView.hidden == YES) {
+    if (_endCityTableView.hidden == YES) {
         [self setDestinationCityTableViewHidden:NO];
         _darkMask.alpha = 1.0;
         
         if (!selectedCell_Destination) {
-            selectedCell_Destination = (TourListCell_Destination *)[_startCityTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            selectedCell_Destination = (TourListCell_Destination *)[_endCityTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             [selectedCell_Destination setSelected:YES];
         }
     } else {
@@ -680,15 +695,32 @@
     }
 }
 
-
 - (IBAction)falseSearchButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)locationButtonClicked:(id)sender {
+    // go to switch city
+    SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
+    switchCity.isFromSupplierList = NO;
+    switchCity.isFromSupplierSearchResults = YES;
+    switchCity.isFromTourList = NO;
+    [self.navigationController pushViewController:switchCity animated:YES];
+}
+
+- (void)switchCityWithCityName:(NSNotification *)note
+{
+    NSDictionary *info = [note userInfo];
+    [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
+    [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
+    
+    [self getSearchedSupplierResults];
 }
 
 #pragma mark - Private
 - (void)setDestinationCityTableViewHidden:(BOOL)hidden
 {
-    _startCityTableView.hidden = hidden;
+    _endCityTableView.hidden = hidden;
     _imageView_Closed_StartCity.hidden = !hidden;
     _imageView_Open_StartCity.hidden = hidden;
 }
@@ -721,7 +753,7 @@
 
 - (void)showAccompanyInfoView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_startCityTableView];
+    [self.view insertSubview:_darkMask aboveSubview:_endCityTableView];
     
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
@@ -732,7 +764,7 @@
 // show/hide ShareView
 - (void)showShareView
 {
-    [self.view insertSubview:_darkMask aboveSubview:_startCityTableView];
+    [self.view insertSubview:_darkMask aboveSubview:_endCityTableView];
 
     [UIView animateWithDuration:0.4 animations:^{
         _darkMask.alpha = 1;
@@ -754,21 +786,6 @@
             if (block) {
                 block();
             }
-        }
-    }];
-}
-
-- (void)siftProductsWithStartCity:(NSString *)city
-{
-    if ([city isEqualToString:@"不限"]) {
-        siftedResultsArray = [searchedResultsArray mutableCopy];
-        return;
-    }
-    
-    [siftedResultsArray removeAllObjects];
-    [searchedResultsArray enumerateObjectsUsingBlock:^(SupplierProduct *product, NSUInteger idx, BOOL *stop) {
-        if ([product.productTravelStartCity isEqualToString:city]) {
-            [siftedResultsArray addObject:product];
         }
     }];
 }
@@ -813,5 +830,6 @@
     }
     return YES;
 }
+
 
 @end

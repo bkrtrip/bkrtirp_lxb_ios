@@ -11,6 +11,6 @@
 
 @interface TourDetailCell_Three : UITableViewCell
 
-- (void)setCellContentWithStartDate:(NSString *)startDate;
+- (void)setCellContentWithStartDate:(NSString *)startDate imageView:(UIImage *)image title:(NSString *)title;
 
 @end

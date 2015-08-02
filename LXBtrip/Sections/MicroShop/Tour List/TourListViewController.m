@@ -172,6 +172,7 @@
     isRefreshing = YES;
 
     NSDictionary *info = [note userInfo];
+    [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
     startCity = info[@"startcity"];
     [_locationButton setTitle:startCity forState:UIControlStateNormal];
     
@@ -367,8 +368,9 @@
 - (IBAction)locationButtonClicked:(id)sender {
     // go to switch city
     SwitchCityViewController *switchCity = [[SwitchCityViewController alloc] init];
-    switchCity.isFromTourList = YES;
     switchCity.isFromSupplierList = NO;
+    switchCity.isFromSupplierSearchResults = NO;
+    switchCity.isFromTourList = YES;
     [self.navigationController pushViewController:switchCity animated:YES];
 }
 

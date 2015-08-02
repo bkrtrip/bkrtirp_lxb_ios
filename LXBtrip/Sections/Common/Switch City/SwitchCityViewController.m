@@ -342,6 +342,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_CITY_SUPPLIER_LIST object:self userInfo:info];
     } else if (_isFromTourList) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_CITY_TOUR_LIST object:self userInfo:info];
+    } else if (_isFromSupplierSearchResults) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_CITY_SUPPLIER_SEARCH_RESULTS object:self userInfo:info];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

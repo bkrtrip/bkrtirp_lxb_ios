@@ -10,8 +10,6 @@
 
 @interface SearchSupplierResultsViewController : NavBaseViewController
 
-@property (nonatomic, copy) NSString *startCity;
-@property (nonatomic, copy) NSString *lineClass;
 @property (nonatomic, copy) NSString *hotTheme;
 @property (nonatomic, copy) NSString *keyword;
 

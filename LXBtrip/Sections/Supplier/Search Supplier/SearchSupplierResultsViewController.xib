@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -9,15 +9,16 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchSupplierResultsViewController">
             <connections>
                 <outlet property="darkMask" destination="7in-eC-NH9" id="7no-J4-UIl"/>
+                <outlet property="endCityButton" destination="HUl-a3-KeK" id="EAT-DK-Dii"/>
+                <outlet property="endCityTableView" destination="o6C-oJ-yys" id="scA-2N-FRE"/>
                 <outlet property="imageView_Closed_StartCity" destination="Fiz-F3-IxC" id="AWs-0Q-cs6"/>
                 <outlet property="imageView_Closed_TravelType" destination="8is-o2-mHs" id="WJL-Vc-NIa"/>
                 <outlet property="imageView_Open_StartCity" destination="K9M-z8-etd" id="vRQ-Dm-LCo"/>
                 <outlet property="imageView_Open_TravelType" destination="wRK-xQ-Lap" id="oKT-aX-Ekx"/>
+                <outlet property="locationButton" destination="OhG-CL-2Vh" id="7OT-bM-XSf"/>
                 <outlet property="mainTableView" destination="Gkg-7h-4zI" id="Txq-uy-7hQ"/>
                 <outlet property="noSearchResultsView" destination="FWC-ZL-gtC" id="g7h-KP-jvo"/>
                 <outlet property="searchBar" destination="cb4-UK-zaM" id="JGr-B2-lXe"/>
-                <outlet property="startCityButton" destination="HUl-a3-KeK" id="pNX-QD-9SQ"/>
-                <outlet property="startCityTableView" destination="o6C-oJ-yys" id="aqb-jE-Coa"/>
                 <outlet property="view" destination="P4J-xk-y5A" id="jdw-cx-dKL"/>
                 <outlet property="walkTypeButton" destination="fi0-FZ-hEA" id="1gf-Hk-hHw"/>
                 <outlet property="walkTypeTableView" destination="C2n-tG-P0A" id="9FE-mT-H4p"/>
@@ -58,15 +59,15 @@
                             </connections>
                         </button>
                         <searchBar userInteractionEnabled="NO" contentMode="redraw" searchBarStyle="prominent" translatesAutoresizingMaskIntoConstraints="NO" id="cb4-UK-zaM">
-                            <rect key="frame" x="50" y="27" width="240" height="30"/>
+                            <rect key="frame" x="50" y="27" width="215" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="yoV-EZ-J3c"/>
                             </constraints>
                             <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yku-t5-GK0">
-                            <rect key="frame" x="50" y="27" width="240" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yku-t5-GK0" userLabel="locationButton">
+                            <rect key="frame" x="50" y="27" width="215" height="30"/>
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -80,16 +81,42 @@
                                 <constraint firstAttribute="height" constant="1" id="BoX-NT-IE6"/>
                             </constraints>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-CL-2Vh" userLabel="locationButton">
+                            <rect key="frame" x="265" y="27" width="55" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="OhG-CL-2Vh" secondAttribute="height" multiplier="1:1" id="BqW-Ew-C6q"/>
+                                <constraint firstAttribute="height" constant="30" id="i3B-2X-cAd"/>
+                                <constraint firstAttribute="width" constant="55" id="ldV-8Y-ogn"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="wmW-Wa-wD8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <state key="normal" image="location_red.png">
+                                <color key="titleColor" red="1" green="0.0" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="BqW-Ew-C6q"/>
+                                    <exclude reference="wmW-Wa-wD8"/>
+                                </mask>
+                            </variation>
+                            <connections>
+                                <action selector="locationButtonClicked:" destination="-1" eventType="touchUpInside" id="phr-Kn-zlf"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="cb4-UK-zaM" firstAttribute="centerY" secondItem="OhG-CL-2Vh" secondAttribute="centerY" id="0Wx-Ns-wwO"/>
                         <constraint firstAttribute="height" constant="64" id="3Hf-36-K7d"/>
-                        <constraint firstAttribute="trailing" secondItem="cb4-UK-zaM" secondAttribute="trailing" constant="30" id="4iG-vb-nQW"/>
+                        <constraint firstAttribute="trailing" secondItem="cb4-UK-zaM" secondAttribute="trailing" constant="60" id="4iG-vb-nQW"/>
                         <constraint firstItem="cb4-UK-zaM" firstAttribute="centerY" secondItem="hNa-8f-jLm" secondAttribute="centerY" id="8zA-I2-xIa"/>
                         <constraint firstItem="cb4-UK-zaM" firstAttribute="top" secondItem="fJW-rA-BO8" secondAttribute="top" constant="17" id="9Ey-ID-rTz"/>
+                        <constraint firstItem="OhG-CL-2Vh" firstAttribute="leading" secondItem="cb4-UK-zaM" secondAttribute="trailing" id="9ug-FC-Yf2"/>
                         <constraint firstItem="yku-t5-GK0" firstAttribute="width" secondItem="cb4-UK-zaM" secondAttribute="width" id="FeJ-Nw-pgg"/>
                         <constraint firstAttribute="bottom" secondItem="hNa-8f-jLm" secondAttribute="bottom" id="Hz1-lv-rIv"/>
                         <constraint firstItem="yku-t5-GK0" firstAttribute="centerX" secondItem="cb4-UK-zaM" secondAttribute="centerX" id="KOb-xr-WDx"/>
+                        <constraint firstAttribute="trailing" secondItem="OhG-CL-2Vh" secondAttribute="trailing" id="NgY-ht-kBF"/>
                         <constraint firstItem="cb4-UK-zaM" firstAttribute="leading" secondItem="hNa-8f-jLm" secondAttribute="trailing" id="Nmb-1n-Nxa"/>
                         <constraint firstAttribute="bottom" secondItem="cb4-UK-zaM" secondAttribute="bottom" constant="3" id="X1K-yc-ccx"/>
                         <constraint firstItem="yku-t5-GK0" firstAttribute="centerY" secondItem="cb4-UK-zaM" secondAttribute="centerY" id="Xo0-ia-VwO"/>
@@ -104,6 +131,7 @@
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="m18-jB-tCr"/>
+                            <exclude reference="4iG-vb-nQW"/>
                             <exclude reference="9Ey-ID-rTz"/>
                             <exclude reference="X1K-yc-ccx"/>
                             <exclude reference="Yct-Ao-6Cb"/>
@@ -118,7 +146,7 @@
                         <constraint firstAttribute="height" constant="49" id="pnT-nv-H6k"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="出发地">
+                    <state key="normal" title="全部目的地">
                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -128,7 +156,7 @@
                         </mask>
                     </variation>
                     <connections>
-                        <action selector="startCityButtonClicked:" destination="-1" eventType="touchUpInside" id="a8q-vq-lCZ"/>
+                        <action selector="endCityButtonClicked:" destination="-1" eventType="touchUpInside" id="hHS-Up-qwG"/>
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_open.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9M-z8-etd" userLabel="Image View Open">
@@ -240,7 +268,7 @@
                         <outlet property="delegate" destination="-1" id="IC4-KB-z7k"/>
                     </connections>
                 </tableView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oJ-yys" userLabel="startCityTableView">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oJ-yys" userLabel="endCityTableView">
                     <rect key="frame" x="0.0" y="113" width="320" height="176"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -325,6 +353,7 @@
     </objects>
     <resources>
         <image name="back.png" width="7" height="13"/>
+        <image name="location_red.png" width="10" height="13"/>
         <image name="no_search_results.png" width="120" height="112"/>
         <image name="separator_hor.png" width="1" height="1"/>
         <image name="separator_ver.png" width="1" height="1"/>
