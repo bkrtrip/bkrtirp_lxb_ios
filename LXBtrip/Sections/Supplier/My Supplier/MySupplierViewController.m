@@ -246,6 +246,7 @@
     NSArray *subArray = [_allMySuppliersArray[selectedIndex][indexPath.section] objectForKey:_allSectionsArray[selectedIndex][indexPath.section]];
     SupplierInfo *curInfo = subArray[indexPath.row];
     detail.info = curInfo;
+    detail.lineClass = LINE_CLASS[@(selectedIndex)];
     [self.navigationController pushViewController:detail animated:YES];
 }
 

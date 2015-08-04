@@ -532,7 +532,7 @@
         [self.view addSubview:_accompanyInfoView];
     }
     
-    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:selectedProduct.productCompanyName productName:selectedProduct.productTravelGoodsName price:selectedProduct.productMarketPrice instructions:selectedProduct.productPeerNotice];
+    CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:selectedProduct.productCompanyName productName:selectedProduct.productTravelGoodsName price:selectedProduct.productTravelPrice instructions:selectedProduct.productPeerNotice];
     [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
 }
 - (void)setUpShareView {

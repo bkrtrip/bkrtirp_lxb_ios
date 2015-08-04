@@ -76,7 +76,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResultsNeedsUpdate) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil]; // from LoginViewController, change search API after login
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_SEARCH_RESULTS object:nil];
 
     [_mainTableView registerNib:[UINib nibWithNibName:@"TourListTableViewCell" bundle:nil] forCellReuseIdentifier:@"TourListTableViewCell"];
     _mainTableView.backgroundColor = BG_E9ECF5;
@@ -350,7 +350,7 @@
                     _accompanyInfoView.delegate = self;
                     [self.view addSubview:_accompanyInfoView];
                 }
-                CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productMarketPrice instructions:product.productPeerNotice];
+                CGFloat viewHeight = [_accompanyInfoView accompanyInfoViewHeightWithSupplierName:product.productCompanyName productName:product.productIntroduce price:product.productTravelPrice instructions:product.productPeerNotice];
                 
                 [_accompanyInfoView setFrame:CGRectMake(0, self.view.frame.size.height, SCREEN_WIDTH, viewHeight)];
                 [self showAccompanyInfoView];
@@ -714,6 +714,8 @@
     [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
     [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
     
+    pageNum = 1;
+    isRefreshing = YES;
     [self getSearchedSupplierResults];
 }
 

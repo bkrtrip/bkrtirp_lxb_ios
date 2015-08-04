@@ -29,6 +29,7 @@
     NSString *locationCity;
     NSString *startCity;
     NSString *lineClass;
+    NSString *lineType;
 
     NSMutableArray *isLoadingMoresArray;
     NSMutableArray *finishedLoadingAllArray;
@@ -36,7 +37,7 @@
     NSMutableArray *collectionViewsArray;
     NSMutableArray *refreshControlsArray;
     NSMutableArray *noSuppliersArray;
-    NSMutableArray *lineTypesArray;
+//    NSMutableArray *lineTypesArray;
     
     BOOL isLoadingData;
 }
@@ -120,13 +121,13 @@
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
 
-    lineTypesArray = [[NSMutableArray alloc] initWithCapacity:5];
-    for (int i = 0; i < 5; i++) {
-        NSMutableArray *subLineTypes = [[NSMutableArray alloc] init];
-//        NSString *lineType = @"";
-//        [lineTypesArray addObject:lineType];
-        [lineTypesArray addObject:subLineTypes];
-    }
+//    lineTypesArray = [[NSMutableArray alloc] initWithCapacity:5];
+//    for (int i = 0; i < 5; i++) {
+//        NSMutableArray *subLineTypes = [[NSMutableArray alloc] init];
+////        NSString *lineType = @"";
+////        [lineTypesArray addObject:lineType];
+//        [lineTypesArray addObject:subLineTypes];
+//    }
     collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
     refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:5];
     noSuppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
@@ -204,7 +205,7 @@
         pageNumsArray[_selectedIndex] = @1;
         isLoadingMoresArray[_selectedIndex] = @0;
         finishedLoadingAllArray[_selectedIndex] = @0;
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     } else {
         [sender endRefreshing];
     }
@@ -226,7 +227,7 @@
         finishedLoadingAllArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
 
         [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     }
 }
 
@@ -246,6 +247,7 @@
     NSDictionary *info = [note userInfo];
     _selectedIndex = [info[@"line_class_index"] integerValue];
 //    lineTypesArray[_selectedIndex] = info[@"line_type"];
+    lineType = info[@"line_type"];
     pageNumsArray[_selectedIndex] = @1;
     isLoadingMoresArray[_selectedIndex] = @0;
     finishedLoadingAllArray[_selectedIndex] = @0;
@@ -356,7 +358,7 @@
 
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
-                [lineTypesArray[_selectedIndex] removeAllObjects];
+//                [lineTypesArray[_selectedIndex] removeAllObjects];
                 isLoadingMoresArray[_selectedIndex] = @1;
                 [collectionViewsArray[_selectedIndex] reloadData];
             }
@@ -388,7 +390,7 @@
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
                         [_suppliersArray[_selectedIndex] addObject:tempDict];
-                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
+//                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
                     }];
                     
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
@@ -437,7 +439,7 @@
 
             if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
                 [_suppliersArray[_selectedIndex] removeAllObjects];
-                [lineTypesArray[_selectedIndex] removeAllObjects];
+//                [lineTypesArray[_selectedIndex] removeAllObjects];
                 isLoadingMoresArray[_selectedIndex] = @1;
                 [collectionViewsArray[_selectedIndex] reloadData];
             }
@@ -469,7 +471,7 @@
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
                         [_suppliersArray[_selectedIndex] addObject:tempDict];
-                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
+//                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
                     }];
                     
                     pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
@@ -558,7 +560,7 @@
         SupplierInfo *curInfo = subSectionArray[indexPath.row];
         detail.info = curInfo;
         detail.lineClass = lineClass;
-        detail.lineType = lineTypesArray[_selectedIndex][indexPath.section];
+        detail.lineType = lineType;
         [self.navigationController pushViewController:detail animated:YES];
         return ;
     }
@@ -701,7 +703,7 @@
             if ([finishedLoadingAllArray[_selectedIndex] intValue] == 0) {
                 if (isLoadingData == NO) {
                     [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+                    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
                     isLoadingData = YES;
                 }
             }
@@ -765,43 +767,38 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
-//    if ([lineTypesArray[0] length] > 0) {
-//        lineTypesArray[0] = @"";
-//        pageNumsArray[0] = @1;
-//        isLoadingMoresArray[0] = @0;
-//    }
+    if (lineType) {
+        lineType = nil;
+        isLoadingMoresArray[0] = @0;
+    }
     self.selectedIndex = 0;
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
-//    if ([lineTypesArray[1] length] > 0) {
-//        lineTypesArray[1] = @"";
-//        pageNumsArray[1] = @1;
-//        isLoadingMoresArray[1] = @0;
-//    }
+    if (lineType) {
+        lineType = nil;
+        isLoadingMoresArray[1] = @0;
+    }
     self.selectedIndex = 1;
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
-//    if ([lineTypesArray[2] length] > 0) {
-//        lineTypesArray[2] = @"";
-//        pageNumsArray[2] = @1;
-//        isLoadingMoresArray[2] = @0;
-//    }
+    if (lineType) {
+        lineType = nil;
+        isLoadingMoresArray[2] = @0;
+    }
     self.selectedIndex = 2;
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
-//    if ([lineTypesArray[3] length] > 0) {
-//        lineTypesArray[3] = @"";
-//        pageNumsArray[3] = @1;
-//        isLoadingMoresArray[3] = @0;
-//    }
+    if (lineType) {
+        lineType = nil;
+        isLoadingMoresArray[3] = @0;
+    }
     self.selectedIndex = 3;
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
-//    if ([lineTypesArray[4] length] > 0) {
-//        lineTypesArray[4] = @"";
-//        pageNumsArray[4] = @1;
-//        isLoadingMoresArray[4] = @0;
-//    }
+    if (lineType) {
+        lineType = nil;
+        isLoadingMoresArray[4] = @0;
+    }
     self.selectedIndex = 4;
 }
 
@@ -820,7 +817,7 @@
         if (startCity) {
             if (isLoadingData == NO) {
                 [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:nil];
+                [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
                 isLoadingData = YES;
             }
         }
