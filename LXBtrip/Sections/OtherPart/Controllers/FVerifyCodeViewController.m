@@ -43,6 +43,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self setTimerDelegate];
+}
+
 - (IBAction)goToResetPwd:(id)sender {
     if (self.verifyCodeTf.text.length == 0) {
         [self showAlertViewWithTitle:nil message:@"验证码不能为空，请输入手机收到的验证码。" cancelButtonTitle:@"确定"];

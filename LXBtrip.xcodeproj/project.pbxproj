@@ -3796,8 +3796,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3824,7 +3824,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b67bba45-7cdd-4e8d-90c0-e71007c52d99";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3834,8 +3834,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shaanxi Bkrtrip network technology Co., Ltd (4U3S6REN24)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sun zhaoqing (EJXBGKB4YS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LXBtrip/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3862,7 +3862,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b67bba45-7cdd-4e8d-90c0-e71007c52d99";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
