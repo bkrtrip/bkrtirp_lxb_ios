@@ -18,6 +18,7 @@
 #import "AccompanyInfoViewController.h"
 #import "TourDetailTableViewController.h"
 #import "UMSocialWechatHandler.h"
+#import "SVPullToRefresh.h"
 
 @interface SupplierDetailViewController()<UITableViewDataSource, UITableViewDelegate, YesOrNoViewDelegate, TourListTableViewCell_Delegate, ShareViewDelegate, AccompanyInfoView_Delegate, UIScrollViewDelegate>
 {
@@ -34,6 +35,7 @@
 
 @property (strong, nonatomic) UIControl *darkMask;
 @property (copy, nonatomic) NSString *isMinetype;
+@property (assign, nonatomic) BOOL finishedLoadingAll;
 
 
 - (IBAction)addToOrRemoveFromMyShopButtonClicked:(id)sender;
@@ -52,8 +54,12 @@
     [_tableView registerNib:[UINib nibWithNibName:@"SupplierDetailTopImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"SupplierDetailTopImageTableViewCell"];
     _tableView.tableFooterView = [[UIView alloc] init];
     
-    UIScrollView *scroll = (UIScrollView *)_tableView;
-    scroll.delegate = self;
+    __weak SupplierDetailViewController *weakSelf = self;
+    //     infinite scrolling
+    [_tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf loadMoreData];
+    }];
+
     
     pageNum = 1;
     popUpType = None_Type;
@@ -118,12 +124,30 @@
     _darkMask.alpha = 0;
 }
 
+
+#pragma mark - Actions
 - (IBAction)addToOrRemoveFromMyShopButtonClicked:(id)sender
 {
+//    if ([self ifNotLogin] == YES) {
+//        if ([self ifShopNameNotSet] == YES) {
+//            if ([self ifShopContactNotSet] == YES) {
+//                [self syncOrCancelSyncMySupplier];
+//            }
+//        }
+//    }
+    
     if ([self ifNotLogin] == YES) {
         if ([self ifShopNameNotSet] == YES) {
             if ([self ifShopContactNotSet] == YES) {
-                [self syncOrCancelSyncMySupplier];
+                popUpType = None_Type;
+                
+                // 已同步
+                if ([_isMinetype intValue] == 0) {
+                    [self showYesOrNoViewWithIntroductionString:@"取消产品同步到微店，该供应商所有产品在您的微店全部下架，确定要取消同步吗?" confirmString:@"现在是否要取消同步？"];
+                    // 未同步
+                } else if ([_isMinetype intValue] == 1){
+                    [self showYesOrNoViewWithIntroductionString:@"产品同步到我的微店后，便可直接转发产品详情页给游客浏览！\n（产品详情页将显示您的联系信息）" confirmString:@"现在是否要同步产品到我的微店？"];
+                }
             }
         }
     }
@@ -135,14 +159,10 @@
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSupplierDetailWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] supplierId:_info.supplierId pageNum:@(pageNum) isMy:_isMinetype lineClass:_lineClass lineType:_lineType success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [_tableView.infiniteScrollingView stopAnimating];
+
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100016"] succeed:^{
                 SupplierInfo *tempInfo = [[SupplierInfo alloc] initWithDict:result[@"RS100016"]];
-
-                if ([tempInfo.supplierProductsArray count] == 0) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                    [alert show];
-                    return ;
-                }
                 
                 if (_info.supplierProductsArray.count == 0) {
                     _info = tempInfo;
@@ -159,20 +179,18 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [_tableView.infiniteScrollingView stopAnimating];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
     } else {
         [HTTPTool getSupplierDetailWithSupplierId:_info.supplierId pageNum:@(pageNum) isMy:_info.supplierIsMy lineClass:_lineClass lineType:_lineType success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [_tableView.infiniteScrollingView stopAnimating];
+
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100015"] succeed:^{
                 SupplierInfo *tempInfo = [[SupplierInfo alloc] initWithDict:result[@"RS100015"]];
-                
-                if ([tempInfo.supplierProductsArray count] == 0) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                    [alert show];
-                    return ;
-                }
                 
                 if (_info.supplierProductsArray.count == 0) {
                     _info = tempInfo;
@@ -189,6 +207,8 @@
             }];
         } fail:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [_tableView.infiniteScrollingView stopAnimating];
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             [alert show];
         }];
@@ -414,10 +434,10 @@
 //            }];
 //        }];
         
-        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:[[Global sharedGlobal] userAvatar] location:nil presentedController:self shareType:QQ_Share_Session];
+//        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:[[Global sharedGlobal] userAvatar] location:nil presentedController:self shareType:QQ_Share_Session];
         //--TEST--
         
-//        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
     }
 }
 
@@ -668,15 +688,13 @@
     return YES;
 }
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+#pragma mark - Private
+- (void)loadMoreData
 {
-    if (scrollView == _tableView) {
-        CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
-        if (fabs(delta) < 10) {
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-            [self getSupplierDetail];
-        }
+    if (_finishedLoadingAll == NO) {
+        [self getSupplierDetail];
+    } else {
+        [_tableView.infiniteScrollingView stopAnimating];
     }
 }
 

@@ -24,7 +24,8 @@
 
 - (CGFloat)accompanyInfoViewHeightWithSupplierName:(NSString *)supplierName productName:(NSString *)productName price:(NSNumber *)price instructions:(NSString *)instruction
 {
-    viewHeight = 163.f;
+//    viewHeight = 163.f;
+    viewHeight = 213.f;
     
     _providerNameLabel.text = supplierName;
     _tourKeywordsLabel.text = productName;
@@ -35,6 +36,7 @@
     
     CGSize instructionSize = [_instructionsLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8, MAXFLOAT)];
     
+//    [_instructionsLabel setFrame:CGRectMake(_instructionsLabel.frame.origin.x, _instructionsLabel.frame.origin.y, instructionSize.width, instructionSize.height)];
     viewHeight += keywordsSize.height + instructionSize.height;
     return viewHeight;
 }

@@ -25,7 +25,8 @@
 #import "SetShopContactViewController.h"
 #import "SVPullToRefresh.h"
 
-const CGFloat yOrigin = 20.f + 44.f + 82.f;
+
+#define yOrigin_Supplier 146.f
 
 @interface SupplierViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
@@ -59,7 +60,6 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
 - (IBAction)abroadBUtton_diJieClicked:(id)sender;
 
 
-//@property (assign, nonatomic) BOOL isLoadingMore;
 @property (assign, nonatomic) BOOL finishedLoadingAll;
 @property (assign, nonatomic) NSInteger pageNum;
 @property (strong, nonatomic) SupplierCollectionView *collView;
@@ -69,7 +69,6 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
 @property (strong, nonatomic) UIControl *darkMask;
 @property (strong, nonatomic) UITableView *inviteTableView;
 
-//@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *underLineLabel;
 
 @property (nonatomic, copy) NSMutableArray *suppliersArray;
@@ -77,6 +76,7 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
 @property (nonatomic, assign) NSInteger selectedIndex; // 0~4
 
 @end
+
 
 @implementation SupplierViewController
 
@@ -96,13 +96,13 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
     [super viewDidLoad];
     [self registerNotifications];
 //    CGFloat yOrigin = 20.f + 44.f + 82.f;
-    _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
+    _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin_Supplier-2, (SCREEN_WIDTH/2.f)/3, 2)];
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
     // initial status
     [_zhuanXianButton setSelected:YES];
     [_diJieButton setSelected:NO];
-    [self setUpCollectionViewWithYOrigin:yOrigin];
+    [self setUpCollectionViewWithYOrigin:yOrigin_Supplier];
     [self setUpDarkMask];
     [self setUpInviteTableView];
     
@@ -140,10 +140,9 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
         _suppliersArray = [[NSMutableArray alloc] init];
     }
     [_suppliersArray removeAllObjects];
-//    [_collView reloadData];
     [_collView removeFromSuperview];
     _collView = nil;
-    [self setUpCollectionViewWithYOrigin:yOrigin];
+    [self setUpCollectionViewWithYOrigin:yOrigin_Supplier];
     _finishedLoadingAll = NO;
     _pageNum = 1;
 }
@@ -615,11 +614,11 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
     [self.view addSubview:_collView];
     
     __weak SupplierViewController *weakSelf = self;
-    // pull to refresh
+//    // pull to refresh
 //    [_collView addPullToRefreshWithActionHandler:^{
 //        [weakSelf refreshCollectionViews];
 //    }];
-    // infinite scrolling
+//     infinite scrolling
     [_collView addInfiniteScrollingWithActionHandler:^{
         [weakSelf loadMoreData];
     }];
@@ -733,35 +732,30 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-//        _isLoadingMore = NO;
     }
     self.selectedIndex = 0;
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-//        _isLoadingMore = NO;
     }
     self.selectedIndex = 1;
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-//        _isLoadingMore = NO;
     }
     self.selectedIndex = 2;
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-//        _isLoadingMore = NO;
     }
     self.selectedIndex = 3;
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-//        _isLoadingMore = NO;
     }
     self.selectedIndex = 4;
 }
@@ -777,7 +771,6 @@ const CGFloat yOrigin = 20.f + 44.f + 82.f;
     }];
     
     if (startCity) {
-        _selectedIndex = index;
         [self refreshCollectionViews];
     }
 }

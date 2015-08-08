@@ -31,8 +31,6 @@
 {
     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
     [_webView stopLoading];
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//    [alert show];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,8 +44,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取失败" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-    [alert show];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

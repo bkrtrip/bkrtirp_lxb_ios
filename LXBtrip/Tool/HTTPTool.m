@@ -506,7 +506,7 @@ singleton_implementation(HTTPTool)
     }
     
     if (lineType) {
-        [param setObject:lineClass forKey:@"linetype"];
+        [param setObject:lineType forKey:@"linetype"];
     }
     if (isMy) {
         [param setObject:isMy forKey:@"ismy"];
@@ -539,7 +539,7 @@ singleton_implementation(HTTPTool)
     }
     
     if (lineType) {
-        [param setObject:lineClass forKey:@"linetype"];
+        [param setObject:lineType forKey:@"linetype"];
     }
     
     if (companyId) {
