@@ -9,6 +9,7 @@
 #import "PHeaderTableViewCell.h"
 #import "NSDictionary+GetStringValue.h"
 #import "AppMacro.h"
+#import "Global.h"
 
 @interface PHeaderTableViewCell ()
 
@@ -68,7 +69,12 @@
         if (photoURL.length > 0) {
             NSURL *pUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", HOST_IMG_BASE_URL,photoURL]];
             
-            [self.userPhotoImgView sd_setImageWithURL:pUrl placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"]];
+//            [self.userPhotoImgView sd_setImageWithURL:pUrl placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"]];
+            [self.userPhotoImgView sd_setImageWithURL:pUrl placeholderImage:[UIImage imageNamed:@"defaultIcon.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                if (image) {
+                    [[Global sharedGlobal] saveUserAvatarWithImage:image];
+                }
+            }];
         }
         else {
             self.userPhotoImgView.image = [UIImage imageNamed:@"defaultIcon.jpg"];

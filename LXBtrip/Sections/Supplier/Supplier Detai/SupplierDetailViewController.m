@@ -399,7 +399,25 @@
                 return ;
             }
         }
-        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
+        
+        //--TEST--
+//        NSString *imgSt = @"http://g.hiphotos.baidu.com/image/pic/item/95eef01f3a292df566f096e5be315c6034a8730a.jpg";
+//        imgSt = [imgSt stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//
+//        [[NSOperationQueue currentQueue] addOperationWithBlock: ^{
+//            NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgSt]]; //得到图像数据
+//            UIImage *image = [UIImage imageWithData:imgData];
+//            
+//            //在主线程中更新UI
+//            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+//                [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:image location:nil presentedController:self shareType:QQ_Share_Session];
+//            }];
+//        }];
+        
+        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:[[Global sharedGlobal] userAvatar] location:nil presentedController:self shareType:QQ_Share_Session];
+        //--TEST--
+        
+//        [[Global sharedGlobal] shareViaQQWithURLString:shareURL title:sharePrd.productTravelGoodsName content:sharePrd.productIntroduce image:nil location:nil presentedController:self shareType:QQ_Share_Session];
     }
 }
 

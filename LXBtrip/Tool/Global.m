@@ -23,6 +23,7 @@ const NSString *kLocationLongitude = @"longitude";
 @interface Global()
 
 @property (nonatomic, assign) BOOL networkAvailability;
+@property (nonatomic, assign) UIImage *userAvatar;
 
 @end
 
@@ -193,6 +194,17 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 {
     [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:(NSString *)kNotFirstLogin];
 }
+
+// 用户头像
+- (void)saveUserAvatarWithImage:(UIImage *)image
+{
+    _userAvatar = image;
+}
+- (UIImage *)userAvatar
+{
+    return _userAvatar;
+}
+
 
 //unicode编码以\u开头
 - (NSString *)replaceUnicode:(NSString *)unicodeStr
