@@ -134,7 +134,7 @@
     pageNum = 1;
     isRefreshing = YES;
 
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getSearchedSupplierResults];
 }
 
@@ -247,7 +247,7 @@
         
         pageNum = 1;
         isRefreshing = YES;
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSearchedSupplierResults];
     }
     
@@ -288,7 +288,7 @@
         
         pageNum = 1;
         isRefreshing = YES;
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSearchedSupplierResults];
         [self hidePopUpViews];
         
