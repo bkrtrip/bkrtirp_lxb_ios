@@ -174,6 +174,12 @@
                      
                      [weakSelf.navigationController popViewControllerAnimated:YES];
                  }
+                 else if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"40005"]) {
+                     [self.dispatcherLoginUNTF becomeFirstResponder];
+                     [self.dispatcherLoginUNTF setSelected:YES];
+                     
+                     [weakSelf showAlertViewWithTitle:nil message:@"用户名已存在。" cancelButtonTitle:@"确定"];
+                 }
              }
          }
          

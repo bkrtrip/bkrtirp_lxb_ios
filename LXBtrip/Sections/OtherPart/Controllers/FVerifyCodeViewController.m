@@ -48,7 +48,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self setTimerDelegate];
+//    [self setTimerDelegate];
 }
 
 - (IBAction)goToResetPwd:(id)sender {
@@ -75,6 +75,9 @@
 - (IBAction)getVerificationCode:(id)sender {
     
     self.tryToGetNewVerifyCodeBtn = (UIButton *)sender;
+    
+    self.tryToGetNewVerifyCodeBtn.hidden = YES;
+    self.timeAlertLabel.hidden = NO;
 
     AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     sharedDelegate.delegateForForgetPwd = self;
