@@ -157,7 +157,7 @@
 
 - (void)getSiftSupplierList
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [HTTPTool getSiftedSuppliersWithSuccess:^(id result) {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100011"] succeed:^{

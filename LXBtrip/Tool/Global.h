@@ -56,6 +56,10 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 
 - (void)setUnderlinedWithText:(NSString *)text button:(UIButton *)button color:(UIColor *)color;
 
+// 用户头像
+- (void)saveUserAvatarWithImage:(UIImage *)image;
+- (UIImage *)userAvatar;
+
 #pragma mark - Share part
 // Wechat
 - (void)shareViaWeChatWithURLString:(NSString *)shareURL title:(NSString *)title content:(NSString *)content image:(id)image location:(CLLocation *)location presentedController:(UIViewController *)presentedController shareType:(WechatShareType)type;

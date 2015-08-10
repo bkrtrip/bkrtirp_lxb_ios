@@ -344,7 +344,7 @@
         [_underLineLabel setFrame:CGRectMake(index*SCREEN_WIDTH/3, _underLineLabel.frame.origin.y, SCREEN_WIDTH/3, _underLineLabel.frame.size.height)];
     } completion:^(BOOL finished) {
         if ([isLoadingMoreArray[index] integerValue] == 0) {
-            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//            [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
             [self getMyOrderList];
         }
     }];

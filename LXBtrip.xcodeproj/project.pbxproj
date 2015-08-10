@@ -87,6 +87,8 @@
 		972250D61B3BAD3B00F4C0DF /* NoNetworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 972250D51B3BAD3B00F4C0DF /* NoNetworkView.m */; };
 		972250D91B3BCC1200F4C0DF /* no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 972250D71B3BCC1200F4C0DF /* no_network@2x.png */; };
 		972250DA1B3BCC1200F4C0DF /* no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 972250D81B3BCC1200F4C0DF /* no_network@3x.png */; };
+		9725DABA1B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9725DAB71B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.m */; };
+		9725DABB1B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 9725DAB91B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.m */; };
 		972DCEFD1B2AD013002C4155 /* TourListCell_WalkType.m in Sources */ = {isa = PBXBuildFile; fileRef = 972DCEFB1B2AD013002C4155 /* TourListCell_WalkType.m */; };
 		972DCEFE1B2AD013002C4155 /* TourListCell_WalkType.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972DCEFC1B2AD013002C4155 /* TourListCell_WalkType.xib */; };
 		973956881B4E325D00FC3B05 /* alley_banner@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 973956861B4E325D00FC3B05 /* alley_banner@2x.jpg */; };
@@ -612,6 +614,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AB8428728E7811685ACEFDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		0FA1C909658B8E391303ADDD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2260D7A21B27A46B000F6856 /* DispatchSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchSwitchTableViewCell.h; sourceTree = "<group>"; };
 		2260D7A31B27A46B000F6856 /* DispatchSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchSwitchTableViewCell.m; sourceTree = "<group>"; };
 		2260D7A41B27A46B000F6856 /* DispatchSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DispatchSwitchTableViewCell.xib; sourceTree = "<group>"; };
@@ -722,6 +726,11 @@
 		972250D51B3BAD3B00F4C0DF /* NoNetworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoNetworkView.m; sourceTree = "<group>"; };
 		972250D71B3BCC1200F4C0DF /* no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_network@2x.png"; path = "LXBtrip/image/Common/no_network@2x.png"; sourceTree = SOURCE_ROOT; };
 		972250D81B3BCC1200F4C0DF /* no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "no_network@3x.png"; path = "LXBtrip/image/Common/no_network@3x.png"; sourceTree = SOURCE_ROOT; };
+		9725DAB51B75D10B00A6D690 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		9725DAB61B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		9725DAB71B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		9725DAB81B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		9725DAB91B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		972DCEFA1B2AD013002C4155 /* TourListCell_WalkType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourListCell_WalkType.h; sourceTree = "<group>"; };
 		972DCEFB1B2AD013002C4155 /* TourListCell_WalkType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourListCell_WalkType.m; sourceTree = "<group>"; };
 		972DCEFC1B2AD013002C4155 /* TourListCell_WalkType.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourListCell_WalkType.xib; sourceTree = "<group>"; };
@@ -1403,7 +1412,6 @@
 		B75AB7FA1B420BC500CE735E /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
 		B75AB7FB1B420BC500CE735E /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
 		B75AB7FC1B420BC500CE735E /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
-		CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1512,14 +1520,23 @@
 			name = LoginProcedure;
 			sourceTree = "<group>";
 		};
+		712805EF029A5BAF7030EC78 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0AB8428728E7811685ACEFDD /* Pods.debug.xcconfig */,
+				0FA1C909658B8E391303ADDD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8E5C69801AFAFC5B004A0CC3 = {
 			isa = PBXGroup;
 			children = (
 				8E5C698B1AFAFC5B004A0CC3 /* LXBtrip */,
 				8E5C69A51AFAFC5B004A0CC3 /* LXBtripTests */,
 				8E5C698A1AFAFC5B004A0CC3 /* Products */,
-				CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */,
 				A975CA1980B64C4D8494C542 /* Frameworks */,
+				712805EF029A5BAF7030EC78 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1593,6 +1610,7 @@
 		8EEE84E71AFE0A4E00C789F3 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				9725DAB41B75D10B00A6D690 /* SVPullToRefresh */,
 				9793A5001B100A9000182006 /* AppMacro.h */,
 				97D78F0E1B19E691003E66E7 /* ToolMacro.h */,
 				8E3F60A31B00B12500E911F5 /* Single.h */,
@@ -1729,6 +1747,18 @@
 				972250D51B3BAD3B00F4C0DF /* NoNetworkView.m */,
 			);
 			path = "No Network View";
+			sourceTree = "<group>";
+		};
+		9725DAB41B75D10B00A6D690 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				9725DAB51B75D10B00A6D690 /* SVPullToRefresh.h */,
+				9725DAB61B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.h */,
+				9725DAB71B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.m */,
+				9725DAB81B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.h */,
+				9725DAB91B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
 			sourceTree = "<group>";
 		};
 		973D8B311B1B40E000CA4260 /* Supplier */ = {
@@ -3468,7 +3498,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		667D67406EC240A5B0186490 /* Check Pods Manifest.lock */ = {
@@ -3561,6 +3591,7 @@
 				97CDAFD11B2C2FBE009917FB /* SearchSupplierResultsViewController.m in Sources */,
 				2260D7AF1B27A9A0000F6856 /* DispatcherTableViewCell.m in Sources */,
 				22AE94D91B270CF100E8CD83 /* WebChatPayTableViewCell.m in Sources */,
+				9725DABA1B75D10B00A6D690 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				9794A9171B26A86B0077E5C0 /* AFHTTPRequestOperationManager.m in Sources */,
 				97CDAFE71B2C2FBE009917FB /* SupplierViewController.m in Sources */,
 				97CDAFE11B2C2FBE009917FB /* ReusableHeaderView_Supplier.m in Sources */,
@@ -3578,6 +3609,7 @@
 				9794A8C41B26A8280077E5C0 /* PSeperaterTableViewCell.m in Sources */,
 				975DC4531B2FCE260058B6B4 /* OrderDetailCell_ContactInfo.m in Sources */,
 				975DC4431B2FCE260058B6B4 /* CreateOrderCell_Input.m in Sources */,
+				9725DABB1B75D10B00A6D690 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				97C7861A1B1E80AE00639576 /* HotCountry.m in Sources */,
 				8E3F60871B00AC3700E911F5 /* HTTPTool.m in Sources */,
 				97CDAFD51B2C2FBE009917FB /* ReusableHeaderView_SiftSupplier.m in Sources */,
@@ -3792,7 +3824,7 @@
 		};
 		8E5C69AD1AFAFC5B004A0CC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */;
+			baseConfigurationReference = 0AB8428728E7811685ACEFDD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
@@ -3830,7 +3862,7 @@
 		};
 		8E5C69AE1AFAFC5B004A0CC3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE02E3F5FA8E49F2B98644A8 /* Pods.xcconfig */;
+			baseConfigurationReference = 0FA1C909658B8E391303ADDD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";

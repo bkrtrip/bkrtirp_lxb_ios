@@ -15,6 +15,7 @@
 #import "AFNetworking.h"
 #import "UIViewController+CommonUsed.h"
 #import "CustomActivityIndicator.h"
+#import "Global.h"
 
 @interface PersonalInfoViewController ()<UpdateUserInformationDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -580,6 +581,7 @@
 //        ((UIImageView *)[cell viewWithTag:111]).image = sealImage;
     
     UIImage *resizedImage = [self resizeImage:sealImage toRect:CGRectMake(0, 0, sealImage.size.width * 0.3, sealImage.size.height * 0.3)];
+    [[Global sharedGlobal] saveUserAvatarWithImage:resizedImage];
     NSString *smallImgString = [self encodeByBase64ForImage:resizedImage];
     
     NSString *originalImgString = [self encodeByBase64ForImage:sealImage];

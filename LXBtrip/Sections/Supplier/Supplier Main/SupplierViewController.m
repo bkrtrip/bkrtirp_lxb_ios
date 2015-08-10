@@ -23,6 +23,10 @@
 #import "MyShopWebPreviewViewController.h"
 #import "SetShopNameViewController.h"
 #import "SetShopContactViewController.h"
+#import "SVPullToRefresh.h"
+
+
+#define yOrigin_Supplier 146.f
 
 @interface SupplierViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
@@ -30,16 +34,6 @@
     NSString *startCity;
     NSString *lineClass;
     NSString *lineType;
-
-    NSMutableArray *isLoadingMoresArray;
-    NSMutableArray *finishedLoadingAllArray;
-    NSMutableArray *pageNumsArray;
-    NSMutableArray *collectionViewsArray;
-    NSMutableArray *refreshControlsArray;
-    NSMutableArray *noSuppliersArray;
-//    NSMutableArray *lineTypesArray;
-    
-    BOOL isLoadingData;
 }
 
 //navigationbar part
@@ -65,11 +59,16 @@
 @property (strong, nonatomic) IBOutlet UIButton *abroadBUtton_diJie;
 - (IBAction)abroadBUtton_diJieClicked:(id)sender;
 
+
+@property (assign, nonatomic) BOOL finishedLoadingAll;
+@property (assign, nonatomic) NSInteger pageNum;
+@property (strong, nonatomic) SupplierCollectionView *collView;
+@property (strong, nonatomic) UIView *noSupplierView;
+
 // invite supplier table view
 @property (strong, nonatomic) UIControl *darkMask;
 @property (strong, nonatomic) UITableView *inviteTableView;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *underLineLabel;
 
 @property (nonatomic, copy) NSMutableArray *suppliersArray;
@@ -77,6 +76,7 @@
 @property (nonatomic, assign) NSInteger selectedIndex; // 0~4
 
 @end
+
 
 @implementation SupplierViewController
 
@@ -94,141 +94,63 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:MY_SHOP_HAS_UPDATED object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SupplierList) name:CITY_CHANGED object:nil];
-
-    CGFloat yOrigin = 20.f + 44.f + 82.f;
-    
-    _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin-2, (SCREEN_WIDTH/2.f)/3, 2)];
+    [self registerNotifications];
+//    CGFloat yOrigin = 20.f + 44.f + 82.f;
+    _underLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin_Supplier-2, (SCREEN_WIDTH/2.f)/3, 2)];
     _underLineLabel.backgroundColor = TEXT_4CA5FF;
     [self.view addSubview:_underLineLabel];
     // initial status
     [_zhuanXianButton setSelected:YES];
     [_diJieButton setSelected:NO];
-
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
-    [_scrollView setContentSize:CGSizeMake(5*SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f)];
-    _scrollView.pagingEnabled = YES;
-    _scrollView.scrollEnabled = NO;
-    _scrollView.delegate = self;
-    [self.view addSubview:_scrollView];
-
-//    lineTypesArray = [[NSMutableArray alloc] initWithCapacity:5];
-//    for (int i = 0; i < 5; i++) {
-//        NSMutableArray *subLineTypes = [[NSMutableArray alloc] init];
-////        NSString *lineType = @"";
-////        [lineTypesArray addObject:lineType];
-//        [lineTypesArray addObject:subLineTypes];
-//    }
-    collectionViewsArray = [[NSMutableArray alloc] initWithCapacity:5];
-    refreshControlsArray = [[NSMutableArray alloc] initWithCapacity:5];
-    noSuppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
-    for (int i = 0; i < 5; i++) {
-        SupplierCollectionViewFlowLayout *flow = [[SupplierCollectionViewFlowLayout alloc] init];
-
-        SupplierCollectionView *collectionView = [[SupplierCollectionView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0) collectionViewLayout:flow];
-        
-        [collectionView registerNib:[UINib nibWithNibName:@"SupplierCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SupplierCollectionViewCell"];
-        
-        [collectionView registerNib:[UINib nibWithNibName:@"ReusableHeaderView_Supplier" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_Supplier"];
-
-        collectionView.dataSource = self;
-        collectionView.delegate = self;
-        collectionView.backgroundColor = [UIColor whiteColor];
-        collectionView.alwaysBounceVertical = YES;
-        UIScrollView *scroll = (UIScrollView *)collectionView;
-        scroll.delegate = self;
-        
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshCollectionViews:) forControlEvents:UIControlEventValueChanged];
-        [collectionView addSubview:refreshControl];
-        
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectOffset(_scrollView.bounds, i*SCREEN_WIDTH, 0)];
-        bgView.backgroundColor = BG_E9ECF5;
-        CGFloat width_height_ratio = 434.f/259.f;
-        CGFloat imgHeight = 0.2*bgView.bounds.size.height;
-        CGFloat imgWidth = imgHeight*width_height_ratio;
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((bgView.bounds.size.width - imgWidth)/2.0, 0.2*bgView.bounds.size.height, imgWidth, imgHeight)];
-        imgView.backgroundColor = [UIColor clearColor];
-        imgView.image = ImageNamed(@"no_supplier");
-        [bgView addSubview:imgView];
-        // no supplier view initially hidden!
-        bgView.hidden = YES;
-
-        [_scrollView addSubview:collectionView];
-        [_scrollView addSubview:bgView];
-        [collectionViewsArray addObject:collectionView];
-        [refreshControlsArray addObject:refreshControl];
-        [noSuppliersArray addObject:bgView];
-    }
+    [self setUpCollectionViewWithYOrigin:yOrigin_Supplier];
+    [self setUpDarkMask];
+    [self setUpInviteTableView];
     
-    // dark mask
-    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [_darkMask addTarget:self action:@selector(hideInviteTableView) forControlEvents:UIControlEventTouchUpInside];
-    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    _darkMask.alpha = 0;// initally transparent
-    [self.view addSubview:_darkMask];
+    _selectedIndex = 0;
+    lineClass = LINE_CLASS[@(_selectedIndex)];
     
-    // inviteTableView
-    CGFloat height = 320.f;
-    _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, height)];
-    _inviteTableView.dataSource = self;
-    _inviteTableView.delegate = self;
-    [self.view addSubview:_inviteTableView];
-    _inviteTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
-    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
-    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
-    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
-    
+    [self initializeData];
+    // location
     locationCity = [[Global sharedGlobal] locationCity];
     startCity = [locationCity copy];
     if (startCity) {
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
-        _selectedIndex = 0;
-        [self refreshSupplierList];
+    }
+    
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [self refreshCollectionViews];
+}
+
+- (void)refreshCollectionViews
+{
+    if (startCity) {
+        [self initializeData];
+
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        [_collView.pullToRefreshView stopAnimating];
     }
 }
 
-- (void)refreshCollectionViews:(id)sender
+- (void)initializeData
 {
-    if (startCity) {
-        pageNumsArray[_selectedIndex] = @1;
-        isLoadingMoresArray[_selectedIndex] = @0;
-        finishedLoadingAllArray[_selectedIndex] = @0;
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-    } else {
-        [sender endRefreshing];
+    // initialize data
+    if (!_suppliersArray) {
+        _suppliersArray = [[NSMutableArray alloc] init];
     }
+    [_suppliersArray removeAllObjects];
+    [_collView removeFromSuperview];
+    _collView = nil;
+    [self setUpCollectionViewWithYOrigin:yOrigin_Supplier];
+    _finishedLoadingAll = NO;
+    _pageNum = 1;
 }
 
 #pragma mark - Notification Handler
 - (void)refreshSupplierList
 {
-    if (startCity) {
-        _suppliersArray = [[NSMutableArray alloc] initWithCapacity:5];
-        for (int i = 0; i < 5; i++) {
-            NSMutableArray *array = [[NSMutableArray alloc] init];
-            [_suppliersArray addObject:array];
-        }
-        
-        lineClass = LINE_CLASS[@(_selectedIndex)];
-        pageNumsArray = [[NSMutableArray alloc] initWithObjects:@1, @1, @1, @1, @1, nil];
-        isLoadingMoresArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
-        finishedLoadingAllArray = [[NSMutableArray alloc] initWithObjects:@0, @0, @0, @0, @0, nil];
-
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-    }
+    [self refreshCollectionViews];
 }
 
 - (void)switchCityWithCityName:(NSNotification *)note
@@ -237,8 +159,7 @@
     [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
     [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
     startCity = info[@"startcity"];
-    
-    [self refreshSupplierList];
+    [self refreshCollectionViews];
 }
 
 // passed back from SiftSupplierController
@@ -246,12 +167,7 @@
 {
     NSDictionary *info = [note userInfo];
     _selectedIndex = [info[@"line_class_index"] integerValue];
-//    lineTypesArray[_selectedIndex] = info[@"line_type"];
     lineType = info[@"line_type"];
-    pageNumsArray[_selectedIndex] = @1;
-    isLoadingMoresArray[_selectedIndex] = @0;
-    finishedLoadingAllArray[_selectedIndex] = @0;
-    
     self.selectedIndex = [info[@"line_class_index"] integerValue];
 }
 
@@ -262,7 +178,8 @@
         startCity = [locationCity copy];
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
         _selectedIndex = 0;
-        [self refreshSupplierList];
+        
+        [self refreshCollectionViews];
     }
 }
 
@@ -343,27 +260,14 @@
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {
-    if (isLoadingData == YES) {
-        return;
-    }
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+        [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:@(_pageNum) success:^(id result) {
             
-            isLoadingData = NO;
-            
-            if (!(SCREEN_HEIGHT > 568.0) || ([pageNumsArray[_selectedIndex] integerValue] != 1)) {
-                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-                [refreshControlsArray[_selectedIndex] endRefreshing];
-            }
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [_collView.pullToRefreshView stopAnimating];
+            [_collView.infiniteScrollingView stopAnimating];
 
-            if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
-                [_suppliersArray[_selectedIndex] removeAllObjects];
-//                [lineTypesArray[_selectedIndex] removeAllObjects];
-                isLoadingMoresArray[_selectedIndex] = @1;
-                [collectionViewsArray[_selectedIndex] reloadData];
-            }
-            
-            [noSuppliersArray[_selectedIndex] setHidden:YES];
+            [_noSupplierView setHidden:YES];
             
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100010"] succeed:^{
                 if ([result[@"RS100010"] isKindOfClass:[NSArray class]]) {
@@ -389,35 +293,30 @@
                             }];
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
-                        [_suppliersArray[_selectedIndex] addObject:tempDict];
-//                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
+                        [_suppliersArray addObject:tempDict];
                     }];
                     
-                    pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
+                    _pageNum++;
                     
-                    if (SCREEN_HEIGHT > 568.0 && [pageNumsArray[_selectedIndex] integerValue] == 2) {
+                    if (SCREEN_HEIGHT > 568.0 && _pageNum == 2) {
                         [self getSupplierListWithStartCity:city LineClass:class lineType:type];
                         return ;
                     }
-                    
-                    [collectionViewsArray[_selectedIndex] reloadData];
+                    [_collView reloadData];
                     
                 } else {
-                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-                    [refreshControlsArray[_selectedIndex] endRefreshing];
-                    if ([pageNumsArray[_selectedIndex] intValue] == 1) {
-                        [noSuppliersArray[_selectedIndex] setHidden:NO];
-                    } else if ([pageNumsArray[_selectedIndex] intValue] > 1) {
-                        finishedLoadingAllArray[_selectedIndex] = @1;
+                    if (_pageNum == 1) {
+                        [_noSupplierView setHidden:NO];
+                    } else if (_pageNum > 1) {
+                        _finishedLoadingAll = YES;
                     }
                 }
             }];
         } fail:^(id result) {
             
-            isLoadingData = NO;
-
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [refreshControlsArray[_selectedIndex] endRefreshing];
+            [_collView.pullToRefreshView stopAnimating];
+            [_collView.infiniteScrollingView stopAnimating];
             
             if ([[Global sharedGlobal] networkAvailability] == NO) {
                 [self networkUnavailable];
@@ -428,23 +327,13 @@
             [alert show];
         }];
     } else {
-        [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:pageNumsArray[_selectedIndex] success:^(id result) {
+        [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:@(_pageNum) success:^(id result) {
             
-            isLoadingData = NO;
+            [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+            [_collView.pullToRefreshView stopAnimating];
+            [_collView.infiniteScrollingView stopAnimating];
 
-            if (!(SCREEN_HEIGHT > 568.0) || ([pageNumsArray[_selectedIndex] integerValue] != 1)) {
-                [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-                [refreshControlsArray[_selectedIndex] endRefreshing];
-            }
-
-            if ([isLoadingMoresArray[_selectedIndex] integerValue] == 0) {
-                [_suppliersArray[_selectedIndex] removeAllObjects];
-//                [lineTypesArray[_selectedIndex] removeAllObjects];
-                isLoadingMoresArray[_selectedIndex] = @1;
-                [collectionViewsArray[_selectedIndex] reloadData];
-            }
-
-            [noSuppliersArray[_selectedIndex] setHidden:YES];
+            [_noSupplierView setHidden:YES];
             
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100009"] succeed:^{
                 if ([result[@"RS100009"] isKindOfClass:[NSArray class]]) {
@@ -470,36 +359,31 @@
                             }];
                             [tempDict setObject:tempArray2 forKey:@"supplier_info"];
                         }
-                        [_suppliersArray[_selectedIndex] addObject:tempDict];
-//                        [lineTypesArray[_selectedIndex] addObject:tempDict[@"line_type"]];
+                        [_suppliersArray addObject:tempDict];
                     }];
                     
-                    pageNumsArray[_selectedIndex] = @([pageNumsArray[_selectedIndex] integerValue] + 1);
+                    _pageNum++;
                     
-                    if (SCREEN_HEIGHT > 568.0 && [pageNumsArray[_selectedIndex] integerValue] == 2) {
+                    if (SCREEN_HEIGHT > 568.0 && _pageNum == 2) {
                         [self getSupplierListWithStartCity:city LineClass:class lineType:type];
                         return ;
                     }
-                    
-                    [collectionViewsArray[_selectedIndex] reloadData];
+                    [_collView reloadData];
 
                 } else {
-                    [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-                    [refreshControlsArray[_selectedIndex] endRefreshing];
-                    if ([pageNumsArray[_selectedIndex] intValue] == 1) {
-                        [noSuppliersArray[_selectedIndex] setHidden:NO];
-                    } else if ([pageNumsArray[_selectedIndex] intValue] > 1) {
-                        finishedLoadingAllArray[_selectedIndex] = @1;
+                    if (_pageNum == 1) {
+                        [_noSupplierView setHidden:NO];
+                    } else if (_pageNum > 1) {
+                        _finishedLoadingAll = YES;
                     }
                 }
             }];
         } fail:^(id result) {
             
-            isLoadingData = NO;
-
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [refreshControlsArray[_selectedIndex] endRefreshing];
-
+            [_collView.pullToRefreshView stopAnimating];
+            [_collView.infiniteScrollingView stopAnimating];
+            
             if ([[Global sharedGlobal] networkAvailability] == NO) {
                 [self networkUnavailable];
                 return ;
@@ -514,21 +398,29 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [_suppliersArray[_selectedIndex] count];
+    return _suppliersArray.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[_suppliersArray[_selectedIndex][section] objectForKey:@"supplier_info"] count] + 1;
+    if (_suppliersArray.count > section) {
+        return [[_suppliersArray[section] objectForKey:@"supplier_info"] count] + 1;
+    }
+    return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SupplierCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SupplierCollectionViewCell" forIndexPath:indexPath];
-    if ([[_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"] count] > indexPath.row) {
-        NSArray *subArray = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"];
-        SupplierInfo *info = subArray[indexPath.row];
-        [cell setCellContentWithSupplierInfo:info];
+    
+    if (_suppliersArray.count > indexPath.section) {
+        if ([[_suppliersArray[indexPath.section] objectForKey:@"supplier_info"] count] > indexPath.row) {
+            NSArray *subArray = [_suppliersArray[indexPath.section] objectForKey:@"supplier_info"];
+            SupplierInfo *info = subArray[indexPath.row];
+            [cell setCellContentWithSupplierInfo:info];
+        } else {
+            [cell setCellContentWithSupplierInfo:nil];
+        }
     } else {
         [cell setCellContentWithSupplierInfo:nil];
     }
@@ -539,9 +431,11 @@
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     ReusableHeaderView_Supplier *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_Supplier" forIndexPath:indexPath];
-    header.sectionHeaderNameLabel.text = [_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"line_type"];
     
-//    header.sectionHeaderNameLabel.text = lineTypesArray[_selectedIndex][indexPath.section];
+    if (_suppliersArray.count > indexPath.section) {
+        header.sectionHeaderNameLabel.text = [_suppliersArray[indexPath.section] objectForKey:@"line_type"];
+    }
+    
     return header;
 }
 
@@ -553,10 +447,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[_suppliersArray[_selectedIndex][indexPath.section] objectForKey:@"supplier_info"] count] > indexPath.row) {
+    if ([[_suppliersArray[indexPath.section] objectForKey:@"supplier_info"] count] > indexPath.row) {
         // jump to detail
         SupplierDetailViewController *detail = [[SupplierDetailViewController alloc] init];
-        NSArray *subSectionArray = [_suppliersArray[_selectedIndex][indexPath.section] valueForKey:@"supplier_info"];
+        NSArray *subSectionArray = [_suppliersArray[indexPath.section] valueForKey:@"supplier_info"];
         SupplierInfo *curInfo = subSectionArray[indexPath.row];
         detail.info = curInfo;
         detail.lineClass = lineClass;
@@ -693,25 +587,94 @@
     [self hideInviteTableView];
 }
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+#pragma mark - Private
+
+- (void)registerNotifications
 {
-    if ([scrollView isKindOfClass:[UICollectionView class]]) {
-        CGFloat delta = scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height;
-        if (fabs(delta) < 10) {
-            isLoadingMoresArray[_selectedIndex] = @1;
-            if ([finishedLoadingAllArray[_selectedIndex] intValue] == 0) {
-                if (isLoadingData == NO) {
-                    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                    [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-                    isLoadingData = YES;
-                }
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有更多了" message:nil delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-                [alert show];
-            }
-        }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:MY_SHOP_HAS_UPDATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SupplierList) name:CITY_CHANGED object:nil];
+}
+
+- (void)setUpCollectionViewWithYOrigin:(CGFloat)yOrigin
+{
+    SupplierCollectionViewFlowLayout *flow = [[SupplierCollectionViewFlowLayout alloc] init];
+    
+    _collView = [[SupplierCollectionView alloc] initWithFrame:CGRectMake(0, yOrigin, SCREEN_WIDTH, SCREEN_HEIGHT - yOrigin - 49.f) collectionViewLayout:flow];
+    
+    [_collView registerNib:[UINib nibWithNibName:@"SupplierCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SupplierCollectionViewCell"];
+    [_collView registerNib:[UINib nibWithNibName:@"ReusableHeaderView_Supplier" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableHeaderView_Supplier"];
+    
+    _collView.dataSource = self;
+    _collView.delegate = self;
+    _collView.backgroundColor = [UIColor whiteColor];
+    _collView.alwaysBounceVertical = YES;
+    [self.view addSubview:_collView];
+    
+    __weak SupplierViewController *weakSelf = self;
+//    // pull to refresh
+//    [_collView addPullToRefreshWithActionHandler:^{
+//        [weakSelf refreshCollectionViews];
+//    }];
+//     infinite scrolling
+    [_collView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf loadMoreData];
+    }];
+    
+    [self setUpNoSupplierView];
+}
+
+- (void)setUpNoSupplierView
+{
+    // set up noSupplierView
+    _noSupplierView = [[UIView alloc] initWithFrame:CGRectOffset(_collView.bounds, 0, 0)];
+    _noSupplierView.backgroundColor = BG_E9ECF5;
+    CGFloat width_height_ratio = 434.f/259.f;
+    CGFloat imgHeight = 0.2*_noSupplierView.bounds.size.height;
+    CGFloat imgWidth = imgHeight*width_height_ratio;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((_noSupplierView.bounds.size.width - imgWidth)/2.0, 0.2*_noSupplierView.bounds.size.height, imgWidth, imgHeight)];
+    imgView.backgroundColor = [UIColor clearColor];
+    imgView.image = ImageNamed(@"no_supplier");
+    [_noSupplierView addSubview:imgView];
+    // no supplier view initially hidden!
+    _noSupplierView.hidden = YES;
+    [_collView addSubview:_noSupplierView];
+}
+
+- (void)setUpDarkMask
+{
+    // dark mask
+    _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_darkMask addTarget:self action:@selector(hideInviteTableView) forControlEvents:UIControlEventTouchUpInside];
+    _darkMask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _darkMask.alpha = 0;// initally transparent
+    [self.view addSubview:_darkMask];
+}
+
+- (void)setUpInviteTableView
+{
+    // inviteTableView
+    CGFloat height = 320.f;
+    _inviteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, height)];
+    _inviteTableView.dataSource = self;
+    _inviteTableView.delegate = self;
+    [self.view addSubview:_inviteTableView];
+    _inviteTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
+    [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
+}
+
+- (void)loadMoreData
+{
+    if (_finishedLoadingAll == NO) {
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    } else {
+        [_collView.infiniteScrollingView stopAnimating];
     }
 }
 
@@ -769,35 +732,30 @@
 - (IBAction)domesticButton_zhuanXianClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-        isLoadingMoresArray[0] = @0;
     }
     self.selectedIndex = 0;
 }
 - (IBAction)abroadButton_zhuanXianClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-        isLoadingMoresArray[1] = @0;
     }
     self.selectedIndex = 1;
 }
 - (IBAction)nearbyButton_zhuanXianClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-        isLoadingMoresArray[2] = @0;
     }
     self.selectedIndex = 2;
 }
 - (IBAction)domesticButton_diJieClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-        isLoadingMoresArray[3] = @0;
     }
     self.selectedIndex = 3;
 }
 - (IBAction)abroadBUtton_diJieClicked:(id)sender {
     if (lineType) {
         lineType = nil;
-        isLoadingMoresArray[4] = @0;
     }
     self.selectedIndex = 4;
 }
@@ -805,7 +763,6 @@
 - (void)scrollToVisibleWithSelectedIndex:(NSInteger)index
 {
     [UIView animateWithDuration:0.2 animations:^{
-        [_scrollView scrollRectToVisible:CGRectOffset(_scrollView.frame, index*SCREEN_WIDTH, 0) animated:NO];
         if (index < 3) {
             [_underLineLabel setFrame:CGRectMake(index*(SCREEN_WIDTH/2.0)/3, _underLineLabel.frame.origin.y, (SCREEN_WIDTH/2.0)/3, _underLineLabel.frame.size.height)];
         } else {
@@ -813,14 +770,8 @@
         }
     }];
     
-    if ([isLoadingMoresArray[index] integerValue] == 0) {
-        if (startCity) {
-            if (isLoadingData == NO) {
-                [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-                [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-                isLoadingData = YES;
-            }
-        }
+    if (startCity) {
+        [self refreshCollectionViews];
     }
 }
 @end

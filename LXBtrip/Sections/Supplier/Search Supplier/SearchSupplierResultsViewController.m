@@ -134,7 +134,7 @@
     pageNum = 1;
     isRefreshing = YES;
 
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self getSearchedSupplierResults];
 }
 
@@ -247,7 +247,7 @@
         
         pageNum = 1;
         isRefreshing = YES;
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSearchedSupplierResults];
     }
     
@@ -285,21 +285,21 @@
             default:
                 break;
         }
-        [self siftProductsWithWalkType:walk];
-        if (siftedResultsArray.count == 0) {
-            _noSearchResultsView.hidden = NO;
-        } else {
-            _noSearchResultsView.hidden = YES;
-        }
-        [_mainTableView reloadData];
+        
+        pageNum = 1;
+        isRefreshing = YES;
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+        [self getSearchedSupplierResults];
         [self hidePopUpViews];
         
-//        pageNum = 1;
-//        isRefreshing = YES;
-//        _hotTheme = nil;
-//        _keyword = nil;
-//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-//        [self getSearchedSupplierResults];
+//        [self siftProductsWithWalkType:walk];
+//        if (siftedResultsArray.count == 0) {
+//            _noSearchResultsView.hidden = NO;
+//        } else {
+//            _noSearchResultsView.hidden = YES;
+//        }
+//        [_mainTableView reloadData];
+//        [self hidePopUpViews];
     }
 }
 
