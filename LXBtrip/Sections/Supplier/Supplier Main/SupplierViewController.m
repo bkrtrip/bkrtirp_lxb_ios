@@ -119,7 +119,7 @@
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
     }
     
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self refreshCollectionViews];
 }
 
@@ -264,6 +264,7 @@
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:@(_pageNum) success:^(id result) {
             

@@ -118,9 +118,9 @@
     }
     
     _freezeLayer = [[UIView alloc] initWithFrame:SCREEN_RECT];
-//    _freezeLayer.backgroundColor = [UIColor blackColor];
-//    _freezeLayer.alpha = 0.3;
-    _freezeLayer.backgroundColor = [UIColor whiteColor];
+    _freezeLayer.backgroundColor = [UIColor blackColor];
+    _freezeLayer.alpha = 0.1;
+//    _freezeLayer.backgroundColor = [UIColor whiteColor];
     return _freezeLayer;
 }
 
