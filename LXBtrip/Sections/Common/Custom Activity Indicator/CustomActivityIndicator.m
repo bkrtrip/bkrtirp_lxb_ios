@@ -80,6 +80,9 @@
                                             LOADINGVIEW_WIDTH)];
     _activityIndicator.image = [UIImage animatedImageNamed:@"loading" duration:1];
     
+    _activityIndicator.layer.cornerRadius = 6;
+    _activityIndicator.layer.masksToBounds = YES;
+    
     return _activityIndicator;
 }
 
@@ -120,7 +123,7 @@
     _freezeLayer = [[UIView alloc] initWithFrame:SCREEN_RECT];
 //    _freezeLayer.backgroundColor = [UIColor blackColor];
 //    _freezeLayer.alpha = 0.3;
-    _freezeLayer.backgroundColor = [UIColor whiteColor];
+    _freezeLayer.backgroundColor = [UIColor clearColor];
     return _freezeLayer;
 }
 
