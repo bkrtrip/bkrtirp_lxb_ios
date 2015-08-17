@@ -201,42 +201,42 @@
         if (hotCitiesArray.count == 0) {
             NSArray *temp = [allCitiesArrayInOrder[indexPath.section-1] objectForKey:sectionsArray[indexPath.section-1]];
             City *ct = temp[indexPath.row];
-            if (locationCity) {
-                if ([ct.cityName isEqualToString:locationCity]) {
-                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
-                } else {
-                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
-                }
-            } else {
+//            if (locationCity) {
+//                if ([ct.cityName isEqualToString:locationCity]) {
+//                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+//                } else {
+//                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
+//                }
+//            } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
-            }
+//            }
             return cell;
         } else {
             if (indexPath.section == 1) {
                 NSString *hct = hotCitiesArray[indexPath.row];
-                if (locationCity) {
-                    if ([hct isEqualToString:locationCity]) {
-                        [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
-                    } else {
-                        [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
-                    }
-                } else {
+//                if (locationCity) {
+//                    if ([hct isEqualToString:locationCity]) {
+//                        [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:YES];
+//                    } else {
+//                        [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
+//                    }
+//                } else {
                     [cell setCellCityWithName:hct isLocationCity:NO selectedStatus:NO];
-                }
+//                }
                 return cell;
             }
             
             NSArray *temp = [allCitiesArrayInOrder[indexPath.section-2] objectForKey:sectionsArray[indexPath.section-2]];
             City *ct = temp[indexPath.row];
-            if (locationCity) {
-                if ([ct.cityName isEqualToString:locationCity]) {
-                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
-                } else {
-                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
-                }
-            } else {
+//            if (locationCity) {
+//                if ([ct.cityName isEqualToString:locationCity]) {
+//                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:YES];
+//                } else {
+//                    [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
+//                }
+//            } else {
                 [cell setCellCityWithName:ct.cityName isLocationCity:NO selectedStatus:NO];
-            }
+//            }
             return cell;
         }
     }

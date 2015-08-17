@@ -30,7 +30,6 @@
 
 @interface SupplierViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, InviteSupplierTableViewCell_Fourth_Delegate>
 {
-    NSString *locationCity;
     NSString *startCity;
     NSString *lineClass;
     NSString *lineType;
@@ -111,8 +110,11 @@
     
     [self initializeData];
     // location
-    locationCity = [[Global sharedGlobal] locationCity];
-    startCity = [locationCity copy];
+    startCity = [[Global sharedGlobal] userSavedCity_Supplier];
+    if (!startCity) {
+        startCity = [[Global sharedGlobal] locationCity];
+    }
+    
     if (startCity) {
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
     }
@@ -156,7 +158,9 @@
 - (void)switchCityWithCityName:(NSNotification *)note
 {
     NSDictionary *info = [note userInfo];
-    [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
+    
+    [[Global sharedGlobal] upDateUserSavedCity_Supplier:info[@"startcity"]];
+    
     [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
     startCity = info[@"startcity"];
     [self refreshCollectionViews];
@@ -171,17 +175,17 @@
     self.selectedIndex = [info[@"line_class_index"] integerValue];
 }
 
-- (void)cityChanged_SupplierList
-{
-    locationCity = [[Global sharedGlobal] locationCity];
-    if (locationCity) {
-        startCity = [locationCity copy];
-        [_locationButton setTitle:startCity forState:UIControlStateNormal];
-        _selectedIndex = 0;
-        
-        [self refreshCollectionViews];
-    }
-}
+//- (void)cityChanged_SupplierList
+//{
+//    locationCity = [[Global sharedGlobal] locationCity];
+//    if (locationCity) {
+//        startCity = [locationCity copy];
+//        [_locationButton setTitle:startCity forState:UIControlStateNormal];
+//        _selectedIndex = 0;
+//        
+//        [self refreshCollectionViews];
+//    }
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -297,11 +301,6 @@
                     }];
                     
                     _pageNum++;
-                    
-                    if (SCREEN_HEIGHT > 568.0 && _pageNum == 2) {
-                        [self getSupplierListWithStartCity:city LineClass:class lineType:type];
-                        return ;
-                    }
                     [_collView reloadData];
                     
                 } else {
@@ -363,11 +362,6 @@
                     }];
                     
                     _pageNum++;
-                    
-                    if (SCREEN_HEIGHT > 568.0 && _pageNum == 2) {
-                        [self getSupplierListWithStartCity:city LineClass:class lineType:type];
-                        return ;
-                    }
                     [_collView reloadData];
 
                 } else {
@@ -595,7 +589,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SupplierList) name:CITY_CHANGED object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SupplierList) name:CITY_CHANGED object:nil];
 }
 
 - (void)setUpCollectionViewWithYOrigin:(CGFloat)yOrigin

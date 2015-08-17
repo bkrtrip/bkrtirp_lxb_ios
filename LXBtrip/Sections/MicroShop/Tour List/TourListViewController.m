@@ -77,7 +77,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_TourList) name:CITY_CHANGED object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_TourList) name:CITY_CHANGED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_TOUR_LIST object:nil];
     
     _darkMask = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -151,7 +151,11 @@
     [self setDestinationCityTableViewHidden:YES];
     
     isRefreshing = YES;
-    startCity = [[Global sharedGlobal] locationCity];
+    
+    startCity = [[Global sharedGlobal] userSavedCity_TourList];
+    if (!startCity) {
+        startCity = [[Global sharedGlobal] locationCity];
+    }
     if (!startCity || startCity.length == 0) {
         startCity = @"全国";
     }
@@ -172,7 +176,8 @@
     isRefreshing = YES;
 
     NSDictionary *info = [note userInfo];
-    [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
+    
+    [[Global sharedGlobal] upDateUserSavedCity_TourList:info[@"startcity"]];
     startCity = info[@"startcity"];
     [_locationButton setTitle:startCity forState:UIControlStateNormal];
     

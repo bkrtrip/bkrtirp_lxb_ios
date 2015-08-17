@@ -16,6 +16,11 @@ const NSString *kHotCityHistory = @"hot_city_history";
 const NSString *kLocationProvince = @"location_province";
 const NSString *kLocationCity = @"location_city";
 
+const NSString *kUserSavedCity_Supplier = @"user_saved_city_supplier";
+const NSString *kUserSavedCity_TourList = @"user_saved_city_tourList";
+const NSString *kUserSavedCity_SearchSupplierResults = @"user_saved_city_search_supplier_results";
+
+
 const NSString *kLocationLatitude = @"latitude";
 const NSString *kLocationLongitude = @"longitude";
 
@@ -321,6 +326,8 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kLocationCity];
 }
+
+// save city
 - (void)upDateLocationProvince:(NSString *)newProvince
 {
     [[NSUserDefaults standardUserDefaults] setObject:newProvince forKey:(NSString *)kLocationProvince];
@@ -329,6 +336,34 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 {
     [[NSUserDefaults standardUserDefaults] setObject:newCity forKey:(NSString *)kLocationCity];
 }
+- (NSString *)userSavedCity_Supplier
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kUserSavedCity_Supplier];
+}
+- (void)upDateUserSavedCity_Supplier:(NSString *)newCity
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newCity forKey:(NSString *)kUserSavedCity_Supplier];
+}
+
+- (NSString *)userSavedCity_TourList
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kUserSavedCity_TourList];
+}
+- (void)upDateUserSavedCity_TourList:(NSString *)newCity
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newCity forKey:(NSString *)kUserSavedCity_TourList];
+}
+
+- (NSString *)userSavedCity_SearchSupplierResults
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kUserSavedCity_SearchSupplierResults];
+}
+
+- (void)upDateUserSavedCity_SearchSupplierResults:(NSString *)newCity
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newCity forKey:(NSString *)kUserSavedCity_SearchSupplierResults];
+}
+
 - (CLLocation *)locationCoordinate
 {
     CGFloat lat = [[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kLocationLatitude] floatValue];

@@ -67,7 +67,7 @@
 
 @property (nonatomic, strong) AccompanyInfoView *accompanyInfoView;
 @property (nonatomic, strong) ShareView *shareView;
-
+@property (nonatomic, strong) NSString *startCity;
 @end
 
 @implementation SearchSupplierResultsViewController
@@ -85,9 +85,15 @@
     UIScrollView *scrollView = (UIScrollView *)_mainTableView;
     scrollView.delegate = self;
     
-    NSString *startCity = [[Global sharedGlobal] locationCity];
-    if (startCity) {
-        [_locationButton setTitle:startCity forState:UIControlStateNormal];
+    
+    _startCity = [[Global sharedGlobal] userSavedCity_SearchSupplierResults];
+    if (!_startCity) {
+        _startCity = [[Global sharedGlobal] locationCity];
+    }
+    
+//    NSString *startCity = [[Global sharedGlobal] locationCity];
+    if (_startCity) {
+        [_locationButton setTitle:_startCity forState:UIControlStateNormal];
     }
     
     [self setUpSearchBarAndSearchButton];
@@ -518,7 +524,7 @@
 - (void)getSearchedSupplierResults
 {
     if ([UserModel companyId] && [UserModel staffId]) {
-        [HTTPTool searchSupplierListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] startCity:[[Global sharedGlobal] locationCity] endCity:endCity lineClass:nil hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
+        [HTTPTool searchSupplierListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] startCity:_startCity endCity:endCity lineClass:nil hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             
             if (isRefreshing == YES) {
@@ -582,7 +588,7 @@
             [alert show];
         }];
     } else {
-        [HTTPTool searchSupplierListWithStartCity:[[Global sharedGlobal] locationCity] endCity:endCity lineClass:nil hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
+        [HTTPTool searchSupplierListWithStartCity:_startCity endCity:endCity lineClass:nil hotTheme:_hotTheme keyword:_keyword walkType:walkType pageNum:@(pageNum) success:^(id result) {
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
             
             if (isRefreshing == YES) {
@@ -711,7 +717,10 @@
 - (void)switchCityWithCityName:(NSNotification *)note
 {
     NSDictionary *info = [note userInfo];
-    [[Global sharedGlobal] upDateLocationCity:info[@"startcity"]];
+    
+    [[Global sharedGlobal] upDateUserSavedCity_SearchSupplierResults:info[@"startcity"]];
+    
+    _startCity = info[@"startcity"];
     [_locationButton setTitle:info[@"startcity"] forState:UIControlStateNormal];
     
     pageNum = 1;

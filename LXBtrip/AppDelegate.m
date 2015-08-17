@@ -339,7 +339,7 @@ fetchCompletionHandler:
             if (![_locationProvince isEqualToString:newProvince]) {
                 _locationProvince = newProvince;
                 [[Global sharedGlobal] upDateLocationProvince:_locationProvince];
-                [[NSNotificationCenter defaultCenter] postNotificationName:PROVINCE_CHANGED object:self];//省份改变
+//                [[NSNotificationCenter defaultCenter] postNotificationName:PROVINCE_CHANGED object:self];//省份改变
             }
             if (![_locationCity isEqualToString:newCity]) {
                 _locationCity = newCity;

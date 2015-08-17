@@ -51,6 +51,16 @@ NSInteger sortOrder(MyOrderItem * order_1, MyOrderItem * order_2, void *context)
 - (void)upDateLocationCity:(NSString *)newCity;
 - (CLLocation *)locationCoordinate;
 - (void)upDateLocationCoordinate:(CLLocation *)coordinate;
+
+- (NSString *)userSavedCity_Supplier;
+- (void)upDateUserSavedCity_Supplier:(NSString *)newCity;
+
+- (NSString *)userSavedCity_TourList;
+- (void)upDateUserSavedCity_TourList:(NSString *)newCity;
+
+- (NSString *)userSavedCity_SearchSupplierResults;
+- (void)upDateUserSavedCity_SearchSupplierResults:(NSString *)newCity;
+
 - (void)callWithPhoneNumber:(NSString *)phoneNumber;
 - (void)sendShortTextWithPhoneNumber:(NSString *)phoneNumber;
 
