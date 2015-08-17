@@ -80,6 +80,9 @@
                                             LOADINGVIEW_WIDTH)];
     _activityIndicator.image = [UIImage animatedImageNamed:@"loading" duration:1];
     
+    _activityIndicator.layer.cornerRadius = 6;
+    _activityIndicator.layer.masksToBounds = YES;
+    
     return _activityIndicator;
 }
 
@@ -122,6 +125,18 @@
     _freezeLayer.alpha = 0.1;
 //    _freezeLayer.backgroundColor = [UIColor whiteColor];
     return _freezeLayer;
+}
+
+- (void)restoreToDefaultFrame
+{
+    self.frame = SCREEN_RECT;
+    _loadingView.center = self.center;
+}
+
+- (void)updateFrameWithRect:(CGRect)frame
+{
+    self.frame = frame;
+    _loadingView.center = self.center;
 }
 
 #pragma mark - Synchronous -- with gray mask
