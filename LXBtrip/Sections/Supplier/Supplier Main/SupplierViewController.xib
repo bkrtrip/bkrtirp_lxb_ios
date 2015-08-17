@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -35,7 +35,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y0X-Ed-KdM" userLabel="nav bar View">
                     <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="segment_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="JJ4-yj-cey">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="segment_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="JJ4-yj-cey">
                             <rect key="frame" x="92" y="7" width="136" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="9Ro-ob-UOO"/>
@@ -48,7 +48,7 @@
                                 </mask>
                             </variation>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TB4-5c-A91">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TB4-5c-A91">
                             <rect key="frame" x="92" y="7" width="68" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="筛选">
@@ -59,7 +59,7 @@
                                 <action selector="selectButtonClicked:" destination="-1" eventType="touchUpInside" id="pOs-Zq-ktk"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2i-HV-eEw">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2i-HV-eEw">
                             <rect key="frame" x="160" y="7" width="68" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="我的">
@@ -105,6 +105,12 @@
                                 <action selector="searchProductButtonClicked:" destination="-1" eventType="touchUpInside" id="ZLt-3U-iug"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的供应商" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFD-kO-ofI">
+                            <rect key="frame" x="118" y="12" width="85" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -115,6 +121,7 @@
                         <constraint firstItem="JJ4-yj-cey" firstAttribute="height" secondItem="TB4-5c-A91" secondAttribute="height" id="FGj-RI-6d5"/>
                         <constraint firstItem="T2i-HV-eEw" firstAttribute="centerY" secondItem="TB4-5c-A91" secondAttribute="centerY" id="KHV-yX-CIs"/>
                         <constraint firstAttribute="trailing" secondItem="vfk-Hy-hDc" secondAttribute="trailing" constant="8" id="Mhf-cE-rSM"/>
+                        <constraint firstAttribute="centerY" secondItem="hFD-kO-ofI" secondAttribute="centerY" id="Mvb-D5-RZK"/>
                         <constraint firstAttribute="centerX" secondItem="JJ4-yj-cey" secondAttribute="centerX" id="NfY-Jh-V4P"/>
                         <constraint firstItem="JJ4-yj-cey" firstAttribute="centerY" secondItem="TB4-5c-A91" secondAttribute="centerY" id="Q8j-Zv-DiZ"/>
                         <constraint firstItem="JJ4-yj-cey" firstAttribute="leading" secondItem="TB4-5c-A91" secondAttribute="leading" id="WKP-Ti-bhh"/>
@@ -124,6 +131,7 @@
                         <constraint firstItem="T2i-HV-eEw" firstAttribute="width" secondItem="TB4-5c-A91" secondAttribute="width" id="l6d-vO-2qR"/>
                         <constraint firstAttribute="centerY" secondItem="ac4-qz-Akw" secondAttribute="centerY" id="lfI-oV-ada"/>
                         <constraint firstItem="TB4-5c-A91" firstAttribute="width" secondItem="JJ4-yj-cey" secondAttribute="width" multiplier="0.5" id="xSw-YP-2ND"/>
+                        <constraint firstAttribute="centerX" secondItem="hFD-kO-ofI" secondAttribute="centerX" id="xVO-9a-8fQ"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntS-5d-9zd" userLabel="left">
