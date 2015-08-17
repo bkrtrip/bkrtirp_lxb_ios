@@ -124,6 +124,18 @@
     return _freezeLayer;
 }
 
+- (void)restoreToDefaultFrame
+{
+    self.frame = SCREEN_RECT;
+    _loadingView.center = self.center;
+}
+
+- (void)updateFrameWithRect:(CGRect)frame
+{
+    self.frame = frame;
+    _loadingView.center = self.center;
+}
+
 #pragma mark - Synchronous -- with gray mask
 
 - (void)startSynchAnimating
