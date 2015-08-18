@@ -308,6 +308,12 @@
                 }];
                 
                 calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
+                
+                NSDateFormatter *formatter=[[NSDateFormatter alloc] init];
+                [formatter setLocale:[NSLocale currentLocale]];
+                [formatter setDateFormat:@"yyyy-MM-dd"];
+                NSDate *showDate = [formatter dateFromString:_startDate];
+                calendar.date = showDate;
                 [self.navigationController pushViewController:calendar animated:YES];
             }
                 break;
@@ -345,6 +351,12 @@
                 }];
                 
                 calendar.priceGroupsArray = [_product.productMarketTicketGroup mutableCopy];
+                
+                NSDateFormatter *formatter=[[NSDateFormatter alloc] init];
+                [formatter setLocale:[NSLocale currentLocale]];
+                [formatter setDateFormat:@"yyyy-MM-dd"];
+                NSDate *showDate = [formatter dateFromString:_startDate];
+                calendar.date = showDate;
                 [self.navigationController pushViewController:calendar animated:YES];
             }
                 break;

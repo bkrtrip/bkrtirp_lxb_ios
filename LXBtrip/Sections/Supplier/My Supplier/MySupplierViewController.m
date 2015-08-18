@@ -9,6 +9,7 @@
 #import "MySupplierViewController.h"
 #import "MySupplierTableViewCell.h"
 #import "SupplierDetailViewController.h"
+#import "SVPullToRefresh.h"
 
 @interface MySupplierViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -98,8 +99,11 @@
 
 - (void)getMySuppliers
 {
+    [[CustomActivityIndicator sharedActivityIndicator] startTransparentAnimating];
     [HTTPTool getMySuppliersWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] lineClass:LINE_CLASS[@(_selectedIndex)] success:^(id result) {
-        
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        [_tableView.pullToRefreshView stopAnimating];
+
         [_noSupplierView setHidden:YES];
         [[Global sharedGlobal] codeHudWithObject:result[@"RS100018"] succeed:^{
             id data = result[@"RS100018"];
@@ -149,7 +153,9 @@
             [_tableView reloadData];
         }];
     } fail:^(id result) {
-        
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        [_tableView.pullToRefreshView stopAnimating];
+
         if ([[Global sharedGlobal] networkAvailability] == NO) {
             [self networkUnavailable];
             return ;
@@ -265,6 +271,7 @@
     }];
     
     [self initializeData];
+    [_tableView.pullToRefreshView startAnimating];
     [self getMySuppliers];
 }
 
@@ -290,6 +297,12 @@
     _tableView.delegate = self;
     _tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:_tableView];
+    
+    __weak MySupplierViewController *weakSelf = self;
+    // pull to refresh
+    [_tableView addPullToRefreshWithActionHandler:^{
+        [weakSelf getMySuppliers];
+    }];
     
     [self setUpNoSupplierView];
 }

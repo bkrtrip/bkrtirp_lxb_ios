@@ -33,6 +33,8 @@
     NSString *startCity;
     NSString *lineClass;
     NSString *lineType;
+    
+    BOOL isRefreshing;
 }
 
 //navigationbar part
@@ -59,6 +61,7 @@
 - (IBAction)abroadBUtton_diJieClicked:(id)sender;
 
 
+//@property (strong, nonatomic) UIRefreshControl *refresh;
 @property (assign, nonatomic) BOOL finishedLoadingAll;
 @property (assign, nonatomic) NSInteger pageNum;
 @property (strong, nonatomic) SupplierCollectionView *collView;
@@ -119,21 +122,8 @@
         [_locationButton setTitle:startCity forState:UIControlStateNormal];
     }
     
-//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     [self refreshCollectionViews];
-}
-
-- (void)refreshCollectionViews
-{
-    if (startCity) {
-        [self initializeData];
-
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-    } else {
-        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-        [_collView.pullToRefreshView stopAnimating];
-    }
 }
 
 - (void)initializeData
@@ -143,9 +133,6 @@
         _suppliersArray = [[NSMutableArray alloc] init];
     }
     [_suppliersArray removeAllObjects];
-    [_collView removeFromSuperview];
-    _collView = nil;
-    [self setUpCollectionViewWithYOrigin:yOrigin_Supplier];
     _finishedLoadingAll = NO;
     _pageNum = 1;
 }
@@ -269,11 +256,15 @@
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:@(_pageNum) success:^(id result) {
             
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [_collView.pullToRefreshView stopAnimating];
-            [_collView.infiniteScrollingView stopAnimating];
+            
+            if (isRefreshing == YES) {
+                [_collView.pullToRefreshView stopAnimating];
+            } else {
+                [_collView.infiniteScrollingView stopAnimating];
+            }
 
             [_noSupplierView setHidden:YES];
-            
+//            NSInteger sectionIndexToInsert = _suppliersArray.count;
             [[Global sharedGlobal] codeHudWithObject:result[@"RS100010"] succeed:^{
                 if ([result[@"RS100010"] isKindOfClass:[NSArray class]]) {
                     NSArray *data = result[@"RS100010"];
@@ -302,11 +293,16 @@
                     }];
                     
                     _pageNum++;
+//                    if (_suppliersArray.count > sectionIndexToInsert) {
+//                        [_collView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(sectionIndexToInsert, _suppliersArray.count-sectionIndexToInsert)]];
+//                    }
+                    
                     [_collView reloadData];
                     
                 } else {
                     if (_pageNum == 1) {
                         [_noSupplierView setHidden:NO];
+                        [_collView.infiniteScrollingView stopAnimating];
                     } else if (_pageNum > 1) {
                         _finishedLoadingAll = YES;
                     }
@@ -315,9 +311,13 @@
         } fail:^(id result) {
             
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [_collView.pullToRefreshView stopAnimating];
-            [_collView.infiniteScrollingView stopAnimating];
             
+            if (isRefreshing == YES) {
+                [_collView.pullToRefreshView stopAnimating];
+            } else {
+                [_collView.infiniteScrollingView stopAnimating];
+            }
+
             if ([[Global sharedGlobal] networkAvailability] == NO) {
                 [self networkUnavailable];
                 return ;
@@ -330,8 +330,11 @@
         [HTTPTool getSuppliersListWithStartCity:city lineClass:class lineType:type pageNum:@(_pageNum) success:^(id result) {
             
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [_collView.pullToRefreshView stopAnimating];
-            [_collView.infiniteScrollingView stopAnimating];
+            if (isRefreshing == YES) {
+                [_collView.pullToRefreshView stopAnimating];
+            } else {
+                [_collView.infiniteScrollingView stopAnimating];
+            }
 
             [_noSupplierView setHidden:YES];
             
@@ -368,6 +371,7 @@
                 } else {
                     if (_pageNum == 1) {
                         [_noSupplierView setHidden:NO];
+                        [_collView.infiniteScrollingView stopAnimating];
                     } else if (_pageNum > 1) {
                         _finishedLoadingAll = YES;
                     }
@@ -376,9 +380,12 @@
         } fail:^(id result) {
             
             [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
-            [_collView.pullToRefreshView stopAnimating];
-            [_collView.infiniteScrollingView stopAnimating];
-            
+            if (isRefreshing == YES) {
+                [_collView.pullToRefreshView stopAnimating];
+            } else {
+                [_collView.infiniteScrollingView stopAnimating];
+            }
+
             if ([[Global sharedGlobal] networkAvailability] == NO) {
                 [self networkUnavailable];
                 return ;
@@ -583,14 +590,12 @@
 }
 
 #pragma mark - Private
-
 - (void)registerNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:MY_SHOP_HAS_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSupplierList) name:UPDATE_ALL_LIST_WITH_LOGINING_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchCityWithCityName:) name:SWITCH_CITY_SUPPLIER_LIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(siftSupplierWithLineClassAndLineType:) name:@"SIFT_SUPPLIER_WITH_LINE_CLASS_AND_LINE_TYPE" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged_SupplierList) name:CITY_CHANGED object:nil];
 }
 
 - (void)setUpCollectionViewWithYOrigin:(CGFloat)yOrigin
@@ -609,16 +614,42 @@
     [self.view addSubview:_collView];
     
     __weak SupplierViewController *weakSelf = self;
-//    // pull to refresh
-//    [_collView addPullToRefreshWithActionHandler:^{
-//        [weakSelf refreshCollectionViews];
-//    }];
-//     infinite scrolling
+    // pull to refresh
+    [_collView addPullToRefreshWithActionHandler:^{
+        [weakSelf refreshCollectionViews];
+    }];
+    
+    // infinite scrolling
     [_collView addInfiniteScrollingWithActionHandler:^{
         [weakSelf loadMoreData];
     }];
     
     [self setUpNoSupplierView];
+}
+
+- (void)refreshCollectionViews
+{
+    isRefreshing = YES;
+    if (startCity) {
+        [self initializeData];
+        [[CustomActivityIndicator sharedActivityIndicator] startTransparentAnimating];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        [_collView.pullToRefreshView stopAnimating];
+    }
+}
+
+- (void)loadMoreData
+{
+    isRefreshing = NO;
+    if (_finishedLoadingAll == NO) {
+        [[CustomActivityIndicator sharedActivityIndicator] startTransparentAnimating];
+        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
+    } else {
+        [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+        [_collView.infiniteScrollingView stopAnimating];
+    }
 }
 
 - (void)setUpNoSupplierView
@@ -656,22 +687,13 @@
     _inviteTableView.dataSource = self;
     _inviteTableView.delegate = self;
     [self.view addSubview:_inviteTableView];
+
     _inviteTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_First" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_First"];
     [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Second" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Second"];
     [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Third" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Third"];
     [_inviteTableView registerNib:[UINib nibWithNibName:@"InviteSupplierTableViewCell_Fourth" bundle:nil] forCellReuseIdentifier:@"InviteSupplierTableViewCell_Fourth"];
-}
-
-- (void)loadMoreData
-{
-    if (_finishedLoadingAll == NO) {
-        [[CustomActivityIndicator sharedActivityIndicator] startTransparentAnimating];
-        [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
-    } else {
-        [_collView.infiniteScrollingView stopAnimating];
-    }
 }
 
 #pragma mark - InviteSupplierTableViewCell_Fourth_Delegate
@@ -767,6 +789,8 @@
     }];
     
     if (startCity) {
+        // 此处手动触发下拉刷新
+        [_collView.pullToRefreshView startAnimating];
         [self refreshCollectionViews];
     }
 }
