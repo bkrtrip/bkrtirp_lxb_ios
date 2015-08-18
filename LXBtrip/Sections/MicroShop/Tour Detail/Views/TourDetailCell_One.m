@@ -91,12 +91,18 @@
             [_scrollView addSubview:imgView];
         }
         
-        if (!_underLine) {
-            _underLine = [[UILabel alloc] init];
-            _underLine.backgroundColor = RED_FF0075;
-            [self.contentView addSubview:_underLine];
+        if (picNum > 1) {
+            if (!_underLine) {
+                _underLine = [[UILabel alloc] init];
+                _underLine.backgroundColor = RED_FF0075;
+                [self.contentView addSubview:_underLine];
+            }
+            _underLine.hidden = NO;
+            [_underLine setFrame:CGRectMake(0, SCREEN_WIDTH*topImgHeightToWidth, SCREEN_WIDTH/picNum, 2)];
+        } else {
+            _underLine.hidden = YES;
         }
-        [_underLine setFrame:CGRectMake(0, SCREEN_WIDTH*topImgHeightToWidth, SCREEN_WIDTH/picNum, 2)];
+        
     }
     
     // walk type image
