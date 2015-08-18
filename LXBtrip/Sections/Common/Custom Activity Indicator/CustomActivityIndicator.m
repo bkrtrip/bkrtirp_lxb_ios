@@ -147,10 +147,25 @@
     [_activityIndicator startAnimating];
 }
 
+- (void)startTransparentAnimating
+{
+    _freezeLayer.backgroundColor = [UIColor clearColor];
+    _freezeLayer.alpha = 1;
+    _loadingView.hidden = YES;
+    
+    [_activityIndicator startAnimating];
+    self.hidden = NO;
+}
+
+
 - (void)stopSynchAnimating
 {
     [_activityIndicator stopAnimating];
     self.hidden = YES;
+
+    _freezeLayer.backgroundColor = [UIColor blackColor];
+    _freezeLayer.alpha = 0.1;
+    _loadingView.hidden = NO;
 }
 
 @end

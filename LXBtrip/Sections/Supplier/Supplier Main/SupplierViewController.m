@@ -128,6 +128,7 @@
     if (startCity) {
         [self initializeData];
 
+        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
         [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     } else {
         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
@@ -264,7 +265,6 @@
 #pragma mark - http
 - (void)getSupplierListWithStartCity:(NSString *)city LineClass:(NSString *)class lineType:(NSString *)type
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     if ([UserModel companyId] && [UserModel staffId]) {
         [HTTPTool getSuppliersListWithCompanyId:[UserModel companyId] staffId:[UserModel staffId] StartCity:city lineClass:class lineType:type pageNum:@(_pageNum) success:^(id result) {
             
@@ -667,6 +667,7 @@
 - (void)loadMoreData
 {
     if (_finishedLoadingAll == NO) {
+        [[CustomActivityIndicator sharedActivityIndicator] startTransparentAnimating];
         [self getSupplierListWithStartCity:startCity LineClass:lineClass lineType:lineType];
     } else {
         [_collView.infiniteScrollingView stopAnimating];

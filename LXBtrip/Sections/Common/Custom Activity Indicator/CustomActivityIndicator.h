@@ -16,6 +16,9 @@
 - (void)startSynchAnimating;
 - (void)stopSynchAnimating;
 
+- (void)startTransparentAnimating;
+
+
 // dose nothing, only for XiaoShi, to be delete...
 //- (void)startSynchAnimatingWithMessage:(NSString *)message;
 

@@ -103,6 +103,8 @@ const CGFloat yOrigin = 64.f;
     _providerNameLabel.text = product.productCompanyName;
     _instructionsLabel.text = product.productPeerNotice;
     
+    _instructionsLabel.text = [_instructionsLabel.text stringByAppendingString:@"\r \r联系我时，请说是在旅小宝看到的，谢谢！"];
+    
     CGSize instructionsLabelSize = [_instructionsLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 2*8.f, MAXFLOAT)];
     
     cellHeight += instructionsLabelSize.height;
