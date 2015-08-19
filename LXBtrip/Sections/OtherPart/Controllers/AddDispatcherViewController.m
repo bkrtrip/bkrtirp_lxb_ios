@@ -121,7 +121,7 @@
                  
                  if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
                      //success
-                     
+                     [weakSelf sendMsgToDelegate];
                      [weakSelf.navigationController popViewControllerAnimated:YES];
                  }
              }
@@ -172,6 +172,7 @@
                  if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"0"]) {
                      //success
                      
+                     [weakSelf sendMsgToDelegate];
                      [weakSelf.navigationController popViewControllerAnimated:YES];
                  }
                  else if (resultDic && [[resultDic stringValueByKey:@"error_code"] isEqualToString:@"40005"]) {
@@ -341,15 +342,11 @@
     return YES;
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)sendMsgToDelegate
+{
+    if (self.delegate) {
+        [self.delegate finishAddOrUpdateDispater];
+    }
 }
-*/
 
 @end

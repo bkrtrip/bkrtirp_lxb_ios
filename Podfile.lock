@@ -2,11 +2,14 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
+  - tingyunApp (2.2.0)
 
 DEPENDENCIES:
   - SDWebImage (~> 3.6)
+  - tingyunApp (~> 2.2.0)
 
 SPEC CHECKSUMS:
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  tingyunApp: 73b4743c45e6b532cd78a420485acff830a54f00
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.37.2

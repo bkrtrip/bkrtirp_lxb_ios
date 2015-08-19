@@ -172,7 +172,7 @@
         case 0:
             return 1;
         case 2:
-            return 3;
+            return 2;
         case 4:
             return 3;
             
@@ -223,12 +223,13 @@
                 [(PCommonTableViewCell *)cell initailCellWithType:Message];
             }
             else if (indexPath.row == 1) {
-                [(PCommonTableViewCell *)cell initailCellWithType:Alipay];
-            }
-            else if (indexPath.row == 2) {
                 [(PCommonTableViewCell *)cell initailCellWithType:Dispatch];
                 cell.separatorInset = UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
             }
+            else if (indexPath.row == 2) {
+                [(PCommonTableViewCell *)cell initailCellWithType:Alipay];
+            }
+            
         }
             break;
         case 4:
@@ -317,7 +318,7 @@
                 
             }
             //支付设置
-            else if (indexPath.row == 1) {
+            else if (indexPath.row == 2) {
                 self.isAlreadyLogined = [self getUserLoginState];
                 
                 if (!self.isAlreadyLogined) {
@@ -331,7 +332,7 @@
                 [self.navigationController pushViewController:viewController animated:YES];
             }
             //分销设置
-            else if (indexPath.row == 2) {
+            else if (indexPath.row == 1) {
                 
                 self.isAlreadyLogined = [self getUserLoginState];
                 
@@ -595,7 +596,7 @@
 
 - (void)getDispatchSettingsInfo
 {
-    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     __weak PersonalCenterViewController *weakSelf = self;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -615,7 +616,7 @@
     [manager POST:partialUrl parameters:parameterDic
           success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+//         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
          if (responseObject)
          {
              id jsonObj = [weakSelf jsonObjWithBase64EncodedJsonString:operation.responseString];
@@ -640,7 +641,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+//         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 

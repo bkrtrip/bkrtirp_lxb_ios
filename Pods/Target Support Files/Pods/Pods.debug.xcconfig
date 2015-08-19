@@ -1,5 +1,7 @@
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/tingyunApp/nbs-newlens-ios-2.2.0/**"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/SDWebImage"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"SDWebImage" -framework "ImageIO"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/tingyunApp"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage" -isystem "${PODS_ROOT}/Headers/Public/tingyunApp"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-SDWebImage" -l"z" -framework "CoreTelephony" -framework "ImageIO" -framework "Security" -framework "SystemConfiguration" -framework "tingyunApp"
+OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods

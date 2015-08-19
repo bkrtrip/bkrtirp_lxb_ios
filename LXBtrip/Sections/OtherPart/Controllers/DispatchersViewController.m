@@ -18,7 +18,7 @@
 #import "CustomActivityIndicator.h"
 #import "ShareView.h"
 
-@interface DispatchersViewController ()<DispatcherActionDelegate, UIActionSheetDelegate, ShareViewDelegate>
+@interface DispatchersViewController ()<DispatcherActionDelegate, UIActionSheetDelegate, ShareViewDelegate, AddOrUpdateDispaterComplete>
 @property (weak, nonatomic) IBOutlet UITableView *dispatchersTableView;
 
 @property (retain, nonatomic) NSMutableArray *dispatchersArray;
@@ -60,6 +60,8 @@
     [refreshControl addTarget:self action:@selector(refreshDispatchers:) forControlEvents:UIControlEventValueChanged];
     
     [self.dispatchersTableView addSubview:refreshControl];
+    
+    [self refreshDispatcherList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,7 +75,7 @@
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    [self refreshDispatcherList];
+//    [self refreshDispatcherList];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -178,7 +180,17 @@
 {
     AddDispatcherViewController *viewController = [[AddDispatcherViewController alloc] init];
     
+    viewController.delegate = self;
+    
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+
+#pragma mark - AddOrUpdateDispaterComplete
+
+- (void)finishAddOrUpdateDispater
+{
+    [self refreshDispatcherList];
 }
 
 
@@ -220,6 +232,8 @@
     AddDispatcherViewController *viewController = [[AddDispatcherViewController alloc] init];
     viewController.isAlterDispatcher = YES;
     viewController.dispatcherInfoDic = [self.dispatchersArray objectAtIndex:indexPath.row];
+    
+    viewController.delegate = self;
     
     [self.navigationController pushViewController:viewController animated:YES];
     

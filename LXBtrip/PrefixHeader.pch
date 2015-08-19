@@ -13,4 +13,10 @@
 
 #define LXURL @"www.baidu.com"//url域名
 
+#ifdef _OBJC_
+
+#import <tingyunApp/NBSAppAgent.h>
+
+#endif
+
 #endif

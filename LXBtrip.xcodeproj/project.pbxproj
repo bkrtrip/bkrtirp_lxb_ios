@@ -3816,7 +3816,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b67bba45-7cdd-4e8d-90c0-e71007c52d99";
+				PROVISIONING_PROFILE = "4d44f3c5-9991-47e4-9a4e-78356d1a21ca";
 			};
 			name = Debug;
 		};
@@ -3854,7 +3854,7 @@
 					"$(PROJECT_DIR)/LXBtrip/JPushLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b67bba45-7cdd-4e8d-90c0-e71007c52d99";
+				PROVISIONING_PROFILE = "4d44f3c5-9991-47e4-9a4e-78356d1a21ca";
 			};
 			name = Release;
 		};
