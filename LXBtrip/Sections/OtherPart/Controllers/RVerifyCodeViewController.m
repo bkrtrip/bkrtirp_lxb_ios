@@ -32,8 +32,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setTimerDelegate];
-    
     if (self.phoneNum != nil && self.phoneNum.length == 11) {
         self.phoneNumLabel.text = self.phoneNum;
     }
@@ -43,6 +41,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self setTimerDelegate];
+}
+
 - (IBAction)goToInitialPwd:(id)sender {
     if (self.verifyCodeTf.text.length == 0) {
         [self showAlertViewWithTitle:nil message:@"验证码不能为空，请输入手机收到的验证码。" cancelButtonTitle:@"确定"];
@@ -87,6 +93,11 @@
     sharedDelegate.delegateForRegister = self;
     [sharedDelegate startRTimer];
     
+    self.tryToGetNewVerifyCodeBtn.hidden = YES;
+    
+    self.timeAlertLabel.text = @"(60)秒后点击";
+    self.timeAlertLabel.hidden = NO;
+    
     [self getVerificationCodeForPhone:self.phoneNum];
 }
 
@@ -121,12 +132,11 @@
         self.tryToGetNewVerifyCodeBtn.hidden = NO;
         self.timeAlertLabel.hidden = YES;
         
-        self.timeAlertLabel.text = @"获取验证码";
+        self.timeAlertLabel.text = @"(60)秒后点击";
         
         [sharedDelegate stopRTimer];
     }
     else{
-//        self.tryToGetNewVerifyCodeBtn.enabled = NO;
         self.tryToGetNewVerifyCodeBtn.hidden = YES;
         self.timeAlertLabel.hidden = NO;
 

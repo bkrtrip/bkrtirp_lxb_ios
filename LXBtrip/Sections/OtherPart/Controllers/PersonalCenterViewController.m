@@ -628,6 +628,7 @@
                  
                  if (resultDic && [[resultDic stringValueByKey:@"key"] isEqualToString:@"0"]) {
                      [self showAlertViewWithTitle:nil message:@"您还未开通企业分销服务，请进入我的－分销设置进行开通" cancelButtonTitle:@"确认"];
+                     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
                  }
                  else if (resultDic && [[resultDic stringValueByKey:@"key"] isEqualToString:@"1"]) {
                      
@@ -635,13 +636,16 @@
                      
                      [self.navigationController pushViewController:viewController animated:YES];
                  }
+                 else {
+                     [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+                 }
              }
          }
          
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-//         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
+         [[CustomActivityIndicator sharedActivityIndicator] stopSynchAnimating];
      }];
 }
 

@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *verifyCodeTf;
 @property (weak, nonatomic) IBOutlet UILabel *timeAlertLabel;
 
-@property (weak, nonatomic) UIButton *tryToGetNewVerifyCodeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *tryToGetNewVerifyCodeBtn;
 
 @property (nonatomic, retain) NSString *verificationCode;
 
@@ -31,9 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self setTimerDelegate];
-    
+        
     if (self.phoneNum != nil && self.phoneNum.length == 11) {
         self.phoneNumLabel.text = self.phoneNum;
     }
@@ -44,11 +42,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-//    [self setTimerDelegate];
+    [self setTimerDelegate];
 }
 
 - (IBAction)goToResetPwd:(id)sender {
@@ -74,9 +72,9 @@
 
 - (IBAction)getVerificationCode:(id)sender {
     
-    self.tryToGetNewVerifyCodeBtn = (UIButton *)sender;
-    
     self.tryToGetNewVerifyCodeBtn.hidden = YES;
+    
+    self.timeAlertLabel.text = @"(60)秒后点击";
     self.timeAlertLabel.hidden = NO;
 
     AppDelegate *sharedDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -151,12 +149,11 @@
         self.tryToGetNewVerifyCodeBtn.hidden = NO;
         self.timeAlertLabel.hidden = YES;
         
-        self.timeAlertLabel.text = @"获取验证码";
+        self.timeAlertLabel.text = @"(60)秒后点击";
         
         [sharedDelegate stopRTimer];
     }
     else{
-        //        self.tryToGetNewVerifyCodeBtn.enabled = NO;
         self.tryToGetNewVerifyCodeBtn.hidden = YES;
         self.timeAlertLabel.hidden = NO;
         
