@@ -117,7 +117,7 @@
 {
     if (!self.isAllLoaded)
     {
-        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+//        [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
 
         [self getDispathersListForPage:self.pageNum];
     }

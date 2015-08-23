@@ -233,6 +233,7 @@
     return YES;
 }
 
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -281,25 +282,9 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField.tag == 211) {
-        ((UIImageView *)[self.view viewWithTag:11]).image = [UIImage imageNamed:@"inputLine_1"];
-    }
-    else if (textField.tag == 212)
-    {
-        ((UIImageView *)[self.view viewWithTag:22]).image = [UIImage imageNamed:@"inputLine_1"];
-    }
-    else if (textField.tag == 213)
-    {
-        ((UIImageView *)[self.view viewWithTag:33]).image = [UIImage imageNamed:@"inputLine_1"];
-    }
-    else if (textField.tag == 214)
-    {
-        ((UIImageView *)[self.view viewWithTag:44]).image = [UIImage imageNamed:@"inputLine_1"];
-    }
-    else if (textField.tag == 215)
-    {
-        ((UIImageView *)[self.view viewWithTag:55]).image = [UIImage imageNamed:@"inputLine_1"];
-    }
+    NSInteger tag = textField.tag % 100;
+    tag += tag % 11 * 10;
+    ((UIImageView *)[self.view viewWithTag:tag]).image = [UIImage imageNamed:@"inputLine_1"];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

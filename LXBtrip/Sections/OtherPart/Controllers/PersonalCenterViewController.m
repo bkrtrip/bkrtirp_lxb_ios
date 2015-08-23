@@ -596,7 +596,7 @@
 
 - (void)getDispatchSettingsInfo
 {
-//    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
+    [[CustomActivityIndicator sharedActivityIndicator] startSynchAnimating];
     __weak PersonalCenterViewController *weakSelf = self;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

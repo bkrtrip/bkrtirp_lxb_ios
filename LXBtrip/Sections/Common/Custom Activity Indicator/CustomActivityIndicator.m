@@ -80,9 +80,10 @@
                                             LOADINGVIEW_WIDTH)];
     _activityIndicator.image = [UIImage animatedImageNamed:@"loading" duration:1];
     
-    _activityIndicator.layer.cornerRadius = 6;
+    _activityIndicator.layer.cornerRadius = 15;
     _activityIndicator.layer.masksToBounds = YES;
     _activityIndicator.backgroundColor = [UIColor clearColor];
+    _activityIndicator.alpha = 0.8;
     return _activityIndicator;
 }
 
@@ -108,7 +109,7 @@
     _loadingView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-LOADINGVIEW_WIDTH)/2.0, (SCREEN_HEIGHT-LOADINGVIEW_HEIGHT)/2.0, LOADINGVIEW_WIDTH, LOADINGVIEW_HEIGHT)];
 //    _loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     _loadingView.backgroundColor = [UIColor clearColor];
-    _loadingView.layer.cornerRadius = 5.0;
+    _loadingView.layer.cornerRadius = 6.0;
     [_loadingView addSubview:self.activityIndicator];
     [_loadingView addSubview:self.loadingLabel];
     return _loadingView;
